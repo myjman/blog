@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "오늘의 바이브",
+  "short_name": "오늘의바이브",
   "icons": [
     {
       "src": "/android-chrome-96x96.png",
