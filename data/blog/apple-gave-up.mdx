@@ -1,0 +1,85 @@
+---
+title: 'Apple이 포기한 것'
+date: '2026-02-05T18:00:00'
+tags: ['apple', 'xcode', 'claude', '클로드', 'openai', 'mcp', 'ai-agent', 'AI에이전트', 'vibe-coding', '바이브코딩']
+draft: false
+images: ['/static/images/xcode-ai/apple-chip-og.png']
+summary: 'Xcode 26.3에 Claude Agent와 OpenAI Codex가 들어왔다. Apple이 자체 AI 코딩 도구를 만들지 않고 남의 것을 붙인 선택이 의미하는 것.'
+---
+
+![Apple 칩](/static/images/xcode-ai/apple-chip-og.png)
+
+## Apple이 만들지 않은 것
+
+Apple은 칩을 직접 만든다. OS를 직접 만든다. 브라우저 엔진도, 컴파일러도, IDE도 직접 만든다. 그런 회사가 AI 코딩 도구는 만들지 않았다.
+
+Xcode 26.3 RC가 나왔다. 가장 큰 변화는 Anthropic의 Claude Agent SDK와 OpenAI의 Codex가 네이티브로 통합된 것이다. Apple Developer Program 멤버라면 지금 바로 쓸 수 있다.
+
+Apple은 Siri Intelligence라는 이름 아래 요약, 번역, 이미지 생성 같은 기능을 OS에 넣었다. 하지만 코딩 AI는? 직접 만들지 않고 남의 것을 붙였다.
+
+## Xcode 26.3에서 바뀐 것
+
+![Xcode Intelligence 설정 — OpenAI와 Anthropic 프로바이더 선택 화면](/static/images/xcode-ai/xcode-intelligence.jpg)
+
+핵심은 **Xcode Intelligence**라는 새로운 설정 패널이다. 여기서 AI 프로바이더를 선택한다. Anthropic(Claude)과 OpenAI(Codex) 중 하나를 고르고 API 키를 입력하면 된다. Apple 자체 모델은 없다.
+
+에이전트 모드를 켜면 Claude Agent가 Xcode 안에서 동작한다. Claude Code와 동일한 harness(에이전트 실행 환경)를 사용한다. 단순 자동 완성이 아니라 프로젝트를 이해하고, 파일을 수정하고, 빌드하고, 테스트까지 실행하는 에이전트다.
+
+![Xcode에서 Claude Agent가 코딩하는 화면](/static/images/xcode-ai/xcode-claude-agent.jpg)
+
+구체적으로 에이전트가 할 수 있는 것:
+
+- **파일 탐색 및 수정** — 프로젝트 내 파일을 읽고 편집
+- **Xcode Preview 캡처** — SwiftUI 프리뷰를 스크린샷으로 찍어서 에이전트가 UI를 "볼 수 있음"
+- **빌드 및 테스트** — xcodebuild를 통해 빌드하고 테스트 실행
+- **Apple 문서 참조** — Apple 공식 문서를 컨텍스트로 활용
+- **프로젝트 설정 변경** — Build Settings, Signing 등 프로젝트 구성 수정
+- **자동 체크포인트** — 에이전트가 변경할 때마다 롤백 포인트 생성
+
+제한도 있다. 디버거에 독립적으로 접근할 수 없고, 동시에 여러 에이전트를 실행할 수 없다.
+
+## 왜 자체 AI가 아닌가
+
+Apple이 AI 코딩 모델을 못 만드는 것은 아닐 것이다. M 시리즈 칩의 Neural Engine, 수십 년간 쌓은 컴파일러 기술, 세계 최대 규모의 개발자 생태계. 자원은 충분하다.
+
+하지만 코딩 AI 경쟁은 이미 치열하다. Anthropic의 Claude는 SWE-bench에서 상위권이고, OpenAI의 Codex는 GPT 기반 코드 생성의 원조다. Google의 Gemini도 있다. 이 시장에서 지금 뛰어들어 따라잡는 것보다 이미 검증된 모델을 자사 IDE에 깊게 통합하는 것이 사용자에게 더 빠른 가치를 준다.
+
+Siri Intelligence는 범용 AI다. 텍스트 요약, 알림 정리, 이미지 설명. 잘 동작하지만 코딩과는 다른 영역이다. 코딩 AI는 수백만 줄의 오픈소스를 학습하고, 컴파일러 에러를 이해하고, 프로젝트 맥락을 유지해야 한다. 이건 Apple이 지금까지 투자해온 온디바이스 소형 모델과는 결이 다르다.
+
+## MCP가 핵심인 이유
+
+Xcode 26.3의 에이전트 통합은 **MCP(Model Context Protocol)**를 기반으로 한다. Anthropic이 제안한 오픈 표준이다.
+
+MCP가 하는 일은 단순하다. Xcode의 기능들 — 파일 시스템, 빌드 시스템, 프리뷰, 문서 — 을 표준화된 프로토콜로 에이전트에 노출한다. 에이전트는 이 프로토콜을 통해 IDE와 상호작용한다.
+
+이게 왜 중요한가. Apple이 특정 AI 회사에 종속되지 않는다는 뜻이다. 오늘은 Claude와 Codex지만, 내일 더 좋은 모델이 나오면 MCP 인터페이스만 맞으면 바로 교체할 수 있다. Apple은 AI 모델 경쟁에서 빠지되, AI 에이전트가 동작하는 플랫폼은 자기가 쥐었다.
+
+이건 Apple이 항상 해온 방식이다. 칩은 직접 만들되, 앱은 서드파티가 만든다. 이번에는 AI 플랫폼은 직접 만들되, AI 모델은 서드파티가 만든다.
+
+## 바이브 코더에게 의미하는 것
+
+지금까지 바이브 코딩은 Cursor, Windsurf 같은 서드파티 IDE나 터미널에서 Claude Code를 직접 실행하는 방식이 주류였다. Xcode를 쓰는 iOS/macOS 개발자에게는 선택지가 제한적이었다.
+
+Xcode 26.3은 이 상황을 바꾼다. Swift + SwiftUI 개발에서 에이전트 코딩이 가능해진다. 특히 Xcode Preview 캡처 기능은 주목할 만하다. 에이전트가 UI를 수정하고 프리뷰를 캡처해서 결과를 확인한 뒤 다시 수정하는 루프가 가능하다. 이건 터미널 기반 에이전트에서는 어려웠던 것이다.
+
+다만 현실적인 한계도 있다. API 키가 필요하다는 건 별도 비용이 발생한다는 뜻이다. Claude API는 토큰당 과금이고, Codex도 마찬가지다. Apple이 자체 모델을 번들링하지 않은 이상 무료는 아니다.
+
+## Apple은 포기한 게 아니라 이긴 걸 수도 있다
+
+Apple이 포기한 것은 AI 코딩 모델 경쟁이다. 포기하지 않은 것은 개발자 경험의 통제권이다.
+
+Cursor가 아무리 좋아도 Xcode의 Interface Builder, Instruments, SwiftUI Preview, Apple 공식 문서 통합을 대체하지 못한다. Apple은 이걸 알고 있다. 모델은 남의 것을 쓰되, 그 모델이 동작하는 환경은 자기 것으로 유지한다.
+
+MCP라는 오픈 표준을 선택한 것도 계산이다. 특정 AI 회사에 종속되지 않으면서, AI 에이전트 생태계의 플랫폼이 된다. 마치 App Store가 앱 생태계의 플랫폼인 것처럼.
+
+어쩌면 이것이 Apple다운 답이다. 남의 AI를 자기 플랫폼에 초대하되, 플랫폼의 규칙은 자기가 정한다.
+
+---
+
+**출처:**
+- [Apple Newsroom — Xcode 26.3](https://www.apple.com/newsroom/2026/02/xcode-26-point-3-unlocks-the-power-of-agentic-coding/)
+- [Anthropic — Apple Xcode Claude Agent SDK](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk)
+- [TechCrunch — Xcode Agentic Coding](https://techcrunch.com/2026/02/03/xcode-moves-into-agentic-coding-with-deeper-openai-and-anthropic-integrations/)
+- [9to5Mac — Agentic Coding in Xcode](https://9to5mac.com/2026/02/03/apple-announces-agentic-coding-in-xcode-with-claude-agent-and-codex-integration/)
+- [VentureBeat — Apple Integrates Claude and Codex](https://venturebeat.com/technology/apple-integrates-anthropics-claude-and-openais-codex-into-xcode-26-3-in-push)
+- [CNBC — Apple Adds Agentic Coding](https://www.cnbc.com/2026/02/03/apple-adds-agentic-coding-from-anthropic-and-openai-to-xcode.html)
