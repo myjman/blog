@@ -9,75 +9,74 @@ const MAX_DISPLAY = 5
 export default function Home({ posts }) {
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-xl leading-8 font-mono font-medium tracking-tight text-gray-900 sm:text-2xl sm:leading-9 dark:text-gray-100">
+      <div className="font-mono">
+        <div className="space-y-2 pt-6 pb-6 md:space-y-4">
+          <p className="text-sm text-green-500 dark:text-green-400">
             {'> fresh commit _'}
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          </p>
+          <p className="text-xs leading-5 text-gray-500 dark:text-gray-500">
             {siteMetadata.description}
           </p>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {!posts.length && 'No posts found.'}
-          {posts.slice(0, MAX_DISPLAY).map((post) => {
-            const { slug, date, title, summary, tags } = post
-            return (
-              <li key={slug} className="py-12">
-                <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
+        <div className="border-t border-gray-800 dark:border-gray-700">
+          <ul>
+            {!posts.length && (
+              <p className="py-4 text-sm text-gray-500">{'// no posts found'}</p>
+            )}
+            {posts.slice(0, MAX_DISPLAY).map((post) => {
+              const { slug, date, title, summary, tags } = post
+              return (
+                <li key={slug} className="border-b border-gray-200 py-6 dark:border-gray-800">
+                  <article>
+                    <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                      <dd className="text-xs text-gray-500 dark:text-gray-600">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                       </dd>
-                    </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
+                      <div className="space-y-2 xl:col-span-3">
                         <div>
-                          <h2 className="text-2xl leading-8 font-bold tracking-tight">
+                          <h2 className="text-base font-medium">
                             <Link
                               href={`/blog/${slug}`}
-                              className="text-gray-900 dark:text-gray-100"
+                              className="text-gray-900 hover:text-green-500 dark:text-gray-100 dark:hover:text-green-400"
                             >
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
+                          <div className="flex flex-wrap gap-1 pt-1">
                             {tags.map((tag) => (
                               <Tag key={tag} text={tag} />
                             ))}
                           </div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-gray-500 dark:text-gray-500">
                           {summary}
+                        </p>
+                        <div className="text-xs">
+                          <Link
+                            href={`/blog/${slug}`}
+                            className="text-green-600 hover:text-green-500 dark:text-green-500 dark:hover:text-green-400"
+                            aria-label={`Read more: "${title}"`}
+                          >
+                            {'cat more →'}
+                          </Link>
                         </div>
                       </div>
-                      <div className="text-base leading-6 font-medium">
-                        <Link
-                          href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read more: "${title}"`}
-                        >
-                          Read more &rarr;
-                        </Link>
-                      </div>
                     </div>
-                  </div>
-                </article>
-              </li>
-            )
-          })}
-        </ul>
+                  </article>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
       {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base leading-6 font-medium">
+        <div className="flex justify-end pt-4 font-mono text-xs">
           <Link
             href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            className="text-green-600 hover:text-green-500 dark:text-green-500 dark:hover:text-green-400"
             aria-label="All posts"
           >
-            All Posts &rarr;
+            {'ls -la /blog →'}
           </Link>
         </div>
       )}
