@@ -10,18 +10,14 @@ export default function Home({ posts }) {
     <>
       <div className="font-mono">
         <div className="space-y-2 pt-6 pb-6 md:space-y-4">
-          <p className="text-sm text-green-500 dark:text-green-400">
-            {'> fresh commit _'}
-          </p>
+          <p className="text-sm text-green-500 dark:text-green-400">{'> fresh commit _'}</p>
           <p className="text-xs leading-5 text-gray-500 dark:text-gray-500">
             {siteMetadata.description}
           </p>
         </div>
         <div className="border-t border-gray-800 dark:border-gray-700">
           <ul>
-            {!posts.length && (
-              <p className="py-4 text-sm text-gray-500">{'// no posts found'}</p>
-            )}
+            {!posts.length && <p className="py-4 text-sm text-gray-500">{'// no posts found'}</p>}
             {posts.slice(0, MAX_DISPLAY).map((post) => {
               const { slug, date, title, summary, tags } = post
               return (
@@ -47,9 +43,7 @@ export default function Home({ posts }) {
                             ))}
                           </div>
                         </div>
-                        <p className="text-sm text-gray-500 dark:text-gray-500">
-                          {summary}
-                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-500">{summary}</p>
                         <div className="text-xs">
                           <Link
                             href={`/blog/${slug}`}
