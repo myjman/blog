@@ -1,19 +1,11 @@
 {
-  "markdown": 1,
-  "code": 1,
-  "features": 1,
-  "next-js": 6,
-  "math": 1,
-  "ols": 1,
-  "github": 1,
-  "guide": 5,
-  "tailwind": 3,
-  "holiday": 1,
-  "canada": 1,
-  "images": 1,
-  "feature": 2,
-  "writings": 1,
-  "book": 1,
-  "reflection": 1,
-  "multi-author": 1
+  "ai-agent": 1,
+  "ai에이전트": 1,
+  "nanoclaw": 1,
+  "나노클로": 1,
+  "openclaw": 1,
+  "오픈클로": 1,
+  "vibe-coding": 1,
+  "바이브코딩": 1,
+  "apple-container": 1
 }
