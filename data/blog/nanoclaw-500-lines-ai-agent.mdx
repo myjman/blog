@@ -1,0 +1,94 @@
+---
+title: 'NanoClaw — 500줄짜리 AI 에이전트가 던지는 질문'
+date: '2026-02-05'
+tags: ['ai-agent', 'nanoclaw', 'openclaw', 'vibe-coding', 'apple-container']
+draft: false
+summary: 'OpenClaw의 52개 모듈 대신 500줄 TypeScript로 같은 일을 한다. NanoClaw의 구조, 보안 모델, 그리고 AI 에이전트 프레임워크가 나아가야 할 방향.'
+---
+
+## AI 에이전트를 내 맥북에서 돌린다는 것
+
+로컬 AI 에이전트는 편리하지만 리스크가 크다. 터미널 권한을 그대로 넘기기 때문에 에이전트가 실수하면 파일 시스템 전체가 노출된다. OpenClaw 같은 플랫폼은 이 문제를 allowlist, pairing code 같은 애플리케이션 레벨 보안으로 풀려고 한다. 하지만 52개 이상의 모듈이 하나의 Node.js 프로세스 안에서 공유 메모리로 돌아가는 구조에서, 보안 경계가 정말 안전한지는 코드를 전부 읽어보지 않고서는 판단하기 어렵다.
+
+NanoClaw은 이 문제에 대해 다른 접근을 택했다.
+
+## NanoClaw이 뭔가
+
+[gavrielc/nanoclaw](https://github.com/gavrielc/nanoclaw) — Claude Agent SDK를 WhatsApp에 연결하는 개인용 AI 에이전트다. 핵심 로직이 약 500줄의 TypeScript로 구성되어 있고, macOS에서 Apple Container를 이용해 에이전트를 격리 실행한다.
+
+구조는 단순하다:
+
+```
+WhatsApp (baileys) → SQLite → Polling Loop → Container (Claude Agent SDK) → Response
+```
+
+파일 4개가 전부다:
+
+- `src/index.ts` — WhatsApp 연결, 메시지 라우팅 (~700줄)
+- `src/container-runner.ts` — 컨테이너 생성 및 에이전트 실행
+- `src/task-scheduler.ts` — 반복 작업 스케줄러 (cron, interval, once)
+- `src/db.ts` — SQLite 영속화
+
+## 보안: 앱 레벨이 아니라 OS 레벨
+
+NanoClaw의 핵심은 Apple Container다. macOS Tahoe에서 도입된 이 기술은 Apple Silicon 위에서 경량 Linux VM을 실행한다. Docker의 네임스페이스 격리가 아니라 실제 하이퍼바이저 기반 VM이다.
+
+에이전트가 실행될 때마다 독립된 컨테이너가 생성된다. 각 컨테이너에는 해당 그룹의 워크스페이스 폴더만 마운트되고, 그 외 파일에는 접근할 수 없다. 에이전트가 컨테이너 안에서 root 권한을 획득하더라도 호스트 파일 시스템에는 도달할 수 없다. 하이퍼바이저가 차단하기 때문이다.
+
+추가로 mount allowlist(`~/.config/nanoclaw/mount-allowlist.json`)가 있어서 `.ssh`, `.gnupg`, `.aws` 같은 민감한 디렉토리는 명시적으로 차단된다. main이 아닌 그룹은 읽기 전용 접근만 허용된다.
+
+## OpenClaw과 비교
+
+|  | OpenClaw | NanoClaw |
+|---|---|---|
+| 코드 규모 | 52+ 모듈, 수만 줄 | ~500줄 핵심 로직 |
+| 실행 환경 | 단일 Node.js 프로세스, 공유 메모리 | 에이전트별 격리 컨테이너 (Apple Container) |
+| 채널 | Telegram, Discord, Slack 등 15개 | WhatsApp 단일 |
+| 모델 | 여러 제공자 지원 (Gemini, Claude 등) | Claude Agent SDK 전용 |
+| 보안 | allowlist, 앱 레벨 권한 관리 | OS 레벨 VM 격리 |
+| 확장 | 플러그인 시스템 | Skill 파일 (포크 후 직접 수정) |
+| 설정 | JSON 설정 파일 | 코드 직접 수정 |
+| 대상 | 다중 채널, 다중 사용자 | 개인용, 단일 채널 |
+
+OpenClaw은 범용성에서 압도적이다. 여러 채널, 여러 모델, 플러그인으로 확장할 수 있다. 반면 NanoClaw은 범용성을 포기하고 보안과 단순성에 집중했다.
+
+## Skill 시스템: 기능이 아니라 변환을 기여한다
+
+NanoClaw의 확장 방식이 독특하다. 기능을 PR로 머지하는 대신 Claude Code Skill 파일을 기여한다. 예를 들어 Telegram 지원을 추가하고 싶으면 `.claude/skills/add-telegram/SKILL.md`를 만들고, 사용자가 자기 포크에서 `/add-telegram`을 실행하면 Claude Code가 코드를 직접 변환한다.
+
+이렇게 하면 메인 코드베이스는 항상 500줄로 유지된다. 각 사용자의 포크만 필요한 만큼 달라진다.
+
+## 기술 스택
+
+| 레이어 | 기술 | 용도 |
+|---|---|---|
+| 런타임 | Node.js 20+ | 호스트 프로세스 |
+| 컨테이너 | Apple Container / Docker | 에이전트 격리 |
+| 메시징 | @whiskeysockets/baileys | WhatsApp 연결 |
+| DB | better-sqlite3 | 메시지, 스케줄, 로그 저장 |
+| AI | Claude Agent SDK | 에이전트 실행 |
+| 검증 | zod | 런타임 타입 체크 |
+
+## 한계
+
+솔직히 말하면 NanoClaw은 제약이 많다.
+
+- **WhatsApp만 지원한다.** Telegram이나 Discord를 쓰려면 직접 포크해서 수정해야 한다.
+- **macOS 전용이다.** Apple Container는 macOS Tahoe + Apple Silicon에서만 동작한다. (Docker 폴백은 있다.)
+- **Claude만 된다.** Gemini나 GPT를 쓰고 싶으면 선택지가 아니다.
+- **다중 사용자를 고려하지 않는다.** 완전히 개인용이다.
+
+## 어떤 경우에 NanoClaw을 선택할까
+
+- AI 에이전트의 파일 시스템 접근이 걱정되는 경우
+- 코드 전체를 읽고 이해한 상태에서 에이전트를 돌리고 싶은 경우
+- WhatsApp이 주 메신저이고 Claude를 쓰는 Mac 유저인 경우
+- 설정 파일보다 코드를 직접 고치는 게 편한 경우
+
+반대로 여러 채널이 필요하거나, Gemini 같은 다른 모델을 쓰거나, 팀 단위로 운영해야 한다면 OpenClaw이 맞다.
+
+## 500줄이 던지는 질문
+
+NanoClaw이 증명하는 건 "500줄로 충분하다"는 것보다 "왜 우리의 에이전트는 이렇게 복잡해졌는가"라는 질문이다. AI 에이전트 프레임워크가 점점 비대해지는 흐름 속에서, 최소한의 코드로 OS 수준의 보안을 제공하는 접근은 생각해볼 만한 방향이다.
+
+GitHub: [gavrielc/nanoclaw](https://github.com/gavrielc/nanoclaw)
