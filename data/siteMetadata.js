@@ -3,7 +3,7 @@ const siteMetadata = {
   title: '오늘의 바이브',
   author: '오늘의 바이브',
   headerTitle: '오늘의 바이브',
-  description: '오늘의 바이브 - 일상과 기술, 그리고 생각을 기록하는 블로그',
+  description: '바이브 코딩, AI 뉴스, Claude Code, OpenClaw 등 AI 개발 이야기',
   language: 'ko-kr',
   theme: 'system', // system, dark or light
   siteUrl: 'https://todaysvibe.net',
