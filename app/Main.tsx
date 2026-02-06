@@ -1,5 +1,6 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
+import TerminalBanner from '@/components/TerminalBanner'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 
@@ -9,11 +10,8 @@ export default function Home({ posts }) {
   return (
     <>
       <div className="font-mono">
-        <div className="space-y-2 pt-6 pb-6 md:space-y-4">
-          <p className="text-sm text-green-500 dark:text-green-400">{'> fresh commit _'}</p>
-          <p className="text-xs leading-5 text-gray-500 dark:text-gray-500">
-            {siteMetadata.description}
-          </p>
+        <div className="pt-6 pb-6">
+          <TerminalBanner />
         </div>
         <div className="border-t border-gray-800 dark:border-gray-700">
           <ul>
