@@ -2,53 +2,40 @@
 
 export default function TerminalBanner() {
   return (
-    <div className="mb-6 overflow-x-auto font-mono text-xs">
-      <pre className="text-gray-500">
-        <span className="text-gray-600">┌─ </span>
-        <span className="text-green-500">오늘의 바이브 v1.0.0</span>
-        <span className="text-gray-600">
-          {' ───────────────────────────────────────────────────┐'}
-        </span>
-        {`
-│                                                                │
-│      `}
-        <span className="text-gray-300">Welcome to the vibe!</span>
-        {`            `}
-        <span className="text-green-500">Latest vibes</span>
-        {`                   │
-│                                      `}
-        <span className="text-gray-500">AI 에이전트, Claude Code,</span>
-        {`       │
-│  `}
-        <span className="text-amber-600">{`    ▄▄▄▄▄▄▄    `}</span>
-        {`                `}
-        <span className="text-gray-500">OpenClaw 이야기</span>
-        {`               │
-│  `}
-        <span className="text-amber-600">{`   █ ▀ ▀  █   `}</span>
-        {`                                               │
-│  `}
-        <span className="text-amber-600">{`   █  ▼   █   `}</span>
-        {`                `}
-        <span className="text-green-500">Recent activity</span>
-        {`                │
-│  `}
-        <span className="text-amber-600">{`   █ ─── █    `}</span>
-        {`                `}
-        <span className="text-gray-500">슈퍼볼 2026: Opus vs GPT</span>
-        {`       │
-│  `}
-        <span className="text-amber-600">{`    █████     `}</span>
-        {`                                               │
-│  `}
-        <span className="text-amber-600">{`    █   █     `}</span>
-        {`                                               │
-│  `}
-        <span className="text-gray-600">바이브 코딩 · AI 뉴스</span>
-        {`                                          │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘`}
-      </pre>
+    <div className="mb-6 font-mono text-xs">
+      {/* Terminal Box */}
+      <div className="relative border border-gray-600">
+        {/* Title */}
+        <div className="absolute -top-2 left-3 bg-gray-950 px-2 text-green-500 dark:bg-gray-950">
+          오늘의 바이브 v1.0.0
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col gap-4 p-4 pt-5 md:flex-row md:gap-8">
+          {/* Left - Dog */}
+          <div className="flex flex-col items-center">
+            <p className="mb-2 text-gray-400">Welcome to the vibe!</p>
+            <pre className="text-amber-500">
+              {`  ∩▂∩
+ (･ω･)
+  |  |
+ ◢█◣█◢█◣`}
+            </pre>
+            <p className="mt-2 text-gray-600">바이브 코딩 · AI 뉴스</p>
+          </div>
+
+          {/* Divider */}
+          <div className="hidden border-l border-gray-700 md:block" />
+
+          {/* Right - Info */}
+          <div className="flex-1">
+            <p className="font-bold text-green-500">Latest vibes</p>
+            <p className="text-gray-500">AI 에이전트, Claude Code, OpenClaw 이야기</p>
+            <p className="mt-3 font-bold text-green-500">Recent activity</p>
+            <p className="text-gray-500">슈퍼볼 2026: Opus vs GPT</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
