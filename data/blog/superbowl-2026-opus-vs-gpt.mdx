@@ -1,0 +1,135 @@
+---
+title: '슈퍼볼 2026: Opus 4.6 vs GPT-5.3'
+date: '2026-02-06T18:00:00'
+tags: ['opus', '오퍼스', 'gpt', 'anthropic', 'openai', 'benchmark', '벤치마크', 'superbowl', '슈퍼볼', 'vibe-coding', '바이브코딩']
+draft: false
+images: ['/static/images/superbowl-2026/20-minutes.png']
+summary: '2월 5일, 20분 차이로 Opus 4.6과 GPT-5.3 Codex가 동시에 발표됐다. 벤치마크는 서로 다른 이야기를 한다. 일요일 슈퍼볼에는 Anthropic이 OpenAI를 조롱하는 광고가 나간다.'
+---
+
+![20 MINUTES REMAINING — 슈퍼볼 경기장](/static/images/superbowl-2026/20-minutes.png)
+
+## 20분 차이
+
+2월 5일 오후 6시 40분, Anthropic이 Claude Opus 4.6을 발표했다. 20분 뒤인 7시, OpenAI가 GPT-5.3 Codex를 발표했다.
+
+우연이 아니다. 두 회사는 원래 같은 시각에 발표할 예정이었다. Anthropic이 15분 먼저 움직였고, OpenAI는 예정대로 갔다.
+
+이틀 뒤 일요일은 슈퍼볼이다. Anthropic은 경기 중 광고 두 편을 예약했다. 내용은 OpenAI 조롱이다.
+
+---
+
+## 벤치마크가 말하는 것
+
+| 벤치마크 | Opus 4.6 | GPT-5.3 Codex | 승자 |
+|----------|----------|---------------|------|
+| SWE-Bench Verified | **80.8%** | 56.8% | Opus |
+| Terminal-Bench 2.0 | 65.4% | **77.3%** | GPT |
+| GDPval-AA (Elo) | **1606** | 1462 | Opus |
+| 컨텍스트 윈도우 | **1M 토큰** | 256K | Opus |
+| 속도 | 기준 | **+25%** | GPT |
+
+Opus는 버그 수정(SWE-Bench)과 전문 업무(GDPval-AA)에서 앞선다. GPT는 터미널 환경 코딩(Terminal-Bench)과 속도에서 앞선다.
+
+둘 다 자기가 이겼다고 말한다.
+
+---
+
+## 벤치마크가 말하지 않는 것
+
+![Terminal-Bench 2.0 비교](/static/images/superbowl-2026/terminal-bench.webp)
+
+![SWE-bench Verified 비교](/static/images/superbowl-2026/swe-bench.webp)
+
+문제는 벤치마크 버전이 다르다는 것이다.
+
+- SWE-Bench에는 여러 버전이 있다. Opus가 80.8%를 찍은 "Verified" 버전과 GPT가 56.8%를 찍은 버전이 같은 테스트인지 확인할 방법이 없다.
+- Terminal-Bench 2.0은 OpenAI가 직접 만든 벤치마크다. Anthropic이 이 테스트에서 낮은 점수를 받은 것이 놀랍지 않다.
+
+각 회사는 자기에게 유리한 벤치마크를 전면에 내세운다. Anthropic은 "GDPval-AA에서 144 Elo 앞선다"고 말하고, OpenAI는 "Terminal-Bench에서 Opus를 demolished했다"고 말한다.
+
+같은 데이터, 다른 내러티브.
+
+---
+
+## 철학의 차이
+
+숫자보다 중요한 건 설계 철학이다.
+
+![Claude Opus 4.6](/static/images/superbowl-2026/claude-logo.jpg)
+
+**Opus 4.6 — "알아서 해"**
+- 자율 에이전트 지향
+- 깊이 생각하고, 오래 실행하고, 적게 물어본다
+- Agent Teams: 여러 에이전트가 작업을 분할
+- 1백만 토큰 컨텍스트로 전체 코드베이스 이해
+
+![GPT-5.3 Codex](/static/images/superbowl-2026/gpt-codex-banner.png)
+
+**GPT-5.3 Codex — "같이 해"**
+- 협업자 지향
+- 실행 중 인간이 개입하고 방향을 수정
+- 25% 빠른 속도로 빠른 피드백 루프
+- 자기 자신을 디버깅해서 만든 첫 모델
+
+Opus는 인간이 방향만 잡으면 나머지를 알아서 한다. GPT는 인간과 계속 대화하면서 함께 간다.
+
+어느 쪽이 맞는지는 사용자가 원하는 것에 달렸다. 통제권을 유지하고 싶으면 GPT, 위임하고 싶으면 Opus.
+
+---
+
+## 슈퍼볼 광고 전쟁
+
+Anthropic의 슈퍼볼 광고 내용이 공개됐다.
+
+광고는 챗봇이 사용자와 친해진 뒤 갑자기 제품을 추천하는 장면을 희화화한다. 어색하게 과장된 말투로 "이 제품 정말 좋아요!"라고 말하는 챗봇. 마지막 자막은 이렇다:
+
+> "Ads are coming to AI. But not to Claude."
+>
+> (Dr. Dre "What's the Difference" 인트로)
+
+OpenAI가 ChatGPT 무료/저가 버전에 광고를 넣기로 한 것을 정조준한 공격이다.
+
+**Sam Altman의 반격 (X)**
+
+> "웃기긴 하다. 하지만 dishonest하다. Anthropic은 비싼 제품을 부자들한테 판다."
+
+**Greg Brockman (OpenAI 공동창업자)**
+
+> "Anthropic이 정말로 사용자 데이터를 광고주에게 안 판다고 약속하는 건가?"
+
+**Dario Amodei (Anthropic CEO)**
+
+침묵.
+
+---
+
+## 수렴
+
+흥미로운 건 두 모델이 점점 비슷해지고 있다는 것이다.
+
+Opus 4.6은 "Agent Teams"를 추가했다. 여러 에이전트가 협업한다. GPT-5.3은 자율성을 높였다. 자기 자신의 훈련을 디버깅했다.
+
+코딩 에이전트로 시작한 둘이 범용 업무 에이전트로 수렴하고 있다. 지금은 코딩에서 경쟁하지만, 6개월 뒤에는 스프레드시트, 프레젠테이션, 이메일에서 경쟁할 것이다.
+
+"어느 모델이 더 좋냐"는 질문은 점점 의미가 없어진다. 둘 다 같은 방향으로 가고 있기 때문이다.
+
+---
+
+## 일요일에 주목할 것
+
+슈퍼볼 광고가 나가면 여론이 움직인다. 기술 커뮤니티가 아니라 일반 대중이다. "ChatGPT에 광고 붙는다"는 메시지가 수천만 명에게 전달된다.
+
+Anthropic이 이 싸움에서 이기면 Claude의 프리미엄 이미지가 강화된다. OpenAI가 반격에 성공하면 "광고 = 무료 = 민주화"라는 프레임이 작동한다.
+
+벤치마크 숫자보다 이 광고전이 더 큰 영향을 미칠 수도 있다.
+
+---
+
+**출처:**
+- [Anthropic — Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6)
+- [OpenAI — GPT-5.3-Codex](https://openai.com/index/introducing-gpt-5-3-codex/)
+- [TechCrunch — Same-Day Release](https://techcrunch.com/2026/02/05/openai-launches-new-agentic-coding-model-only-minutes-after-anthropic-drops-its-own/)
+- [Latent Space — AINews](https://www.latent.space/p/ainews-openai-and-anthropic-go-to)
+- [San Diego Union-Tribune — Super Bowl Ad Rivalry](https://www.sandiegouniontribune.com/2026/02/05/openai-anthropic-rivalry/)
+- [Serenities AI — Benchmark Comparison](https://serenitiesai.com/articles/gpt-53-codex-vs-claude-opus-46-comparison)
