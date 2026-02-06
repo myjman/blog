@@ -11,7 +11,9 @@ export default function Home({ posts }) {
     <>
       <div className="font-mono">
         <div className="pt-6 pb-6">
-          <TerminalBanner />
+          <TerminalBanner
+            latestPost={posts[0] ? { title: posts[0].title, slug: posts[0].slug } : undefined}
+          />
         </div>
         <div className="border-t border-gray-800 dark:border-gray-700">
           <ul>

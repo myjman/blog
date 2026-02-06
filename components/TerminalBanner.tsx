@@ -1,6 +1,13 @@
 'use client'
 
-export default function TerminalBanner() {
+interface TerminalBannerProps {
+  latestPost?: {
+    title: string
+    slug: string
+  }
+}
+
+export default function TerminalBanner({ latestPost }: TerminalBannerProps) {
   return (
     <div className="mb-6 font-mono text-xs">
       {/* Terminal Box */}
@@ -32,7 +39,7 @@ export default function TerminalBanner() {
             <p className="font-bold text-green-500">Latest vibes</p>
             <p className="text-gray-500">AI 에이전트, Claude Code, OpenClaw 이야기</p>
             <p className="mt-3 font-bold text-green-500">Recent activity</p>
-            <p className="text-gray-500">슈퍼볼 2026: Opus vs GPT</p>
+            <p className="text-gray-500">{latestPost ? latestPost.title : 'No posts yet'}</p>
           </div>
         </div>
       </div>
