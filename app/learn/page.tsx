@@ -71,9 +71,6 @@ export default async function LearnPage() {
           })}
         </ul>
       </div>
-      <div className="pt-8 text-sm text-gray-500 dark:text-gray-400">
-        <p>{'// 전체 가이드는 전자책에서 → (준비 중)'}</p>
-      </div>
     </div>
   )
 }
