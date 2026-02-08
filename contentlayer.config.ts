@@ -109,6 +109,10 @@ export const Blog = defineDocumentType(() => ({
     layout: { type: 'string' },
     bibliography: { type: 'string' },
     canonicalUrl: { type: 'string' },
+    language: { type: 'string', default: 'ko' },
+    translationOf: { type: 'string' },
+    youtubeId: { type: 'string' },
+    category: { type: 'string', default: 'blog' },
   },
   computedFields: {
     ...computedFields,

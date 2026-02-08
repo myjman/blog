@@ -49,14 +49,34 @@ export async function generateMetadata(props: {
     }
   })
 
+  const isEnglish = post.language === 'en'
+  const locale = isEnglish ? 'en_US' : 'ko_KR'
+
+  // Find translation post for hreflang
+  const alternates: Record<string, string> = {}
+  if (post.translationOf) {
+    const translationPost = allBlogs.find((p) => p.slug === post.translationOf)
+    if (translationPost) {
+      const altLang = isEnglish ? 'ko' : 'en'
+      alternates[altLang] = `${siteMetadata.siteUrl}/blog/${translationPost.slug}`
+    }
+  }
+  // Also check if another post points to this one as its translation
+  const reverseTranslation = allBlogs.find((p) => p.translationOf === post.slug)
+  if (reverseTranslation) {
+    const altLang = reverseTranslation.language === 'en' ? 'en' : 'ko'
+    alternates[altLang] = `${siteMetadata.siteUrl}/blog/${reverseTranslation.slug}`
+  }
+
   return {
     title: post.title,
     description: post.summary,
+    alternates: Object.keys(alternates).length > 0 ? { languages: alternates } : undefined,
     openGraph: {
       title: post.title,
       description: post.summary,
       siteName: siteMetadata.title,
-      locale: 'ko_KR',
+      locale,
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -104,6 +124,35 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     }
   })
 
+  // Add VideoObject if youtubeId is present
+  if (post.youtubeId) {
+    jsonLd['video'] = {
+      '@type': 'VideoObject',
+      name: post.title,
+      description: post.summary,
+      thumbnailUrl: post.images ? post.images[0] : siteMetadata.socialBanner,
+      uploadDate: new Date(post.date).toISOString(),
+      contentUrl: `https://www.youtube.com/watch?v=${post.youtubeId}`,
+      embedUrl: `https://www.youtube.com/embed/${post.youtubeId}`,
+    }
+  }
+
+  // Find translation post
+  let translationUrl: string | undefined
+  let translationLang: string | undefined
+  if (post.translationOf) {
+    const translationPost = allBlogs.find((p) => p.slug === post.translationOf)
+    if (translationPost) {
+      translationUrl = `/blog/${translationPost.slug}`
+      translationLang = post.language === 'en' ? 'ko' : 'en'
+    }
+  }
+  const reverseTranslation = allBlogs.find((p) => p.translationOf === post.slug)
+  if (reverseTranslation) {
+    translationUrl = `/blog/${reverseTranslation.slug}`
+    translationLang = reverseTranslation.language === 'en' ? 'en' : 'ko'
+  }
+
   const Layout = layouts[post.layout || defaultLayout]
 
   return (
@@ -112,7 +161,14 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
+      <Layout
+        content={mainContent}
+        authorDetails={authorDetails}
+        next={next}
+        prev={prev}
+        translationUrl={translationUrl}
+        translationLang={translationLang}
+      >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
     </>
