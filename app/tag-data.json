@@ -7,8 +7,8 @@
   "mcp": 1,
   "ai-agent": 4,
   "ai에이전트": 5,
-  "vibe-coding": 7,
-  "바이브코딩": 7,
+  "vibe-coding": 8,
+  "바이브코딩": 8,
   "codex": 1,
   "코덱스": 1,
   "claude-code": 2,
@@ -31,8 +31,11 @@
   "벤치마크": 1,
   "superbowl": 1,
   "슈퍼볼": 1,
-  "vibe-coding-101": 1,
-  "windsurf": 1,
-  "tutorial": 1,
-  "튜토리얼": 1
+  "vibe-coding-101": 2,
+  "chatgpt": 1,
+  "ai-coding": 1,
+  "ai코딩": 1,
+  "tutorial": 2,
+  "튜토리얼": 2,
+  "windsurf": 1
 }
