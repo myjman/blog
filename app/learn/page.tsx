@@ -8,7 +8,7 @@ import { formatDate } from 'pliny/utils/formatDate'
 
 export const metadata = genPageMetadata({
   title: '입문 가이드',
-  description: '코딩 몰라도 AI로 내 앱 만드는 법 — Vibe Coding 입문 가이드',
+  description: '코드 대신 말로, 처음부터 끝까지 — Vibe Coding 101',
 })
 
 export default async function LearnPage() {
@@ -21,7 +21,7 @@ export default async function LearnPage() {
           {'> vibe-coding-101'}
         </h1>
         <p className="pt-2 text-sm text-gray-500 dark:text-gray-400">
-          코딩 몰라도 AI로 내 앱 만드는 법 — 처음부터 따라하기
+          코드 대신 말로, 처음부터 끝까지
         </p>
       </div>
       <div className="border-t border-gray-800 dark:border-gray-700">
