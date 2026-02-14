@@ -1,0 +1,256 @@
+---
+title: 'Anthropic 코드의 90%는 Claude가 짰다'
+date: '2026-02-15T18:00:00'
+tags:
+  [
+    'claude-code',
+    '클로드코드',
+    'anthropic',
+    '앤트로픽',
+    'ai-coding',
+    'AI코딩',
+    'vibe-coding',
+    '바이브코딩',
+    'boris-cherny',
+    '보리스체르니',
+  ]
+draft: false
+images: ['/static/images/anthropic-90-percent-claude-code/og-image.jpg']
+summary: 'Claude Code 총괄 Boris Cherny는 2개월 이상 코드를 작성하지 않았다. Anthropic 전사 코드의 70~90%가 AI로 생성된다. 개발자라는 직업의 정의가 바뀌고 있다.'
+---
+
+## 2개월간 코드를 안 짠 개발자
+
+![코드가 흐르는 화면 — AI가 코드를 쓰는 시대가 왔다](/static/images/anthropic-90-percent-claude-code/og-image.jpg)
+
+Boris Cherny는 Anthropic에서 Claude Code를 총괄하는 사람이다. AI 코딩 도구의 책임자다. 그런데 그가 X에 올린 글이 업계를 뒤흔들었다.
+
+"2개월 이상 코드를 작성하지 않았다."
+
+그의 코드 100%가 Claude Code와 Opus 4.5로 작성된다. 어제 PR 22개를 올렸고, 그저께는 27개를 올렸다. 전부 100% Claude가 짠 코드다. AI 코딩 도구를 만드는 사람이 직접 코드를 쓰지 않는다. 이게 2026년 2월의 현실이다.
+
+Anthropic 대변인은 회사 전체 수치를 공개했다. **70%에서 90% 사이의 코드가 AI로 생성된다**. Claude Code 프로젝트 자체는 약 90%가 Claude Code로 작성되었다. AI가 자기 자신을 만드는 셈이다.
+
+Microsoft CEO Satya Nadella가 2025년 4월에 밝힌 수치는 30%였다. 10개월 만에 Anthropic은 그 3배를 넘어섰다. 속도가 무섭다.
+
+---
+
+## Spotify 개발자들도 코드를 안 쓴다
+
+![개발자가 컴퓨터 앞에 앉아 있다 — 하지만 더 이상 코드를 직접 타이핑하지 않는다](/static/images/anthropic-90-percent-claude-code/developer.jpg)
+
+Anthropic만의 이야기가 아니다. 2026년 2월 12일, Spotify 공동 CEO Gustav Söderström이 실적 발표에서 놀라운 말을 했다.
+
+"우리의 최고 개발자들은 12월 이후로 한 줄의 코드도 작성하지 않았다."
+
+Spotify는 내부 시스템 **Honk**를 운영한다. Claude Code 기반의 원격 실시간 코드 배포 시스템이다. 작동 방식은 이렇다.
+
+개발자가 출근길에 Slack으로 "iOS 앱의 이 버그 고쳐줘"라고 지시한다. Claude가 작업을 마치면, 완성된 앱 버전이 Slack으로 전송된다. 개발자는 리뷰하고 프로덕션에 병합한다. 사무실에 도착하기도 전에 기능이 배포된다.
+
+이 방식으로 Spotify는 2025년에 50개 이상의 새 기능을 출시했다. AI 기반 Prompted Playlists, 오디오북용 Page Match, About This Song 기능이 모두 이렇게 만들어졌다.
+
+Anthropic이 2025년 12월 Claude Opus 4.5를 출시한 시점과 맞물린다. Opus 4.5가 코딩 능력의 **임계점**을 넘긴 것이다.
+
+---
+
+## 개발자는 뭘 하나
+
+코드를 안 짜면 개발자가 하루 종일 뭘 할까? Boris Cherny의 워크플로우를 보면 답이 나온다.
+
+| 과거 (코드 작성) | 현재 (AI 오케스트레이션) |
+| ---------------- | ------------------------ |
+| 요구사항 분석    | 요구사항 분석            |
+| 설계             | 설계 + AI와 검증         |
+| 코드 작성        | AI에 지시                |
+| 디버깅           | AI에 지시                |
+| 테스트 작성      | AI에 지시                |
+| 코드 리뷰        | AI 결과물 리뷰           |
+| 배포             | 자동화                   |
+
+핵심은 **설계**와 **리뷰**다. Cherny는 코드를 짜기 전에 AI와 함께 계획을 철저히 수립한다. "이게 정말 최선이야?"라고 묻고, AI의 답변에 반박하고, 다시 수정한다. 계획이 충분히 다듬어지면 그제서야 실행을 지시한다.
+
+실행은 AI가 한다. Cherny는 그 결과물을 리뷰한다. 문제가 있으면 다시 지시한다. 이 루프가 반복된다.
+
+The Pragmatic Engineer의 Gergely Orosz는 이렇게 정리했다.
+
+> "개발자의 역할이 '코드 작성자'에서 **'AI 오케스트레이터'**로 바뀌고 있다."
+
+---
+
+## 10배 생산성의 어두운 면
+
+![로봇과 회로 — AI가 주도하는 개발의 시대](/static/images/anthropic-90-percent-claude-code/robot.jpg)
+
+속도가 빨라지면 모든 게 좋아질까? Steve Yegge의 경고가 의미심장하다.
+
+Yegge는 Amazon과 Google에서 수십 년간 일한 베테랑 엔지니어다. 그는 최근 **"AI 뱀파이어 효과"**라는 글을 Medium에 올렸다.
+
+> "AI는 너를 흥분시키고, 엄청난 가치를 포착하게 한다. 그런데 어느 순간 낮잠을 자게 된다."
+
+Yegge 본인도 낮에 갑자기 쓰러져 자는 **"낮잠 발작"**을 경험한다. 그의 친구들, 스타트업 창업자들도 마찬가지다. AI 코딩 세션 후에 피로가 몰려온다.
+
+그는 이 현상을 **슬롯머신에 비유**한다. AI가 끊임없이 도파민을 쏟아낸다. 코드가 완성되면 흥분, 버그가 고쳐지면 흥분, 기능이 추가되면 흥분. 이 속도를 뇌가 따라가지 못한다.
+
+Yegge의 조언은 명확하다.
+
+> "바이브 코딩은 **하루 3시간**이 한계다. 그 이상은 지속 불가능하다."
+
+회사들이 이 사실을 인지해야 한다. 10배 생산성 향상은 10배의 업무량을 요구할 수 있다. 하지만 인간의 뇌는 10배로 확장되지 않는다.
+
+---
+
+## AI 코딩의 역설
+
+흥미로운 연구 결과가 있다. METR(Model Evaluation and Threat Research)의 2026년 1월 연구다.
+
+숙련된 개발자들이 AI 도구를 사용했을 때, **실제로는 19% 더 오래** 걸렸다. 그런데 본인들은 20% 더 빨랐다고 믿었다.
+
+왜 이런 차이가 생길까?
+
+| 체감                    | 현실                    |
+| ----------------------- | ----------------------- |
+| AI가 코드를 빠르게 생성 | 리뷰와 수정에 시간 소요 |
+| 반복 작업 감소          | 맥락 전환 비용 증가     |
+| 생산적인 느낌           | 실제 완료 속도 변함없음 |
+
+AI가 생성하는 코드의 양은 많다. 하지만 그 코드를 **읽고, 이해하고, 검증하는** 시간이 새로 생긴다. Yegge의 표현을 빌리면, "엄청난 양의 AI 생성 코드를 리뷰하는 게 직접 짜는 것보다 더 힘들 수 있다."
+
+모든 개발자가 Boris Cherny처럼 일할 수 있는 건 아니다. 그는 오랜 경험을 바탕으로 AI에게 명확한 지시를 내릴 수 있다. 주니어 개발자가 같은 방식으로 일하면 AI가 만든 버그를 잡지 못할 수 있다.
+
+---
+
+## Gary Marcus의 경고
+
+AI 비판가 Gary Marcus는 이 모든 소식에 냉소적이다.
+
+그는 최근 Matt Shumer의 바이럴 에세이를 **"무기화된 과대광고"**라고 비판했다. 최신 AI 시스템이 복잡한 앱을 에러 없이 만든다는 주장에 대해, "실제 데이터가 단 하나도 없다"고 반박했다.
+
+Marcus의 핵심 주장은 이렇다.
+
+> "벤치마크 기준이 50% 정확도다. 100%가 아니다. AI는 여전히 **환각(hallucination)**과 오류를 만들어낸다."
+
+그는 AI가 1~2년 내에 일자리를 대체할 가능성은 낮다고 본다. 더 큰 위험은 **경영진의 오해**다. AI가 실제보다 더 능력 있다고 착각하면, 비현실적인 기대와 비합리적인 해고가 뒤따른다.
+
+Boris Cherny의 사례는 예외적인가, 일반적인가? Anthropic은 AI 회사다. 직원들이 AI에 가장 익숙한 집단이다. 일반 기업에서 같은 결과를 재현할 수 있을지는 미지수다.
+
+---
+
+## 개발자 50% 해고 예측
+
+![코드의 흐름 — 누가 살아남을 것인가](/static/images/anthropic-90-percent-claude-code/matrix.jpg)
+
+Steve Yegge는 더 대담한 예측을 내놓았다.
+
+> "빅테크 엔지니어의 **50%가 해고될 것**이다."
+
+이 예측의 논리는 간단하다. AI가 생산성을 10배로 높이면, 같은 일을 하는 데 인력의 10%만 필요하다. 하지만 현실은 0%도 100%도 아니다. 그래서 Yegge는 50%를 제시한다.
+
+Reddit 공동창업자 Alexis Ohanian은 이 흐름에 동의한다. 반면 Gary Marcus는 과장이라고 본다.
+
+진실은 아마 중간 어딘가에 있다. 모든 개발자가 해고되지는 않을 것이다. 하지만 **"AI를 잘 다루는 개발자"**와 **"그렇지 못한 개발자"** 사이의 격차는 벌어질 것이다.
+
+Boris Cherny가 하루에 22개의 PR을 올릴 수 있는 이유는 그가 AI와 협업하는 방법을 터득했기 때문이다. 이 기술을 가진 개발자는 살아남는다. 그렇지 못한 개발자는 도태된다.
+
+---
+
+## 회사별 AI 코딩 도입률
+
+현재까지 공개된 수치를 정리하면 이렇다.
+
+| 회사                  | AI 생성 코드 비율 | 시점       |
+| --------------------- | ----------------- | ---------- |
+| Anthropic             | 70~90%            | 2026년 2월 |
+| Boris Cherny (개인)   | 100%              | 2026년 2월 |
+| Spotify (상위 개발자) | ~100%             | 2026년 2월 |
+| Google                | 30%+              | 2025년 4월 |
+| Microsoft             | 20~30%            | 2025년 4월 |
+
+1년도 안 되는 사이에 선두 기업들의 AI 코드 비율이 2~3배 증가했다. 이 속도가 유지된다면, 2026년 말에는 대부분의 테크 기업에서 과반 이상의 코드가 AI로 생성될 수 있다.
+
+다만 주의할 점이 있다. "AI가 생성한 코드"의 정의가 회사마다 다르다. 자동완성을 포함하는지, 전체 함수 생성만 포함하는지, PR 단위로 측정하는지에 따라 숫자가 달라진다.
+
+---
+
+## 주니어 개발자의 위기
+
+이 변화가 가장 큰 타격을 줄 대상은 주니어 개발자다.
+
+전통적으로 주니어 개발자는 **코드를 많이 작성하면서** 실력을 쌓았다. 버그를 만들고, 고치고, 리뷰받고, 다시 고치는 과정에서 배웠다.
+
+AI가 이 과정을 대체하면 어떻게 될까?
+
+주니어가 AI에게 코드 생성을 맡기면, **코드가 왜 그렇게 동작하는지** 이해하지 못할 수 있다. 버그가 발생해도 원인을 파악하지 못한다. AI가 만든 코드를 AI가 고쳐주니까, 본인은 배우지 못한다.
+
+반면 시니어 개발자는 이미 기초가 탄탄하다. AI가 생성한 코드를 보면 문제점을 바로 파악한다. 경험이 판단력을 만들었기 때문이다.
+
+역설적이게도, **AI 시대에 경험의 가치가 더 올라간다**. 코드 작성 속도는 AI가 평준화시켰지만, 코드를 판단하는 눈은 평준화되지 않았다.
+
+---
+
+## 바이브 코딩의 미래
+
+바이브 코딩(Vibe Coding)이라는 용어가 2025년 말부터 유행하기 시작했다. Andrej Karpathy가 처음 제안한 개념이다. AI와 자연어로 대화하면서 코드를 만드는 방식을 뜻한다.
+
+2026년 2월 현재, 바이브 코딩은 더 이상 실험이 아니다. Anthropic, Spotify, OpenAI 같은 선두 기업에서 **기본 작업 방식**이 되었다.
+
+하지만 Yegge의 경고처럼, 바이브 코딩에는 **인지적 부하**가 따른다. AI가 빠르게 코드를 생성하고, 개발자는 그걸 빠르게 리뷰해야 한다. 컨텍스트 스위칭이 빈번하다. 뇌가 지친다.
+
+Wikipedia에도 "바이브 코딩" 항목이 생겼다. 학술적 연구도 시작됐다. 이 방식의 장단점, 생산성 영향, 개발자 웰빙에 대한 논문들이 쏟아지고 있다.
+
+결론은 아직 나지 않았다. 분명한 건, **돌아갈 수 없다**는 것이다.
+
+---
+
+## 코드를 안 짜는 게 개발인가
+
+Boris Cherny가 2개월간 코드를 짜지 않았다는 사실은 여러 감정을 불러일으킨다.
+
+어떤 사람에게는 **해방**이다. 지루한 반복 작업에서 벗어나, 더 창의적인 일에 집중할 수 있다. 설계, 아키텍처, 사용자 경험 같은 고차원 문제에 시간을 쓸 수 있다.
+
+어떤 사람에게는 **상실**이다. 코드를 손으로 타이핑하는 행위에서 오는 만족감, 문제를 직접 해결했을 때의 성취감, 이런 것들이 사라진다.
+
+어떤 사람에게는 **위협**이다. 내 기술이 쓸모없어지는 건 아닐까, AI가 나를 대체하는 건 아닐까 하는 불안감이 밀려온다.
+
+세 가지 감정 모두 타당하다. 그리고 세 가지 모두 현실이다.
+
+---
+
+## 새로운 개발자 역량
+
+AI 시대에 살아남는 개발자는 어떤 역량을 가져야 할까?
+
+**첫째, 명확한 지시 능력.** AI에게 모호하게 말하면 모호한 결과가 나온다. "로그인 기능 만들어줘"가 아니라, "OAuth 2.0 기반, JWT 토큰 사용, 리프레시 토큰 7일 만료, Redis 세션 저장" 같은 구체적 지시가 필요하다.
+
+**둘째, 코드 판독력.** AI가 생성한 코드를 빠르게 읽고 문제점을 파악하는 능력이다. 이건 많은 코드를 읽어본 경험에서 나온다.
+
+**셋째, 시스템 설계 능력.** AI는 함수 단위, 파일 단위에서는 강하다. 하지만 전체 시스템의 아키텍처를 설계하는 건 아직 인간의 영역이다. 어떤 컴포넌트가 필요하고, 어떻게 연결되어야 하는지 판단하는 능력이다.
+
+**넷째, 비판적 사고.** AI의 제안을 무비판적으로 받아들이면 안 된다. "왜 이렇게 했지?", "더 나은 방법이 있지 않을까?"라고 끊임없이 질문해야 한다.
+
+---
+
+## 결론: 개발의 정의가 바뀌고 있다
+
+Anthropic 코드의 90%가 Claude로 짜여졌다는 건 단순한 통계가 아니다. **개발이라는 직업의 정의가 바뀌고 있다**는 신호다.
+
+Boris Cherny는 더 이상 "코드를 짜는 사람"이 아니다. 그는 **"AI가 코드를 짜도록 지휘하는 사람"**이다. Spotify의 최고 개발자들도 마찬가지다. 그들은 Slack에서 지시를 내리고, 결과물을 리뷰하고, 배포를 승인한다.
+
+이 변화에 적응하는 사람은 전례 없는 생산성을 얻는다. 하루에 22개의 PR, 50개 이상의 신기능 출시. 이전에는 불가능했던 속도다.
+
+하지만 Yegge의 경고도 기억해야 한다. 10배 생산성은 10배 피로를 동반할 수 있다. 바이브 코딩은 하루 3시간이 한계다. 인간의 뇌는 AI처럼 확장되지 않는다.
+
+개발자의 미래는 **AI를 얼마나 잘 다루느냐**에 달렸다. 코드를 직접 짜는 기술보다, AI와 협업하는 기술이 더 중요해지고 있다. 이게 2026년의 현실이다.
+
+---
+
+**출처:**
+
+- [Top engineers at Anthropic, OpenAI say AI now writes 100% of their code — Fortune](https://fortune.com/2026/01/29/100-percent-of-code-at-anthropic-and-openai-is-now-ai-written-boris-cherny-roon/)
+- [OpenAI's Codex and Anthropic's Claude spark coding revolution — Fortune](https://fortune.com/2026/02/13/openais-codex-and-anthropics-claude-spark-coding-revolution-as-developers-say-theyve-abandoned-traditional-programming/)
+- [Spotify says its best developers haven't written a line of code since December — TechCrunch](https://techcrunch.com/2026/02/12/spotify-says-its-best-developers-havent-written-a-line-of-code-since-december-thanks-to-ai/)
+- [The AI Vampire — Steve Yegge, Medium](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163)
+- [Software engineer says company leaders should expect 3 hours of vibe coding — DNYUZ](https://dnyuz.com/2026/02/12/software-engineer-says-company-leaders-should-be-aware-of-ai-fatigue-and-only-expect-3-hours-of-vibe-coding-work-a-day/)
+- [Gary Marcus calls out viral AI essay as alarmist 'hype' — AOL](https://www.aol.com/articles/gary-marcus-calls-viral-ai-181553539.html)
+- [Microsoft CEO says up to 30% of code was written by AI — TechCrunch](https://techcrunch.com/2025/04/29/microsoft-ceo-says-up-to-30-of-the-companys-code-was-written-by-ai/)
+- [The creator of Claude Code just revealed his workflow — VentureBeat](https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are)
+- [Unsplash — 이미지 출처](https://unsplash.com)
