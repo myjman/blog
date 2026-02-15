@@ -1,0 +1,293 @@
+---
+title: 'OpenAI가 Nvidia를 버린 날'
+date: '2026-02-15T19:00:00'
+tags:
+  [
+    'openai',
+    '오픈AI',
+    'nvidia',
+    '엔비디아',
+    'cerebras',
+    '세레브라스',
+    'ai-chip',
+    'AI칩',
+    'gpt-5',
+    'codex',
+    '코덱스',
+  ]
+draft: false
+images: ['/static/images/openai-nvidia-cerebras/og-image.jpg']
+summary: 'OpenAI가 Nvidia 대신 Cerebras 칩으로 GPT-5.3-Codex-Spark를 출시했다. 초당 1,000토큰, 80% 빠른 응답. AI 칩 시장의 균열이 시작됐다.'
+---
+
+## 2026년 2월 12일, 역사가 바뀌었다
+
+![반도체 회로 — AI 칩 시장의 판도가 바뀌고 있다](/static/images/openai-nvidia-cerebras/og-image.jpg)
+
+OpenAI가 Nvidia 없이 GPT 모델을 출시했다. 2016년부터 10년간 이어진 동맹에 처음으로 **균열**이 생겼다.
+
+GPT-5.3-Codex-Spark. 이 모델은 Nvidia GPU가 아닌 Cerebras의 Wafer Scale Engine 3(WSE-3)에서 돌아간다. 초당 1,000토큰을 생성한다. 기존 Nvidia 기반 추론보다 **20배 빠르다**.
+
+Jensen Huang이 2016년 손수 OpenAI 본사에 첫 번째 DGX 시스템을 배달했던 때를 기억하는가? 그때부터 OpenAI의 모든 모델은 Nvidia 위에서 태어나고 자랐다. GPT-2, GPT-3, GPT-4, GPT-5까지. 전부 Nvidia다.
+
+그런데 2026년 2월, OpenAI는 처음으로 Nvidia 없이 모델을 배포했다. 이게 단순한 실험인가, 아니면 AI 칩 시장의 **대전환**의 시작인가.
+
+---
+
+## Cerebras는 누구인가
+
+Cerebras Systems. 2016년 설립된 실리콘밸리 스타트업이다. 창업자 Andrew Feldman은 SeaMicro를 AMD에 3억 3,400만 달러에 매각한 이력이 있다. 서버 혁신에서 칩 혁신으로 방향을 틀었다.
+
+이 회사의 야망은 단순하다. **세상에서 가장 큰 칩을 만든다**. 그리고 실제로 만들었다.
+
+WSE-3(Wafer Scale Engine 3)는 46,255mm² 크기다. 저녁 접시만 하다. 일반 GPU 칩이 우표 크기라면, WSE-3는 책 표지만 하다. 4조 개의 트랜지스터, 90만 개의 AI 최적화 코어가 집적되어 있다.
+
+왜 이렇게 크게 만들까? 답은 **메모리 대역폭**에 있다.
+
+![GPU 그래픽카드 — Nvidia가 10년간 AI 시장을 지배했다](/static/images/openai-nvidia-cerebras/nvidia-gpu.jpg)
+
+AI 추론에서 가장 큰 병목은 연산이 아니라 **메모리 접근**이다. 칩이 계산을 하려면 메모리에서 데이터를 가져와야 한다. 이 가져오는 속도가 느리면 칩이 아무리 빨라도 소용없다.
+
+Nvidia H100은 HBM3e 메모리를 사용한다. 빠르지만 한계가 있다. WSE-3는 아예 다른 접근법을 택했다. 칩 전체에 메모리를 분산 배치했다. 결과는 놀랍다. Nvidia H100 대비 **7,000배 높은 메모리 대역폭**이다.
+
+7,000배. 오타가 아니다. 이 숫자가 AI 추론 속도를 결정짓는다.
+
+---
+
+## 왜 지금인가
+
+OpenAI가 Cerebras와 손을 잡은 건 갑작스러운 일이 아니다. 2026년 1월, 양사는 대규모 파트너십을 발표했다. 3년간 750메가와트 규모의 컴퓨팅 파워를 Cerebras가 제공한다.
+
+하지만 진짜 이유는 따로 있다. **Nvidia에 대한 불만**이 쌓여왔다.
+
+TrendForce 보도에 따르면, OpenAI는 Nvidia GPU의 추론 속도에 만족하지 못했다. 특히 **코딩 AI**와 **에이전트 AI** 분야에서 불만이 컸다. ChatGPT 사용자가 코드 관련 질문을 하면, 응답이 너무 느렸다.
+
+추론(inference)과 훈련(training)은 다른 문제다. 훈련은 대규모 병렬 연산이 핵심이다. 수천 개의 GPU가 동시에 데이터를 처리한다. 여기서 Nvidia는 아직 대체 불가다. CUDA 생태계, NVLink 인터커넥트, 수십 년간 축적된 소프트웨어 스택. 누구도 따라올 수 없다.
+
+하지만 추론은 다르다. 사용자 한 명의 질문에 한 번에 답한다. 여기서 중요한 건 **지연 시간(latency)**이다. 1초 만에 답해야 할 질문을 3초 걸려 답하면, 사용자 경험이 무너진다.
+
+Nvidia GPU는 훈련에 최적화되어 있다. 추론에서는 효율이 떨어진다. OpenAI는 이 문제를 해결하고 싶었다. Cerebras가 답이었다.
+
+---
+
+## GPT-5.3-Codex-Spark의 성능
+
+GPT-5.3-Codex-Spark는 OpenAI의 코딩 전용 모델이다. GPT-5.3-Codex의 경량 버전이다. 실시간 코딩 협업에 최적화됐다.
+
+핵심 스펙을 보자.
+
+| 항목                    | GPT-5.3-Codex-Spark  |
+| ----------------------- | -------------------- |
+| 토큰 생성 속도          | 1,000+ tok/s         |
+| 컨텍스트 윈도우         | 128K 토큰            |
+| 첫 토큰까지 시간        | 50% 단축             |
+| 클라이언트-서버 지연    | 80% 감소             |
+| Terminal-Bench 2.0      | 58.4%                |
+| SWE-Bench Pro 완료 시간 | 2-3분 (기존 15-17분) |
+
+속도가 압도적이다. 기존 GPT-5.3-Codex는 같은 작업에 15-17분 걸렸다. Codex-Spark는 2-3분이면 끝낸다. **5~8배 빠르다**.
+
+대신 정확도는 약간 낮다. Terminal-Bench 2.0에서 GPT-5.3-Codex는 77.3%, Codex-Spark는 58.4%다. 속도와 정확도 사이의 트레이드오프다.
+
+하지만 실시간 코딩에서는 이 트레이드오프가 합리적이다. 개발자가 코드를 짜면서 AI에게 질문할 때, 3초 후에 완벽한 답을 받는 것보다 0.5초 후에 80% 맞는 답을 받는 게 낫다. 빠른 피드백이 개발 흐름을 유지시킨다.
+
+---
+
+## Nvidia의 위기인가
+
+![데이터센터 서버 — AI 인프라의 심장부](/static/images/openai-nvidia-cerebras/data-center.jpg)
+
+Nvidia 주가가 흔들리지 않았다. 이 뉴스에도 불구하고.
+
+이유는 간단하다. Nvidia는 여전히 **훈련 시장을 지배**하고 있다. 그리고 훈련 시장이 더 크다. OpenAI조차 GPT-5.2 훈련에는 전적으로 Nvidia를 사용했다. Hopper, GB200 NVL72 시스템이 동원됐다.
+
+OpenAI와 Nvidia의 관계도 끊어진 게 아니다. 오히려 확대되고 있다. 2026년 초, 양사는 **사상 최대 규모의 AI 인프라 배치**를 발표했다. OpenAI가 최소 10기가와트의 Nvidia 시스템을 배치한다. Nvidia는 OpenAI에 최대 1,000억 달러를 투자한다. Vera Rubin GPU가 2026년 하반기부터 가동된다.
+
+Cerebras와의 파트너십은 전체 추론 수요의 **10% 정도**를 커버할 것으로 예상된다. 나머지 90%는 여전히 Nvidia다.
+
+그래도 의미 있는 변화다. Nvidia가 100%를 장악하던 시장에서 10%가 빠져나갔다. 이게 20%가 되고, 30%가 되면 어떻게 될까?
+
+---
+
+## AI 칩 시장의 재편
+
+Cerebras만 Nvidia에 도전하는 게 아니다. **다자간 경쟁 구도**가 형성되고 있다.
+
+| 기업         | 제품/접근법            | 강점                     | 약점                      |
+| ------------ | ---------------------- | ------------------------ | ------------------------- |
+| Nvidia       | GPU (Blackwell, Rubin) | CUDA 생태계, 훈련 최강   | 추론 지연 시간, 전력 소비 |
+| Cerebras     | WSE-3 (웨이퍼 스케일)  | 메모리 대역폭, 추론 속도 | 훈련 인프라 부족          |
+| AMD          | MI300X, MI400 시리즈   | 가격 경쟁력, ROCm 성숙   | CUDA 호환성 부족          |
+| Groq         | LPU (언어 처리 유닛)   | 극한의 추론 속도         | 범용성 부족               |
+| Google TPU   | TPU v5p, Trillium      | 자체 인프라 최적화       | 외부 판매 제한            |
+| AWS Trainium | 커스텀 ASIC            | 클라우드 통합            | 범용 AI 벤치마크 열세     |
+
+TrendForce에 따르면, 2026년 커스텀 ASIC 출하량은 전년 대비 44.6% 증가할 전망이다. GPU 출하량 증가율 16.1%의 거의 3배다.
+
+추론이 전체 AI 컴퓨팅에서 차지하는 비중도 커지고 있다. Deloitte 예측에 따르면, 2026년에는 추론이 전체 AI 컴퓨팅의 **2/3**를 차지한다. 2023년에는 1/3이었다.
+
+훈련은 한 번 하면 끝난다. 모델이 완성되면 끝이다. 하지만 추론은 **무한히 반복**된다. 사용자가 ChatGPT에 질문할 때마다 추론이 일어난다. 사용자가 늘어날수록 추론 수요는 기하급수적으로 증가한다.
+
+추론 시장이 커지면, Nvidia의 상대적 강점이 희석된다. Cerebras, Groq, AMD가 파고들 틈이 생긴다.
+
+---
+
+## Cerebras의 2026년 IPO
+
+Cerebras는 2026년 2분기 IPO를 준비 중이다. 목표 기업가치는 **220억 달러**다.
+
+이 수치가 실현되면 Cerebras는 Nvidia에 대한 첫 번째 **실존적 위협**이 된다. 물론 Nvidia 시가총액 4조 달러에 비하면 새 발의 피다. 하지만 상징성이 크다.
+
+Cerebras의 WSE 아키텍처가 증명한 것이 있다. **거대한 단일 칩이 가능하다**. 여러 개의 작은 칩을 연결하는 것보다, 하나의 거대한 칩이 특정 워크로드에서 더 효율적일 수 있다.
+
+Nvidia도 이 교훈을 배우고 있다. 2026년 말 출시 예정인 Rubin GPU는 **온칩 메모리**를 대폭 강화했다. Cerebras가 보여준 방향을 따라가는 것이다.
+
+경쟁은 혁신을 낳는다. Nvidia 독점 시대에는 없던 긴장감이 생겼다. 이 긴장감이 더 좋은 칩을 만들어낸다.
+
+---
+
+## 개발자에게 미치는 영향
+
+GPT-5.3-Codex-Spark는 ChatGPT Pro 사용자에게 바로 제공된다. Codex 앱, CLI, VS Code 익스텐션에서 쓸 수 있다.
+
+![프로세서 칩 — AI 시대의 핵심 하드웨어](/static/images/openai-nvidia-cerebras/processor.jpg)
+
+개발자 입장에서 뭐가 달라질까?
+
+**첫째, 응답 속도가 체감된다.** 기존에 2-3초 걸리던 코드 생성이 0.2-0.3초로 줄어든다. 이 차이가 작업 흐름을 바꾼다. 생각하는 속도로 코딩할 수 있다. AI가 따라온다.
+
+**둘째, 실시간 협업이 가능해진다.** 페어 프로그래밍에서 인간 파트너와 대화하듯 AI와 대화할 수 있다. 기다림 없이.
+
+**셋째, 에이전트 AI가 실용화된다.** 지금까지 AI 에이전트의 병목은 속도였다. 에이전트가 여러 단계를 거쳐 작업을 수행할 때, 각 단계마다 몇 초씩 지연되면 전체 작업이 느려진다. 1,000 tok/s 속도가 이 병목을 해소한다.
+
+Spotify가 내부에서 운영하는 Honk 시스템이 좋은 예다. 개발자가 출근길에 Slack으로 "이 버그 고쳐줘"라고 지시하면, AI가 코드를 수정하고, 테스트하고, 완성된 빌드를 Slack으로 보낸다. 개발자가 사무실에 도착하기 전에 기능이 배포된다.
+
+이런 워크플로우는 느린 AI로는 불가능하다. 빠른 AI만이 가능하게 한다.
+
+---
+
+## Nvidia의 대응
+
+Nvidia도 가만히 있지 않는다.
+
+Rubin 플랫폼은 2026년 하반기 출시 예정이다. 각 GPU가 3.6TB/s 대역폭을 제공한다. Vera Rubin NVL72 랙은 260TB/s다. **전체 인터넷보다 큰 대역폭**이라고 Nvidia는 주장한다.
+
+소프트웨어 측면에서도 최적화가 진행 중이다. CUDA 생태계의 추론 최적화 도구들이 강화되고 있다. TensorRT, Triton Inference Server가 지속적으로 업데이트된다.
+
+그리고 Nvidia의 진짜 무기는 **생태계 장악력**이다. CUDA로 작성된 코드가 수십억 줄이다. 전 세계 AI 연구자, 개발자가 CUDA에 익숙하다. 이 관성을 깨기는 쉽지 않다.
+
+Cerebras도 이 문제를 인식하고 있다. WSE-3는 PyTorch, TensorFlow와 호환된다. CUDA 코드를 직접 실행할 수는 없지만, 주요 프레임워크는 지원한다.
+
+하지만 기업 IT 부서가 Nvidia에서 Cerebras로 갈아타려면 검증이 필요하다. 검증에는 시간이 걸린다. 이 시간 동안 Nvidia는 추격당하지 않도록 달려야 한다.
+
+---
+
+## 중국 변수
+
+AI 칩 경쟁에서 빠뜨릴 수 없는 요소가 있다. **중국**이다.
+
+미국 정부는 Nvidia의 고성능 AI 칩 대중국 수출을 제한하고 있다. A100, H100은 중국에 팔 수 없다. Nvidia는 중국용으로 성능을 낮춘 A800, H800을 출시했지만, 이마저도 규제 대상이 됐다.
+
+이 상황에서 Cerebras의 부상은 복잡한 함의를 갖는다.
+
+첫째, Cerebras 칩도 수출 규제 대상이 될 가능성이 높다. 미국 정부가 Nvidia만 규제하고 Cerebras는 풀어줄 이유가 없다.
+
+둘째, 중국이 자체 AI 칩 개발에 더 박차를 가할 것이다. Huawei의 Ascend 시리즈, Biren Technology, Cambricon 등이 성장하고 있다. 중국 시장에서 Nvidia의 점유율이 떨어지면, 그 자리를 중국 업체가 채운다.
+
+셋째, AI 칩 공급망이 더 분절화된다. 미국-동맹국 진영과 중국 진영이 각자의 생태계를 구축한다. 호환성이 떨어지고, 글로벌 협력이 어려워진다.
+
+OpenAI가 Cerebras를 택한 건 순수하게 기술적 결정일 수 있다. 하지만 이 결정이 갖는 지정학적 파장은 의도와 무관하게 퍼져나간다.
+
+---
+
+## 에너지 효율 문제
+
+AI의 숨겨진 비용이 있다. **전력 소비**다.
+
+Nvidia H100 한 대가 700W를 소비한다. 수천 대를 돌리면 메가와트급 전력이 필요하다. 데이터센터 하나가 소도시만큼 전기를 쓴다.
+
+Cerebras는 이 문제에서도 우위를 주장한다. WSE-3는 같은 추론 성능을 훨씬 적은 전력으로 달성한다고 한다. 구체적 수치는 워크로드에 따라 다르지만, Cerebras 측 주장으로는 **10배 이상 에너지 효율적**이다.
+
+이게 사실이라면 큰 의미가 있다. AI 회사들은 점점 더 에너지 비용 압박을 받고 있다. ESG 관점에서도, 순수 비용 관점에서도.
+
+OpenAI가 Cerebras를 선택한 이유 중 하나가 에너지 효율일 수 있다. 같은 서비스를 더 적은 전기로 제공할 수 있다면, 운영비가 줄어든다.
+
+물론 훈련은 여전히 전력 집약적이다. Nvidia GPU를 대규모로 돌려야 한다. 하지만 추론만이라도 효율화되면 전체 에너지 사용량이 상당히 줄어든다. 추론이 전체의 2/3를 차지한다면 더욱 그렇다.
+
+---
+
+## 개발자 도구 경쟁 심화
+
+GPT-5.3-Codex-Spark 출시와 함께 AI 코딩 도구 시장의 경쟁도 격화되고 있다.
+
+| 도구               | 제공사    | 핵심 모델              | 특징                          |
+| ------------------ | --------- | ---------------------- | ----------------------------- |
+| Codex Spark        | OpenAI    | GPT-5.3-Codex-Spark    | 1,000 tok/s, 실시간 협업      |
+| Claude Code        | Anthropic | Opus 4.5, Sonnet 4.5   | 자율 에이전트, 긴 컨텍스트    |
+| GitHub Copilot     | Microsoft | GPT 기반 + 자체 최적화 | IDE 통합, 기업 시장 점유율    |
+| Cursor             | Anysphere | Claude/GPT 혼합        | 로컬 코드 이해, 프로젝트 맥락 |
+| Gemini Code Assist | Google    | Gemini Ultra           | Google Cloud 통합             |
+
+경쟁이 치열해질수록 개발자는 이득을 본다. 가격이 내려가고, 기능이 올라간다. 2025년 초만 해도 AI 코딩 도구는 "있으면 좋은" 수준이었다. 2026년 2월에는 **없으면 경쟁력이 떨어지는** 필수품이 됐다.
+
+Boris Cherny가 2개월간 코드를 안 짠다고 해도 하루에 22개 PR을 올리는 시대다. AI 없이 일하는 개발자는 뒤처진다. 개인이든 팀이든 회사든.
+
+---
+
+## 10년 동맹의 균열
+
+2016년, Jensen Huang이 OpenAI 본사에 DGX-1을 직접 들고 찾아갔다. 세계 최초의 AI 슈퍼컴퓨터였다. Sam Altman과 악수를 나눴다. "AI의 미래를 함께 만들자"라는 상징적 제스처였다.
+
+10년이 지났다. 그 동맹이 갈라지고 있다.
+
+물론 OpenAI는 여전히 Nvidia의 최대 고객 중 하나다. 1,000억 달러 투자 계약도 살아 있다. 하지만 **100% 의존에서 90% 의존으로** 줄었다는 건 의미가 크다.
+
+기술 기업의 역사에서 이런 전환점은 종종 있었다. IBM과 Microsoft의 관계, Microsoft와 Intel의 관계, Apple과 Intel의 관계. 처음에는 "전략적 다변화"로 시작해서, 점점 비중이 바뀌고, 결국 **완전히 전환**되는 경우도 있었다.
+
+OpenAI-Nvidia 관계가 그렇게 될까? 아직 알 수 없다. 하지만 가능성이 열렸다는 것 자체가 중요하다. 2년 전만 해도 불가능해 보였던 시나리오다.
+
+---
+
+## AI 칩 시장의 미래
+
+향후 2-3년간 AI 칩 시장은 어떻게 전개될까?
+
+**시나리오 1: Nvidia 지배 지속.**
+Rubin이 추론 성능을 크게 개선한다. CUDA 생태계의 관성이 경쟁자를 밀어낸다. Cerebras, Groq는 틈새 시장에 머문다. Nvidia 점유율 80% 이상 유지.
+
+**시나리오 2: 다극 체제 형성.**
+추론과 훈련이 분리된다. 추론은 Cerebras, Groq 등 전문 업체가 점유율을 높인다. 훈련은 Nvidia가 유지. 전체 시장에서 Nvidia 점유율 60% 수준으로 하락.
+
+**시나리오 3: 커스텀 ASIC 부상.**
+Google, AWS, Microsoft가 자체 칩 개발에 성공. 대형 클라우드 업체들이 Nvidia 의존도를 낮춘다. Nvidia는 기업 시장에서 밀리고, 연구 기관과 스타트업 시장에 집중.
+
+어떤 시나리오가 되든, 2026년의 OpenAI-Cerebras 협력은 **전환점**으로 기록될 것이다. AI 칩 시장이 단일 업체 독점에서 다자 경쟁으로 넘어가는 첫 번째 큰 움직임이다.
+
+---
+
+## 결론: 버린 게 아니라, 선택지를 늘린 것이다
+
+OpenAI가 Nvidia를 "버렸다"는 표현은 과장이다. 여전히 OpenAI 인프라의 90%는 Nvidia다. 1,000억 달러 투자 계약도 진행 중이다.
+
+하지만 10%가 빠져나갔다. 그 10%가 Cerebras로 갔다. 이 10%가 20%가 되고, 30%가 될 수 있다. 아니면 10%에서 멈출 수도 있다.
+
+중요한 건 **선택지가 생겼다**는 것이다.
+
+10년간 AI 회사들에게 선택지는 없었다. Nvidia 아니면 Nvidia였다. 이제 Cerebras라는 옵션이 실제로 작동한다는 게 증명됐다. AMD, Groq, Google TPU도 각자의 영역에서 경쟁력을 갖추고 있다.
+
+독점은 끝나지 않았다. 하지만 균열이 생겼다. 2026년 2월 12일, GPT-5.3-Codex-Spark가 Cerebras 칩 위에서 1,000토큰을 쏟아내던 그 순간, AI 칩 시장의 판도가 바뀌기 시작했다.
+
+Jensen Huang도 알고 있을 것이다. **왕좌는 영원하지 않다**.
+
+---
+
+**출처:**
+
+- [OpenAI swaps Nvidia for Cerebras with GPT-5.3-Codex-Spark — Techzine](https://www.techzine.eu/news/analytics/138754/openai-swaps-nvidia-for-cerebras-with-gpt-5-3-codex-spark/)
+- [OpenAI deploys Cerebras chips for near-instant code generation — VentureBeat](https://venturebeat.com/technology/openai-deploys-cerebras-chips-for-15x-faster-code-generation-in-first-major)
+- [Cerebras CS-3 vs. Nvidia DGX B200 Blackwell — Cerebras](https://www.cerebras.ai/blog/cerebras-cs-3-vs-nvidia-dgx-b200-blackwell)
+- [OpenAI Reportedly Discontent With NVIDIA GPUs for Inference — TrendForce](https://www.trendforce.com/news/2026/02/03/news-openai-reportedly-discontent-with-nvidia-gpus-for-inference-groq-cerebras-gain-attention/)
+- [The Wafer-Scale Revolution: Cerebras Systems Eyes Landmark 2026 IPO — Financial Content](https://markets.financialcontent.com/stocks/article/marketminute-2026-1-15-the-wafer-scale-revolution-cerebras-systems-eyes-landmark-2026-ipo-to-challenge-nvidias-ai-throne)
+- [A new version of OpenAI's Codex is powered by a new dedicated chip — TechCrunch](https://techcrunch.com/2026/02/12/a-new-version-of-openais-codex-is-powered-by-a-new-dedicated-chip/)
+- [All the Messy Drama Between OpenAI and Nvidia — Gizmodo](https://gizmodo.com/all-the-messy-drama-between-openai-and-nvidia-explained-2000717226)
+- [Unsplash — 이미지 출처](https://unsplash.com)
