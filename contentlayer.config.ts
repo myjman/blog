@@ -1,5 +1,6 @@
 import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer2/source-files'
 import { writeFileSync } from 'fs'
+import { execSync } from 'child_process'
 import readingTime from 'reading-time'
 import { slug } from 'github-slugger'
 import path from 'path'
@@ -23,7 +24,7 @@ import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypePresetMinify from 'rehype-preset-minify'
 import siteMetadata from './data/siteMetadata'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
+import { allCoreContent } from 'pliny/utils/contentlayer.js'
 import prettier from 'prettier'
 
 const root = process.cwd()
@@ -57,6 +58,20 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.sourceFilePath,
   },
   toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+  publishedAt: {
+    type: 'date',
+    resolve: (doc) => {
+      try {
+        const filePath = `data/${doc._raw.sourceFilePath}`
+        const gitDate = execSync(`git log --follow --format=%aI -- "${filePath}" | tail -1`, {
+          encoding: 'utf-8',
+        }).trim()
+        return gitDate || doc.date
+      } catch {
+        return doc.date
+      }
+    },
+  },
 }
 
 /**
@@ -80,6 +95,14 @@ async function createTagCount(allBlogs) {
   writeFileSync('./app/tag-data.json', formatted)
 }
 
+function sortByPublishedAt(posts) {
+  return posts.sort((a, b) => {
+    const dateA = new Date(a.publishedAt || a.date).getTime()
+    const dateB = new Date(b.publishedAt || b.date).getTime()
+    return dateB - dateA
+  })
+}
+
 function createSearchIndex(allBlogs) {
   if (
     siteMetadata?.search?.provider === 'kbar' &&
@@ -87,7 +110,7 @@ function createSearchIndex(allBlogs) {
   ) {
     writeFileSync(
       `public/${path.basename(siteMetadata.search.kbarConfig.searchDocumentsPath)}`,
-      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+      JSON.stringify(allCoreContent(sortByPublishedAt(allBlogs)))
     )
     console.log('Local search index generated...')
   }

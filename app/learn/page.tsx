@@ -1,10 +1,11 @@
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
+import { allCoreContent } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
+import { sortByPublished } from '@/utils/sortByPublished'
 
 export const metadata = genPageMetadata({
   title: '입문 가이드',
@@ -12,7 +13,9 @@ export const metadata = genPageMetadata({
 })
 
 export default async function LearnPage() {
-  const posts = allCoreContent(sortPosts(allBlogs)).filter((post) => post.category === 'tutorial')
+  const posts = allCoreContent(sortByPublished(allBlogs)).filter(
+    (post) => post.category === 'tutorial'
+  )
 
   return (
     <div className="font-mono">
