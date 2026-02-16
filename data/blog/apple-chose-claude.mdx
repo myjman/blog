@@ -1,0 +1,198 @@
+---
+title: 'Apple이 Claude를 선택한 진짜 이유'
+date: '2026-02-16T18:00:46'
+tags:
+  [
+    'apple',
+    '애플',
+    'claude',
+    '클로드',
+    'anthropic',
+    '앤트로픽',
+    'xcode',
+    '에이전틱코딩',
+    'agentic-coding',
+    'mcp',
+    'model-context-protocol',
+  ]
+draft: false
+images: ['/static/images/apple-chose-claude/og-image.jpg']
+summary: 'Apple이 Xcode 26.3에 Claude Agent SDK를 통합했다. OpenAI Codex와 함께. 그런데 내부에서는 이미 Claude로 돌아가고 있었다. 공식 파트너십 이전에 이미 선택은 끝난 셈이다.'
+---
+
+## Apple은 이미 Anthropic으로 돌아가고 있었다
+
+![코드의 흐름 — Apple이 선택한 AI의 방향](/static/images/apple-chose-claude/og-image.jpg)
+
+2026년 2월 3일, Apple이 Xcode 26.3을 발표했다. Anthropic의 Claude Agent와 OpenAI의 Codex를 통합한 **에이전틱 코딩** 기능이 핵심이다. AI가 코드를 작성하고, 빌드하고, 테스트하고, 심지어 시각적으로 결과를 검증하는 기능이다.
+
+표면적으로는 두 회사를 동등하게 대우한 것처럼 보인다. 하지만 Mark Gurman의 보도는 다른 이야기를 한다.
+
+> "Apple은 이 시점에서 Anthropic으로 돌아가고 있다."
+
+Apple 내부에서 **Claude의 커스텀 버전**이 자체 서버에서 운영되고 있다는 것이다. 제품 개발, 내부 도구, 코드 리팩토링, UI 카피 제안, 보안 리뷰 자동화 등에 쓰인다. Xcode 26.3 발표 이전부터 이미 Claude는 Apple의 핵심 인프라였다.
+
+공식 파트너십은 발표였을 뿐, 선택은 이미 끝나 있었다.
+
+---
+
+## Siri에는 Google, 개발에는 Anthropic
+
+Apple의 AI 전략은 이중 구조다. 소비자 향 제품과 내부 개발을 분리했다.
+
+**Siri와 Apple Intelligence**는 Google의 Gemini가 담당한다. 연간 약 10억 달러 규모의 계약이다. 1.2조 파라미터의 커스텀 Gemini 모델이 Siri의 새로운 기능을 구동한다. 온디바이스 또는 Private Cloud Compute를 통해 동작한다.
+
+**내부 개발**은 Anthropic의 Claude가 담당한다. Apple은 Claude의 커스텀 버전을 자체 서버에서 호스팅한다. 이유는 명확하다. 미공개 제품과 코드를 외부 클라우드에 보내지 않기 위해서다.
+
+원래 Siri도 Claude로 갈 뻔했다. Apple은 Anthropic과 협상했다. 하지만 Anthropic이 **연간 수십억 달러**를 요구하며 협상이 결렬됐다. Apple은 Google로 방향을 틀었다.
+
+| 영역                    | 파트너           | 비용        | 특징                                |
+| ----------------------- | ---------------- | ----------- | ----------------------------------- |
+| Siri/Apple Intelligence | Google Gemini    | ~$10억/년   | 소비자 향, 온디바이스/Private Cloud |
+| 내부 개발 도구          | Anthropic Claude | 비공개      | 자체 서버 호스팅, 데이터 보호       |
+| Xcode 에이전틱 코딩     | Claude + Codex   | 개발자 부담 | 선택 가능, MCP 기반                 |
+
+소비자에게는 비용 효율적인 Gemini, 개발자에게는 강력한 Claude와 Codex. 영역별로 최적의 선택을 한 셈이다.
+
+---
+
+## Claude Agent SDK가 Xcode에 들어간 이유
+
+![MacBook에서의 개발 — Apple 생태계와 AI의 만남](/static/images/apple-chose-claude/apple-macbook.jpg)
+
+Xcode 26.3의 Claude 통합은 단순한 자동완성이 아니다. **Claude Code의 전체 기능**이 들어갔다. 서브에이전트, 백그라운드 작업, 플러그인까지.
+
+핵심 기능을 정리하면 이렇다.
+
+**시각적 검증**. Claude가 SwiftUI 뷰를 작성하면 Xcode Preview를 캡처해서 실제 화면을 확인한다. 레이아웃 문제나 스타일 불일치를 직접 보고 수정한다. 코드만 보는 게 아니라 결과물을 눈으로 확인하는 것이다.
+
+**프로젝트 전체 이해**. 파일 구조를 탐색하고 의존성을 파악한다. 변경이 필요한 위치를 먼저 식별한 후 작업한다. SwiftUI, UIKit, Swift Data 등 다양한 프레임워크를 이해한다.
+
+**자율적 작업 실행**. 목표만 제시하면 Claude가 작업을 분해하고, 파일을 수정하며, Apple 문서를 검색한다. 에러를 감지하면 원인을 분석하고 수정한 후 테스트를 재실행한다.
+
+**Human-in-the-Loop**. 자율성이 높지만 통제는 유지된다. 파일 삭제나 아키텍처 변경 같은 파괴적 작업은 개발자 승인이 필요하다.
+
+Anthropic은 이를 "AI 코딩 어시스턴트에서 **AI 팀원**으로의 전환"이라고 표현한다. 지시를 받고 코드를 생성하는 수준을 넘어, 스스로 문제를 파악하고 해결하는 단계다.
+
+---
+
+## Model Context Protocol이 판을 바꿨다
+
+Apple이 Claude를 선택한 기술적 이유 중 하나는 **MCP(Model Context Protocol)**다.
+
+MCP는 Anthropic이 2024년 11월 발표한 오픈 표준이다. AI 에이전트가 외부 도구, 시스템, 데이터 소스와 연결되는 방식을 표준화한다. 쉽게 말해 AI가 IDE, 터미널, 문서, 파일 시스템과 소통하는 **공용 언어**다.
+
+Xcode 26.3은 MCP를 통해 기능을 제공한다. Claude Agent만 쓸 수 있는 게 아니다. **MCP 호환 에이전트라면 무엇이든** Xcode와 연결된다. OpenAI의 Codex도 MCP를 통해 Xcode에 접근한다.
+
+활성화 방식은 간단하다.
+
+```bash
+codex mcp add xcode -- xcrun mcpbridge
+```
+
+MCP의 의미는 Apple이 **특정 AI 회사에 종속되지 않는다**는 점이다. 오늘은 Claude와 Codex를 쓰지만, 내일 더 나은 에이전트가 나오면 바로 교체할 수 있다. 프로토콜이 열려 있으니까.
+
+MCP는 이제 Anthropic만의 것이 아니다. Linux Foundation 산하 **Agentic AI Foundation**에 기증됐다. 공동 창립자는 Anthropic, Block, OpenAI다. Google, Microsoft, AWS, Cloudflare, Bloomberg도 지원한다. 업계 표준이 된 셈이다.
+
+---
+
+## Claude vs Codex: 개발자들의 선택
+
+![개발자의 작업 공간 — AI와 함께하는 코딩](/static/images/apple-chose-claude/developer-workspace.jpg)
+
+Xcode 26.3은 Claude와 Codex를 모두 지원한다. 개발자는 프로젝트에 맞는 모델을 선택할 수 있다. 하지만 두 모델의 특성은 다르다.
+
+개발자 피드백을 종합하면 이런 차이가 나타난다.
+
+| 항목         | Claude Agent                                | OpenAI Codex                              |
+| ------------ | ------------------------------------------- | ----------------------------------------- |
+| 강점         | 프로젝트 전체 구조 이해, 의존성 추적        | 빠른 패턴 매칭, API 수준 코드 생성        |
+| 리팩토링     | 8개 파일의 의존성 체인을 파악하고 전부 수정 | 대상 파일은 수정하지만 2개 하위 호출 누락 |
+| 컨텍스트     | 200K+ 토큰                                  | 상대적으로 짧음                           |
+| 비용         | Opus 4.6 기준 $5/$25 (입력/출력 백만 토큰)  | 유사 수준                                 |
+| 월 예상 비용 | 헤비 사용자 $50-150                         | 유사                                      |
+
+한 개발자의 경험담이 이를 잘 보여준다. 네트워킹 레이어를 URLSession에서 async/await로 리팩토링할 때, Claude는 의존성 체인 전체를 파악하고 8개 파일을 모두 수정했다. 콜 사이트 업데이트, 에러 핸들링 수정, 기존 테스트 유지까지. Codex는 대상 파일은 잘 수정했지만 두 개의 하위 콜 사이트를 놓쳤다.
+
+반면 빠른 프로토타이핑이나 단순 스크립트 생성에는 Codex가 더 효율적이라는 의견도 있다. 프로젝트 전체를 탐색하느라 시간을 쓰지 않으니까.
+
+결국 선택은 작업의 성격에 달렸다. 복잡한 리팩토링이나 대규모 프로젝트에는 Claude, 빠른 API 코드 생성에는 Codex. Apple이 두 모델을 모두 넣은 이유다.
+
+---
+
+## 토큰 최적화: Apple과 Anthropic의 협업
+
+![코드 에디터 — 효율적인 개발 환경](/static/images/apple-chose-claude/xcode-coding.jpg)
+
+에이전틱 코딩의 숨은 과제는 **비용**이다. AI가 자율적으로 작업하면 토큰 사용량이 급증한다. 파일을 읽고, 문서를 검색하고, 빌드하고, 테스트하고, 프리뷰를 캡처하는 모든 과정에서 토큰이 소비된다.
+
+Apple은 이 문제를 인식하고 있었다. Anthropic, OpenAI와 직접 협력해 **토큰 사용량 최적화**와 **도구 호출 효율화**에 집중했다.
+
+구체적인 최적화 내용은 공개되지 않았지만, 방향성은 명확하다. 불필요한 컨텍스트 전달 줄이기, 캐싱 활용, 도구 호출 배치 처리 등이다. Claude Code가 이미 적용한 기술들이 Xcode 통합에도 반영됐을 것이다.
+
+현실적인 비용을 계산해보자. Opus 4.6 기준 입력 토큰 백만 개당 $5, 출력 토큰 백만 개당 $25다. 헤비 유저가 하루 종일 에이전틱 코딩을 사용하면 월 $50-150 수준이다. Pro/Max 플랜이 아니라면 부담될 수 있는 금액이다.
+
+Apple이 자체 서버에서 Claude를 호스팅하는 이유 중 하나도 비용이다. API 호출 비용을 내는 대신, 인프라를 직접 운영해서 비용을 통제한다. 대규모 사용에서는 이 방식이 더 경제적이다.
+
+개발자들에게는 비용이 직접 전가된다. 무료가 아니라는 점이 에이전틱 코딩 확산의 걸림돌이 될 수 있다. Apple이 Apple Developer Program 구독에 토큰 크레딧을 포함시킬지 주목된다.
+
+---
+
+## 왜 Claude인가: 프라이버시와 통제
+
+Apple이 내부에서 Claude를 선택한 핵심 이유는 **프라이버시**다.
+
+Apple의 데이터 정책은 철저하다. 미공개 제품 코드, 설계 문서, 내부 커뮤니케이션은 외부 클라우드에 나가면 안 된다. OpenAI나 Google의 API를 사용하면 데이터가 외부 서버를 거친다. 아무리 보안 계약을 맺어도 위험은 존재한다.
+
+Anthropic과의 계약은 다르다. Apple이 **자체 서버에서 Claude를 호스팅**한다. 커스텀 모델이 Apple 인프라 내에서만 동작한다. 데이터가 외부로 나가지 않는다.
+
+계약 조건도 다를 것이다. Apple 데이터로 Anthropic의 일반 모델을 훈련시키지 않겠다는 보장, 데이터 보존 기간 및 접근 권한에 대한 기술적 통제 등이 포함됐을 것이다.
+
+이건 Apple만의 문제가 아니다. **기업 AI 도입의 핵심 장벽**이 프라이버시다. 자사 코드를 외부 API에 보내는 걸 꺼리는 기업이 많다. Anthropic이 자체 호스팅 옵션을 제공한 건 이 시장을 노린 전략이다.
+
+Claude의 안전성 철학도 Apple과 맞았을 것이다. Anthropic은 "과도하게 조심스러운" 모델로 유명하다. 확신이 없으면 "잘 모르겠다"고 답한다. Apple 입장에서는 틀린 코드를 자신 있게 생성하는 것보다 조심스럽게 접근하는 게 낫다.
+
+---
+
+## 에이전틱 코딩의 보안 우려
+
+에이전틱 코딩은 편리하지만 위험도 있다. AI가 자율적으로 코드를 수정하고, 빌드하고, 테스트하면 무슨 일이 일어나는지 완전히 파악하기 어렵다.
+
+Django 공동 창시자 Simon Willison은 이렇게 경고했다.
+
+> "코딩 에이전트 보안과 관련해 챌린저 사고 같은 일이 곧 터질 것 같다."
+
+과장일 수 있다. 하지만 우려의 핵심은 타당하다. AI가 작성한 코드를 인간이 충분히 리뷰하지 않으면 취약점이 생길 수 있다. AI가 의도치 않게 민감한 정보를 노출할 수 있다. AI가 악의적인 프롬프트 인젝션에 당할 수 있다.
+
+Apple은 이 문제를 인식하고 있다. Xcode 26.3의 에이전틱 코딩은 **Human-in-the-Loop** 프로토콜을 따른다. 파괴적 작업은 개발자 승인 필요, 주요 아키텍처 변경은 확인 요청, 새 에이전트 프로세스마다 접근 권한 대화창 표시.
+
+마지막 항목은 실제로 워크플로우를 방해한다는 불만도 있다. 매번 "Xcode 접근 허용" 대화창을 클릭해야 하니까. 하지만 보안과 편의 사이의 트레이드오프다. Apple은 보안 쪽을 택했다.
+
+MCP 스키마 호환성 문제도 보고되고 있다. 실제 구현에서 예상대로 동작하지 않는 경우가 있다. macOS Tahoe에서만 완전히 지원되는 점도 제약이다. 초기 버전의 한계다.
+
+---
+
+## 결론: 선택은 끝났고, 판은 열렸다
+
+Apple이 Claude를 선택한 이유는 복합적이다.
+
+**프라이버시**. 자체 서버 호스팅으로 데이터 통제. **능력**. 프로젝트 전체를 이해하고 의존성을 추적하는 강점. **표준**. MCP라는 개방형 프로토콜로 미래 유연성 확보. **철학**. 과도하게 조심스러운 AI가 Apple의 품질 기준에 부합.
+
+Xcode 26.3의 발표는 시작일 뿐이다. 에이전틱 코딩은 개발 방식을 바꿀 것이다. AI가 코드를 작성하고, 인간은 목표를 설정하고 결과를 검증한다. 개발자의 역할이 재정의된다.
+
+Apple은 두 모델을 모두 넣어서 선택권을 줬다. Claude가 맞는 프로젝트가 있고, Codex가 맞는 프로젝트가 있다. 개발자가 판단하면 된다. 하지만 Apple 내부의 선택은 이미 끝났다.
+
+**Apple은 Anthropic으로 돌아가고 있다.**
+
+---
+
+**출처:**
+
+- [Apple integrates Anthropic's Claude and OpenAI's Codex into Xcode 26.3 — VentureBeat](https://venturebeat.com/technology/apple-integrates-anthropics-claude-and-openais-codex-into-xcode-26-3-in-push)
+- [Xcode 26.3 unlocks the power of agentic coding — Apple Newsroom](https://www.apple.com/newsroom/2026/02/xcode-26-point-3-unlocks-the-power-of-agentic-coding/)
+- [Apple's Xcode now supports the Claude Agent SDK — Anthropic](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk)
+- [Apple's hidden AI partner: the company heavily relies on Anthropic's Claude internally — TechSpot](https://www.techspot.com/news/111151-apple-hidden-ai-partner-company-heavily-relies-anthropic.html)
+- [Apple 'runs on Anthropic,' says Mark Gurman — 9to5Mac](https://9to5mac.com/2026/01/30/apple-runs-on-anthropic-says-mark-gurman/)
+- [Xcode 26.3 Brings Integrated Agentic Coding — InfoQ](https://www.infoq.com/news/2026/02/xcode-26-3-agentic-coding/)
+- [Donating the Model Context Protocol — Anthropic](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
+- [Unsplash — 이미지 출처](https://unsplash.com)
