@@ -5,6 +5,8 @@ import { sortByPublished } from '@/utils/sortByPublished'
 
 export default async function Page() {
   const sortedPosts = sortByPublished(allBlogs)
-  const posts = allCoreContent(sortedPosts).filter((post) => post.category !== 'tutorial')
+  const posts = allCoreContent(sortedPosts).filter(
+    (post) => post.category !== 'tutorial' && post.language !== 'en'
+  )
   return <Main posts={posts} />
 }
