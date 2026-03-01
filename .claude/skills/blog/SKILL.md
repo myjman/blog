@@ -4,7 +4,7 @@
 
 ## 출력 위치
 - MDX: ~/Desktop/blog/data/blog/{slug}.mdx
-- 이미지: ~/Desktop/blog/public/static/images/{slug}/
+- 이미지: Cloudflare R2 (`blog-images` 버킷)
 
 ## 분량
 - 1만자 (공백 포함)
@@ -28,7 +28,7 @@ title: '30자 이내 짧은 제목'
 date: '2026-MM-DDTHH:00:00'
 tags: ['english-tag', '한글태그', ...]
 draft: false
-images: ['/static/images/{slug}/og-image.png']
+images: ['https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/{slug}/og-image.png']
 summary: '1~2문장. 팩트 기반. 과장 없이.'
 
 ## 제목 패턴
@@ -44,7 +44,15 @@ summary: '1~2문장. 팩트 기반. 과장 없이.'
 ## 이미지
 - OG 이미지: 첫 H2 위 또는 바로 아래
 - alt 텍스트: 화면을 설명하는 한 문장
-- Unsplash/Pexels 또는 공식 홈페이지에서 다운로드 후 로컬 저장
+- Unsplash/Pexels 또는 공식 홈페이지에서 다운로드
+- R2에 업로드 (로컬 저장 금지):
+  ```bash
+  wrangler r2 object put blog-images/{slug}/파일명.png --file=파일경로 --remote
+  ```
+- MDX에서 R2 URL로 참조:
+  ```
+  https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/{slug}/파일명.png
+  ```
 
 ## 금지
 - "여러분", "꼭 보세요" (유튜버 말투)
