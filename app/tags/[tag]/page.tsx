@@ -43,7 +43,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string }> 
     sortByPublished(
       allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag))
     )
-  )
+  ).filter((post) => post.language !== 'en')
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
   const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE)
   const pagination = {

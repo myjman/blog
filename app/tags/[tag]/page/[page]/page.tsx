@@ -29,7 +29,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
     sortByPublished(
       allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag))
     )
-  )
+  ).filter((post) => post.language !== 'en')
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
 
   // Return 404 for invalid page numbers or empty pages
