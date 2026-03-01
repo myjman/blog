@@ -6,8 +6,8 @@ import type { Blog } from 'contentlayer/generated'
  */
 export function sortByPublished<T extends Pick<Blog, 'date' | 'publishedAt'>>(posts: T[]): T[] {
   return posts.sort((a, b) => {
-    const dateA = new Date(a.publishedAt || a.date).getTime()
-    const dateB = new Date(b.publishedAt || b.date).getTime()
+    const dateA = new Date(a.date).getTime()
+    const dateB = new Date(b.date).getTime()
     return dateB - dateA
   })
 }
