@@ -1,0 +1,91 @@
+---
+title: 'Why Codex Ditched the IDE'
+date: '2026-02-05T15:00:00'
+language: 'en'
+translationOf: 'codex-why-openai-ditched-the-ide'
+tags: ['codex', 'openai', 'ai-agent', 'vibe-coding', 'claude-code', 'cursor']
+draft: false
+summary: 'Why OpenAI built Codex as a standalone app instead of an IDE plugin. In the age of agents, the IDE itself has become the bottleneck.'
+---
+
+## What the IDE Can't Do
+
+On February 2, 2026, OpenAI released the Codex app for macOS. Not a plugin that lives inside your IDE like Copilot. A fully standalone desktop application.
+
+![Codex app interface](/static/images/codex/codex-screenshot.webp)
+
+What makes this interesting is that OpenAI already has IDE-integrated products. GitHub Copilot runs in VS Code. Codex CLI works in the terminal. And yet they went ahead and carved out a third category.
+
+Here's how OpenAI put it: "The core challenge has shifted from 'what can agents do' to 'how do humans direct and supervise agents.'" Existing IDEs and terminals were never designed to support that kind of workflow.
+
+## Three Categories
+
+AI coding tools have now split into three distinct lanes.
+
+| Category            | Key Tools              | Core Value                                          |
+| ------------------- | ---------------------- | --------------------------------------------------- |
+| IDE-first           | Cursor, Copilot        | Inline suggestions inside the editor                |
+| Terminal-first      | Claude Code, Codex CLI | Command-based, direct file manipulation             |
+| Orchestration-first | Codex App              | Multi-agent management, long-running task oversight |
+
+One developer's analogy nails it:
+
+> "Cursor feels like 'my IDE got superpowers.' The Codex app feels like 'my repo got a mission control center.'"
+
+IDE-first tools write code where your cursor is. Terminal-first tools operate directly on the file system. But the Codex app runs multiple agents simultaneously while you oversee each one. Agents work independently for up to 30 minutes, then drop their results into a review queue.
+
+## Why a Standalone App
+
+Build it as an IDE plugin and you inherit every limitation of the IDE. One agent per tab. An editor-centric interface. File-level thinking.
+
+The Codex app flips all of that:
+
+- **Parallel multi-agent execution** -- Manage multiple threads from the project sidebar. Each agent works in an isolated worktree, so they never collide.
+- **Automations** -- Agents run on schedules in the background. Results stack up in a review queue. "Bump test coverage every morning" is now a real workflow.
+- **Skills** -- Bundled packages of instructions, resources, and scripts. Create them in the app and they're shared across the CLI, IDE extensions, and your entire team.
+- **Frontend screenshots** -- For cloud-based frontend work, the app renders UI screenshots directly. You can review designs without checking out the branch locally.
+
+![Codex app dark mode](/static/images/codex/codex-screenshot-dark.webp)
+
+Sam Altman recently said he completed a sizable coding project without opening a traditional IDE once. That's the intended use case.
+
+## Tech Stack
+
+- **Model**: GPT-5.2-Codex -- o3 fine-tuned for coding. #1 on TerminalBench.
+- **Execution**: Sandboxed cloud environment. Each agent operates in an isolated worktree.
+- **Pricing**: Temporarily included in ChatGPT Free/Go. Plus, Pro, Business, Enterprise, and Edu get double the limits.
+- **Platform**: macOS only (Windows and Linux coming).
+
+## How It Differs from Claude Code
+
+If you're a vibe coder, the comparison you really want is against Claude Code.
+
+|                | Codex App                  | Claude Code                         |
+| -------------- | -------------------------- | ----------------------------------- |
+| Form factor    | Standalone GUI app         | Terminal CLI                        |
+| Agent count    | Multiple in parallel       | Single (with sub-agents)            |
+| Execution      | Cloud sandbox              | Local machine                       |
+| Long tasks     | Up to 30 min autonomous    | Continuous under user supervision   |
+| Automation     | Schedule-based Automations | hooks, CLAUDE.md                    |
+| Security model | Cloud isolation            | Local permissions (allowlist-based) |
+| Offline        | No                         | Yes (with an API key)               |
+
+The fundamental difference is where code runs. Codex runs in the cloud. You upload your files and get results back. Claude Code runs directly on your machine. It's a tradeoff between security, speed, and cost.
+
+Cloud execution gives Codex a security edge -- agents can't touch your local filesystem. On the other hand, Claude Code's local execution means zero network latency and no need to send private code to an external server.
+
+## Market Response
+
+Over a million developers used Codex within the first month. Two days after launch, on February 4, GitHub gave Copilot Pro+ and Enterprise users access to both Claude and Codex through Agent HQ. Not competition -- coexistence.
+
+The positive buzz centered on tackling tech debt. In Altman's words: "AI coding agents excel at the kind of work human developers hate -- refactor this, clean up this codebase, rewrite this, write these tests."
+
+Concerns exist too. macOS-only availability. Agents still make mistakes and need oversight. And the broader anxiety about shrinking developer roles.
+
+## Not Ditching the IDE -- Outgrowing It
+
+To be precise, Codex didn't ditch the IDE. It's trying to answer a question the IDE can't: "What interface do you need to run five agents at once and review each of their outputs?"
+
+VS Code's tab structure doesn't answer that. A single terminal session doesn't cut it either. So a new category was born.
+
+The competitive axis in AI coding tools is shifting from "who writes smarter code" to "who delivers a better agent management experience." The Codex app is the first serious attempt in that direction.

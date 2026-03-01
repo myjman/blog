@@ -1,0 +1,87 @@
+---
+title: 'It Was 403, Not 404'
+date: '2026-02-05T21:00:00'
+language: 'en'
+translationOf: 'sonnet5-403-not-404'
+tags: ['claude', 'sonnet-5', 'fennec', 'vibe-coding']
+draft: false
+summary: 'A query for claude-sonnet-5 on Vertex AI returned 403, not 404. Codename Fennec, SWE-Bench 82.1%, 1 million token context. The evidence behind the rumor and what vibe coders should know.'
+images: ['/static/images/sonnet5/sonnet5-og.png']
+---
+
+## One Error Code Changed Everything
+
+First weekend of February 2026. Something odd turned up in Vertex AI logs. Querying a nonexistent model ID returns 404. That is expected. But querying `claude-sonnet-5@20260203` returned **403**.
+
+404 means "no such thing exists." 403 means "it exists, but you are not allowed to see it."
+
+That one difference sent the community into a frenzy.
+
+![Sonnet 5 leak summary](/static/images/sonnet5/sonnet5-og.png)
+
+## Who Found It: Ben Taleb Jr.
+
+The first person to spot this was Ben Taleb Jr., going by **@macintoch**. He had been running a script that monitors Google Cloud's **Model Garden endpoint**.
+
+The method was straightforward:
+
+- **Control:** Fake model ID `claude-sonnet-99` → **404 Not Found** (does not exist)
+- **Experiment:** Leaked model ID `claude-sonnet-5` → **403 Forbidden** (exists but access denied)
+
+Textbook controlled experiment. The difference between 404 and 403 comes down to whether the server recognizes the resource or not. A 403 response means the model has already been staged somewhere in Google's infrastructure.
+
+## Codename Fennec
+
+The leaked internal codename is **Fennec**. Fennec foxes have ears that are absurdly large relative to their bodies. The community is reading this as a nod to the rumored **1 million token context window** — five times the 200K of Opus 4.5. Big ears = big input capacity.
+
+For reference, Google's Gemini 3.5 has the internal codename "Snow Bunny." Some claim Fennec is positioned a generation ahead of Snow Bunny.
+
+![AI model competition illustration](/static/images/sonnet5/vertex-ai-log.jpg)
+
+## Rumored Specs
+
+Several independent sources keep pointing to the same numbers. None of this has been officially confirmed by Anthropic.
+
+| Spec             | Rumored Value                                              |
+| ---------------- | ---------------------------------------------------------- |
+| Model ID         | `claude-sonnet-5@20260203`                                 |
+| SWE-Bench        | **82.1%**                                                  |
+| Context window   | **1 million tokens** (5x Opus 4.5)                         |
+| Pricing          | **~50% cheaper** than Opus 4.5                             |
+| Performance tier | Opus 4.5 level                                             |
+| Special features | "Dev Team" mode (speculated), structured visual generation |
+
+One developer reportedly threw a 4,000-line Rust refactor at Sonnet 5. Unlike GPT-5.2, it tracked the entire dependency tree without hallucinating.
+
+## Compared to Opus 4.5
+
+|             | Opus 4.5 (current) | Sonnet 5 Fennec (rumored)                    |
+| ----------- | ------------------ | -------------------------------------------- |
+| Context     | 200K tokens        | 1 million tokens                             |
+| SWE-Bench   | -                  | 82.1%                                        |
+| Pricing     | Baseline           | ~50% cheaper                                 |
+| Positioning | Flagship           | Flagship-level performance, mid-tier pricing |
+| Release     | November 2025      | Unreleased                                   |
+
+Opus 4.5 came out barely 10 weeks ago. That short gap is exactly what makes people skeptical. A surprise zero-marketing flagship drop is not Anthropic's style.
+
+## What This Means for Vibe Coders
+
+The practical question: should you change your model stack right now?
+
+**Not yet.**
+
+- There is no official announcement
+- Community confidence sits around 60-70% "probably real"
+- The original evidence was a Twitter screenshot — there is no proof of direct access to raw Vertex AI logs
+- Competing rumors are flying at the same time: Gemini 3.5 Snow Bunny, GPT-5.2 upgrades. This is a period where leaks create market pressure
+
+That said, if the 1 million token context turns out to be real, it changes the game. The constraint of "you have to chunk your codebase to fit it in" just disappears. The Anthropic blog is worth watching.
+
+## Anthropic Has Said Nothing
+
+Anthropic has not responded to any of this. No confirmation. No denial.
+
+One thing is certain: somewhere in Google's Vertex AI infrastructure, a resource named `claude-sonnet-5` exists, and it returns 403, not 404.
+
+The rest, we wait and see.
