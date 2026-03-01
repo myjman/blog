@@ -1,0 +1,257 @@
+---
+title: 'Why DeepSeek V4 Runs on Two RTX 4090s'
+date: '2026-02-17T18:00:13'
+language: 'en'
+translationOf: 'deepseek-v4-rtx-4090'
+tags:
+  [
+    'deepseek',
+    'deepseek-v4',
+    'rtx-4090',
+    'consumer-gpu',
+    'moe',
+    'mixture-of-experts',
+    'mla',
+    'ai-coding',
+    'open-source-ai',
+  ]
+draft: false
+images: ['/static/images/deepseek-v4-rtx-4090/og-image.jpg']
+summary: 'DeepSeek V4 is a 1 trillion parameter model that runs on two RTX 4090s. MoE architecture and MLA compression made it possible. GPT-4 class inference without $50,000 worth of H100 infrastructure.'
+---
+
+## $50,000 Infrastructure Down to $1,500
+
+![RTX 4090 graphics card — now running a 1 trillion parameter model](/static/images/deepseek-v4-rtx-4090/og-image.jpg)
+
+February 17, 2026. Lunar New Year. Also the day DeepSeek is expected to unveil V4.
+
+The reason this model matters is simple. It has **1 trillion parameters**, yet it runs on **two RTX 4090s**. Two 4090s cost about $1,500. Getting the same performance used to require an NVIDIA H100 cluster. At least **$50,000** in infrastructure costs.
+
+That is a **97%+ cost reduction**. How is this possible?
+
+Three technologies are at the core. MoE (Mixture of Experts) architecture, MLA (Multi-head Latent Attention) compression, and DeepSeek Sparse Attention. Combined, they produce what sounds like magic: "1 trillion parameters, but only 32 billion are actually used."
+
+Running GPT-4 locally. A year ago, that was a fantasy. Now it is real.
+
+---
+
+## MoE: Waking Up Only 3% of 1 Trillion Parameters
+
+![Data center server room — the old AI inference infrastructure](/static/images/deepseek-v4-rtx-4090/data-center.jpg)
+
+MoE stands for Mixture of Experts. The core idea is straightforward. **Not all parameters are used at once.**
+
+DeepSeek V4 has a total of 1 trillion parameters. But when processing a single token, only about **32 billion** (32B) are activated. That is roughly **3%** of the total. The other 97% stay dormant.
+
+Here is how it works. Inside the model are hundreds of "expert networks." Each expert specializes in processing specific types of patterns. When input arrives, a "router" module selects and activates only the few experts best suited for that input.
+
+Think of it like a large hospital. The hospital has 100 specialists. But when treating one patient, all 100 do not show up. Two or three specialists handle the case based on the symptoms. The rest are either treating other patients or on standby.
+
+The advantage of MoE is that it **decouples parameter count from compute**. You get the "knowledge capacity" of 1 trillion parameters while keeping actual computation at a 32-billion-parameter level. The full parameter set still needs to fit in memory, but compute costs are far lower.
+
+According to DeepSeek V3's (V4's predecessor) technical report, the MoE structure reduced training costs by roughly **5x** at equivalent performance. V4 pushes this efficiency further.
+
+| Model             | Total Parameters | Active Parameters | Activation Rate |
+| ----------------- | ---------------- | ----------------- | --------------- |
+| GPT-4 (estimated) | 1.8T             | 1.8T              | 100%            |
+| DeepSeek V4       | 1T               | 32B               | ~3%             |
+| DeepSeek V3       | 671B             | 37B               | ~5%             |
+| Llama 3 70B       | 70B              | 70B               | 100%            |
+
+Comparing GPT-4 and DeepSeek V4 is interesting. Both have trillion-scale parameters, but GPT-4 activates all of them at all times (dense model). DeepSeek V4 activates only 3% (sparse model). That is why inference cost differs by **20-50x**.
+
+---
+
+## MLA: Compressing the KV Cache by 93.3%
+
+If MoE reduces compute, MLA (Multi-head Latent Attention) reduces **memory usage**.
+
+The biggest memory bottleneck in transformer models is the **KV cache** (Key-Value Cache). It stores data the model needs to "remember" previous tokens. As the context window grows, the KV cache grows linearly. A 1-million-token context window requires tens of gigabytes just for the KV cache.
+
+MLA's core idea is **low-rank compression**. Instead of storing the original Keys and Values as-is, it first compresses them into smaller-dimensional "latent vectors." Only these compressed vectors are stored in the cache. They are decompressed when needed.
+
+Mathematically, it works like this. In the traditional approach, the input X is multiplied by a weight matrix W_KV to produce Keys and Values. In MLA, W_KV is **factored into two smaller matrices**: W_DKV (compression matrix) and W_UK, W_UV (decompression matrices).
+
+```
+Traditional: X -> W_KV -> K, V (large vectors, stored in cache)
+MLA:         X -> W_DKV -> C_KV (small vectors, stored in cache) -> W_UK, W_UV -> K, V
+```
+
+The results reported in the DeepSeek V2 paper are striking. Applying MLA reduces KV cache size by **93.3%**. What used to require 100GB of KV cache drops to 6.7GB.
+
+Even more surprising, there is almost no performance degradation. MLA was actually reported to deliver **slightly better** modeling performance than standard Multi-head Attention (MHA). The compression appears to act as a form of regularization.
+
+Look at the specific implementation numbers. In DeepSeek V4, the number of attention heads (n_h) is 128, dimension per head (d_h) is 128. The KV compression dimension (d_c) is 512. The original dimension (128 x 128 = 16,384) shrinks to 512 -- a compression ratio of roughly 32:1.
+
+This compression is what makes it possible to run DeepSeek V4 on a **single RTX 4090** (24GB VRAM). Full performance requires two cards, but basic inference works on a single GPU.
+
+---
+
+## DeepSeek Sparse Attention: 1 Million Tokens in One Pass
+
+![Circuit board — advancing AI chip technology](/static/images/deepseek-v4-rtx-4090/circuit-board.jpg)
+
+If MoE and MLA optimized "internal model" efficiency, DeepSeek Sparse Attention optimizes "long context" efficiency.
+
+DeepSeek V4's context window is **over 1 million tokens**. That is large enough to read an entire codebase at once. But computing full attention over 1 million tokens means compute grows with the **square of the token count**. One million tokens would require 1 trillion attention operations.
+
+DeepSeek Sparse Attention uses **dynamic sparsity**. Rather than computing attention for every token pair, it selectively computes only for "highly relevant" pairs.
+
+Here is how it works. A module called "Lightning Indexer" analyzes the input. For each query, it quickly identifies the most relevant keys within the context. Attention is computed only for the top-K relevant blocks.
+
+Think of it like finding a book in a library. Instead of scanning all 1 million books, you use an index system to quickly locate only the relevant ones.
+
+Thanks to this approach, compute growth remains **linear** even at 1-million-token contexts. If the token count increases 10x, compute increases 10x -- not quadratically.
+
+The practical effect is this. Dense Attention models could not realistically handle 1-million-token contexts. Not enough memory, and it took far too long. DeepSeek V4 processes 1 million tokens at **near real-time** speeds.
+
+---
+
+## Engram Memory: Retrieving Knowledge in O(1) Time
+
+Beyond MoE, MLA, and Sparse Attention, DeepSeek V4 introduces another innovation: the **Engram Conditional Memory** system.
+
+Traditional transformers mix "static pattern storage" and "dynamic reasoning." Knowledge the model has learned (e.g., grammar rules, common sense) and real-time reasoning (e.g., logical judgments based on the current context) are processed by the same mechanism.
+
+Engram **separates the two**. Frequently used static patterns are stored in a dedicated memory module. This memory is queried in **O(1) time complexity**. When input arrives, the model first retrieves relevant patterns from Engram memory quickly, then performs dynamic reasoning on top of that.
+
+Conceptually, it is a modernized version of N-gram embeddings. Classical N-gram models were fast but limited in expressiveness. Engram maintains the expressiveness of neural networks while borrowing the lookup speed of N-grams.
+
+The practical effect shows up in **time to first token** reduction. When processing long prompts, traditional models must encode the entire prompt sequentially. With Engram, frequently occurring patterns are retrieved instantly. Encoding time drops.
+
+---
+
+## Benchmarks: Targeting 80%+ on SWE-bench
+
+The technology is impressive. But what about performance?
+
+Official benchmarks for DeepSeek V4 have not been published yet (as of February 17, 2026). However, internal test results have leaked through multiple channels.
+
+The most watched metric is **SWE-bench** performance. SWE-bench measures the ability to resolve real GitHub issues. The current top score is Claude Opus 4.5 at **80.9%**.
+
+Rumors suggest that in internal tests, V4 scored **above 80%**. If true, it is on par with Claude Opus 4.5. But at **20-50x lower cost**.
+
+| Model           | SWE-bench Verified | Inference Cost (1M tokens) |
+| --------------- | ------------------ | -------------------------- |
+| Claude Opus 4.5 | 80.9%              | ~$75 (output)              |
+| GPT-4o          | ~60%               | ~$30 (output)              |
+| DeepSeek V4     | ~80% (unconfirmed) | ~$0.42 (output)            |
+| DeepSeek V3.2   | ~65%               | ~$0.42 (output)            |
+
+Beyond SWE-bench, V4 is expected to show strength across multiple coding benchmarks. DeepSeek V3 already set the top score on **LiveCodeBench**. On the math benchmark **MATH-500**, it hit 90.2%, far ahead of Claude (78.3%).
+
+V4 has significant architectural improvements over V3. It adds mHC (Manifold-Constrained Hyper-Connections). This technique solves the signal explosion problem that occurs in deep networks. In previous approaches, activation values could explode by up to 3,000x as layers got deeper. mHC suppresses this to **1.6x**.
+
+Taming signal explosion allows stable training of deeper networks. Deeper networks can learn more complex patterns. This is the key driver of performance gains.
+
+---
+
+## Pricing: 1/50th of GPT-4
+
+![Gaming setup — now doubling as AI inference infrastructure](/static/images/deepseek-v4-rtx-4090/gaming-setup.jpg)
+
+DeepSeek V4's biggest weapon is **price**.
+
+Look at API pricing. DeepSeek V4 is expected to cost **$0.28/1M tokens** for input (cache miss) and **$0.42/1M tokens** for output (based on V3.2-Exp pricing). On cache hits, input drops to **$0.028/1M tokens**.
+
+Here is the comparison.
+
+| Model           | Input ($/1M) | Output ($/1M) | Ratio (vs GPT-4) |
+| --------------- | ------------ | ------------- | ---------------- |
+| GPT-4 Turbo     | $10          | $30           | 1x               |
+| Claude Opus 4.5 | $15          | $75           | 1.5x (more)      |
+| DeepSeek V4     | $0.28        | $0.42         | **1/50x**        |
+
+That is **20-50x cheaper** than GPT-4. Compared to Claude Opus, the gap exceeds **100x**.
+
+Local deployment costs have also dropped dramatically. Two RTX 4090s are enough to run V4 at full performance. A single 4090 costs about $750, totaling $1,500. Compare that to a single H100 at $30,000-$40,000 -- that is **1/30th the price**.
+
+Even more extreme optimization is possible. With 4-bit quantization, there are reports of limited inference running on an **RTX 3060** (12GB VRAM). A 3060 costs about $300.
+
+The cost reduction is not just about "being cheaper." It means **local deployment becomes practical**.
+
+Consider the enterprise perspective. Sending sensitive code to an external API is a security risk. Running locally keeps data in-house. But local deployment used to be prohibitively expensive. Building an H100 cluster cost millions.
+
+DeepSeek V4 changes that equation. A **$1,500 investment** gets you a GPT-4 class model running on-premises. That is accessible even to small businesses.
+
+It matters for individual developers too. No need to spend $100/month on API costs. Buy the GPU once, run inference unlimited. Experiment freely with a GPT-4 class model for hobby projects or learning.
+
+---
+
+## Open Source: Released Under Apache 2.0
+
+Another major strength of DeepSeek V4 is that it is **open source**.
+
+Since V3, DeepSeek has been releasing model weights under the **Apache 2.0 license**. V4 is expected to follow the same license. Apache 2.0 is a permissive license that allows nearly all uses, including commercial.
+
+Why does this matter?
+
+**First, modification is unrestricted.** You can fine-tune it for specific domains. Build a version specialized for legal document analysis, or one tuned for medical record processing. Closed-model APIs do not allow this kind of customization.
+
+**Second, verification is possible.** You can inspect exactly how the model works. In security-sensitive environments, trusting a "black box" model is difficult. Open-source models can be audited at the code level.
+
+**Third, a community ecosystem forms.** After V3 was released, numerous derivative projects appeared: quantized optimization versions, versions specialized for specific languages, lightweight versions for edge devices. V4 is expected to produce the same ecosystem effect.
+
+In contrast, GPT-4 and Claude are fully closed models. Accessible only via API. Internal architecture is undisclosed. If OpenAI or Anthropic shuts down the service, you lose access.
+
+In the open source vs. closed debate, DeepSeek V4 is evidence that "open source can also deliver top-tier performance." Previously, open-source models always trailed closed ones. Like Llama staying at GPT-3.5 level. If V4 truly matches GPT-4/Claude performance, that formula breaks.
+
+---
+
+## China's AI Counterattack
+
+DeepSeek V4's emergence must be understood in a larger context: **China's rapid rise in AI**.
+
+In 2022, the US tightened semiconductor export controls on China. Exports of high-performance GPUs including the H100 were banned. Chinese AI companies lost access to the best hardware.
+
+Many experts predicted: "Chinese AI will fall behind." Large-scale model training is impossible without cutting-edge hardware, they said.
+
+DeepSeek proved them wrong.
+
+DeepSeek V3's training cost was estimated at roughly **$5.5 million**. That is 1/50th of GPT-4's estimated training cost (hundreds of millions of dollars). They used A100s instead of H100s and compensated for hardware disadvantages through algorithmic efficiency.
+
+V4 goes further. It aims to achieve "top performance" and "lowest cost" simultaneously. It maximizes not just training efficiency but inference efficiency as well.
+
+Here is what this strategy means. US companies have been improving performance through "bigger models, more compute." It is an open secret that GPT-5's inference costs are higher than GPT-4's. That is the scale-up strategy.
+
+DeepSeek goes the opposite direction. "Same performance, fewer resources." The efficiency strategy. Hardware constraints actually forced algorithmic innovation.
+
+Who wins in the end is still unknown. But one thing is certain. **Competition is intensifying.** For consumers, that is a good thing. Prices drop and options multiply.
+
+US tech stocks are on edge too. Each time news about DeepSeek V4 surfaces, **NVIDIA's stock price wobbles.** The concern is that demand for expensive GPUs might decline. In early February 2026, NVIDIA dropped over 5% in a single day on DeepSeek-related news.
+
+---
+
+## Conclusion: Democratization or Arms Race?
+
+Here is why DeepSeek V4 runs on two RTX 4090s.
+
+**MoE architecture** activates only 3% of 1 trillion parameters. Compute drops 30x. **MLA compression** shrinks the KV cache by 93.3%. Memory usage drops 15x. **Sparse Attention** processes 1 million tokens in linear time. Costs do not explode with long contexts.
+
+The combination of all three shrinks what used to be $50,000 infrastructure down to $1,500.
+
+Whether this is "AI democratization" or the start of a new "arms race" depends on your perspective.
+
+From the democratization angle, individuals and small businesses can now access GPT-4 class AI. The tech gap between big corporations and startups narrows. More innovation becomes possible.
+
+From the arms race angle, there is no floor. If DeepSeek V4 costs $1,500, the next generation might cost $500. Then $100. Whether "a world where anyone can run GPT-4" is utopia or dystopia, nobody knows.
+
+What is certain is this. **The AI cost curve is plummeting.** What was impossible a year ago is possible today. A year from now, another impossibility will become possible.
+
+DeepSeek V4 is one point on that curve. But an important one. The milestone that says "a 1 trillion parameter model runs on consumer GPUs." Once you pass this milestone, there is no going back.
+
+---
+
+**Sources:**
+
+- [DeepSeek V4 is coming this month. Why it could rattle tech stocks and Nvidia — The Motley Fool](https://www.fool.com/investing/2026/02/11/deepseek-v4-is-coming-this-month-why-it-could-ratt/)
+- [DeepSeek V4: 1M+ Context, Consumer GPU, Open Weights — TamilTech](https://tamiltech.in/article/deepseek-v4-launch-february-2026-context-consumer-gpu-open-weights)
+- [DeepSeek V4: Revolutionary AI Coding Model Launching February 2026 — Gaga.art](https://gaga.art/blog/deepseek-v4/)
+- [DeepSeek V4's 1-Trillion Parameter Architecture Targets Western AI Coding Dominance — Introl](https://introl.com/blog/deepseek-v4-trillion-parameter-coding-model-february-2026)
+- [DeepSeek V4 vs Claude Opus 4.5 for Coding: Benchmark Comparison — WaveSpeedAI](https://wavespeed.ai/blog/posts/blog-deepseek-v4-vs-claude-opus-coding/)
+- [DeepSeek-V3 Explained: Multi-head Latent Attention — Towards Data Science](https://towardsdatascience.com/deepseek-v3-explained-1-multi-head-latent-attention-ed6bee2a67c4/)
+- [Decoding Multi-Head Latent Attention — Vizuara](https://vizuara.substack.com/p/decoding-multi-head-latent-attention)
+- [DeepSeek V4 Pricing: Why It Costs 20-50x Less Than OpenAI — Macaron](https://macaron.im/blog/deepseek-v4-pricing)
+- [DeepSeek V4: Everything We Know About the Upcoming Coding AI Model — WaveSpeedAI](https://wavespeed.ai/blog/posts/deepseek-v4-everything-we-know-about-the-upcoming-coding-ai-model/)
+- [Unsplash](https://unsplash.com)

@@ -1,0 +1,307 @@
+---
+title: 'If Opus Is the Best, Why Did He Build It with Codex?'
+date: '2026-02-14T18:00:00'
+language: 'en'
+translationOf: 'opus-best-but-built-with-codex'
+tags: ['openclaw', 'claude-opus', 'codex', 'ai-coding', 'vibe-coding']
+draft: false
+images: ['/static/images/opus-best-but-built-with-codex/og-image.jpg']
+summary: 'OpenClaw creator Peter Steinberger calls Claude Opus the best general-purpose agent. Yet he built OpenClaw with Codex. Contradiction or insight?'
+---
+
+## The Contradiction from the Man with 180K Stars
+
+![AI robot face -- which model is best depends on who you ask](/static/images/opus-best-but-built-with-codex/og-image.jpg)
+
+February 2026. The fastest-growing project in GitHub history appeared. OpenClaw. An open-source AI agent built by Austrian developer Peter Steinberger. Over 180,000 stars. 6,600 commits in January alone. One person built it.
+
+But here is the strange part. Steinberger publicly called Anthropic's Claude Opus **"the best general-purpose agent."** He recommends Claude Opus to OpenClaw users. Yet when building OpenClaw itself, he used OpenAI's Codex.
+
+Is this a contradiction? Or are we missing something?
+
+---
+
+## What Is OpenClaw
+
+OpenClaw is an autonomous AI agent. Give it instructions and it executes on its own. It writes code, creates files, runs tests, and deploys. No human intervention required in between.
+
+It was originally called Clawdbot -- a name reminiscent of Anthropic's Claude. On January 27, 2026, after a trademark claim from Anthropic, Steinberger renamed it to Moltbot. That name did not stick. Three days later, it became OpenClaw.
+
+OpenClaw is not locked to any AI model. It is **model-agnostic**. Claude Opus 4.6, GPT Codex 5.3, DeepSeek, even locally-hosted open-source models -- all supported. Users choose.
+
+Yet Steinberger himself used Codex to **build** it. While recommending Opus to users. Why?
+
+---
+
+## Why He Called Opus "The Best"
+
+![Code flowing on screen -- the age of AI coding tools](/static/images/opus-best-but-built-with-codex/coding.jpg)
+
+Steinberger had clear reasons for calling Claude Opus the best.
+
+On February 5, 2026, Anthropic released Claude Opus 4.6. The same day, OpenAI announced GPT-5.3-Codex. A head-on collision.
+
+The benchmarks reveal Opus 4.6's strengths. On **Terminal-Bench 2.0**, Opus 4.6 led GPT-5.2 by roughly 144 Elo points. On reasoning and knowledge benchmarks like **Humanity's Last Exam** and **GDPval-AA**, it ranked near the top.
+
+Opus 4.6 shines in specific areas. **Long-context processing**, **interpreting ambiguous constraints**, **maintaining consistency across multiple files**. When architectural decisions span a large codebase, when the answer is scattered across dozens of files, Opus 4.6 holds it together.
+
+It also leads in prompt injection defense. For autonomous agents like OpenClaw, security matters. An AI tricked by malicious input into unintended behavior is dangerous. Opus 4.6 shows stronger resistance to such attacks.
+
+These traits are why Steinberger calls Opus "the best general-purpose agent." When **an average user delegates diverse tasks**, Opus 4.6 delivers the safest and most consistent results.
+
+---
+
+## So Why Build with Codex
+
+Here is the twist.
+
+Steinberger built OpenClaw not with Claude Code but with Codex. Why?
+
+In The Pragmatic Engineer newsletter, Steinberger said this:
+
+> "Codex keeps going on long-running tasks without stopping. Claude Code tends to ask the user for clarification often, which gets in the way."
+
+The key is **workflow**.
+
+Steinberger's development process is unusual. Before writing any code, he **plans extensively** with the agent. He challenges it, revises, pushes back. Only when the plan is sufficiently refined does execution begin. Then he moves on to planning the next task.
+
+Claude Code is a problem in this flow. Claude Code is **too fast and asks too many questions**. Mid-task, it fires off things like "Can I check if this is right?" For Steinberger, who already has the plan locked down, this is a distraction.
+
+Codex, on the other hand, **quietly reads code for 10 minutes, then starts the long-running task**. It works correctly from small prompts. It does not interrupt. In Steinberger's words, "it works like an introverted engineer -- heads down, gets it done."
+
+| Trait          | Claude Code                        | Codex                               |
+| -------------- | ---------------------------------- | ----------------------------------- |
+| Work style     | Frequent check-ins, fast responses | Quiet execution, long-running tasks |
+| After planning | Asks mid-task questions            | Completes without interruption      |
+| Best for       | Interactive collaboration          | Asynchronous workflows              |
+| Code reading   | Starts quickly                     | Reads 10+ minutes before starting   |
+
+---
+
+## Not a Contradiction -- a Difference in Purpose
+
+![Fork in the road -- which tool depends on the goal](/static/images/opus-best-but-built-with-codex/paradox.jpg)
+
+Now Steinberger's statements make sense. He is recommending different tools for different contexts.
+
+**Why he recommends Opus to OpenClaw users**: stability as a general-purpose agent, security, long-context handling.
+
+**Why he builds with Codex**: it fits his long-running asynchronous workflow.
+
+This is not about "which is better." It is about **"which fits which situation."**
+
+Steinberger has shipped 600 commits in a single day. How? **Parallel execution**. Plan, hand it to Codex, move to the next plan. Multiple Codex sessions run simultaneously. When one finishes, he reviews the result and kicks off the next task.
+
+In this workflow, Claude Code's "confirmation requests" become bottlenecks. If 10 sessions are running and each one asks a question, Steinberger has to context-switch constantly. Codex just handles it.
+
+But most users are different. Most people work **conversationally** with AI. They do not plan everything perfectly upfront. They want to check in mid-task: "Is this right?" For these users, Opus's "helpful confirmations" are a feature, not a bug.
+
+---
+
+## The Personality Gap Between Two Models
+
+On the Lex Fridman podcast, Steinberger compared the two models' personalities. In his words:
+
+**Claude Opus 4.6**: Warm, fast, acts first and asks permission later. User-friendly. Explains well, checks in along the way.
+
+**GPT Codex 5.3**: Precise, thorough, pushes through to the end. Once it starts, it finishes. No interruptions.
+
+What is interesting is that in 2026, the two models are **converging**. Opus 4.6 absorbed some of Codex's precision. Codex 5.3 picked up some of Opus's warmth.
+
+But the fundamental difference remains. Claude is optimized for **conversational agents**. Codex is optimized for **asynchronous execution agents**.
+
+Steinberger posted this on X:
+
+> "Codex is the quiet, heads-down type. Claude is annoying with the millions of markdown files it generates. Though for infra/testing/tooling, Claude is better."
+
+He does not let Claude Code into his codebase. Running it with Opus produces too many bugs, he says. This is not a flaw in the model. It is a **mismatch in work style**.
+
+---
+
+## What Benchmarks Do Not Tell You
+
+Looking at benchmark numbers alone, you might think you can objectively determine which model is superior. Reality is not that simple.
+
+On **Terminal-Bench 2.0**, Codex 5.3 scored 77.3%. Opus 4.6 scored around 65.4%. By the numbers alone, Codex looks dominant. So why does Steinberger call Opus "the best"?
+
+Benchmarks measure **performance under specific conditions**. Terminal-Bench evaluates terminal-based coding tasks. But in real work, AI agents do far more:
+
+- Reading and summarizing long documents
+- Interpreting ambiguous requirements
+- Refactoring across multiple files
+- Detecting security vulnerabilities
+- Holding natural conversations with users
+
+Benchmark scores do not directly reflect performance on these tasks. Opus 4.6 leading on reasoning benchmarks like Humanity's Last Exam points to exactly this kind of "general-purpose" capability.
+
+There is another critical factor: **speed and cost**.
+
+Running 50 parallel agent batches, Codex 5.3 finished in 45 seconds. Opus 4.6 took nearly 3 minutes. A 4x gap in throughput. For someone like Steinberger running massive workloads, that difference is fatal.
+
+But for single-task quality, Opus often wins. Ask "explain why this code is broken" and Opus returns a clearer, more structured answer.
+
+Ultimately, **what you are doing and how much of it** determines the optimal model.
+
+---
+
+## Why OpenClaw Is Model-Agnostic
+
+This is where OpenClaw's design philosophy comes from.
+
+Steinberger **did not lock OpenClaw to any model**. Claude Opus 4.6, GPT Codex 5.3, DeepSeek, local models -- all supported. The user decides.
+
+OpenClaw v2026.2.6, released February 6, 2026, officially added Opus 4.6 and GPT-5.3-Codex support. Within the same instance, you can **assign different models to different tasks**.
+
+A typical strategy looks like this:
+
+- Routine assistant tasks: Claude Sonnet 4.5 (fast and cheap)
+- High-stakes tasks, critical decisions: Opus 4.6 (stable and secure)
+- Large-scale parallel coding: Codex 5.3 (high throughput)
+
+This design exists because Steinberger **lived it**. He thinks Opus is the best general-purpose agent, but he knows Codex fits his specific workflow. So he tells OpenClaw users: "Use what fits your situation."
+
+---
+
+## Words and Actions Are Not Misaligned
+
+![Complex choices -- there is no single right answer](/static/images/opus-best-but-built-with-codex/choice.jpg)
+
+At first, Steinberger's statements looked contradictory. "Opus is the best" -- then why build with Codex?
+
+Look deeper and a **consistent philosophy** emerges.
+
+1. **The best tool depends on context.** Being the best at general-purpose work and being the best at a specific task are different things.
+
+2. **He knows his own workflow.** Steinberger knows exactly how he works. Plan first, then execute asynchronously in parallel. Codex fits that flow.
+
+3. **Users are different.** Most users do not work like Steinberger. They collaborate with AI conversationally. They need mid-task validation. Opus is better for them.
+
+4. **Models are tools.** Debating which model is "objectively" better is pointless. It is like arguing whether a saw is better than a hammer. Depends on what you are building.
+
+Steinberger's "contradiction" is actually **the most honest advice possible**: "This is how I use it, but you might be different. Use what fits your situation."
+
+---
+
+## Steinberger's Workflow: Closed-Loop Design
+
+The secret to Steinberger's 600 commits per day lies in **closed-loop design**.
+
+In his system, AI agents compile, lint, execute, and verify on their own. No human review needed in between. If the output passes the criteria, it automatically moves to the next step. If it fails, it automatically retries.
+
+For this system to work, **the AI must not ask questions mid-task**. All uncertainty must be eliminated during planning. That is why Steinberger invests heavily in the planning phase. He refines the plan through conversation with the agent, and only when it is crystal clear does execution begin.
+
+Claude Code does not fit this system. Claude Code is **user-friendly**. When something is uncertain, it asks. "Should I modify this function or create a new one?" For most users, this is helpful. For Steinberger, who already has a perfect plan, it is an unnecessary interruption.
+
+Codex is different. Given a plan, it **executes to completion**. No mid-task questions. It delivers the result. This fits Steinberger's closed-loop system.
+
+Gergely Orosz of The Pragmatic Engineer put it this way:
+
+> "Peter spends a lot of time on planning. He prefers Codex because Codex handles long-running tasks autonomously. Claude Code asks clarifying questions, which becomes disruptive when the plan is already set."
+
+This is not a flaw in Claude Code. It is **optimized for a different usage pattern**. For users who collaborate with AI without a complete plan upfront, Claude Code's questions help. For users who plan perfectly and execute asynchronously, Codex is the answer.
+
+---
+
+## The Secret to OpenClaw's Success: Model Independence
+
+One reason OpenClaw became the fastest-growing project in GitHub history is **zero model lock-in**.
+
+Many AI tools are tied to specific models. Claude Code only uses Claude. GitHub Copilot runs on OpenAI models. Users have no choice.
+
+OpenClaw is different. Users pick their model. Claude Opus 4.6, GPT Codex 5.3, DeepSeek V4, Gemini 3 Pro, even locally-hosted Llama 3.2 -- all supported. Just connect your API key.
+
+This design philosophy came from Steinberger's own experience. He thinks Opus is the best but uses Codex himself. That experience shaped OpenClaw's model-agnostic architecture.
+
+The OpenClaw GitHub repository says it plainly:
+
+> "AI/vibe-coded PRs welcome!"
+
+Contributions built with vibe coding are welcome. OpenClaw itself was built with vibe coding, so contributors can use it too.
+
+This openness fueled OpenClaw's explosive growth. 180,000 stars. 6,600 monthly commits. Unbelievable numbers for a one-person project. But that "one person" works alongside AI. And that AI is the user's choice.
+
+---
+
+## The Courtship from Meta and OpenAI
+
+OpenClaw's success attracted big tech attention. In February 2026, both Meta and OpenAI approached Steinberger.
+
+According to TrendingTopics.eu, both companies either tried to recruit Steinberger or explored collaboration with the OpenClaw project. Specifics were not disclosed, but it shows the impact OpenClaw had on the industry.
+
+In a YC (Y Combinator) interview, Steinberger made a bold prediction:
+
+> "In the future, 80% of apps will disappear."
+
+If AI agents perform tasks on behalf of users, most existing apps become unnecessary. Flight booking app? The AI agent books it. Food delivery app? The AI agent orders. Apps become APIs that AI agents talk to.
+
+For this vision to materialize, AI agents need to be smart enough. Steinberger believes Claude Opus is the best fit for that role. Because of its stability, security, and long-context processing as a general-purpose agent.
+
+But for **building** such agents, Codex is better. Generating massive amounts of code in parallel, testing, deploying. That distinction is the core of Steinberger's philosophy.
+
+---
+
+## How to Choose an AI Coding Tool
+
+What can we learn from this?
+
+**First, do not blindly trust benchmarks.**
+
+A few percentage points on Terminal-Bench do not necessarily apply to your work. Benchmarks are reference material. Try the tools yourself and see what fits your tasks.
+
+**Second, understand your own workflow.**
+
+How do you work with AI?
+
+- Do you iterate conversationally, shaping results as you go?
+- Do you plan everything first and execute in one shot?
+- Do you run multiple tasks in parallel?
+- Do you focus on one task at a time?
+
+Your answers determine the optimal tool.
+
+**Third, it is fine to use different tools for different tasks.**
+
+Design with Opus 4.6, implement with Codex 5.3, handle daily questions with Sonnet 4.5. No need to go all-in on one tool.
+
+**Fourth, "the best" keeps changing.**
+
+On February 5, 2026, both companies released new models simultaneously. Six months from now, the landscape will shift again. Over-committing to one model costs you flexibility. A model-agnostic approach wins long-term.
+
+---
+
+## Conclusion: Insight Inside the Contradiction
+
+Peter Steinberger called Claude Opus the best general-purpose agent while building OpenClaw with Codex. This is not a contradiction. It is **the most precise tool selection possible**.
+
+General-purpose excellence and task-specific excellence are different. A public recommendation and a personal choice are different. Benchmark scores and real-world fit are different.
+
+When choosing an AI model, do not ask "which is the best?" Ask **"how do I work, and what fits this task?"**
+
+The real lesson from the man with 180,000 stars: the best tool depends on how you use it.
+
+---
+
+## Who Wins the Model War
+
+The Claude Opus 4.6 vs GPT Codex 5.3 rivalry is one of the most compelling dynamics of 2026 AI. Both models released on the same day. Neither was ignoring the other.
+
+Benchmarks split by domain. Terminal-Bench favors Codex. Humanity's Last Exam favors Opus. Throughput: Codex is 4x faster. Long-context consistency: Opus is stronger.
+
+But the real winner is **the user**. Competition between both companies is driving model performance up fast. Opus 4.6 absorbed some of Codex's precision. Codex 5.3 picked up some of Opus's conversational ability. They are learning from each other.
+
+The rise of model-agnostic tools like OpenClaw fits this context. Users want to benefit from competition. Lock-in eliminates choice. OpenClaw gives choice back.
+
+Steinberger's advice boils down to this: do not try to predict the winner of the model war. **Build a system that can use any model.** The best keeps changing. Flexibility is the long-term win.
+
+---
+
+**Sources:**
+
+- [OpenAI launches Codex app to bring its coding models, used to build OpenClaw, to more users -- Fortune](https://fortune.com/2026/02/02/openai-launches-codex-app-to-bring-coding-models-to-more-users-openclaw-ai-agents/)
+- [The creator of Clawd: "I ship code I don't read" -- The Pragmatic Engineer](https://newsletter.pragmaticengineer.com/p/the-creator-of-clawd-i-ship-code)
+- [#491 -- OpenClaw: The Viral AI Agent that Broke the Internet - Peter Steinberger -- Lex Fridman Podcast](https://lexfridman.com/peter-steinberger)
+- [GPT-5.3 Codex vs. Opus 4.6: The Great Convergence -- Every.to](https://every.to/vibe-check/codex-vs-opus)
+- [Claude Opus 4.6 vs GPT-5.3-Codex: Which AI is Best for Coding? -- VERTU](https://vertu.com/ai-tools/claude-opus-4-6-vs-gpt-5-3-codex-the-2026-ai-coding-showdown/)
+- [OpenClaw GitHub Repository](https://github.com/openclaw/openclaw)
+- [Peter Steinberger on X -- @steipete](https://x.com/steipete)
+- [Unsplash -- Image credits](https://unsplash.com)

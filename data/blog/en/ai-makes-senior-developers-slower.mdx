@@ -1,0 +1,252 @@
+---
+title: 'Why AI Made Senior Developers 19% Slower'
+date: '2026-02-18T12:00:23'
+language: 'en'
+translationOf: 'ai-makes-senior-developers-slower'
+tags:
+  [
+    'ai-coding',
+    'developer-productivity',
+    'metr-study',
+    'cursor',
+    'copilot',
+    'senior-developer',
+    'cognitive-load',
+  ]
+draft: false
+images: ['/static/images/ai-makes-senior-developers-slower/og-image.png']
+summary: "In METR's randomized controlled trial, experienced developers using AI tools were actually 19% slower. They believed they were 20% faster."
+---
+
+## They Expected to Be 24% Faster
+
+![A developer writing code -- AI tools are changing how we work](/static/images/ai-makes-senior-developers-slower/og-image.png)
+
+July 2025. METR, an AI safety research organization, published a paper. The title: "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." Academic and dry. But the findings are shocking.
+
+The researchers recruited 16 senior developers. These were veterans who had contributed for years to major open-source projects averaging over **22,000 stars**. They had an average of 5 years of experience on their respective projects and over 1,500 commits each.
+
+Before the experiment, the developers were asked: "How much faster do you think AI tools will make you?" The average answer was **24% faster**. A reasonable expectation. GitHub Copilot, Cursor, Claude Code -- they all promise productivity gains, don't they?
+
+The results were the exact opposite. The group using AI tools was **19% slower**. Not faster. Slower.
+
+What's even more striking is the perception gap. After the experiment, developers were asked again: "How much did AI help you?" The average response was that they were **20% faster**. They actually got slower but believed they got faster.
+
+Predicted: 24% faster. Felt: 20% faster. Measured: 19% slower. What happened between those numbers?
+
+---
+
+## How the METR Study Was Designed
+
+Let's start with why this study is credible. Most AI productivity studies have flawed designs. The METR study is different.
+
+**Randomized controlled trial (RCT).** This is the same methodology used in medicine to test new drugs. Participants were randomly assigned to two groups. One group used AI, the other didn't. They performed the same tasks and the results were compared.
+
+**Real tasks.** These weren't artificial tests. Developers submitted actual issue lists from their own projects. Bug fixes, feature additions, refactoring. A total of **246 real tasks** were randomly assigned.
+
+**Screen recording.** Every work session was recorded. What the developer did, how long it took, how they used AI -- all captured.
+
+**Acknowledged impossibility of double-blinding.** Unlike medical trials, developers know whether they're using AI or not. The researchers acknowledge this limitation. But they minimized subjective bias through objective time measurement.
+
+The participant profiles matter too. These were **not juniors**. Average career experience exceeded 10 years. They'd been contributing to their specific projects for over 5 years. They knew the codebase inside out. They didn't need to ask "Why does this function look like that?"
+
+The AI tools primarily used were **Cursor Pro** and **Claude 3.5/3.7 Sonnet** -- the latest tools as of early 2025. Developers could freely choose whichever tools they wanted.
+
+Compensation was $150 per hour. This was designed to eliminate incentives to rush through tasks or drag them out for more pay.
+
+---
+
+## Why They Got Slower: 5 Reasons
+
+![A developer working alongside AI -- new tools aren't always more efficient](/static/images/ai-makes-senior-developers-slower/ai-coding.png)
+
+The researchers analyzed why productivity dropped 19%. They formulated 20 hypotheses and tested them. Five emerged as the most likely causes.
+
+**First, time spent reviewing AI output.** Developers spent **9%** of their total work time reviewing and fixing AI-generated code. AI writing code for you sounds like a time-saver, but verifying that code takes time.
+
+The more senior the developer, the more demanding this review becomes. They don't just check if the code "works" -- they check if it's "correct." Test coverage, edge cases, code style, performance. Higher standards mean longer reviews.
+
+**Second, context-switching overhead.** Interacting with AI requires switching from coding mode to prompting mode. Type "refactor this function," wait for the result, review it, request modifications. This cycle repeats **dozens of times per hour**.
+
+According to the Harvard Business Review, it takes an average of **23 minutes** to return to full focus after a context switch. AI interactions keep triggering these switches. They don't each cost 23 minutes, but small interruptions accumulate into significant losses.
+
+**Third, project-specific tacit knowledge.** Large open-source projects have unwritten rules. "Files in this directory follow this pattern," "this API is used this way," "we follow this naming convention." Senior developers have internalized all of this.
+
+AI doesn't know any of it. AI-generated code may be technically correct but violate project conventions. Fixing it takes effort. Writing it yourself from scratch might have been faster.
+
+**Fourth, tool learning curve.** The developers had an average of about **50 hours** of AI tool experience. That's not enough. Mastering all of Cursor's capabilities takes much longer. "Using" a tool and "using it well" are very different things.
+
+**Fifth, overconfidence.** Developers tended to assume AI was correct. They'd trust the output initially and debug later when problems surfaced. But when AI generates subtly wrong code, debugging gets harder. "Why doesn't this work?" is easier to answer than "This code looks right, so why doesn't it work?"
+
+---
+
+## Where Did the 56% Come From?
+
+This raises a question. Isn't there a study claiming "AI makes developers 56% faster"? Where did that number come from?
+
+It's from a 2023 joint study by Microsoft Research, GitHub, and MIT. They asked 95 programmers to implement an HTTP server in JavaScript. The group using Copilot took **71 minutes**; the group without took **161 minutes**. That's 55.8% faster. Round up and you get 56%.
+
+The two studies reach completely opposite conclusions. One says 56% faster, the other says 19% slower. What's different?
+
+| Factor       | 56% Faster Study (2023)          | 19% Slower Study (2025)           |
+| ------------ | -------------------------------- | --------------------------------- |
+| Participants | 95 Upwork freelancers            | 16 open-source maintainers        |
+| Task         | HTTP server implementation (new) | Fixing issues in existing project |
+| Codebase     | Starting from zero               | 1M+ lines of existing code        |
+| Experience   | Varied                           | 5+ years on the specific project  |
+| AI Tool      | GitHub Copilot                   | Cursor + Claude 3.5/3.7           |
+
+The key difference is **the nature of the work**. The 56% study involved building something from scratch. AI helps when it can rapidly generate boilerplate code. The 19% study involved modifying existing code. You need to understand a million lines of legacy code and make changes that fit that context.
+
+Another difference is **expertise level**. Many of the Upwork freelancers had limited experience. For them, AI is a tool that "lets you do what you couldn't before." For senior developers, AI is a tool that "helps you do what you already do well." The latter is much harder.
+
+The 56% study's authors acknowledge this limitation: "These results are from a specific experimental condition and cannot be generalized to all development scenarios." But that caveat tends to disappear from marketing materials.
+
+---
+
+## The Gap Between Perception and Reality
+
+![A person deep in thought -- there's a gap between what we believe and what's real](/static/images/ai-makes-senior-developers-slower/cognitive-load.png)
+
+The most fascinating part of the METR study is **the distortion of perception**.
+
+Pre-experiment prediction: 24% faster.
+Post-experiment feeling: 20% faster.
+Actual measurement: 19% slower.
+
+The developers saw the screen recordings. They knew the time measurements. And still, they "felt" that AI had helped them.
+
+Why does this gap exist? Several psychological biases are at play.
+
+**Confirmation bias.** People preferentially remember information that confirms their existing beliefs. The memory of "AI wrote that function really well" sticks, while "I spent 2 hours debugging AI's output" fades.
+
+**Engagement effect.** Interacting with AI is fun. Using a new tool is exciting. This positive experience distorts productivity assessment. "It was enjoyable, so it must have been efficient."
+
+**Cost justification.** Cursor Pro costs $20/month. Nobody wants to admit that a paid tool was useless. "I'm paying for this but it didn't help" is psychologically uncomfortable compared to "I got my money's worth."
+
+**Social pressure.** There's an ambient pressure that "if you're not using AI, you're falling behind." Saying AI didn't help invites "Maybe you just don't know how to use it." It's safer to say it helped.
+
+These biases don't stay at the individual level. They propagate through organizations.
+
+A developer reports "AI improved my productivity." A manager uses this as justification to adopt AI tools. The company buys Cursor licenses across the board. Costs are incurred. Now the pressure to say "AI helped" gets even stronger.
+
+---
+
+## Why Seniors Are Slower
+
+Why senior developers specifically? Would the results differ for juniors?
+
+Probably yes. The METR researchers acknowledge this: "These results are specific to experienced developers and may differ for beginners or developers working on unfamiliar codebases."
+
+The reason senior developers get slower with AI is that **they're already fast**. It's paradoxical. Let me explain.
+
+Senior developers know their projects. They know where every file is, what every function does, which patterns to use. They have a **mental model** in their heads.
+
+When they code in this state, they're fast. They type at the speed of thought. No need to search or read documentation. When they hit flow state, hours fly by.
+
+Introducing AI breaks that flow. The thought "Should I ask AI to do this?" intrudes. They write a prompt. Wait for the result. Review it. Request changes. The flow is shattered.
+
+Junior developers are different. They don't have the mental model. They spend a lot of time searching, reading docs, trial and error. AI helps in this process. Ask "What's this error?" and AI answers. Search time shrinks.
+
+Here's an analogy. Senior developers have an **offline map**. They know where to go. When AI says "Take this route," they think "No, my way is faster." The time spent checking and ignoring adds up.
+
+Junior developers have no map. When AI says "Take this route," they follow it. It might not be the optimal path, but it's better than wandering alone.
+
+---
+
+## When AI Actually Helps
+
+So when is AI helpful? The METR study does include cases where AI was useful.
+
+**Exploring a new codebase.** When you're looking at unfamiliar code and ask "What does this function do?", AI explains it. Code reading time drops.
+
+**Generating boilerplate.** AI writes repetitive code for you. Test file templates, API endpoint scaffolding, config files. For tasks that don't require creativity, AI saves time.
+
+**Fixing syntax errors.** Typos, missing semicolons, unmatched brackets. AI catches these more aggressively than your IDE's linter.
+
+**Working in unfamiliar languages/frameworks.** When dealing with code outside your primary language, AI helps. A Python developer who needs to urgently fix Go code can use AI as a translator.
+
+There's a common thread. AI helps in **areas where the developer's expertise is low**. In areas where expertise is high -- that is, when working with code you know deeply -- it can get in the way.
+
+Augment Code's analysis reaches a similar conclusion: "AI tools serve to bridge expertise gaps. When expertise is already high, there's no gap to bridge."
+
+---
+
+## Implications for Organizations
+
+This has implications beyond individual developers.
+
+**First, re-examine AI tool ROI.** If you adopted tools based on the "56% productivity improvement" marketing claim, it's time for a reassessment. Are you actually measuring productivity? With objective metrics, not developer feelings?
+
+Measurement methodology matters too. "PR count increased after AI adoption" isn't necessarily a good metric. If PRs went up but so did bugs, overall productivity dropped. You need to look at **DORA metrics** -- lead time, change failure rate, service recovery time.
+
+**Second, differentiate by team.** You don't need to apply the same tools to every team. A senior team maintaining legacy systems and a junior team building a new project are different. AI might help less for the former and more for the latter.
+
+**Third, invest in training.** Don't just tell people to "use AI." Teach them how to use it effectively. The METR study's developers had only about 50 hours of AI tool experience. More practice might yield different results.
+
+Some organizations run AI pair programming sessions where seniors show juniors how to use AI more effectively. As tool proficiency goes up, productivity might follow.
+
+**Fourth, manage expectations.** Don't plant the expectation that "AI adoption will double development speed." Real impact varies widely based on task type, developer experience, and codebase characteristics. Inflated expectations lead to disappointment, and disappointment breeds resentment toward the tools themselves.
+
+---
+
+## How AI Tool Companies Responded
+
+When the METR study dropped, the AI tools industry stirred. Reactions fell into three camps.
+
+**"The study design was flawed."** Some criticized the methodology. Sixteen people is too few. Open-source projects are a special environment. Tool proficiency was low. These are valid critiques, but the same logic applies to the "56% faster" study. That one used Upwork freelancers, a single task, and a greenfield project.
+
+**"Our tool is different."** AI tool companies claim their products overcome the METR study's limitations. "We understand context better," "We analyze the entire project," "We integrate more naturally into developer workflows." These are marketing claims. Independent verification is needed.
+
+**"It'll get better soon."** The most common response. Claude 4.5, GPT-5.3 will change things. As model performance improves, hallucinations decrease, context understanding gets better, code quality goes up. That's true. But "it'll get better soon" is also an admission that current tools have limitations.
+
+An IBM analyst put it this way: "The METR study doesn't show that AI tools are useless -- it shows that we need a more nuanced understanding of **where they're effective**."
+
+---
+
+## Limitations of the Study
+
+The METR study isn't perfect either. The researchers acknowledge several limitations.
+
+**Sample size.** Sixteen participants is statistically meaningful but limited in representativeness. A specific type of developer may have self-selected. It's possible that AI-skeptical developers were overrepresented.
+
+**Special environment.** Large open-source projects differ from typical corporate codebases. Quality standards are higher. Code review is stricter. The dynamics could be different for a startup rapidly building an MVP.
+
+**Early 2025 tools.** Claude 3.5/3.7 and Cursor Pro were the primary tools used. Claude 4.5 and GPT-5.3, available in 2026, may perform differently. Given the pace of AI advancement, results could change within six months.
+
+**Screen recording effect.** Knowing you're being recorded changes behavior. Participants may have tried to "look good" rather than work naturally. How this influenced AI usage patterns is unclear.
+
+The researchers have announced follow-up studies. They plan to repeat the experiment with the same methodology to track how productivity changes as AI tools evolve. Data from the second half of 2025 and first half of 2026 should make the trend clearer.
+
+---
+
+## Conclusion: It's Not About the Tool, It's About Context
+
+Does AI make developers 56% faster or 19% slower? The answer is **"it depends."**
+
+Starting a new project with lots of boilerplate, using an unfamiliar language, and having limited experience? AI helps. Those are the conditions of the 56% study.
+
+Maintaining an existing project, making context-dependent modifications, knowing the codebase deeply, and having years of experience? AI can get in the way. Those are the conditions of the 19% study.
+
+The tool itself isn't good or bad. **Context** decides.
+
+This isn't unique to AI. It's true of every tool. A hammer is great for driving nails. Terrible for turning screws. Asking whether a hammer is good or bad is a meaningless question. You have to ask "What are you doing with it?" first.
+
+The same goes for AI coding tools. The question isn't "Does AI improve productivity?" It's "In what situations does AI improve productivity?"
+
+The real message from the METR study is this: **Perception and reality diverge.** Even when developers "feel" faster, they might actually be slower. Even when organizations "believe" productivity went up, the data might say otherwise.
+
+Measure. With data, not feelings. In real environments, not marketing slides. That's the only way to know whether AI tools are genuinely helpful or just expensive toys.
+
+Senior developers getting 19% slower isn't AI's fault. It's the fault of misapplying AI. Before blaming the tool, examine how it's being used.
+
+---
+
+**Sources:**
+
+- [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity -- METR](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+- [AI coding tools may not speed up every developer, study shows -- TechCrunch](https://techcrunch.com/2025/07/11/ai-coding-tools-may-not-speed-up-every-developer-study-shows/)
+- [The Impact of AI on Developer Productivity: Evidence from GitHub Copilot -- Microsoft Research](https://www.microsoft.com/en-us/research/publication/the-impact-of-ai-on-developer-productivity-evidence-from-github-copilot/)
+- [How AI coding makes developers 56% faster and 19% slower -- The New Stack](https://thenewstack.io/how-ai-coding-makes-developers-56-faster-and-19-slower/)
+- [Why AI Coding Tools Make Experienced Developers 19% Slower and How to Fix It -- Augment Code](https://www.augmentcode.com/guides/why-ai-coding-tools-make-experienced-developers-19-slower-and-how-to-fix-it)
+- [Unsplash](https://unsplash.com)

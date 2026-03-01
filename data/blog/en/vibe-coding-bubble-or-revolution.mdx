@@ -1,0 +1,186 @@
+---
+title: 'Vibe Coding: Bubble or Revolution?'
+date: '2026-02-14T18:00:00'
+tags: ['vibe-coding', 'ai-coding', 'developer']
+draft: false
+language: 'en'
+translationOf: 'vibe-coding-bubble-or-revolution'
+images: ['/static/images/vibe-coding-bubble-or-revolution/og-image.png']
+summary: 'Andrej Karpathy coined the term vibe coding, and it split the developer community in half. Is it the democratization of coding, or a ticking time bomb of technical debt?'
+---
+
+In February 2025, former Tesla AI Director Andrej Karpathy posted a single sentence on X: "There's a new kind of coding I call 'vibe coding'." That one tweet split the developer community in two. One side cheered the democratization of coding. The other warned it was a ticking time bomb of technical debt. A year has passed since the term vibe coding appeared, and we are now in a position to judge whether this is a bubble or a revolution.
+
+![Developer workspace coding with AI](/static/images/vibe-coding-bubble-or-revolution/og-image.png)
+
+## Defining Vibe Coding: Coding Without Writing Code
+
+Vibe coding is a development approach where the developer does not write code directly. Instead, you describe what you want in natural language, and AI generates the code. Karpathy described it as "fully giving in to the vibes, embracing exponentials, and forgetting that the code even works." The key idea is that the developer does not need to understand the details of the code.
+
+In traditional coding, developers wrote and understood every line. In vibe coding, that role is replaced by **prompt engineering**. The developer says "build me a user authentication system," and the AI generates hundreds of lines of code. The developer checks if the output works and asks the AI to fix any issues.
+
+In this process, the developer's role shifts from **code writer to requirements definer**. It is similar to an architect drawing blueprints instead of laying bricks. Except the bricklayer is not a human worker -- it is an AI.
+
+This is exactly why Karpathy named it vibe coding. Rather than understanding the exact behavior of each line, you focus on the overall **vibe and direction**. Instead of verifying every line the LLM generates, you run it and check the results.
+
+The interesting part is that Karpathy did not frame this negatively. He said he was enjoying this approach himself. He admitted to "not even looking at the code and just hitting Accept," while suggesting this could be the beginning of a new development paradigm. Of course, his tweet came with a caveat: "throwaway weekend project." He knew this approach was not suitable for everything.
+
+## The Technical Foundation That Made Vibe Coding Possible
+
+Vibe coding did not appear out of nowhere. Since ChatGPT launched in 2022, LLM code generation capabilities have advanced rapidly. GPT-4 in 2023 made complex function-level code generation possible. By 2024, models could understand and modify entire application architectures.
+
+AI coding tools like **Cursor**, **Windsurf**, and **GitHub Copilot** accelerated this trend. Cursor in particular redesigned the entire IDE around AI, leveraging the full codebase as context to generate consistent code and modify multiple files simultaneously.
+
+The latest LLMs -- Claude, GPT-4.5, Gemini 2.0 -- can process tens of thousands of tokens of context. This means they can generate code while understanding the entire project structure. What used to be difficult even for a single function is now possible for entire modules.
+
+| Year | Major Development                     | Code Generation Level      |
+| ---- | ------------------------------------- | -------------------------- |
+| 2022 | ChatGPT launch                        | Simple functions, snippets |
+| 2023 | GPT-4 launch                          | Complex functions, classes |
+| 2024 | Claude 3.5, Cursor                    | Full modules, architecture |
+| 2025 | Claude 4, vibe coding goes mainstream | Entire applications        |
+
+This technical progress laid the **physical foundation for vibe coding**. Once AI could generate good-enough code, developers no longer needed to write every line themselves.
+
+The rise of agent-based coding matters too. In 2025, we moved beyond simple code suggestions to **agents that directly modify files and run tests**. Tools like Cursor's Composer, Claude Code, and Devin modify multiple files, execute terminal commands, and auto-fix errors based on developer instructions. Developers can now literally develop through conversation with AI.
+
+With these agents, vibe coding's scope expanded further. Where developers once had to copy and paste AI suggestions, AI now directly modifies the codebase. The developer's role shrinks to providing direction and verifying results.
+
+MCP (Model Context Protocol) deserves attention too. Announced by Anthropic in late 2024, this protocol provides a standard for AI to access external tools and data. Through it, AI can query databases, call APIs, and navigate file systems. The foundation has been laid for vibe coding to extend beyond code generation into the **entire development workflow**.
+
+## Real Cases: Things Built With Vibe Coding
+
+There are concrete cases proving vibe coding is more than theory. Karpathy himself said he completed multiple projects this way. In an interview, he mentioned "building a fully functional web application in a weekend just by talking to AI."
+
+![AI assistant generating code](/static/images/vibe-coding-bubble-or-revolution/ai-assistant.png)
+
+**Solo developer success stories** stand out in particular. Reddit and X are full of posts saying "I did not know how to code but shipped an app with AI." Many of these are exaggerated, but there are real cases of working products generating revenue.
+
+One non-developer used Cursor and Claude to ship a SaaS product in three weeks, claiming over $1,000 in monthly revenue. He says he did not write a single line of code. His entire role was describing desired features to AI and verifying the generated code worked.
+
+Startups are actively embracing vibe coding too. It is effective for quickly building MVPs to test market reactions. At a stage where **rapid experimentation** matters more than polished code, vibe coding is a powerful tool.
+
+Not all cases are successful, of course. Many vibe-coded projects end up abandoned in an unmaintainable state or get scrapped after security vulnerabilities are discovered. We should remember that success stories get amplified while failures stay hidden.
+
+Enterprise adoption is growing too. Big tech companies like Google, Meta, and Microsoft actively use AI coding tools internally. Google revealed that its internal AI tools generate over 25% of new code. In these companies, vibe coding is not used in its pure form but rather to boost professional developer productivity. **Code review and testing** processes still function, so the risks of AI-generated code are somewhat controlled.
+
+The shift in education is interesting. More universities are introducing vibe coding approaches in introductory CS courses. The main argument is that students can focus on **problem-solving skills** rather than syntax. Many professors oppose this, worried that relying on AI without fundamentals will ultimately limit growth.
+
+## The Case For: Democratization of Coding
+
+Vibe coding supporters argue this is the **democratization of software development**. What once took years to learn can now be done in hours. If anyone with an idea can build software, the pace of innovation accelerates.
+
+This logic has historical precedent. Spreadsheets in the 1980s let accountants and managers perform complex calculations without programmers. Word processors in the 1990s let anyone create documents without professional typists. Website builders in the 2000s let people build websites without knowing HTML.
+
+Vibe coding supporters see **LLMs as the next step on this continuum**. Building software without knowing programming language syntax. If that is not a revolution, what is?
+
+They also emphasize that the developer role is not disappearing -- it is **transforming**. Just as the automobile eliminated coachmen but created new jobs, AI coding tools create new forms of developer roles. The ability to **define problems and design systems** becomes more important than the ability to write code.
+
+The productivity argument is compelling too. Vibe coding lets you build prototypes **10x faster** than traditional methods. For startups where time is money, this is a survival issue.
+
+There is also a competitive advantage angle. Developers who reject vibe coding risk falling behind those who embrace it. It is like insisting on coding in Notepad instead of an IDE, supporters argue. Refusing to adopt tool advancements inevitably creates a **productivity gap**.
+
+Supporters also say vibe coding **liberates creativity**. Instead of spending time on repetitive boilerplate, you can focus on the essence of the problem and user experience. You can direct energy toward overall system design and direction rather than implementation details.
+
+## The Case Against: A Ticking Time Bomb of Technical Debt
+
+![Developer deep in thought](/static/images/vibe-coding-bubble-or-revolution/developer-thinking.png)
+
+Critics warn that vibe coding is a **ticking time bomb of technical debt**. Using AI-generated code without understanding it means you will eventually pay the price.
+
+The biggest concern is **debugging**. If you do not know how the code works, you cannot fix it when things break. You can ask AI to "fix it," but AI does not always provide the right solution. Its limitations become especially apparent with complex bugs and edge cases.
+
+Security is a serious issue too. AI-generated code can contain **security vulnerabilities**. If the developer does not understand the code, these vulnerabilities go undetected. A 2025 security study found that about 30% of AI-generated code contained security issues.
+
+| Concern           | Specific Problem            | Potential Outcome         |
+| ----------------- | --------------------------- | ------------------------- |
+| Debugging failure | Lack of code understanding  | Maintenance costs explode |
+| Security flaws    | Deployment without review   | Data breaches, hacks      |
+| Technical debt    | Accumulation of quick fixes | Project abandonment       |
+| Dependency        | AI service disruption       | Development impossible    |
+
+**Scalability** is another problem. What happens when an MVP built with vibe coding succeeds? As users grow and features need to be added, an incomprehensible codebase becomes an anchor. You may end up rewriting everything from scratch.
+
+Critics call this **trading long-term costs for short-term gains**. Building fast is easy. Operating sustainably is a different challenge entirely.
+
+There are also concerns about **skill atrophy**. Relying on AI can stagnate or erode a developer's own abilities. Just as depending on GPS means you never learn the roads, depending on AI-generated code weakens your ability to write code yourself. This is not just an individual problem -- it could become an industry-wide issue.
+
+Over-reliance on AI services is problematic too. Vibe coding is inherently **dependent on external services**. If API costs rise, services go down, or policies change, development itself becomes impossible. Whether vibe coding's benefits justify these risks requires careful judgment.
+
+Some critics go as far as **comparing vibe coding to a drug**. Productivity skyrockets at first, but you become increasingly dependent, and eventually cannot develop without it. This may be an exaggerated analogy, but the core message about dependency risks holds.
+
+## The Realistic Middle Ground: A Hybrid Approach
+
+Between the extremes lies a **realistic middle ground**. Rather than fully rejecting or fully depending on vibe coding, you use it where it fits.
+
+In the prototyping phase, vibe coding is highly effective. When quickly implementing ideas to test market reactions, **speed matters more** than code quality. Writing perfect code at this stage can be a waste of time.
+
+But the situation changes as a product matures. As users grow and stability becomes critical, AI-generated code needs to go through a process where **humans review and understand it**. Core business logic and security-related code especially demand this.
+
+Many experienced developers already use this hybrid approach. They use AI as a **first draft writer** while playing the roles of editor and quality manager. AI generates 80% quickly, and the human refines the remaining 20%.
+
+The key to this approach is that **developers must still understand the code**. Rather than blindly accepting AI output, they need to review it and modify what needs fixing. Despite what the name "vibe coding" suggests, you cannot rely purely on vibes.
+
+In practice, many senior developers already apply this naturally. They quickly scan AI-generated code, identify potential issues, and make necessary fixes themselves. This is possible because of their **experience and judgment**. For them, AI is a tool that boosts productivity, not something to delegate everything to.
+
+What matters in the hybrid approach is **knowing where to apply vibe coding and where not to**. Relatively simple areas like UI components or utility functions can be handled quickly with vibe coding. But **critical areas** like payment logic, authentication systems, and data processing pipelines require more careful attention.
+
+## When Vibe Coding Fits and When It Does Not
+
+Vibe coding is not appropriate for every situation. Knowing when to use it and when to avoid it is crucial.
+
+**Good fit:**
+
+- Personal projects and experiments
+- MVP and prototype development
+- Repetitive, simple CRUD operations
+- Exploratory coding for learning
+- Time-constrained hackathons
+- One-off scripts and automation tools
+
+**Poor fit:**
+
+- Large-scale production systems
+- Fields requiring high reliability (finance, healthcare)
+- Security-critical applications
+- Long-term team collaboration projects
+- Systems requiring performance optimization
+- Environments with regulatory compliance requirements
+
+![Coding workspace](/static/images/vibe-coding-bubble-or-revolution/coding-workspace.png)
+
+At the end of the day, vibe coding is a **tool**. Just as a hammer is not the solution to every problem, vibe coding does not fit every development scenario. What matters is accurately assessing the situation and **choosing the right tool**.
+
+A skilled carpenter knows how to use both power tools and hand tools. Similarly, a skilled developer should be able to use both AI tools and traditional coding. Relying on only one limits your own capabilities.
+
+Team size and project characteristics matter too. A solo developer working on a side project and a 50-person team building an enterprise system need completely different approaches. Vibe coding provides massive leverage for the former, but for the latter, factors like **code review, documentation, and consistency** become more important.
+
+When adopting vibe coding at an organizational level, **establishing guidelines is essential**. You need clarity on when AI-generated code is acceptable, what the review process looks like, and what the test coverage standards are. Blanket directives to "use AI" or "do not use AI" are ineffective.
+
+## Conclusion: Neither Bubble Nor Revolution, But a Signal of Transition
+
+Is vibe coding a bubble or a revolution? The question itself may be wrong. Vibe coding is a **signal showing how software development is changing**.
+
+During the dot-com bubble, some said "the internet is a bubble." They probably felt vindicated after the crash. But twenty years later, a world without the internet is unimaginable. After the bubble burst, **the core technology and paradigm remained**.
+
+Through the lens of Gartner's Hype Cycle, vibe coding is likely near the **peak of inflated expectations**. It will soon pass through the trough of disillusionment, but it will eventually settle on the plateau of productivity. The technology itself will not disappear -- it will settle into a more realistic form.
+
+Vibe coding will likely follow a similar trajectory. The current hype and unrealistic expectations will subside. The illusion that you can build large-scale systems with vibe coding alone will shatter. But through that process, **the paradigm of AI-assisted development will become permanent**.
+
+What matters for developers is understanding the nature of this change. The skill of writing code is becoming less important, while the ability to **define problems and design systems** is becoming more important. The better AI gets at generating code, the more the human role shifts to higher levels of abstraction.
+
+Fully embracing or fully rejecting vibe coding are both unwise. Understanding what it is, when it is useful, and what its limitations are. Then integrating that understanding appropriately into your workflow. That is how to navigate this transition wisely.
+
+A year ago, Karpathy's tweet posed a question. We still do not have a complete answer. But one thing is certain: **software development is changing, and that change is irreversible.** Whether it is a bubble or a revolution, history will decide. The only choice left for developers is to understand, adapt to, and leverage this change.
+
+What matters is not blind acceptance or rejection, but **critical adoption**. Perhaps the name "vibe coding" itself will disappear. In a few years, this might just be called "coding." Just like nobody says "computer-aided design" anymore -- they just say "CAD." Revolutions are often completed when they stop being called revolutions.
+
+---
+
+**Sources:**
+
+- [Andrej Karpathy's original tweet (X)](https://x.com/karpathy/status/1886192184808149383)
+- [Cursor official site](https://cursor.sh/)
+- [GitHub Copilot](https://github.com/features/copilot)
+- [Anthropic Claude](https://www.anthropic.com/claude)
+- [MCP (Model Context Protocol) introduction](https://www.anthropic.com/news/model-context-protocol)
