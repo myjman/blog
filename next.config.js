@@ -67,6 +67,12 @@ module.exports = () => {
     output,
     basePath,
     reactStrictMode: true,
+    experimental: {
+      staleTimes: {
+        dynamic: 0,
+        static: 0,
+      },
+    },
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
