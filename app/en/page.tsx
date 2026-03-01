@@ -23,7 +23,7 @@ export default async function EnglishBlogPage() {
       posts={posts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
-      title="All Posts (English)"
+      title="All Posts"
     />
   )
 }

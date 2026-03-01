@@ -38,7 +38,7 @@ export default async function Page(props: { params: Promise<{ page: string }> })
       posts={posts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
-      title="All Posts (English)"
+      title="All Posts"
     />
   )
 }
