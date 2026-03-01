@@ -1,0 +1,210 @@
+---
+title: 'DeepSeek V4 Launch Rumors: Truth and Lies'
+date: '2026-02-20T08:00:24'
+language: 'en'
+translationOf: 'deepseek-v4-truth-and-lies'
+tags:
+  [
+    'deepseek',
+    'deepseek-v4',
+    'ai-rumors',
+    'fact-check',
+    'ai-model',
+    'engram',
+    'moe',
+    'trillion-parameters',
+  ]
+draft: false
+images: ['/static/images/deepseek-v4-truth-and-lies/og-image.jpg']
+summary: 'Rumors spread that DeepSeek V4 would launch on February 17. Claims of 1 trillion parameters, SWE-bench 80% breakthrough, $0.10 pricing flooded the internet. We verify what is fact and what is fiction.'
+---
+
+## February 17: Nothing Happened
+
+![Fact-Check — Verifying DeepSeek V4 Rumors](/static/images/deepseek-v4-truth-and-lies/og-image.jpg)
+
+February 17, 2026. Lunar New Year. The AI community was buzzing. "DeepSeek is announcing V4 today." Dozens of blogs and newsletters reported this date as confirmed. The basis was The Information's reporting "citing sources close to the project."
+
+Then February 17 came and went. **Nothing happened.** DeepSeek's official channels remained silent. No new GitHub repositories appeared. No API endpoint changes were detected.
+
+As of February 20, V4 remains in the "coming soon" state. So what information circulating about DeepSeek V4 is fact and what is speculation? We trace the origins of the rumors and filter out only the verifiable facts.
+
+This article distinguishes between "confirmed facts," "partially verified information," and "unverified rumors" about DeepSeek V4. It will also reveal how chaotic the information ecosystem around AI model launches has become.
+
+---
+
+## Confirmed Facts: Engram and mHC Papers Are Real
+
+![Technical Papers — The Only Verifiable Evidence](/static/images/deepseek-v4-truth-and-lies/verified-facts.jpg)
+
+The **only confirmed facts** about DeepSeek V4 are two research papers. Both went through peer review and were published on arXiv.
+
+The first is the **Engram Conditional Memory** paper, registered on arXiv (2601.07372) on January 13, 2026. Implementation code is also available on GitHub (deepseek-ai/Engram). The core idea is "performing static knowledge lookups in O(1) time." Instead of computing attention over all tokens, the transformer retrieves frequently appearing patterns instantly from a separate memory module.
+
+The second is the **mHC (Manifold-Constrained Hyper-Connections)** paper, published on January 1. It solves the signal explosion problem in deep networks. In traditional transformers, activation values can explode up to **3,000x** as layers deepen. mHC constrains this to **1.6x**.
+
+Neither paper directly mentions V4. But both are published by the DeepSeek research team and are presumed to be integrated into V4. This is the entirety of "confirmed facts" about V4.
+
+There's one more independently observed fact. On February 11, DeepSeek's operational model (based on V3) expanded its context window from **128K to 1 million tokens**. Community testing confirmed **over 60% accuracy** across the full 1 million token length. This is not V4 but an upgrade to the existing model, yet it provides indirect evidence that DeepSeek continues improving long-context processing capabilities.
+
+| Information                | Verification Status | Evidence                            |
+| -------------------------- | ------------------- | ----------------------------------- |
+| Engram paper published     | Confirmed           | arXiv 2601.07372, GitHub code       |
+| mHC paper published        | Confirmed           | arXiv, peer-reviewed                |
+| 1M token context expansion | Confirmed           | Independent community testing       |
+| V4 launch date (Feb 17)    | Unconfirmed         | The Information report, unfulfilled |
+| V4 official announcement   | Unconfirmed         | No official DeepSeek statement      |
+
+---
+
+## Partially Verified: 1 Trillion Parameter MoE Architecture
+
+![Rumor Sources — Where Did It Start](/static/images/deepseek-v4-truth-and-lies/rumor-mill.jpg)
+
+"DeepSeek V4 is a **1 trillion parameter** model." This claim is repeated in dozens of blogs. Tracing the sources reveals an interesting pattern.
+
+The Information's early February report is most frequently cited. The report quoted "someone directly involved with the project" anonymously. Reuters cited this report while noting "could not independently confirm." In other words, **the primary source is a single anonymous insider.**
+
+1 trillion parameters is not an absurd number. DeepSeek V3 had **671 billion parameters** (671B), so V4 growing to 1 trillion (1T) is a reasonable evolution path. But DeepSeek has never officially confirmed this number.
+
+The claim that "only about 32-37B parameters are activated per token" is also inference from V3's pattern (37B active). While it's true that MoE architecture activates only a subset of total parameters, V4's exact activation ratio is unconfirmed.
+
+The claim of **over 1 million token** context window is partially verified. As mentioned above, the V3-based model already processes 1 million tokens. Inferring that V4 will maintain or expand this is reasonable, but again lacks official confirmation.
+
+To summarize, architecture-related claims are **inferred from the trajectory of existing models**. "Reasonable speculation" and "confirmed fact" are different categories. The current state leans toward the former.
+
+An important distinction here: architecture speculation has **technical basis**. Technologies like MoE, MLA, Sparse Attention actually exist and have been used by DeepSeek. Inferring V4's structure from these is reasonable. But specific details like performance numbers or pricing are an entirely different category. These **cannot be known without official announcement.**
+
+---
+
+## Unverified Rumors: SWE-bench 80%, $0.10 Pricing
+
+The flashiest claims have the weakest evidence. Let's verify them in order.
+
+**"V4 scored over 80% on SWE-bench."**
+
+The current SWE-bench Verified record holder is Claude Opus 4.5 at **80.9%**. Claims that V4 surpasses this cite "leaked internal test results." The problem is the source of this "leak" is unclear. Most blogs cite each other without specifying the original source. **Independent benchmark verification does not exist.**
+
+**"API pricing is $0.10/1M tokens."**
+
+This number is also community speculation. It's inferred from V3's pricing ($0.28/1M input, $0.42/1M output) with the logic "efficiency improved, so it should be cheaper." DeepSeek has never announced pricing. Some blogs report "$0.10" as confirmed pricing, which is **false.**
+
+**"Scored 98% on HumanEval."**
+
+Tracing the source of this claim leads to marketing blogs (like justoborn.com). This number cannot be found in DeepSeek technical reports or papers. Verdent.ai's analysis classified this as **"Tier 4 — Ignore Advised".**
+
+**"Full performance possible with two RTX 4090s."**
+
+V3 could run limitedly on consumer GPUs. If V4 is more efficient, this claim could be true. But "full performance" is an ambiguous definition. Running a 1 trillion parameter model in FP16 without quantization on two 4090s (48GB VRAM) is **physically impossible**. It might be possible with 4-bit quantization, but that comes with performance degradation.
+
+| Rumor                           | Verification Status | Source Credibility               |
+| ------------------------------- | ------------------- | -------------------------------- |
+| SWE-bench 80%+                  | Unverified          | Anonymous "leak," source unclear |
+| $0.10/1M token pricing          | Unverified          | Community speculation            |
+| HumanEval 98%                   | Unverified          | Marketing blogs                  |
+| Full performance on 2x RTX 4090 | Unverified          | Physical constraints ignored     |
+
+---
+
+## Lineage of Launch Date Rumor: Where Did February 17 Come From
+
+Where did the "February 17 launch" date come from? Let's trace the lineage.
+
+In early February, The Information reported "DeepSeek plans to release V4 around Lunar New Year (February 17)." The basis was "a statement from someone directly involved with the project." After this report, dozens of follow-up articles and blogs started citing February 17 as a "confirmed date."
+
+Reuters reprinted this report while noting "could not independently confirm." But most secondary reports omitted this caveat. **A single anonymous source's statement mutated into a "confirmed launch date."**
+
+After February 17 passed without an actual launch, corrective reports emerged like "delayed by a few days" or "will announce this week." These also lack clear sources. **The original rumor spawns new rumors as it mutates.**
+
+DeepSeek itself has never officially mentioned V4. The word "V4" appears nowhere on the company blog, Twitter, or official Discord. All launch date speculation originated externally.
+
+This is a typical information distortion pattern in the AI industry. Single anonymous source → primary report → dozens of secondary reports → "fait accompli." The original uncertainty disappears in the re-citation process.
+
+---
+
+## The Structure of Rumor Spread: Problems in the AI Blog Ecosystem
+
+DeepSeek V4 rumors reveal structural problems in the AI information ecosystem.
+
+First, **the proliferation of SEO-optimized blogs**. Search "DeepSeek V4" and dozens of blog posts appear. Most have titles like "Everything You Need to Know" or "Complete Guide." Reading the content reveals they're nearly identical. They repeatedly cite the same source (usually The Information report) and present speculation as fact.
+
+For these blogs, **"being first to report"** matters. Speed trumps verification. If you publish a "guide" before the model launches, you can capture traffic after the actual launch. The motivation is **SEO capture** rather than accuracy.
+
+Second, **the chain of citations**. Blog A cites The Information. Blog B cites A. Blog C cites B. Readers of C ultimately think "it's been confirmed by multiple outlets." In reality, it's **a single source being replicated.**
+
+Third, **headline exaggeration**. Titles like "DeepSeek V4 Confirmed for February 17" appear. Reading the body reveals caveats like "reported by sources," but most readers only see headlines. **The gap between title and content** breeds misunderstanding.
+
+This pattern isn't unique to DeepSeek V4. It applies to all unlaunched models — GPT-5, Claude 4, Gemini Ultra. In the AI industry, "coming soon" is often an **exaggerated expression of "might launch."**
+
+Fourth, **the explosion of AI-generated content**. Many recent SEO blogs are AI-written. AI learns from existing web content to generate new posts. Original rumors are **reproduced and amplified with mutations** by AI. Details absent in the original source get added. "February 17" becomes "February 17, 9 AM Beijing time."
+
+Fifth, **financial incentives**. AI rumors affect stock prices. Every time DeepSeek V4 launch news spreads, NVIDIA stock fluctuates. There are groups that benefit from rumor propagation. Even if not deliberate information manipulation, economic incentives fuel rumor circulation.
+
+---
+
+## What Can Realistically Be Expected
+
+![The Future of AI — Between Expectation and Reality](/static/images/deepseek-v4-truth-and-lies/future-implications.jpg)
+
+Strip away the rumors and what remains? Here's **what can realistically be expected**.
+
+**Launch timing**: High probability of Q1 2026 release. DeepSeek announced V3 at the end of December 2025. There's a pattern of releasing major models around year-end/new year. But exact dates are unpredictable.
+
+**Architecture**: High probability of Engram and mHC integration. Both papers were published by the DeepSeek team and are technologies applicable to V4-level models. MoE-based architecture will likely be maintained.
+
+**Performance**: Will improve over V3. DeepSeek's technical capability is proven. V3 already showed GPT-4-level performance, so V4 exceeding this is a reasonable expectation. However, claims like "will dominate Claude Opus 4.5" should be **reserved until verification**.
+
+**Pricing**: Similar or cheaper than V3. DeepSeek's strategy is "high performance, low price." There's no reason to change this strategy. But the specific number "$0.10" is unreliable.
+
+**Open source**: Will likely be released under Apache 2.0 or similar permissive license. Both V3 and R1 were. But the scope of release (full weights vs partial) is unknown.
+
+The most important point: **all information is speculation until launch.** Whether V4 is truly revolutionary can only be judged after independent benchmark tests emerge. Verdent.ai stated they will "publish independent verification results within 72 hours of launch." It's wise to temper excitement until then.
+
+---
+
+## Why Fact-Checking Is Difficult
+
+Tracking DeepSeek V4 rumors revealed something: **fact-checking itself is difficult.**
+
+First, DeepSeek doesn't do PR like Western companies. When OpenAI announces a new model, they simultaneously do blog posts, live demos, and media interviews. DeepSeek **quietly uploads to GitHub**. Code often appears publicly before official announcements. This style creates a vacuum for rumors to fill.
+
+Second, accessing primary Chinese-language materials is difficult. DeepSeek's internal communications happen in Chinese. English-language media rely on translated secondary sources. Nuances can change or information can distort during translation.
+
+Third, rampant use of anonymous sources. Phrases like "according to industry sources" or "insiders say" are used too easily. Such sources **cannot be verified**. Even if the journalist isn't lying, the source itself may have provided incorrect information.
+
+Fourth, AI models are technically complex. Few readers understand what "1 trillion parameter MoE" means. Most just get the impression of the number "1 trillion." When numbers are conveyed without technical context, misunderstanding easily occurs.
+
+Under these conditions, what readers can do is **trace sources**. Verify where claims came from, whether they were independently verified, and what the original source is. "Multiple outlets reported it" is not grounds for trust. All outlets may have cited the same (incorrect) source.
+
+There's a simple heuristic: **when specific numbers appear, be suspicious**. Precise numbers like "SWE-bench 80.9%," "$0.10," "1 trillion parameters" create credibility. That's why they're frequently used in rumors. Check if there's a real source. In most cases, tracing back to the original source reveals caveats like "according to sources" or "estimated."
+
+---
+
+## Conclusion: The Virtue of Waiting
+
+The confirmed facts about DeepSeek V4 are just two research papers. 1 trillion parameters, SWE-bench 80%, February 17 launch, $0.10 pricing — all these claims are **unverified.**
+
+This isn't necessarily bad. When V4 actually launches, all questions will be answered. The problem is **making definitive statements before launch**. Reporting like "DeepSeek V4 will change the AI landscape" is not accurate. "DeepSeek appears to be preparing a new model, and specifics must await announcement" is the accurate phrasing.
+
+The AI industry is vulnerable to hype. Every new model launch triggers the word "revolution." Most are incremental improvements. Distinguishing real innovation from marketing packaging requires **time**.
+
+DeepSeek V4 might truly dominate Claude and GPT. Or it might be a modest improvement over V3. Right now, **nobody knows**. Being able to say "we don't know" is the honest stance.
+
+Let's wait for the launch. See the benchmarks after launch. Judgment can wait until then. That's the only rational attitude to take amid the flood of rumors.
+
+One more thing to consider: if DeepSeek V4 is truly impressive, it won't need rumors. When the model launches, performance will prove itself. Conversely, rampant pre-launch rumors may signal that **expectations have outpaced reality**.
+
+The AI industry is currently in **expectation inflation** mode. Every new model is packaged as a "game changer." Few actually change the game. Whether DeepSeek V4 is among that few remains to be seen. What can be said with certainty right now is that nothing is certain yet.
+
+---
+
+**Sources:**
+
+- [DeepSeek V4 Targets Coding Dominance with Mid-February — Introl](https://introl.com/blog/deepseek-v4-february-2026-coding-model-release)
+- [DeepSeek V4: Everything We Know About the Upcoming Coding AI Model — WaveSpeedAI](https://wavespeed.ai/blog/posts/deepseek-v4-everything-we-know-about-the-upcoming-coding-ai-model/)
+- [What Is DeepSeek V4? Verified Facts, Benchmarks & Pre-Launch Guide 2026 — Verdent](https://www.verdent.ai/guides/what-is-deepseek-v4)
+- [DeepSeek V4: Everything We Know (Release Date, Features, Benchmarks) — Macaron](https://macaron.im/blog/deepseek-v4-release-date-features)
+- [DeepSeek V4: Release Date, Announcement, and What to Expect in 2026 — Atlas Cloud](https://www.atlascloud.ai/news/DeepSeek-V4-Expect-in-2026)
+- [DeepSeek V4's 1-Trillion Parameter Architecture Targets Western AI Coding Dominance — Introl](https://introl.com/blog/deepseek-v4-trillion-parameter-coding-model-february-2026)
+- [GitHub - deepseek-ai/Engram](https://github.com/deepseek-ai/Engram)
+- [Unsplash](https://unsplash.com)

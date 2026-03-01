@@ -1,0 +1,182 @@
+---
+title: 'Sonnet 4.6 Matches Opus — at One-Fifth the Cost?'
+date: '2026-02-21T12:00:23'
+tags:
+  [
+    'anthropic',
+    'claude',
+    'sonnet-4-6',
+    'opus',
+    'ai-model',
+    'ai-pricing',
+    'benchmark',
+  ]
+draft: false
+language: 'en'
+translationOf: 'sonnet-46-opus-level-one-fifth-cost'
+images: ['/static/images/sonnet-46-opus-level-one-fifth-cost/og-image.png']
+summary: 'Anthropic released Sonnet 4.6. It scores 79.6% on SWE-bench, nearly matching Opus 4.6's 80.8%, while costing one-fifth the price. The AI model pricing hierarchy is shaking.'
+---
+
+## SWE-bench 79.6%, But the Price Tag Looks Wrong
+
+![Anthropic Claude Sonnet 4.6 — flagship performance at mid-tier pricing](/static/images/sonnet-46-opus-level-one-fifth-cost/og-image.png)
+
+On February 17, 2026, Anthropic announced Claude Sonnet 4.6. It scored **79.6%** on SWE-bench Verified. The flagship model Opus 4.6, released the same day, scored 80.8%. A gap of 1.2 percentage points.
+
+But the price tag tells a different story. Sonnet 4.6 costs $3 per million input tokens and $15 per million output tokens. Opus 4.6 costs $15 input, $75 output. Exactly **5x the price**. Nearly identical performance at one-fifth the cost. This isn't just a new model launch. It's an event that shakes the entire pricing structure of AI models.
+
+Anthropic set Sonnet 4.6 as the **default model** for claude.ai and Claude Cowork. Whether you're a free user or a Pro subscriber, the first model you encounter is Sonnet 4.6. The spot where the most users land now has Opus-level performance.
+
+---
+
+## What the Benchmarks Say About Real Capability
+
+![Data dashboard screen — Sonnet 4.6 benchmark results nearly overlap with Opus 4.6](/static/images/sonnet-46-opus-level-one-fifth-cost/benchmark-chart.png)
+
+Let's break down the numbers. The areas where Sonnet 4.6 approaches or even surpasses Opus 4.6 are surprisingly extensive.
+
+On the coding benchmark SWE-bench Verified, Sonnet 4.6 scored 79.6%, Opus 4.6 scored 80.8%. The previous generation Sonnet 4.5 was at 77.2%, so this is a 2.4 percentage point improvement. This benchmark measures the ability to modify code based on actual GitHub issues. It's the **de facto standard** for gauging real-world performance of AI coding tools.
+
+On OSWorld-Verified, which measures agentic computer use ability, Sonnet 4.6 scored 72.5%, Opus 4.6 scored 72.7%. A 0.2 percentage point difference. Essentially a tie. For reference, OpenAI's GPT-5.2 scored only 38.2% on the same benchmark. **Half of Sonnet 4.6's score**.
+
+On GDPval-AA Elo, which measures office work capability, there's a reversal. Sonnet 4.6 scored 1633, Opus 4.6 scored 1606. The mid-tier model beat the flagship. In financial analysis benchmarks, Sonnet 4.6 scored 63.3%, ahead of Opus 4.6's 60.1%.
+
+In math benchmarks, the generational gap is dramatic. Sonnet 4.6 scored 89%, while the previous Sonnet 4.5 was at 62%. A **27 percentage point jump**. This kind of leap within the same model line is exceptional.
+
+| Benchmark              | Sonnet 4.6 | Opus 4.6 | Difference |
+| ---------------------- | ---------- | -------- | ---------- |
+| SWE-bench Verified     | 79.6%      | 80.8%    | -1.2pp     |
+| OSWorld (computer use) | 72.5%      | 72.7%    | -0.2pp     |
+| GDPval-AA Elo (office) | 1633       | 1606     | +27        |
+| Financial analysis     | 63.3%      | 60.1%    | +3.2pp     |
+| Math                   | 89%        | —        | —          |
+| GPQA Diamond (science) | 74.1%      | 91.3%    | -17.2pp    |
+
+However, Sonnet doesn't threaten Opus across all benchmarks. On GPQA Diamond, the deep science reasoning benchmark, Sonnet 4.6 scored only 74.1%. There's a 17.2 percentage point gap from Opus 4.6's 91.3%. In tasks requiring 20+ steps of chain reasoning, Opus is still decisively ahead. Sonnet 4.6 is Opus-level **for coding and practical work**, not for every domain.
+
+---
+
+## What One-Fifth the Price Changes in the Equation
+
+![Stack of dollar bills — Sonnet 4.6 enables 80% cost savings vs Opus](/static/images/sonnet-46-opus-level-one-fifth-cost/pricing.png)
+
+The pricing breakdown looks like this:
+
+| Model         | Input (per 1M tokens) | Output (per 1M tokens) | Cost multiple |
+| ------------- | --------------------- | ---------------------- | ------------- |
+| Sonnet 4.6    | $3                    | $15                    | 1x            |
+| Opus 4.6      | $15                   | $75                    | 5x            |
+| GPT-5.3 Codex | $6                    | $30                    | 2x            |
+
+Sonnet 4.6's pricing is **identical** to the previous generation Sonnet 4.5. Performance went up, price stayed the same. There's no better upgrade for consumers.
+
+For enterprises, this price difference means not just savings but a **transformation in use cases**. Say a company runs AI agents 24/7. If it costs $10,000 per month with Opus, switching to Sonnet 4.6 brings it down to $2,000. That's $8,000 saved.
+
+With those $8,000, you can run 5x more agents. Or deploy AI to more teams on the same budget. Companies that limited AI to a few teams due to Opus pricing can now expand company-wide. The cost didn't just go down — **the scope of what's possible expanded**.
+
+According to VentureBeat, companies that stayed in small pilots through January started evaluating full rollouts after Sonnet 4.6 launched. Multiple early testers responded with "there's no reason to use Opus anymore." Of course, Opus is still needed for science reasoning or complex multi-step analysis, but **for typical coding and work**, there's no reason to pay 5x anymore.
+
+---
+
+## 70% of Developers Preferred It Over the Previous Model
+
+Anthropic ran preference tests for Sonnet 4.6 in Claude Code. The results are interesting.
+
+In Sonnet 4.6 vs. Sonnet 4.5 comparisons, **70% of users** preferred Sonnet 4.6. This is an expected result for a same-price generational upgrade. The surprising part is next. In Sonnet 4.6 vs. Opus 4.5 comparisons, **59% of users** preferred Sonnet 4.6. Opus 4.5 was Anthropic's top-tier model until November 2025. A mid-tier model beat the previous top-tier in user preference.
+
+The reasons are specific. Developers evaluated Sonnet 4.6 as "following instructions better and doing less over-engineering." Anyone who's used AI coding tools knows this problem. You say "just fix this," and the AI refactors the entire file. Sonnet 4.6 reduced that tendency.
+
+False success reports also decreased. The phenomenon where code doesn't actually work but the AI says "done" — so-called hallucination — went down. The rate of completing multi-step tasks without giving up midway also increased.
+
+Snowflake's team reported text-to-SQL accuracy reaching **over 90%**. Input "show me top 10 products by revenue last month" in natural language and you get an accurate SQL query. Box CEO Aaron Levie mentioned accuracy improved from 60% to 78% in healthcare tasks and 57% to 69% in legal tasks. These aren't just benchmark numbers but metrics measured in actual enterprise environments.
+
+The evaluation of "doing less over-engineering" needs more explanation. One of the most common complaints when using AI coding tools is unrequested changes. You ask to fix one function, and it refactors surrounding code, changes types, and rewrites tests. For developers, this isn't help but interference. The wider the change scope, the more code to review, and the more unexpected side effects can occur. That Sonnet 4.6 mitigated this problem is an improvement felt more strongly in real work than in benchmarks.
+
+---
+
+## What the 1 Million Token Context Window Means
+
+![Code flowing screen — Sonnet 4.6 reads large codebases at once with 1 million tokens](/static/images/sonnet-46-opus-level-one-fifth-cost/code-screen.png)
+
+Sonnet 4.6 is the first Sonnet-class model to support a **1 million token context window** (beta). The previous Sonnet 4.5 had a 200K token context window. A 5x expansion.
+
+Let's get a sense of what 1 million tokens actually is. A typical software project's codebase ranges from tens of thousands to hundreds of thousands of lines. 1 million tokens can read most entire projects at once. The problem of losing context while jumping between individual files is structurally resolved.
+
+This difference stands out in Claude Code. Modifying after reading the entire codebase versus modifying based on partial reading and guessing produces different results. Early testers evaluated Sonnet 4.6 as "reading context first before modifying code." Possible because of 1 million tokens.
+
+Adaptive thinking was also added. A feature that performs step-by-step reasoning — instead of answering complex problems at once, it thinks in steps. This feature, which was only in Opus, is now available at Sonnet pricing.
+
+Security was strengthened too. **Prompt injection resistance reached Opus level**. One of the biggest concerns when deploying AI agents to work is prompt injection attacks. Agents processing external data must not be fooled by malicious instructions. That this resistance is Opus-grade means the barrier to enterprise deployment has lowered.
+
+The knowledge cutoff was also updated to August 2025. Sonnet 4.5's cutoff was February 2025, so this is 6 months forward. Better reflects recent library or API changes.
+
+---
+
+## GPT-5.2 and Gemini 3, How Does the Competitive Landscape Change
+
+Looking at Sonnet 4.6 alone seems impressive, but you need to compare with competitor models to see the full picture.
+
+OpenAI's GPT-5.2 scores 80.0% on SWE-bench Verified. Nearly identical to Sonnet 4.6's 79.6%. But the price differs. GPT-5.3 Codex pricing is $6 input, $30 output. **2x Sonnet 4.6's price**. Same coding performance at 2x cost means cost-sensitive enterprises have no choice but to pick Sonnet 4.6.
+
+Where GPT-5.2 leads is **pure math and science reasoning**. In tasks like math olympiad-level problems or physics paper analysis, GPT-5.2 is still strong. But most enterprise work rarely needs this level of math.
+
+Google's Gemini 3 Pro competes from a different angle. At 76.2% on SWE-bench, it's lower than Sonnet 4.6, but it's unrivaled in **multimodal processing**. It natively handles text, images, audio, and video in a single context. Sonnet 4.6 and GPT-5.2 can't do native video processing. Integration with the Google ecosystem is also Gemini's strength.
+
+| Item                 | Sonnet 4.6            | GPT-5.2       | Gemini 3 Pro      |
+| -------------------- | --------------------- | ------------- | ----------------- |
+| SWE-bench            | 79.6%                 | 80.0%         | 76.2%             |
+| OSWorld              | 72.5%                 | 38.2%         | —                 |
+| Input price (1M tok) | $3                    | $6            | Varies            |
+| Video native         | No                    | No            | Yes               |
+| Strength             | Coding, agents, price | Math, science | Multimodal, speed |
+
+Bottom line, as of February 2026, **for coding and agent tasks, the best value is Sonnet 4.6**. Not "top performance" but "this performance at this price" is the key framing. Will you pay 5x cost for 1.2 percentage points more performance, or get 98% performance at 20% cost? For most enterprises, the answer is clear.
+
+---
+
+## So Is Opus Dead
+
+If Sonnet 4.6 has this level of performance, it's natural to ask what Opus's purpose is. Anthropic must have anticipated this question.
+
+There are three areas where Opus 4.6 is decisively ahead. First, **deep science reasoning**. The 91.3% vs. 74.1% gap on GPQA Diamond can't be ignored. For paper-level scientific analysis, generating new research hypotheses, designing complex experiments, Opus is needed.
+
+Second, **20+ step chain reasoning**. For tasks requiring over 20 logical steps within a single prompt, Opus is still reliable. Sonnet 4.6 lacks consistency at this level. Tasks like complex system design or long-term strategy formulation fall here.
+
+Third, **long context stability**. While Sonnet 4.6 also supports a 1 million token context window, the ability to accurately track information within that long context is where Opus has the edge. On MRCR v2 benchmark, Opus 4.6 scored 76% while Sonnet 4.5 scored only 18.5%. The exact figure for Sonnet 4.6 hasn't been disclosed, but it's estimated to be somewhere between the two.
+
+But for **all other tasks** not covered by these three areas, Sonnet 4.6 delivers 98% of Opus's performance at 20% of the cost. Opus isn't dead. But the range of users who need Opus has sharply narrowed. Scientists, researchers, a few engineers designing extremely complex systems. For everyone else, Opus became overkill.
+
+This is similar to what happened in the smartphone market. There was a point where flagship phone cameras were 10% better, but mid-tier phone cameras became good enough. At that point, most consumers chose mid-tier. The AI model market has reached that point.
+
+For Anthropic, this is also a calculated strategy. Opus has high profit margin but limited user count. Because it's expensive. Sonnet has lower margin but overwhelmingly more users. In total revenue terms, increasing Sonnet users can be more profitable. Setting Sonnet 4.6 as the default model is part of this strategy. Let as many people experience Sonnet 4.6 as possible and increase API usage.
+
+---
+
+## The Real Competition Isn't Models, It's Pricing
+
+What Anthropic showed with Sonnet 4.6 isn't just model performance improvement. It's a **sharp shift in the price-performance curve**.
+
+Six months ago, if you wanted Opus-level performance, you had to pay Opus pricing. There was no choice. Now you can get the same performance at one-fifth the price. For enterprises using AI, this means strategic change beyond simple cost savings.
+
+Figma announced a "Code to Canvas" feature timed with Sonnet 4.6's release. A partnership with Anthropic. CNBC reported Sonnet 4.6 as "a case showing Anthropic's aggressive model release pace." AI Business analyzed it as "Anthropic trying to change the frame of conversation." From top performance competition to optimal price competition.
+
+OpenAI and Google won't sit still. Either GPT-5.2's price will drop, or Gemini 3's mid-tier model will emerge, or cheaper new models will launch. Price-performance competition is heating up. The biggest beneficiaries of this competition are developers and enterprises using AI models.
+
+But there's one thing to note. Benchmarks are just benchmarks. 79.6% on SWE-bench means solving 79.6% of the test set, not perfectly executing 79.6% of all coding tasks. Real work experience can differ from benchmarks. Especially in domain-specific tasks, legacy code maintenance, large system architecture design — areas where benchmarks don't capture the differences.
+
+One more thing to consider. Even with identical benchmark results, the "feel" of models can differ. Even with the same SWE-bench score, the style of generating code, the way of handling errors, the tendency of interpreting ambiguous requirements vary by model. That Sonnet 4.6 beat Opus 4.5 in developer preference tests might be because of this "feel" difference not measured by numbers.
+
+Still, the direction is clear. AI model prices go down and performance goes up. AI use cases that were impossible due to cost become possible. Sonnet 4.6 is the most recent example of that change, and probably not the last. Next quarter, another model will offer the same performance at even lower price. The only certainty in the AI market is that today's price is more expensive than tomorrow's price.
+
+---
+
+**Sources:**
+
+- [Introducing Claude Sonnet 4.6 — Anthropic](https://www.anthropic.com/news/claude-sonnet-4-6)
+- [Anthropic's Sonnet 4.6 matches flagship AI performance at one-fifth the cost — VentureBeat](https://venturebeat.com/technology/anthropics-sonnet-4-6-matches-flagship-ai-performance-at-one-fifth-the-cost)
+- [Claude Sonnet 4.6: Complete Guide to Benchmarks, Features, and Pricing — NxCode](https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026)
+- [Anthropic releases Claude Sonnet 4.6, continuing breakneck pace — CNBC](https://www.cnbc.com/2026/02/17/anthropic-ai-claude-sonnet-4-6-default-free-pro.html)
+- [Anthropic Tries to Change the Conversation With Sonnet 4.6 — AI Business](https://aibusiness.com/generative-ai/anthropic-tries-to-change-the-conversation-with-sonnet-4-6)
+- [Figma partners with Anthropic for Code to Canvas — Cryptopolitan](https://www.cryptopolitan.com/figma-anthropic-to-launch-code-to-canvas/)
+- [Unsplash](https://unsplash.com)

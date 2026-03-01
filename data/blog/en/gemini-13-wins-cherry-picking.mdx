@@ -1,0 +1,173 @@
+---
+title: 'The Math Behind Gemini's 13 Out of 16 Wins'
+date: '2026-02-28T18:00:23'
+language: 'en'
+translationOf: 'gemini-13-wins-cherry-picking'
+tags:
+  [
+    'gemini',
+    'google',
+    'ai-benchmark',
+    'cherry-picking',
+    'ai-model',
+  ]
+draft: false
+images: ['/static/images/gemini-13-wins-cherry-picking/og-image.png']
+summary: 'Google claimed Gemini 3.1 Pro won 13 out of 16 benchmarks, but SmartScope analysis reveals most were matches where competing models didn't even show up.'
+---
+
+## How to Call a Forfeit a Victory
+
+![Benchmark comparison chart — numbers mean different things when context changes](/static/images/gemini-13-wins-cherry-picking/og-image.png)
+
+13 out of 16 wins. The number looks overwhelming. Google led with this ratio when announcing Gemini 3.1 Pro. Tech media ran "AI Crown Reclaimed" headlines, and investors breathed easier. But SmartScope's dissection of this number reveals a completely different landscape.
+
+Here's the core: GPT-5.3-Codex only published scores for **2 out of 16** benchmarks. For the remaining 14, Codex scores simply don't exist. Structurally identical to claiming gold medals in matches where the opponent never showed up. In Google's comparison table, many cells marked "Gemini 1st" were actually "competing model scores unpublished."
+
+A forfeit is still a win. But when you hold up 13 forfeits and declare yourself "strongest ever," that's not victory — that's **rhetoric**. This article dissects the specific mechanisms behind Google's 13 wins.
+
+---
+
+## What Missing Benchmarks Tell Us
+
+The 16 benchmarks in Google's comparison table were Google's selection. The problem lies in what's missing. SmartScope identifies three benchmarks that appear deliberately excluded.
+
+First, **OSWorld**. Measures OS-level computer use capability. Opus 4.6 scored 72.7%, higher than any model score in Google's table. But OSWorld isn't in Google's table.
+
+Second, **BigLaw Bench**. Measures legal reasoning at big law firm level. Opus 4.6 scored 90.2%. A benchmark showing AI capability in professional work like legal, financial, and strategic planning — missing from Google's table.
+
+Third, **MRCR v2 1M tokens**. Measures long context understanding at 1 million token scale. Google marked Opus 4.6 "Not supported" on this item. But Anthropic announced 76% achievement through beta 1M context window. Not unsupported — just different support method.
+
+![Data analysis dashboard — conclusions change based on what data you include or exclude](/static/images/gemini-13-wins-cherry-picking/data-dashboard.png)
+
+These three benchmarks share a commonality: all are **areas where Claude dominates**. Whether Google deliberately excluded them or simply couldn't include them due to missing Gemini scores is unknown. But the result is Google's comparison table consists mainly of Gemini's strong areas, while Claude's strong areas are missing.
+
+Benchmark selection isn't a neutral act. Choosing 16 already determines the narrative. Different 16 could have turned "13 wins" into "8 wins." It's like creating a report card with only math and science from subjects including math, science, English, PE, and music, then claiming "top of the class." Not necessarily wrong, but not the full picture.
+
+---
+
+## Change Conditions, Flip Rankings
+
+Same benchmark, different rankings based on measurement conditions. SmartScope's most striking example: **HLE (Humanity's Last Exam)**.
+
+Tool-free, pure knowledge only: Gemini 3.1 Pro scores 44.4% versus Opus 4.6's 40.0%. 4.4 percentage points ahead. Gemini wins. But allow tool use and the table flips. Opus 4.6 hits 53.1% versus Gemini's 51.4%. Same test, but superiority reverses based on tool allowance.
+
+Which condition did Google's comparison table use? Tool-free. Naturally adopting the Gemini-winning version.
+
+**Terminal-Bench 2.0** repeats the pattern. Google published standard harness results. Under this condition, Gemini 3.1 Pro scores 68.5%, GPT-5.3-Codex 64.7%. Gemini wins. But Codex's custom harness score: **77.3%**. Model that lost on standard harness dominates on custom harness.
+
+SmartScope asks: "Did Google not have custom harness results, or did they have them but not disclose?" Either way, the meaning of Terminal-Bench victory in the 13 wins changes.
+
+| Benchmark          | Condition        | Gemini 3.1 Pro | Competitor      | Winner |
+| ------------------ | ---------------- | -------------- | --------------- | ------ |
+| HLE                | Tool-free        | 44.4%          | Opus 4.6: 40.0% | Gemini |
+| HLE                | Tool use         | 51.4%          | Opus 4.6: 53.1% | Claude |
+| Terminal-Bench 2.0 | Standard harness | 68.5%          | Codex: 64.7%    | Gemini |
+| Terminal-Bench 2.0 | Custom harness   | —              | Codex: 77.3%    | Codex  |
+
+In situations where one condition change flips win/loss, Google consistently selected conditions favoring themselves. This doesn't mean cheating. Any company puts their most favorable conditions in presentation materials. But "13 wins" is clearly not absolute fact — it's a **snapshot under specific conditions**.
+
+A structural problem here: Benchmarks were originally created for fair model comparison. But without disclosing measurement conditions, comparison premises collapse. Writing "Gemini 1st" on HLE without specifying tool use makes readers assume Gemini won under all conditions. Removing the "standard harness basis" caveat on Terminal-Bench makes Codex's 12.6 percentage point lead on custom harness evaporate. No need to manipulate numbers. Omitting conditions alone reshapes narrative.
+
+---
+
+## 300-Point Gap in Enterprise Work
+
+The most serious consequence of benchmark cherry-picking: obscuring real-world performance gaps. The most uncomfortable number in Google's comparison table sits in **GDPval-AA**.
+
+GDPval-AA measures enterprise professional work like financial analysis, legal review, and strategic planning. Scores on this benchmark:
+
+| Model             | GDPval-AA Elo |
+| ----------------- | ------------- |
+| Claude Sonnet 4.6 | 1633          |
+| Claude Opus 4.6   | 1606          |
+| Gemini 3.1 Pro    | 1317          |
+
+![Benchmark scorecard — rankings completely flip between abstract reasoning and enterprise work](/static/images/gemini-13-wins-cherry-picking/scoreboard.png)
+
+**About 300 Elo difference**. In chess, 300 Elo separates amateurs from professionals. Sonnet 4.6, a cheaper model than Opus, leads Gemini 3.1 Pro by over 300 points. Makes Gemini's 8.3 percentage point lead on ARC-AGI-2 abstract reasoning pale in comparison.
+
+This gap matters because: ARC-AGI-2 is academically interesting, but everyday AI usage context isn't abstract pattern recognition. Proposal writing, contract review, financial analysis, customer response scenario design. In this work, 300 Elo gap is distinctly felt. Subtle tone adjustment in documents needing emotional nuance, precise interpretation of legal text with tangled conditions. Areas where Gemini lags overlap precisely with areas where companies pay for AI.
+
+How was this 300-point gap handled in Google's 13-win narrative? GDPval-AA was included as one of 16 benchmarks. But it's 1 out of 16. Win the other 12 and the overall narrative becomes "overwhelming victory." **Simple unweighted win counting** dilutes the severity of 300 Elo gap.
+
+Not all benchmarks carry equal importance. Leading by 8 percentage points on ARC-AGI-2 and trailing by 300 Elo on GDPval-AA don't weigh the same. But the "13 to 3" frame erases this difference. Counting wins only assigns equal weight to all benchmarks and ignores gap magnitude. 0.2 percentage point victory and 300 Elo defeat both count identically as 1 win, 1 loss.
+
+---
+
+## Are 4 Points on Arena the Crown?
+
+Outside benchmarks, the most trusted evaluation criterion: **Chatbot Arena**. Human evaluators blindly compare two models' answers and pick the better one. Hard to optimize for specific tasks like benchmarks, so reflects comprehensive perceived model quality.
+
+On Arena, Gemini 3.1 Pro: **1500 Elo**, Opus 4.6: **1504 Elo**. 4-point difference. Statistically meaningless level. "Essentially tied" is accurate.
+
+Can 4-point difference be called "crown reclaimed"? VentureBeat's headline did. Google's marketing materials carried that nuance. But data says differently. When human users directly compare two models, determining which is better is essentially impossible.
+
+One more thing to address: On Artificial Analysis's composite index, Gemini 3.1 Pro scores 57, Opus 4.6 scores 53. 4-point difference. One basis for "crown reclaimed" narrative. But this composite index includes price-performance ratio. Gemini 3.1 Pro's benchmark execution cost: about **$892**, Opus 4.6: **over $1,800**. Excluding cost and looking at pure performance, gap narrows or could reverse.
+
+13 wins, 4 points on Arena, 4 points on composite index. All these numbers are factual. But being factual differs from being meaningful. The moment statistical noise gets packaged as "crown," data becomes weapon rather than evidence.
+
+---
+
+## Recurring History of Benchmark Math
+
+Google isn't alone in this math. The entire AI industry is chronically addicted to benchmark cherry-picking.
+
+December 2023, Google announced Gemini 1.0 Ultra claiming first victory over GPT-4 on MMLU. MIT Technology Review commented "looks stunning but could signal peak AI hype." Experts noted Google's 5-shot CoT protocol differed from protocols applied to other models. Same test, different solving approach changes scores.
+
+Alibaba shows the same pattern. "Alibaba's trap claiming Qwen 3.5 beat GPT" waits in blog topic queue. DeepSeek V4 likewise. "Why you shouldn't trust DeepSeek V4 Bench 90%" topic exists. Every company making AI models picks tests their model performs best on for comparison tables.
+
+![Benchmark comparison screen — same data tells completely different stories based on framing](/static/images/gemini-13-wins-cherry-picking/benchmark-table.png)
+
+But Google's case stands out for: **frequency and scale**. Gemini 1.0 Ultra, 2.5 Pro, 3 Pro, 3.1 Pro. Each time "strongest" or "crown reclaimed" headlined, and each time more complex pictures emerged in independent analysis days later. Gemini 3 Pro got "highest hallucination rate among frontier models" assessment. 3.1 Pro improved hallucination from 88% to 50%, but 50% still equals coin flip level.
+
+This pattern repeats for structural reasons. For Google, AI benchmarks aren't product performance reports — they're **investor communication tools**. Alphabet's market cap directly links to market perception of AI competitiveness. Numbers like "13 out of 16 wins" powerfully message investors unfamiliar with technical context. Only independent analysts like SmartScope scrutinize number composition, and their voices drown in Google's PR scale.
+
+Ultimately benchmark announcements become marketing borrowing technical report format. VentureBeat's "crown reclaimed" headline resulted from transcribing Google's comparison table as-is. Independent verification takes days, and during those days the "13 wins" number already imprints on investor and decision-maker perception. Corrections never match original report reach. Why AI industry benchmark announcements increasingly resemble press events.
+
+---
+
+## What Benchmarks Don't Tell Developers
+
+Real harm of benchmark cherry-picking: distorting technical choices of developers and companies. Companies choosing Gemini based on "13 out of 16 wins" feel trust collapse when experiencing 300 Elo gap versus Claude in proposal writing.
+
+Real usage data tells different story from benchmarks. According to Analytics Vidhya hands-on testing, Gemini 3.1 Pro shows strength in logic problems with many constraints. Reasoning depth definitely improved over previous generation. But multiple reports show lagging behind Claude Code or Codex in extended repetitive coding sessions. Ability to produce good answer in one shot differs from ability to incrementally improve code over multiple rounds — different muscles.
+
+Output token limit can't be overlooked. Gemini 3.1 Pro max output: **64K tokens**, Opus 4.6: **128K tokens**. Half the output limit in large-scale code refactoring or detailed analysis reports is a decisive constraint in practice, though invisible in benchmarks.
+
+SWE-Bench Verified shows similar pattern. Gemini 3.1 Pro 80.6%, Opus 4.6 80.8%, Codex 80.0%. Three models packed within 0.8 percentage points. Ranking at this density approaches interpreting statistical noise. But in Google's comparison table, even this 0.2 percentage point difference counts as one "win."
+
+Price is definitely Gemini's weapon.
+
+| Model             | Input (per 1M tokens) | Output (per 1M tokens) | Ratio vs Gemini |
+| ----------------- | --------------------- | ---------------------- | --------------- |
+| Gemini 3.1 Pro    | $2                    | $12                    | 1x              |
+| Claude Sonnet 4.6 | $3                    | $15                    | 1.3x            |
+| Claude Opus 4.6   | $15                   | $75                    | 6.3x            |
+| GPT-5.2           | $10                   | $30                    | 2.5~3x          |
+
+Competing or leading on most benchmarks at **one-sixth** Opus 4.6's price is fact. Gemini clearly sits on cost-efficiency throne. But Google claims not cost-efficiency throne — **AI's overall throne**. Narrative not distinguishing between value leader and absolute performance leader is the problem's essence.
+
+---
+
+## Eyes Reading Math Matter More Than Benchmarks
+
+The sentence "13 out of 16 wins" hides three choices. Which 16 were picked. What conditions measured. Who compared against. Change these three and same model can produce "13 wins" or "5 wins."
+
+Not Google's problem alone. Alibaba's Qwen, DeepSeek's V4, even Anthropic and OpenAI feature benchmarks favoring themselves in their comparison tables. Difference is degree. Google's case had three things simultaneously: counting forfeits as wins, selecting only favorable conditions in benchmarks where rankings flip by condition, excluding benchmarks where competing models dominate. Result: "13 wins."
+
+What developers and companies should do isn't believe or distrust benchmark numbers — it's **read the math**. Not how many won but which matches were picked. What conditions measured. What happened in missing benchmarks. Ask these questions and 13 wins becomes starting point, not conclusion.
+
+If AI model selection criterion is benchmark win count, the company most cleverly picking benchmarks wins. Whether that's good selection criterion is individual judgment.
+
+Benchmark war's ultimate destination: when benchmarks become meaningless. Either products improve enough users don't need to check benchmarks, or gap between benchmark scores and real usage widens so much nobody trusts benchmarks. Currently closer to latter. Google's "13 wins" will record as one number accelerating that distrust.
+
+---
+
+**Sources:**
+
+- [Behind Gemini 3.1 Pro's '13 out of 16 Wins' — SmartScope](https://smartscope.blog/en/generative-ai/google-gemini/gemini-3-1-pro-benchmark-analysis-2026/)
+- [Google launches Gemini 3.1 Pro, retaking AI crown — VentureBeat](https://venturebeat.com/technology/google-launches-gemini-3-1-pro-retaking-ai-crown-with-2x-reasoning)
+- [Gemini 3.1 Pro: A smarter model for complex tasks — Google Blog](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/)
+- [Gemini 3.1 Pro Leads Most Benchmarks But Trails Claude — TrendingTopics](https://www.trendingtopics.eu/gemini-3-1-pro-leads-most-benchmarks-but-trails-claude-opus-4-6-in-some-tasks/)
+- [Google's Gemini model looks amazing but could signal peak AI hype — MIT Technology Review](https://www.technologyreview.com/2023/12/06/1084471/google-deepminds-new-gemini-model-looks-amazing-but-could-signal-peak-ai-hype/)

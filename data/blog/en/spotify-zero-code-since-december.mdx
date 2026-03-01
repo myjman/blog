@@ -1,0 +1,142 @@
+---
+title: "Spotify's Top Developers Have Written Zero Lines of Code Since December"
+date: '2026-02-27T18:00:23'
+language: 'en'
+translationOf: 'spotify-zero-code-since-december'
+tags: ['spotify', 'ai-coding', 'claude-code', 'agentic-coding']
+draft: false
+images: ['/static/images/spotify-zero-code-since-december/og-image.png']
+summary: "Spotify's co-CEO revealed during earnings that their most senior engineers haven't written a single line of code since December. Internal AI system Honk and Claude Code have taken their place."
+---
+
+## Fixing Bugs on Slack During the Commute
+
+![Office scene with development team working together](/static/images/spotify-zero-code-since-december/og-image.png)
+
+February 10, 2026, Spotify Q4 earnings call. Co-CEO Gustav Soderstrom dropped a line in front of investors. "If you ask our top senior engineers, they'll tell you they **haven't written a single line of code since December**." A developer who doesn't write code sounds like an oxymoron. But Soderstrom's explanation was specific.
+
+"A Spotify engineer tells Claude on Slack during their morning commute to fix a bug in the iOS app and add a new feature. Before they reach the office, a new version of the app comes back through Slack." Instead of writing code, they **generate and supervise** it. The system is called Honk. A background coding agent Spotify built internally.
+
+751 million monthly active users, 290 million premium subscribers, 4.5 billion euros in revenue up 13% year-over-year. The numbers alone make this strategy look like it's working. In 2025, they distributed 11 billion euros to music rights holders and recorded 701 million euros in operating profit. But the investor reaction at the earnings call and the developer reaction online were completely different. The former applauded, the latter was horrified. The same numbers, completely opposite responses.
+
+---
+
+## Honk Wasn't Built Overnight
+
+![App interface displayed on smartphone screen](/static/images/spotify-zero-code-since-december/mobile-coding.png)
+
+Honk's foundation is a framework called Fleet Management that Spotify has been building since 2022. A system that applies code changes in bulk across hundreds or thousands of repositories. By mid-2024, this system was automating about **50% of all PRs**. Honk is this infrastructure topped with Anthropic's Claude Code and Claude Agent SDK.
+
+Breaking down the tech stack: Claude Code acts as the agent's brain, Claude Agent SDK forms the agentic loop skeleton. MCP (Model Context Protocol) connects Slack, GitHub Enterprise, and other internal tools. And Backstage, an open-source developer portal, provides the component catalog and ownership information.
+
+Looking at the three-part series published on the Spotify Engineering blog, you can see this system is a product of trial and error. They first tried open-source agents like Goose and Aider. They could navigate codebases and do prompt-based editing, but "couldn't reliably produce mergeable PRs." Next they built their own agentic loop. They set limits of 10 turns per session with up to 3 retries, but with complex multi-file modifications, they had the problem of "forgetting the original task when the context window filled up."
+
+The situation changed when they switched to Claude Code. "More natural task-oriented prompts" became possible, and todo list management and subagent creation capabilities were built in. Currently Claude Code is handling about 50 migrations and accounts for the majority of background agent PRs merged to production.
+
+What's notable is the journey to reaching Honk. Fleet Management started in 2022, 50% PR automation achieved mid-2024, Claude Agent SDK integration in July 2025, engineering blog trilogy published November-December 2025, and senior engineer manual coding stopped from December 2025. It was possible because of 4 years of infrastructure investment. If you take only Soderstrom's statement out of context, it looks like an overnight change, but the reality is the opposite.
+
+---
+
+## 1,500 PRs and 90% Time Savings
+
+Here are Honk's numbers.
+
+| Item                        | Value       |
+| --------------------------- | ----------- |
+| AI-generated PRs merged     | 1,500+      |
+| Monthly agent PRs           | 650+        |
+| Code migration time savings | 60-90%      |
+| Features shipped in 2025    | 50+         |
+| Monthly active users        | 751 million |
+| Premium subscribers         | 290 million |
+
+The workflow is simple. An engineer sends a natural language prompt on Slack. Claude explores the codebase, modifies code, runs formatters and linters, runs builds and tests. A new build comes back to Slack. The engineer reviews it and merges to production. The entire process runs inside a **sandbox container** with limited permissions.
+
+What Spotify particularly focused on is tool limitation. Instead of giving the agent unlimited freedom, they limited MCP tools to three. The Verify tool that runs formatters, linters, and tests. A restricted Git tool that blocks dangerous commands. A Bash tool that only allows ripgrep. Borrowing from the engineering blog, "more tools add more dimensions of unpredictability." Instead of having it fetch information dynamically, they chose to put necessary context into prompts upfront. They traded flexibility for **reliability**.
+
+They manage prompts like code. They use version-controlled static prompts and maintain them in a testable and evaluable form. Spotify's published prompt engineering principles are six. Adjust prompts to the agent's capabilities. Describe the final state instead of step-by-step instructions. Specify conditions when it shouldn't act. Provide concrete code examples. Separate related changes into distinct prompts. And ask the agent for feedback on the prompt itself and iteratively improve it. All of this is the opposite of the fantasy that "you can just adopt AI overnight."
+
+---
+
+## "Felt Faster But Was Actually 19% Slower"
+
+![Development environment with code displayed on monitor](/static/images/spotify-zero-code-since-december/code-review.png)
+
+There's a reason it's hard to take Spotify's announcement at face value. In July 2025, METR, a nonprofit AI safety research organization, published a study. An experiment with 16 senior developers with an average of 5 years and 1,500+ commits on large open-source projects. They randomly assigned 246 real issues, comparing groups that could use AI tools with groups that couldn't.
+
+The results defied intuition. The group using AI tools took **19% longer** to complete tasks. Developers predicted before the task that AI would save 24% time, and even after the task felt they saved 20%. In reality they were slower but felt faster.
+
+There were several causes. Considerable time was spent reviewing and cleaning up AI-generated code. The deeper the developer's experience with that codebase, the faster it was to write it themselves. METR researchers analyzed this as "AI struggling to match expert speed on in-distribution tasks."
+
+Of course, counterarguments are possible. The METR study used early 2025 models (Claude 3.5/3.7 Sonnet, Cursor Pro). Spotify's Honk is based on Opus 4.5, and the usage pattern is fundamentally different. Individual developers using AI as an assistive tool in their IDE versus an organization deploying agents with infrastructure are different dimensions. METR study developers got AI help on codebases they knew well, while Spotify's agents perform repetitive migration tasks in standardized environments. The nature of the work is different.
+
+Still, the fact that the only rigorous controlled experiment on the claim that "senior developers get faster with AI" produced the opposite result is hard to ignore. Spotify's "60-90% time savings" figure is an internal measurement. It has never been externally verified. METR's study precisely pointed out the reliability problem of self-reporting.
+
+---
+
+## Why the Klarna Precedent Is Uncomfortable
+
+There's a precedent of declaring AI would replace humans, then retreating. When fintech company Klarna announced in 2023 that it introduced an AI assistant and replaced 700 customer service employees, the industry cheered. The figure that AI handled two-thirds of all customer inquiries was impressive.
+
+But in spring 2025, Klarna quietly began hiring human agents again. Under a flexible work model they called "Uber style," they recruited remote agents including students and parents. CEO Sebastian Siemiatkowski admitted, "We focused too much on efficiency and cost. The result was **low quality**, and that's not sustainable." Customer satisfaction dropped, and complaints poured in that AI couldn't handle empathy and nuance in complex issues. They shifted to a hybrid model where AI handles basic inquiries and humans handle cases requiring empathy and judgment.
+
+Customer service and software development are different domains. Direct comparison doesn't hold. But the pattern is similar. A declaration backed by flashy numbers, initial success metrics, and quality problems emerging over time. The time from Klarna's "700 replaced" to "hiring again" was about 2 years. It's been less than 3 months since Spotify declared "zero lines of code."
+
+A Reddit r/technology post about Spotify got 14,275 upvotes. The three most repeated questions were: Who bears the supervision burden? Is this only for senior engineers (selection bias)? And where is the technical debt accumulating? This third question is the most critical. AI-generated code can work right away. It passes tests, clears linters, builds successfully. But 6 months, 1 year later when that code needs maintaining, can the developer who didn't "write" the code "understand" and modify it? Nobody answered.
+
+---
+
+## Raise Prices, Outsource Coding to AI
+
+Spotify's timing is subtle. A month before this announcement in January 2026, Spotify raised the premium individual subscription to **$12.99/month**. The reason was "to continue providing the best experience." A month later came the announcement that the developers creating that experience don't write code directly.
+
+Putting these two facts side by side draws an uncomfortable picture. Development costs cut with AI while subscription fees rise. What do users get in between? Among the 50+ features launched in 2025 were AI-powered Prompted Playlists, Page Match for audiobooks, About This Song. The number of features increased. But Android Authority's headline was "Frustrated with Spotify updates? Guess who's to blame."
+
+User complaints about the app's "bloated feel" keep coming up. The rapid expansion of AI features is pushing users away from the platform rather than pulling them in. There's even a plan to add an in-app bookstore. A bookstore in a music app. Being able to build features fast doesn't mean you should build them. More features doesn't mean a better product. It could mean the opposite.
+
+Soderstrom predicted in the earnings call that software companies will produce "vastly more" output, and development speed will increase so that "the limiting factor won't be engineering capacity but the amount of change consumers can absorb." One thing is missing from this sentence. Any mention of the **quality** of change.
+
+---
+
+## Can't Replicate Without Infrastructure
+
+![Team members collaborating together](/static/images/spotify-zero-code-since-december/team-collaboration.png)
+
+Some companies looking at Spotify's case might think "we just need to adopt AI too." But you need to look at the prerequisites that made Honk possible first.
+
+Building the Fleet Management framework took 4 years starting in 2022. Their internal tool ecosystem was mature enough to open-source a developer portal called Backstage. They had standardized build systems and comprehensive test suites across thousands of repositories. An evaluation system called "Judge" formed a feedback loop validating agent output.
+
+Thinking you'll become Spotify just by adopting Claude Code without this infrastructure is a delusion. Borrowing from the Spotify Engineering blog, **"you can't safely automate what you don't understand."** The prerequisite for automation is standardization, and the prerequisite for standardization is deep understanding.
+
+There are limits Honk currently acknowledges. Prompts evolve through trial and error but there's no systematic evaluation method. Quantitative criteria to judge which prompts or models are optimal are lacking. There's still no way to verify whether merged PRs actually solved the original problem. The last part of the engineering blog trilogy addresses this issue, but no complete answer emerged.
+
+An Anthropic study from January 2026 adds weight here. Developers using AI tools scored **17% lower** on coding comprehension tests. They finished tasks slightly faster but their understanding of code became shallower. Paradoxically, this research was published by Anthropic itself, who makes Claude that Spotify uses. They proved their own product's limitations.
+
+Can developers who don't write code understand code? This question isn't just Spotify's problem. In another survey from January 2025, 77% of professional developers responded they were "satisfied" or "very satisfied" working with AI agents. The METR study already showed that satisfaction and capability are different issues, yet developers still believe AI makes them faster.
+
+---
+
+## Is a Developer Who Doesn't Write Code Still a Developer?
+
+The most significant part of Soderstrom's statement is the phrase "generate and supervise code." Not write, but generate and supervise. When the verb changes, the job definition changes.
+
+Reading this change positively, the developer's role has moved up from an implementer who types code to an architect who designs and verifies systems. It's the same context as what Chris Lattner said in the CCC project. "When implementation cost converges to zero, the ability to decide what systems should exist becomes most valuable." The eye that sets direction becomes important, not the hand that types code.
+
+Reading it negatively, the story changes. Here's the most upvoted Reddit comment: "What are the top developers who don't write code doing now? **They're updating their resumes.**" It's sarcasm but hits the core. If AI writes code and humans only supervise, the number of supervisors can be much smaller than the number of executors. If you can ship 50 features faster, it's more likely to mean doing the same work with fewer people rather than doing more work with the same people.
+
+Spotify hasn't announced large-scale layoffs yet. But they have a history of firing 1,500 people in December 2023. That was 17% of total staff. And remember that the "haven't written a single line of code" statement came at an earnings call, in front of investors. In that setting, "productivity increased" is synonymous with "costs can be cut." Co-CEO Alex Norstrom and Chairman Daniel Ek were also there. Three executives simultaneously delivered the message to investors that "developers don't write code." How the developers read that sentence is left to imagination.
+
+Spotify's experiment is only 3 months in. Too early to judge success or failure. Soderstrom himself said this is "just the beginning." But the beginning doesn't guarantee the ending, as Klarna already showed.
+
+One thing is certain. The concept of "developers who don't write code" is no longer science fiction but reality appearing in quarterly earnings reports. The people building an app for 751 million users don't write code. That app's subscription fee is rising. And investors read this fact as bullish, developers as a threat. Same sentence, opposite interpretations. Before that gap narrows, people sitting at keyboards need to answer a question first. In a world where you don't need to write code, where exactly is the value of me writing code?
+
+---
+
+**Sources:**
+
+- [TechCrunch - Spotify says its best developers haven't written a line of code since December](https://techcrunch.com/2026/02/12/spotify-says-its-best-developers-havent-written-a-line-of-code-since-december-thanks-to-ai/)
+- [Spotify Engineering Blog - Background Coding Agents Part 2: Context Engineering](https://engineering.atspotify.com/2025/11/context-engineering-background-coding-agents-part-2)
+- [Spotify Engineering Blog - Background Coding Agents Part 3: Feedback Loops](https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3)
+- [METR - Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+- [Android Authority - Frustrated with Spotify updates?](https://www.androidauthority.com/spotify-ai-coding-app-3640653/)
+- [Context Studios - Spotify Built an AI Coding Agent](https://www.contextstudios.ai/blog/spotify-built-an-ai-coding-agent-that-replaced-writing-code-heres-what-developers-need-to-know)

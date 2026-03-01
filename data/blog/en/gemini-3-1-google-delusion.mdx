@@ -1,0 +1,166 @@
+---
+title: "Google's Delusion That Gemini 3.1 Reclaimed the Throne"
+date: '2026-02-24T12:00:06'
+tags: ['gemini', 'google', 'ai-benchmark', 'claude', 'ai-model']
+draft: false
+language: 'en'
+translationOf: 'gemini-3-1-google-delusion'
+images: ['/static/images/gemini-3-1-google-delusion/og-image.png']
+summary: 'Google released Gemini 3.1 Pro claiming first place in 13 out of 16 benchmarks. But when you look at missing benchmarks, absent competitor data, and real-world performance gaps, the throne reclamation narrative starts to crumble.'
+---
+
+## The Reality Behind 13 Out of 16 Wins
+
+![King on a chessboard — what board is Google's claimed throne actually on?](/static/images/gemini-3-1-google-delusion/og-image.png)
+
+On February 19, 2026, Google DeepMind unveiled Gemini 3.1 Pro. The official blog's headline was decisive: "A smarter model for your most complex tasks." VentureBeat went further, using the phrase "retaking AI crown." The basis was benchmarks. Google announced it achieved **first place in 13 out of 16** major benchmarks.
+
+The numbers look overwhelming. But the story changes when you examine how those numbers were created.
+
+SmartScope's analysis hits the nail on the head. In many of the 16 benchmarks Google selected, competing models' scores are completely missing. Notably, GPT-5.3-Codex only has scores disclosed for **just 2 out of 16** benchmarks. Claiming Gemini "won" in the other 14 is like claiming a gold medal in matches where opponents didn't even compete.
+
+What's more interesting is the missing benchmarks. Anthropic's announced Opus 4.6 OSWorld score of 72.7% doesn't appear in Google's table. In the MRCR v2 1M token benchmark, Google marked Opus 4.6 as "Not supported," while Anthropic claims 76% with a beta 1M context window. Selecting favorable benchmarks and excluding unfavorable ones isn't new. But packaging that as "throne reclamation" is a different problem.
+
+---
+
+## The Actual Report Card on Benchmarks
+
+![Data dashboard screen — benchmark numbers mislead without context](/static/images/gemini-3-1-google-delusion/data-dashboard.png)
+
+To compare benchmarks fairly, you need to look at a board designed by third parties, not the one Google chose. In Artificial Analysis's composite index, Gemini 3.1 Pro scored 57 points. Claude Opus 4.6 scored 53. A 4-point difference. VentureBeat's "throne reclamation" phrase came from these 4 points.
+
+But when you look at the detailed items disclosed by the same Artificial Analysis, the landscape changes. In Chatbot Arena, Gemini 3.1 Pro doesn't surpass Opus 4.6. In blind tests by human evaluators, the two models are essentially tied. Claiming the "AI throne" with a 4-point lead in the composite index means actual users aren't feeling that much difference.
+
+Breaking down individual benchmarks reveals clear strengths and weaknesses.
+
+In abstract reasoning, Gemini 3.1 Pro is definitely strong. It scored 77.1% on ARC-AGI-2, while Opus 4.6 managed 68.8%. An 8.3 percentage point difference is significant at this difficulty level. Gemini's lead in the ability to derive rules from few examples—pure reasoning performance—is real.
+
+In the science knowledge benchmark GPQA Diamond, Gemini also beat Opus 4.6 with 94.3% versus 91.3%. A 3-percentage-point difference in graduate-level physics, chemistry, and biology questions is meaningful.
+
+But there's a point where this narrative flips. **Real-world professional tasks**.
+
+| Benchmark                      | Gemini 3.1 Pro | Claude Opus 4.6 | Claude Sonnet 4.6 | Notes              |
+| ------------------------------ | -------------- | --------------- | ----------------- | ------------------ |
+| ARC-AGI-2 (abstract reasoning) | 77.1%          | 68.8%           | —                 | Gemini leads       |
+| GPQA Diamond (science)         | 94.3%          | 91.3%           | —                 | Gemini leads       |
+| GDPval-AA (professional work)  | Elo 1317       | Elo 1606        | Elo 1633          | Claude dominates   |
+| SWE-Bench Verified (coding)    | 80.6%          | 80.8%           | —                 | Essentially tied   |
+| HLE tool usage                 | 51.4%          | 53.1%           | —                 | Claude leads       |
+| Artificial Analysis composite  | 57             | 53              | —                 | Gemini slight lead |
+
+GDPval-AA measures enterprise professional tasks like finance, legal, and strategic planning. Here, Gemini 3.1 Pro's Elo is 1317. Claude Opus 4.6 is 1606, Sonnet 4.6 is 1633. **About a 300-point gap**. The 8.3-percentage-point lead in abstract reasoning pales in comparison. In well-crafted proposals, documents requiring emotional nuance, and complex office workflows, Anthropic models hold a structural advantage.
+
+---
+
+## The Optical Illusion of Coding Benchmarks
+
+For software developers, the most directly relevant benchmark is SWE-Bench. It measures the full cycle: AI understanding real open-source project issues, navigating code, writing fixes, and validating them. In SWE-Bench Verified, Gemini 3.1 Pro scored 80.6%, Claude Opus 4.6 scored 80.8%, and GPT-5.3-Codex scored 80.0%.
+
+All three models are **within 0.8 percentage points**. At this density, arguing "who won" is meaningless. The difference is statistical noise. The more accurate interpretation is that the industry has reached a temporary plateau at single-language, single-repo code modification.
+
+When you add complexity, rankings shift. SWE-Bench Pro measures code modification in multi-language environments. Here, GPT-5.3-Codex leads at 56.8%, with Gemini 3.1 Pro following at 54.2%. They're shoulder-to-shoulder in single-Python repos, but in real-world multi-language projects, gaps emerge.
+
+Humanity's Last Exam shows a similar pattern. When solving with pure knowledge without tools, Gemini leads at 44.4% versus Claude's 40.0%. But when tool usage is allowed, Claude reverses to 53.1% versus Gemini's 51.4%. This means Claude leads in the ability to augment reasoning with external tools—**agentic capability**.
+
+This difference matters because the 2026 trend in AI coding isn't simple code generation but autonomous task execution by code agents. Tools like Claude Code and OpenAI Codex are gaining traction for this reason. For developers, how reliably a model uses tools in actual agentic workflows matters far more than a 0.2% difference in benchmark scores. Google hasn't yet provided a clear answer here.
+
+---
+
+## The Trap of Progress at 50% Hallucination Rate
+
+![Coding screen — behind benchmark scores lies the reality of hallucinations and latency](/static/images/gemini-3-1-google-delusion/coding-screen.png)
+
+The most notable technical advancement in Gemini 3.1 Pro is hallucination rate improvement. In the AA-Omniscience Knowledge and Hallucination Benchmark, the hallucination rate dropped from **88% to 50%**. A 38-percentage-point decrease. Just looking at the numbers, it's a dramatic improvement.
+
+But context is missing. Think about what 50% means. **Half of what the AI answers might still not be true**. It's coin-flip level. Dropping from 88% to 50% is clear progress, but calling 50% "trustworthy" is difficult.
+
+Independent community benchmarks confirm this issue. There's analysis showing Gemini 3 Pro recorded the **highest hallucination rate among frontier models**, and while 3.1 Pro greatly improved on this, "improvement" and "resolution" are different words. Particularly in niche scenarios like technical paper evaluation, responses fluctuating based on prompts have been reported.
+
+Technical issues right after launch also occurred. Delays of **104 seconds** for simple queries were reported. Error messages saying "This model is currently experiencing high demand" were frequent, along with "deadline exceeded before task completion" errors. There's a gap between the performance measured in benchmarks and the performance developers actually experience through the API.
+
+The three-level thinking system is Gemini 3.1 Pro's most interesting new feature. Users can control the computational effort the model invests in responses across three levels: low, medium, and high. VentureBeat called it "Deep Think Mini." For simple questions, use low level for quick answers; for complex reasoning, use high level to save cost and time.
+
+Conceptually, it's rational. But looking at actual usage reviews, deciding which level to choose is itself a new cognitive load. Users need to accurately predict problem complexity to pick the right level, but users who can accurately predict problem complexity might not need to delegate to AI in the first place. It's the gap between feature usefulness and usability.
+
+---
+
+## Is Price Real Competitiveness?
+
+Beyond benchmarks, there's one area where Google has clear advantage. **Price**.
+
+Gemini 3.1 Pro costs $2 per million input tokens and $12 per million output tokens. For large requests exceeding 200K tokens, it rises to $4 input and $18 output. With context caching, costs can be reduced up to 75%.
+
+Comparison makes the difference stark.
+
+| Model             | Input (1M tokens) | Output (1M tokens) | Ratio vs Gemini |
+| ----------------- | ----------------- | ------------------ | --------------- |
+| Gemini 3.1 Pro    | $2                | $12                | 1x              |
+| Claude Sonnet 4.6 | $3                | $15                | 1.3x            |
+| Claude Opus 4.6   | $15               | $75                | 6.3x            |
+| GPT-5.2           | $10               | $30                | 2.5x~3x         |
+
+Gemini 3.1 Pro is **one-sixth the price** of Opus 4.6 while competing or leading in most benchmarks. Even compared to Sonnet 4.6, it's 30% cheaper. Since it's the same price as the previous Gemini 3 Pro, it's essentially a free upgrade for existing users.
+
+Price competitiveness is undeniable. But "cheap" and "best" are different claims. Google's narrative is the latter, but what the data supports is closer to the former. With careful benchmark selection, you can create "13 wins out of 13" or "8 wins out of 13." The question is which benchmarks reflect actual use value.
+
+Gemini 3.1 Pro does lead in cost efficiency. But cost efficiency doesn't equal "throne." The best value car and the best car are different categories.
+
+---
+
+## The Recurring Pattern of Google's Benchmark Narrative
+
+Google's AI model announcements follow a pattern. Each new model comes with "best" or "throne reclamation" modifiers, and days later, independent verification reveals a more complex picture.
+
+It was the same with Gemini 1.0 Ultra in December 2023. Google announced it surpassed GPT-4 for the first time in MMLU. MIT Technology Review called it "amazing but could signal peak AI hype." Experts pointed out that it's unclear how well Google's benchmarks reflect actual performance, and claims are hard to verify without transparency. There was criticism that evaluating a general-purpose model with narrow benchmarks is itself contradictory.
+
+Gemini 2.5 Pro was similar. It claimed "strongest ever" benchmarks, but real-world use revealed high hallucination rates. Gemini 3 Pro claimed over 50% benchmark improvements versus its predecessor, but independent analysis labeled it **the highest hallucination rate among frontier models**.
+
+This 3.1 Pro is following the same trajectory. On launch day, "13/16 benchmarks first place" dominated headlines. Days later, independent analyses like SmartScope began pointing out missing benchmarks and absent competitor data. On Hacker News, developers are sharing real-world experiences, noting the gap between benchmarks and feel.
+
+There's a reason this pattern repeats. For Google, AI isn't just a product—it's **a narrative that moves stock prices**. Alphabet's market cap is directly tied to market perception of AI competitiveness. Benchmark first-place announcement → tech media "throne reclamation" coverage → investor confidence boost. In this cycle, precise benchmark context gets buried in noise.
+
+The problem is this narrative can distort technology choices by developers and companies. Companies that chose Gemini after seeing "13 out of 16 first place" headlines but then experienced a 300-Elo performance gap versus Claude in professional tasks lose trust.
+
+---
+
+## What Developers Actually Experience With Gemini 3.1 Pro
+
+![Competition beyond benchmarks — real gaps revealed in actual use](/static/images/gemini-3-1-google-delusion/benchmark-race.png)
+
+Moving beyond benchmarks to real-world use, evaluations gain more nuance.
+
+According to Analytics Vidhya's hands-on testing, Gemini 3.1 Pro shows strength in **logic problems with many constraints**. Its consistency in not falling into contradictions while enumerating valid combinations is impressive. Most models fall into self-contradiction when constraints get complex, but 3.1 Pro's reasoning depth has clearly improved.
+
+On the other hand, in long iterative coding sessions, a different story emerges. Multiple developers report that Gemini is strong at "one-shotting" but lags behind Claude Code or OpenAI Codex in workflows involving repeated code modification and improvement over extended periods. The ability to deliver a good answer in one shot and the ability to incrementally improve code over multiple iterations are different muscles.
+
+Output token limits also make a difference in practice. Gemini 3.1 Pro's maximum output is 64K tokens. Opus 4.6 supports 128K tokens. In long document generation, large-scale code refactoring, and detailed analytical reports, having half the output limit is a real constraint.
+
+Input context is 1 million tokens, where Gemini has an advantage. In scenarios analyzing large codebases at once, a 1-million-token context is a powerful weapon. But having a large context window is separate from effectively utilizing it all. There's a gap between performance on "needle in a haystack" benchmarks and the ability to meaningfully understand a full 1 million tokens of code.
+
+In summary, Gemini 3.1 Pro is clearly a powerful model. Reasoning ability has greatly improved over previous generations, and price-to-performance is market-leading. But the all-around superiority implied by "throne" isn't backed by data.
+
+---
+
+## The Throne Is Plural, Not Singular
+
+Explaining AI model competition with the "throne" metaphor is itself anachronistic. The 2026 AI model ecosystem isn't a structure where everyone fights for one throne. Different thrones exist for different purposes, and each model sits on different thrones.
+
+Gemini 3.1 Pro sits on the abstract reasoning throne. ARC-AGI-2's 77.1% is currently the top score. Claude sits on the enterprise professional work throne. The 300-Elo gap in GDPval-AA is a structural advantage that can't be ignored. Gemini clearly sits on the cost efficiency throne. One-sixth the price of Opus with comparable performance is overwhelming. The agentic coding throne is still contested, but Claude Code and OpenAI Codex lead in ecosystem capture.
+
+What Google overlooks when claiming "throne reclamation" is that the real competition happens **inside developers' workflows**, not on benchmark leaderboards. Which tool developers use daily, which model companies deploy in production, which API startups choose. This choice isn't based on how many of 16 benchmarks you won, but which model most reliably delivers good results for the work I do.
+
+Gemini 3.1 Pro is a good model. Looking at price-to-performance alone, it's one of the most rational choices in the current market. But the "throne reclamation" narrative is Google's marketing, not the data's conclusion. Every time you see numbers like 13 out of 13 wins, the question to ask isn't "how many did you win" but **"which matches did you pick"**.
+
+The real way to win the benchmark war isn't to win benchmarks. It's to build a product so good that users don't need to check benchmarks. That Google hasn't yet reached there is the most revealed fact in this announcement.
+
+---
+
+**Sources:**
+
+- [Google launches Gemini 3.1 Pro, retaking AI crown with 2X+ reasoning performance boost — VentureBeat](https://venturebeat.com/technology/google-launches-gemini-3-1-pro-retaking-ai-crown-with-2x-reasoning)
+- [Behind Gemini 3.1 Pro's '13 out of 16 Wins' — SmartScope](https://smartscope.blog/en/generative-ai/google-gemini/gemini-3-1-pro-benchmark-analysis-2026/)
+- [Gemini 3.1 Pro: A smarter model for your most complex tasks — Google Blog](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/)
+- [Gemini 3.1 Pro Leads Most Benchmarks But Trails Claude Opus 4.6 in Some Tasks — TrendingTopics](https://www.trendingtopics.eu/gemini-3-1-pro-leads-most-benchmarks-but-trails-claude-opus-4-6-in-some-tasks/)
+- [Gemini 3.1 Pro vs Claude Opus 4.6: Comprehensive Comparison — Apiyi](https://help.apiyi.com/en/gemini-3-1-pro-preview-vs-claude-opus-4-6-comparison-en.html)
+- [Gemini 3.1 Pro Preview — Artificial Analysis](https://artificialanalysis.ai/models/gemini-3-1-pro-preview)
+- [Google's new Gemini model looks amazing but could signal peak AI hype — MIT Technology Review](https://www.technologyreview.com/2023/12/06/1084471/google-deepminds-new-gemini-model-looks-amazing-but-could-signal-peak-ai-hype/)

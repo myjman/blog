@@ -1,0 +1,181 @@
+---
+title: 'The Uncomfortable Truth: Vibe Coding Projects Fail After 3 Months'
+date: '2026-02-23T18:00:23'
+tags: ['vibe-coding', 'specification', 'software-engineering', 'ai-coding', 'maintainability']
+language: 'en'
+translationOf: 'vibe-coding-3-months-failure'
+draft: false
+images: ['/static/images/vibe-coding-3-months-failure/og-image.png']
+summary: 'Red Hat developer Todd Wardzinski analyzed the 3-month wall of vibe coding. Prototypes are fast, but code without specs becomes an unmaintainable digital sandcastle after 3 months.'
+---
+
+## The Weekend MVP Got Scrapped in 3 Months
+
+![Code editor screen — Code built fast crumbles fast](/static/images/vibe-coding-3-months-failure/og-image.png)
+
+Say you're building a flashcard app. Tell the AI "make a flashcard app with editable cards, animations, local storage support" and you get a working prototype in minutes. What used to take a quarter now finishes in a weekend. Red Hat developer Todd Wardzinski disclosed he implemented 5 concepts and completed 3 MVPs in a few months this way.
+
+This is the rosy side of vibe coding. The problem comes next.
+
+The title of Wardzinski's post on Red Hat Developer blog is "The Uncomfortable Truth About Vibe Coding." Uncomfortable truth. The pattern he directly experienced and observed goes like this: Projects built with vibe coding **start collapsing around 3 months later**. One small change breaks 4 or more features. When you hand the fix to AI, it creates secondary problems. When the codebase exceeds human cognitive capacity, it becomes untouchable.
+
+A developer on Reddit summarized this phenomenon precisely: "AI will fix one thing but destroy 10 other things." The faster vibe coding goes, the sooner this critical point arrives.
+
+---
+
+## Why Vibe Coding Structurally Fails
+
+The core of vibe coding is conveying intent in natural language and having AI generate code. Developers just check the "vibe" of the output and move on. When Andrej Karpathy coined this term in early 2025, he deliberately included the premise of "not reading code deeply."
+
+This premise is rational at the prototype stage. What you're validating is the possibility of an idea, not the quality of code. But the situation changes as the project grows. Wardzinski describes this process in three stages.
+
+The first stage is **exploration**. You throw prompts, rapidly iterate on what AI generates. A prototype emerges and looks like it works. Developer satisfaction peaks at this stage.
+
+The second stage is **accumulation**. Features get added, codebase grows. Prompts lose meaning right after generation. There's no record of why AI chose certain structures or what edge cases it considered. Code itself is the only documentation, but not reading that code deeply is the definition of vibe coding.
+
+The third stage is **collapse**. Fix one thing, break four. When you ask AI to fix it, AI presents new solutions without fully remembering previous context. Wardzinski calls the phenomenon of getting different results each time **"functionality flickering"**. Same prompt yields different code, previously working features disappear and reappear repeatedly.
+
+This explains why this pattern occurs around 3 months. Most side projects and MVPs start adding "features not in the original design" around 3 months. The moment you step beyond the original prompt's scope, code without specs loses direction.
+
+---
+
+## The Codebase Becomes Whack-a-Mole
+
+![Sandcastle — Vibe coding without specs is a digital sandcastle the next prompt will sweep away](/static/images/vibe-coding-3-months-failure/sandcastle.png)
+
+Wardzinski's analogy is "whack-a-mole." Press one down, another pops up elsewhere. This phenomenon is particularly severe in vibe coding because changes happen without developers understanding the dependency structure of code.
+
+Spaghetti code happens in traditional development too. But in traditional development, at least the person who wrote the code understands the structure. That premise disappears in vibe coding. Developers hand fixes back to AI without knowing the internal logic of AI-generated code. AI doesn't maintain full context of previous generations either. Result: **nobody fully understands the code**.
+
+One metric best reveals this problem: the "functionality flickering" phenomenon documented in GitHub's 2023 research. Each time AI regenerates code, implementation approach subtly varies. Variable names change, function structures change, error handling approaches change. Each change is minor, but accumulated, the entire codebase's consistency breaks down.
+
+Wardzinski expressed this state as a **"digital sandcastle"**. A sandcastle the next prompt will sweep away. Looks impressive, structurally fragile.
+
+This isn't an AI capability problem. It's a spec absence problem. In construction, building a house without blueprints is impossible. In software, it's possible. Vibe coding maximized that possibility. But you don't need a construction degree to know what happens to a house built without blueprints after 3 months.
+
+There's a more fundamental problem. Codebases built with vibe coding are **nearly impossible to refactor**. Refactoring's premise is precisely understanding existing code's behavior and changing only structure. Code whose behavior you don't understand cannot have structure changed. When you ask AI to "refactor this code," AI rewrites it into a new structure it prefers instead of maintaining existing structure. Looks cleaner on the surface, but edge cases the original code implicitly handled disappear. It's not refactoring, it's rewriting. And rewriting creates new bugs.
+
+---
+
+## Specs Must Become the Single Source of Truth for Code
+
+![Documentation work — Spec-driven development uses specifications, not prompts, as single source of truth](/static/images/vibe-coding-3-months-failure/specification.png)
+
+The solution Wardzinski proposes is **spec-driven development**. An approach that uses clear specification documents as code's single source of truth instead of prompts.
+
+Four core principles.
+
+First, treat specs as authoritative blueprints. Specs are "the truth," not code. If code has a bug, just regenerate code to match specs. Unlike prompts, specs remain valid after generation.
+
+Second, modify specs instead of debugging code. When there's a feature problem, instead of directly fixing code, modify that part of the spec and request AI to regenerate. This way, the intent of changes remains in documentation.
+
+Third, version control specs. Instead of just committing code to Git, manage spec docs together. You can track not just code change history but **decision-making change history**.
+
+Fourth, limit AI's role to executor. AI is a tool that implements specs, not the entity that decides design. Humans specify architecture, edge cases, constraints in specs, and AI implements as specified.
+
+This approach doesn't completely abandon vibe coding's advantages. Wardzinski says vibe coding is still valid at the **unit level verifiable by tests**. Handing a single function, single component to AI and verifying with tests is rational. The problem is the process of these units coming together to form a system. System-level design must be handled by specs, not prompts.
+
+| Item            | Vibe Coding              | Spec-Driven Development       |
+| --------------- | ------------------------ | ----------------------------- |
+| Source of Truth | Code (output)            | Spec document                 |
+| Change Mgmt     | Prompt retry             | Modify spec then regenerate   |
+| Intent Record   | None (prompt disappears) | Permanently preserved in spec |
+| Team Collab     | Code review              | Spec review + code review     |
+| After 3 Months  | Whack-a-mole             | Spec-based gradual expansion  |
+| AI Role         | Designer + Executor      | Executor                      |
+
+---
+
+## Why Amazon, GitHub, Tessl Are Moving
+
+As vibe coding's limits become clear, spec-based tools are rapidly emerging. This trend isn't just fashion, it's a signal the industry is learning lessons from vibe coding's failures.
+
+**Amazon Kiro** is an AI coding tool announced late 2025. Unlike existing AI coding tools, it takes structured specs as input, not prompts. When developers write feature requirements, constraints, test criteria as spec docs, AI generates code matching those specs. When specs change, code auto-regenerates too.
+
+**GitHub Spec Kit** is GitHub's spec management framework. It manages spec docs together in code repos and connects spec changes with code changes per PR. GitHub ran an experimental project called SpecLang in 2023, and Spec Kit is its extension. Not yet commercialized, but the fact GitHub is investing in this direction is meaningful.
+
+**Codeplain** writes specs in plain text but provides formats with structure AI can parse. It acts as an intermediary language between developers and AI. You write specs and code emerges; if code has problems, you modify specs in a循環 structure.
+
+**Tessl** takes a more radical approach. It outright advocates the philosophy "specs are code." It's building a system where writing spec docs automatically derives executable code. It redesigns development workflow around a spec editor instead of traditional code editor.
+
+These tools share one thing: the recognition that **unstructured prompts alone cannot build maintainable software**. Prompts are one-time. Specs are permanent. This difference creates the 3-month wall.
+
+What's interesting is this trend aligns precisely with software engineering's old lessons. In the 1990s, the claim "code is documentation" was popular. The result was proliferation of legacy systems without documentation. When the 2000s agile movement declared "working software over comprehensive documentation," it didn't mean documentation was unnecessary. Vibe coding is the AI version of "code is documentation." We're repeating a mistake from 30 years ago with new tools.
+
+---
+
+## Vibe Coding Without Technical Skill Doesn't Work
+
+![Debugging screen — Even if AI writes code, understanding architecture remains human work](/static/images/vibe-coding-3-months-failure/debugging.png)
+
+With the vibe coding frenzy came the narrative "now even non-majors can code." Wardzinski draws a clear line on this narrative. Technical capability is **still non-negotiable**.
+
+Even if AI generates code, judging whether that code is correct requires understanding architecture. Understanding dependency structures. Knowing constraints and trade-offs. Vibe coding lowered entry barriers, true, but barriers haven't disappeared.
+
+Wardzinski gives a historical analogy. The transition from assembly to high-level languages (C, Python, etc.) democratized development, but the requirement to understand programming fundamentals didn't disappear. You don't directly handle pointers but need to know memory management concepts. You don't directly write SQL but need to understand database design principles.
+
+AI coding is the same. Skill at writing prompts doesn't replace coding ability. It **complements** it. To borrow Wardzinski's expression, "The magic isn't in the intensity of the vibe. It's in knowing exactly what you want and expressing it so clearly even AI can't misunderstand."
+
+Flip this and it becomes: People who don't know what they want can't get desired results no matter how good the AI. You can make a prototype. Show a demo. But to make software that still works after 3 months, you need someone who understands how software works.
+
+This isn't AI pessimism. It's realism. The speed AI writes code overwhelms humans. But writing code and making software are different tasks. Code is software's material, not software itself. Just because a tool appeared that produces materials quickly doesn't mean you can raise buildings without design.
+
+2024 Uplevel research supports this. GitHub Copilot users wrote code **55% faster**, but had **41% more bugs**. The trade-off between speed and quality confirmed by data. Vibe coding pushes this trade-off to extremes. Code writing speed gets dozens of times faster, but people who understand code can become 0. What number Copilot's 41% becomes in vibe coding, there's no large-scale research yet. But the rate of projects getting scrapped after 3 months will be part of that answer.
+
+---
+
+## The Proper Usage Scope of Vibe Coding
+
+To summarize Wardzinski's argument, vibe coding isn't "useless." It's "not omnipotent." The guidelines he presents are clear.
+
+Areas where vibe coding is valid:
+
+Prototyping and concept validation. At the stage of quickly checking if an idea is possible, writing specs is actually excessive. Making quickly with prompts and discarding quickly is rational. The purpose of MVP is learning, not deployment.
+
+Test-verifiable unit development. For units with **clear inputs and outputs** like a single function or single API endpoint, handing implementation to AI and verifying with tests works. The smaller the unit, the smaller AI's "functionality flickering" impact.
+
+Learning and exploration. When learning new libraries or frameworks, the process of requesting example code from AI and understanding while executing is effective. Running AI-generated executable examples directly can speed learning over reading official docs.
+
+Conversely, areas where vibe coding is risky:
+
+Production code requiring maintenance. Software running over 3 months needs specs. Starting without specs means the cost of reverse-engineering specs later exceeds the cost of writing them upfront.
+
+Team projects. When you vibe code alone, at least context exists in your head. When multiple people vibe code, each person's prompts differ, generated code styles differ, codebase rapidly loses consistency. Team member A's function gets rewritten in a different way by team member B's AI as routine.
+
+High-error-cost domains like finance, healthcare, infrastructure. The Moonwell incident covered earlier is representative. The bug that evaporated $1.78M was missing one multiplication. Where vibe coding's premise of "not reading deeply" operates most fatally. If medication dosage calculation is wrong in medical software, or firewall rules are missing in infrastructure code, the consequences go beyond financial loss.
+
+| Usage Scope                     | Vibe Coding      | Spec Needed |
+| ------------------------------- | ---------------- | ----------- |
+| Prototype/MVP                   | Suitable         | Unnecessary |
+| Unit functions/components       | Suitable (tests) | Optional    |
+| Production systems              | Unsuitable       | Required    |
+| Team collaboration projects     | Unsuitable       | Required    |
+| High-risk domains (finance/med) | Prohibited       | Required    |
+
+---
+
+## Not the Speed of Building Sandcastles, But the Precision of Blueprints
+
+That vibe coding lowered software development's entry barriers is undeniable. The experience of getting a working app in minutes is powerful. That experience created the expectation "I can be a developer too," and that expectation became the starting point for countless side projects and startups.
+
+But the question Wardzinski throws is about what comes after the start. Does it still work after 3 months. Can you add features after 6 months. Can you maintain it even if team members change after 1 year. To answer "yes" to these questions requires more than prompts.
+
+Of course, whether spec-driven development is the omnipotent answer is still under validation. Tools like Amazon Kiro, GitHub Spec Kit, Codeplain, Tessl are coming to market, but large-scale adoption cases are still limited. There's criticism that the time spent writing specs could offset vibe coding's speed advantage.
+
+However, the direction is clear. The industry is shifting its center of gravity from "building fast" to **"building sustainably"**. This doesn't mean vibe coding's frenzy is subsiding. It means that as vibe coding's limits are recognized, tools and methodologies are evolving in directions that complement those limits.
+
+Wardzinski's last sentence hits the core. "Sustainable software demands discipline. Without it, projects become **digital sandcastles the next prompt will sweep away**."
+
+Ultimately, vibe coding's 3-month wall is not AI's limit but methodology's limit. AI will get smarter. Context windows will widen, code generation accuracy will rise. But that won't eliminate the need for specs. Rather, the more powerful AI becomes, the greater the value of clear specs. More powerful tools require more precise instructions.
+
+Vibe coding's magic lies in building sandcastles quickly. But software engineering's essence is not the speed of building sandcastles, but the precision of drawing blueprints for concrete buildings. No matter how fast AI generates code, if you don't know where that code is heading, speed loses meaning. Three months is enough time to realize that fact, and insufficient time to reverse course after realizing it.
+
+---
+
+**Sources:**
+
+- [The Uncomfortable Truth About Vibe Coding — Red Hat Developer](https://developers.redhat.com/articles/2026/02/17/uncomfortable-truth-about-vibe-coding)
+- [How Vibe Coding Is Killing Open Source — Hackaday](https://hackaday.com/2026/02/02/how-vibe-coding-is-killing-open-source/)
+- [Vibe-Coded Oracle in $1.8M Blowup — Protos](https://protos.com/defi-meet-claude-moonwells-vibe-coded-oracle-in-1-8m-blowup/)
+- [Amazon Kiro: Spec-Driven AI Development — Amazon](https://aws.amazon.com/blogs/devops/introducing-kiro/)
+- [GitHub Spec Kit — GitHub Blog](https://github.blog/changelog/2025-12-spec-kit/)

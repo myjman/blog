@@ -1,0 +1,185 @@
+---
+title: 'The Paper That Claims Vibe Coding Kills Open Source'
+date: '2026-02-21T08:00:24'
+language: 'en'
+translationOf: 'vibe-coding-kills-open-source'
+tags:
+  ['vibe-coding', 'open-source', 'ai-coding', 'llm', 'LLM', 'developer-ecosystem', 'stack-overflow']
+draft: false
+images: ['/static/images/vibe-coding-kills-open-source/og-image.png']
+summary: 'Four economists from CEU and Kiel Institute published a paper claiming vibe coding is dismantling the open source ecosystem. The evidence: Tailwind CSS documentation traffic dropped 40%.'
+---
+
+## Tailwind CSS Documentation Traffic Dropped 40%
+
+![Code editor screen — In the vibe coding era, developers no longer read documentation](/static/images/vibe-coding-kills-open-source/og-image.png)
+
+Early 2023, right after ChatGPT launched. Adam Wathan, creator of Tailwind CSS, noticed something odd. npm downloads kept climbing, but visitors to the official documentation site started declining. At first, he thought it was temporary.
+
+Three years later, documentation traffic has **dropped 40%**. More people use Tailwind CSS, but fewer read the docs. Wathan said, "Documentation is the only channel to promote our commercial products. Without customers, we can't maintain the framework."
+
+Tailwind Labs laid off three employees. The paradox: an open source project gains popularity while losing revenue. This is the first blow vibe coding deals to open source.
+
+In January 2026, four economists from Central European University (CEU) and Kiel Institute for the World Economy published a paper on arxiv analyzing this phenomenon. The title: "Vibe Coding Kills Open Source".
+
+---
+
+## The Core Mechanism the Paper Describes
+
+The authors are Miklós Koren, Gábor Békés (CEU), Julian Hinz, and Aaron Lohmann (Kiel Institute). They're economists. It's notable that economists, not computer scientists, analyzed the open source ecosystem.
+
+The paper's core claim: vibe coding **decouples usage from participation**. In the process of "developer requests in chat, AI generates code, developer accepts the result," all touchpoints with open source maintainers disappear.
+
+The traditional open source ecosystem worked like this. To use a library, developers read documentation. While reading docs, they find bugs and file issues. While filing issues, they understand the code and send PRs. While sending PRs, they join the community.
+
+In this process, maintainers receive **three types of rewards**. First, bug reports and feedback improve code quality. Second, community recognition and reputation accumulate. Third, documentation traffic generates commercial revenue. Projects like Tailwind CSS, Next.js, and Astro operate on this model.
+
+Vibe coding breaks this cycle. AI chooses the library, installs it, and writes the usage code. Developers don't read documentation. Don't file issues. Don't participate in the community. Sometimes don't even know what library they're using.
+
+The paper calls this phenomenon **"decoupling of usage and participation"**. In the past, usage meant participation. Using a library naturally contributed to the ecosystem. Now there's usage without participation. Because AI sits in between.
+
+---
+
+## The Future the General Equilibrium Model Shows
+
+![Team working together — Open source is maintained by community voluntary participation](/static/images/vibe-coding-kills-open-source/community.png)
+
+The paper's methodology is interesting. The authors constructed the open source ecosystem as a **General Equilibrium Model**. A framework used in economics to simultaneously analyze market-wide supply and demand.
+
+The model has three variables. First, maintainer entry decisions. Whether to start a new open source project or not. Second, heterogeneous project quality. Not all projects are equal. Third, user choices. Write code directly or have AI do it.
+
+When vibe coding spreads, the model predicts three outcomes.
+
+**First, reduced maintainer entry.** When rewards decrease, fewer people start new projects. Existing maintainers have incentive to stop maintenance. Tailwind Labs' layoffs are already happening in reality.
+
+**Second, code quality decline.** Fewer bug reports make it harder for maintainers to recognize problems. AI-generated code doesn't reflect documented issues well. When the quality feedback loop breaks, code slowly decays.
+
+**Third, reduced social welfare.** Productivity rises while welfare falls. Paradoxical. To quote the paper: "Even if productivity increases, if open source availability and quality decline, total social welfare decreases."
+
+The model's core is **externality**. Vibe coding users gain from their own productivity increase, but everyone shares the cost of weakened open source ecosystem. Same structure as tragedy of the commons.
+
+---
+
+## Stack Overflow Already Collapsed
+
+If the paper is theoretical model, real-world data is more direct.
+
+Stack Overflow traffic **dropped about 25%** within six months after ChatGPT launched. The decline steepened in 2024. Developers started using private AI chat instead of public Q&A.
+
+Stack Overflow wasn't just a Q&A site. It was the unofficial support channel for the open source ecosystem. When libraries had problems, questions appeared on Stack Overflow. Maintainers recognized bugs by seeing these questions. Other developers' answers shared usage methods missing from documentation.
+
+It's crucial that all this was **public**. Stack Overflow questions and answers are searchable and visible to everyone. AI chat is private. When a developer asks Claude "I'm getting this error from this library," that information only exists between the developer and Anthropic's servers. Maintainers don't know. Other developers don't know.
+
+According to Hackaday's analysis, AI-generated code has **poor awareness of documented issues**. Because LLM training data includes old code. It frequently recreates already-fixed bugs or uses deprecated APIs.
+
+Worse is **bug report quality**. When errors occur in vibe-coded projects, even when developers file issues, the content is poor. Because they don't understand the code. "AI wrote this code and it doesn't work" gives maintainers no debugging information.
+
+Think from an open source maintainer's perspective. Issues used to come with reproducible code snippets, environment info, and attempted solutions. Now increasing issues are just AI-generated code dumps and a line saying "it errors." Maintainers can't respond, and when they don't respond, issues get abandoned. This vicious cycle accelerates maintainer burnout.
+
+---
+
+## Bias in LLM-Selected Libraries
+
+![GitHub logo — The discovery path for open source projects is shifting to AI](/static/images/vibe-coding-kills-open-source/github.png)
+
+Another problem with vibe coding is **library selection bias**. Ask AI "write code to send HTTP requests" and it likely recommends axios. Ask "write code to handle dates" and it recommends moment.js. Even though moment.js maintenance stopped in 2020.
+
+LLMs tend to recommend libraries that appear **most frequently** in training data. Like a popularity vote. Most-used libraries get most recommended, most recommended means more usage, more usage means more inclusion in next training data.
+
+This cycle creates **winner-takes-all** structure. Already popular libraries gain more popularity, small projects go undiscovered. The paper authors express this as "only statistically frequent dependencies realistically appear in LLM output."
+
+The process of human developers choosing libraries is different. Search GitHub, compare, read READMEs, check issue lists, view recent commit history. In this process, small but well-made projects can be discovered. AI skips this exploration.
+
+| Aspect                | Human Developer         | AI (Vibe Coding)      |
+| --------------------- | ----------------------- | --------------------- |
+| Library Selection     | Search, compare, read   | Training data based   |
+| Documentation Visit   | Read and reference      | Skip                  |
+| When Finding Bugs     | Issue report, PR        | Ask AI for workaround |
+| Community Engagement  | Forums, Discord, events | None                  |
+| New Project Discovery | Possible                | Difficult             |
+
+Consequently, open source ecosystem **diversity** decreases. Only a few large projects survive while the rest slowly disappear. This is a more structural problem than NPM's left-pad incident. left-pad was a crisis from one deleted package, but vibe coding erodes ecosystem-wide diversity.
+
+---
+
+## Can the Spotify Model Be an Answer
+
+The paper authors propose solutions too. AI companies like OpenAI, Anthropic, and Google should **meter** open source libraries used by LLMs and distribute revenue based on usage.
+
+Technically simple. Track which libraries get imported when LLM generates code. If `import axios from 'axios'` was generated a million times, distribute proportional revenue to axios maintainers.
+
+The Hackaday article explains this model with a **Spotify analogy**. Then immediately points out the problem. On Spotify, **80% of artists earn almost nothing**. The top 1% takes most revenue. Taylor Swift earns millions while indie musicians get a few dollars per month.
+
+What happens when applying this model to open source? Large projects like React, Express, Lodash would earn substantial revenue, but other projects get meaningless amounts. Repeating the existing winner-takes-all structure in revenue distribution too.
+
+There's a more fundamental problem. Money doesn't solve it. Open source maintainer motivations are complex. Pure technical curiosity, community belonging, career development, self-actualization. Money is just one part. When community disappears and feedback disappears, even with money, motivation dies.
+
+Flask creator Armin Ronacher takes similar position. Acknowledging AI's impact while cautioning "it's too early to conclude." But Tailwind Labs' layoffs already happened.
+
+Another alternative the paper proposes is **public funding**. Treat open source as social infrastructure and have governments bear maintenance costs like roads or bridges. Cases exist like EU's NLnet Foundation or US NSF investing in open source, but scale is too small. The paper authors see this approach as the only structural solution to correct market failure.
+
+---
+
+## 41% More Bugs, 19% Productivity Drop
+
+![Data chart screen — Numbers reveal vibe coding's hidden side](/static/images/vibe-coding-kills-open-source/data-chart.png)
+
+Not just an open source ecosystem problem. The quality of vibe-coded code itself is questionable.
+
+According to Uplevel's 2024 research, developers using GitHub Copilot wrote code 55% faster but had **41% more bugs**. Analysis of code from 351 of about 800 developers with Copilot access.
+
+METR's 2025 randomized controlled trial was more shocking. When 16 experienced open source developers used AI tools, they were actually **19% slower**. They believed they were 20% faster. A 39 percentage point gap existed between reality and perception.
+
+Combining these data paints a concerning picture. Vibe-coded code contains more bugs. When those bugs relate to open source libraries, they used to be discovered and fixed through Stack Overflow or GitHub issues. Not anymore. Ask AI, AI creates different workaround code, bug gets abandoned.
+
+To quote Hackaday, vibe coding is "a **stress test on human intelligence** rather than actual improvement in productivity or code quality." Writing code faster is true. But if that code contains more bugs and those bugs go undiscovered, we need to rethink the definition of productivity.
+
+The paper authors point out **JavaScript and Python** as the first affected languages. Most included in LLM training data, highest adoption rate among vibe coding developers, and most pattern-based repetitive code. Languages like Rust or Haskell have relatively less training data so impact isn't large yet. But as AI model training data keeps expanding, these languages are just a matter of time.
+
+---
+
+## Only 0.1% of Open Source Value Returns
+
+The problem this paper raises has deep structural imbalance in the background. The **share returning to maintainers compared to open source software's economic value** is extremely small.
+
+According to Harvard Business School research, only **0.1%** of economic value created by open source actually returns to developers. The remaining 99.9% goes to companies using open source. From FAANG to startups, everyone does business on top of open source. But contribution is minimal.
+
+In this structure, vibe coding worsens the situation. Previously, at least indirect contributions existed from developers **directly using** software. Bug reports, documentation improvements, Stack Overflow answers, conference talks. These were non-monetary rewards returning to maintainers.
+
+Vibe coding reduces even these non-monetary rewards. When developers "use" but don't "touch" libraries, maintainers don't even know they have users. Only npm download counts rise while actual interaction is zero.
+
+Anthropic CEO Dario Amodei publicly stated **70-90% of their code is written with Claude**. Even AI companies actively use vibe coding. Countless open source libraries get used in the process, but no touchpoints with maintainers.
+
+This isn't a technology problem but an **economic structure problem**. That's why the paper was written by economists. Open source has characteristics of public goods. Public goods get under-supplied when left to markets. Vibe coding accelerates this under-supply.
+
+It's also ironic that EU's Cyber Resilience Act started imposing security obligations on open source projects in this context. Governments demand more responsibility from open source while letting the ecosystem that enables maintenance collapse. Double burden of strengthening regulation on one side while rewards decrease on the other.
+
+---
+
+## Ecosystems Are Relationships, Not Code
+
+The paper's conclusion is firm. "Maintaining current-scale open source in the vibe coding era requires **fundamental change** in maintainer compensation methods."
+
+But judging everything from this paper alone is premature. Counterarguments exist. AI also has effects of bringing new developers into open source. People without programming experience create first projects with AI help and can gain interest in open source in the process. Hackaday article comments also had developers sharing experiences of contributing to open source through AI.
+
+Also, tools like GitHub Copilot, Cursor, Claude Code make open source contribution easier in some ways. AI lowers entry barriers in quickly understanding unfamiliar codebases, writing tests, and creating PRs.
+
+However, whether these positive effects offset negative effects isn't verified yet. Tailwind's 40% traffic drop, Stack Overflow's 25% usage decrease, increasing maintainer burnout. Data points in negative direction.
+
+The open source ecosystem isn't a collection of code. It's a **collection of relationships**. Relationships where developers choose libraries, use them, give feedback, and contribute. Without these relationships, only code remains. Code that isn't maintained. Code with unfixed bugs. Eventually, code no one can use.
+
+Whether vibe coding "kills" open source is still hard to determine. But **it's definitely weakening it**. In an era where AI writes code for us, what disappears isn't typing but the bond between developers and ecosystem. Without that bond, open source becomes just a shell.
+
+Next time you have AI write code, think about it. Who maintains the libraries this code depends on. Whether that person is still doing unpaid maintenance. And whether you're giving anything back to that person.
+
+---
+
+**Sources:**
+
+- [Vibe Coding Kills Open Source — Koren, Békés, Hinz, Lohmann (arxiv)](https://arxiv.org/abs/2601.15494)
+- [How Vibe Coding Is Killing Open Source — Hackaday](https://hackaday.com/2026/02/02/how-vibe-coding-is-killing-open-source/)
+- [Vibe coding may be hazardous to open source — The Register](https://www.theregister.com/2026/01/26/vibe_coding_hazardous_open_source/)
+- [Research: Vibe Coding AI Threatens Open Source Ecosystem — Dataconomy](https://dataconomy.com/2026/02/03/research-vibe-coding-ai-threatens-open-source-ecosystem/)
+- [Developers using Github Copilot AI coding 55% faster with 41% more bugs — Pocketables](https://pocketables.com/2024/10/developers-using-github-copilot-ai-coding-55-faster-with-41-more-bugs.html)
+- [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity — METR](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+- [Unsplash](https://unsplash.com)

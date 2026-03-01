@@ -1,0 +1,157 @@
+---
+title: 'Vibe Coding Called a $1.78M Hack'
+date: '2026-02-21T18:00:23'
+language: 'en'
+translationOf: 'vibe-coding-178m-hack'
+tags: ['vibe-coding', 'defi', 'smart-contract', 'security', 'blockchain', 'oracle']
+draft: false
+images: ['/static/images/vibe-coding-178m-hack/og-image.png']
+summary: 'A configuration error in oracle code co-authored by AI evaporated $1.78 million from DeFi protocol Moonwell. This is the first major incident of vibe coding penetrating smart contract territory.'
+---
+
+## The Moment cbETH Dropped from $2,200 to $1
+
+![Matrix-style code screen — a single oracle misconfiguration vaporized $1.78 million](/static/images/vibe-coding-178m-hack/og-image.png)
+
+February 15, 2026, 6:01 PM UTC. Governance proposal MIP-X43 was executed on DeFi lending protocol Moonwell. It was a routine infrastructure upgrade activating Chainlink OEV wrapper contracts for core markets on Base and Optimism networks.
+
+Minutes later, cbETH (Coinbase Wrapped Staked ETH) started showing a price of **$1.12, down from approximately $2,200**. A 99.9% crash. Of course, cbETH's actual market price hadn't fallen. Moonwell's oracle was reporting the wrong price.
+
+Liquidation bots reacted instantly. With the system recognizing cbETH at $1, every position collateralized with cbETH became eligible for liquidation. Liquidators repaid debts of roughly $1 and took cbETH worth $2,200. A total of 1,096.317 cbETH was liquidated, leaving the protocol with **$1,779,044 in bad debt**.
+
+This looks like just another oracle incident that occasionally happens in DeFi. But this event carried an unprecedented label. GitHub commit history showed **"Co-authored-by: Claude Opus 4.6"**. It was recorded as the first case where AI co-authored smart contract code that led to actual asset loss.
+
+---
+
+## A $1.78 Million Bug from a Single Multiplication
+
+![Blockchain network visualization — oracles are the lifeline of price data for DeFi protocols](/static/images/vibe-coding-178m-hack/blockchain.png)
+
+The technical cause of this incident is surprisingly simple. When the oracle calculates cbETH's dollar price, it should multiply the cbETH/ETH exchange rate by the ETH/USD price. Since cbETH is a wrapped token of ETH, the cbETH/ETH ratio is approximately 1.12. Multiplying this by the ETH/USD price (around $2,000) gives cbETH's actual dollar value.
+
+But MIP-X43's oracle configuration **omitted the multiplication**. It used the cbETH/ETH exchange rate alone as the USD price. That's why cbETH was reported as $1.12. Blockchain analytics firm Anthias Labs confirmed the system "passed the raw exchange rate without multiplying the cbETH/ETH feed by the ETH/USD price."
+
+In traditional software, this type of bug ends with a single error log line. But smart contracts are different. Code deployed on blockchain takes effect immediately upon execution, and reverting requires a separate governance vote. Code is law. That law had a typo.
+
+Moonwell's risk manager detected the anomaly and immediately reduced cbETH borrow cap and supply cap to 0.01. But it was already too late. Liquidation bots move by blocks. In the few minutes it took humans to open dashboards and assess the situation, bots completed dozens of liquidations. Some opportunists went further, over-borrowing cbETH with minimum collateral to generate additional bad debt.
+
+In the end, 181 borrowers were affected, with net losses reaching approximately **$2.68 million**. Moonwell later proposed a recovery plan, but getting money back and getting trust back are different problems.
+
+---
+
+## "The First Hack of Vibe-Coded Solidity"
+
+Immediately after the incident, blockchain security auditor Pashov posted on X (Twitter). After analyzing pull request (PR #578) related to MIP-X43 from Moonwell's GitHub repository, he found several commits marked as co-authored with Anthropic's Claude Opus 4.6. Pashov called this incident **"the first exploit of vibe-coded Solidity code."**
+
+Vibe coding is a term coined by Andrej Karpathy. It refers to delegating code writing to AI and only checking the vibe of the output. It's efficient when building websites or prototyping simple apps. But does the same approach work for smart contracts with millions of dollars at stake?
+
+Pashov later clarified his statement. "This is a mistake even an experienced Solidity developer could make," noting the core issue was **"lack of sufficiently rigorous inspection and end-to-end validation"** rather than AI itself. It was confirmed that the Moonwell team performed unit tests and integration tests in a separate PR and commissioned security audit firm Halborn for an audit.
+
+But if they tested and audited, why didn't they catch this bug? Trading Strategy's Mikko Ohtamaa pointed out "there was no test case for price sanity." Unit tests verify individual functions work. Integration tests verify component connections. But the most basic verification was missing: **"Does this oracle actually return accurate prices?"**
+
+Whether code is written by AI or humans, bugs survive without tests. The difference is that AI-written code has a **higher probability the author doesn't fully understand the code**. The very definition of vibe coding is "not reading code deeply."
+
+---
+
+## Moonwell's Recurring Oracle Incidents
+
+There's a particularly painful reason for this incident. Oracle malfunctions are not new to Moonwell. This is the third time in six months.
+
+| Date     | Cause               | Damage |
+| -------- | ------------------- | ------ |
+| Oct 2025 | Oracle malfunction  | $1.7M  |
+| Nov 2025 | Oracle malfunction  | $3.7M  |
+| Feb 2026 | cbETH oracle config | $1.78M |
+
+Cumulative damage over six months **exceeds $7 million**. Three repeated incidents of the same type mean there's a structural flaw in the process. Before blaming AI, we should ask: Why is there no automated price validation pipeline for oracle configuration changes? Why is there no procedure to cross-check against actual price feeds in a forked environment before mainnet deployment?
+
+This isn't just Moonwell's problem. Oracle manipulation and configuration errors are chronic vulnerabilities in DeFi. In 2022, 41 oracle manipulation attacks resulted in **$403.3 million** stolen. In 2023, oracle-related damage accounted for 49% of total price manipulation losses. In 2024, there were 37 incidents with $52 million in damages. In December 2025, Ribbon Finance lost $2.7 million due to oracle decimal mismatches. In January 2026, Makina Finance was drained of $4 million through flash loan-based oracle manipulation.
+
+Oracles are the bridge between blockchain and the real world. Smart contracts cannot access external data on their own. They don't know the price of Ethereum, interest rates, or market values of specific assets. Oracles bring this information onto the blockchain. Oracle networks like Chainlink, Pyth, and Band Protocol collect prices from thousands of data sources, reach consensus, and record them on-chain.
+
+When this bridge collapses, all the financial logic built on top collapses with it. Lending, liquidation, derivatives, stablecoin issuance—nearly every DeFi function depends on accurate price data. With DeFi protocols holding **total value locked (TVL) in the tens of billions of dollars**, oracle accuracy is not optional but a matter of survival. The Moonwell incident is one screw improperly fastened on this bridge. And that screw was installed by AI.
+
+---
+
+## The Timing of OpenAI Releasing EVMbench
+
+![Server infrastructure — can AI secure smart contracts?](/static/images/vibe-coding-178m-hack/security-lock.png)
+
+Three days after the Moonwell incident on February 18, OpenAI and Paradigm released **EVMbench**. It's a benchmark measuring whether AI can detect, patch, and exploit security vulnerabilities in smart contracts.
+
+The timing is exquisite. Right after AI-generated code blew $1.78 million, they released a message saying "AI can secure things too." Intentional or not, the contrast is striking.
+
+EVMbench covers **120 verified vulnerabilities** extracted from 40 audits. Most are real cases from open code audit competitions like Code4rena. It tests AI in three modes: detect, patch, exploit. A Rust-based harness replays transactions in an isolated environment without affecting the actual blockchain.
+
+The results are impressive. GPT-5.3-Codex scored **72.2%** in exploit mode. That's more than double GPT-5's 31.9% from six months ago. Paradigm partner Alpin Yukseloglu revealed, "When we first started this work, the best models could exploit less than 20% of critical bugs from Code4rena."
+
+But taking these numbers at face value is difficult. Benchmarks and reality are different. EVMbench's vulnerabilities are already discovered and documented. What security auditors face in the field are **vulnerabilities nobody knows about yet**. Solving past problems well is different from solving new ones. And ironically, the bug in the Moonwell incident wasn't a sophisticated exploit covered by EVMbench, but a simple arithmetic omission. Even if AI finds 72% of complex vulnerabilities, missing one multiplication makes it useless.
+
+Along with this, OpenAI pledged **$10 million in API credits** for cyber defense. It explained this as investment for open source and critical infrastructure security. A declaration to solve AI-created problems with AI. Whether this is the beginning of a virtuous cycle or self-contradiction is too early to judge.
+
+---
+
+## Why Vibe Coding Is Dangerous for Smart Contracts
+
+![Programming screen — vibe coding without code review is fatal in smart contracts](/static/images/vibe-coding-178m-hack/code-review.png)
+
+Vibe coding is controversial even in general software. According to a 2024 Uplevel study, GitHub Copilot users wrote code 55% faster but had 41% more bugs. But bugs in general software can be fixed with patches. Bugs in smart contracts **move money the moment they're deployed**.
+
+The difference between regular web apps and smart contracts looks like this:
+
+| Item            | Regular Web App   | Smart Contract                      |
+| --------------- | ----------------- | ----------------------------------- |
+| Bug Fix         | Immediate hotfix  | Governance vote → redeploy          |
+| Damage Scope    | UX degradation    | Asset loss (irreversible)           |
+| Rollback        | Possible          | Impossible (blockchain nature)      |
+| Code Execution  | On server request | On transaction submission           |
+| Attack Response | Hours to days     | Seconds to minutes (bot automation) |
+
+Fraser Edwards, co-founder and CEO of cheqd, offered an interesting distinction about this incident. He said there are two contexts for AI coding.
+
+First is non-technical founders delegating entire smart contracts to AI. They lack the ability to review generated code, so they deploy output as-is. This is clearly dangerous.
+
+Second is experienced developers using AI as an auxiliary tool within mature engineering processes. They use it to accelerate refactoring or explore patterns. This is reasonable.
+
+The problem is **these two cases are hard to distinguish from outside**. When you see "Co-authored-by: Claude" in a GitHub commit, you can't tell whether that code came from the first context or the second. Moonwell's case had tests and audits, so it's closer to the second, but the outcome was no different from the first.
+
+Edwards argued AI-generated smart contract code should be treated as **"untrusted input."** Just as web security never trusts user input, AI output should undergo the same level of validation.
+
+Edwards' specific recommendations are as follows. First, strict version control and clear code ownership. You must be able to track what code AI generated. Second, multi-person peer review. One person checking AI output is insufficient. Third, **focused testing on high-risk areas** like access control, oracle logic, and upgrade mechanisms. Testing that oracle prices match actual market prices is not optional but mandatory.
+
+"Ultimately, responsible AI integration comes down to governance and discipline," his conclusion is simple but hits the core. No matter how powerful the tool, if the process using it is weak, the result is the same.
+
+---
+
+## Can AI Solve Problems AI Created?
+
+The Moonwell incident and EVMbench release happened in the same week. One showed the danger of AI coding, the other showed the potential of AI security. Placing these two events together reveals the direction of AI's relationship with smart contracts.
+
+The pessimistic scenario goes like this. As vibe coding spreads to DeFi development, developers who don't deeply understand code increase, and basic mistakes like oracle configuration repeat. Even as AI security tools advance, new vulnerability patterns emerge faster.
+
+There's also an optimistic scenario. Benchmarks like EVMbench become standards, and pipelines where AI agents automatically validate smart contracts before deployment become common. AI is utilized for both code writing and code validation, catching patterns human auditors miss. CI/CD pipelines integrate AI security agents that automatically scan vulnerabilities whenever PRs are submitted, even validating oracle price sanity. This future could come.
+
+Reality is probably somewhere in between. What's clear is we're currently **closer to the pessimistic side**. EVMbench's 72.2% is performance on already known vulnerabilities. And the Moonwell bug could have been caught with basic integration testing, not AI. The problem is not AI's capability but **the absence of process** around AI.
+
+Pashov's words are most accurate. "Behind AI there's a person inspecting the finished product, and maybe security auditors too. It's not right to blame just the neural network." But if that "person inspecting" didn't properly read the code, the result is the same whether AI or human wrote it.
+
+The real danger of vibe coding isn't that AI creates bad code. **It's that when bad code is created, there are fewer people to discover it.** Code is written faster, but fewer people read code.
+
+Look at GitHub PR #578 again. One contributor was shown to have performed over 1,000 commits in the past week. Humans can produce hundreds of commits per day thanks to AI. The problem is the number of humans reviewing those hundreds of commits stays the same. Code production exploded with AI, but the ability to read and validate code is bound by human limitations. This asymmetry causes accidents.
+
+In domains like smart contracts where a one-line mistake moves millions of dollars, this imbalance between code production and code validation is a structural risk. $1.78 million might be just the beginning. As DeFi's total value locked grows and more developers adopt vibe coding, the next incident's scale is likely larger. The 2022 Ronin bridge hack exceeded $600 million. It's already proven that one oracle misconfiguration can bring down an entire protocol.
+
+Ultimately, what matters is not whether you use AI. It's **who, how, and how deeply** validates AI-written code. Moonwell's $1.78 million is tuition showing the price you pay for postponing that answer.
+
+---
+
+**Sources:**
+
+- [OpenAI Drops EVMbench After Claude Vibe Code Disaster — Bitcoin Ethereum News](https://bitcoinethereumnews.com/tech/openai-drops-evmbench-after-claude-vibe-code-disaster/)
+- [$1.78M 'Vibe-Coded' Oracle Bug Puts AI-Coauthored Contracts Under Scrutiny — Cointelegraph](https://cointelegraph.com/news/moonwell-exploit-cbeth-oracle-misprice-ai-commits-testing-audits)
+- [Oracle Error Leaves DeFi Lender Moonwell With $1.8 Million in Bad Debt — Decrypt](https://decrypt.co/358374/oracle-error-leaves-defi-lender-moonwell-1-8-million-bad-debt)
+- [DeFi, Meet Claude: Moonwell's 'Vibe-Coded' Oracle in $1.8M Blowup — Protos](https://protos.com/defi-meet-claude-moonwells-vibe-coded-oracle-in-1-8m-blowup/)
+- [Ether Briefly Priced at $1 After Glitch on DeFi App — CoinDesk](https://www.coindesk.com/tech/2026/02/18/ether-briefly-priced-at-usd1-on-defi-app-moonwell-glitch-triggering-usd1-8m-in-bad-debt)
+- [Introducing EVMbench — OpenAI](https://openai.com/index/introducing-evmbench/)
+- [MIP-X43 cbETH Oracle Incident Summary — Moonwell Governance Forum](https://forum.moonwell.fi/t/mip-x43-cbeth-oracle-incident-summary/2068)
+- [Moonwell Proposes $2.68M Recovery Plan — Bitcoin Ethereum News](https://bitcoinethereumnews.com/tech/moonwell-proposes-2-68m-recovery-plan-after-cbeth-liquidation-incident-harms-181-borrowers-on-base/)

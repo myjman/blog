@@ -1,0 +1,173 @@
+---
+title: "Codex: The First AI to Admit It's Dangerous"
+date: '2026-02-23T12:00:06'
+language: 'en'
+translationOf: 'codex-first-ai-admits-danger'
+tags: ['codex', 'openai', 'cybersecurity', 'ai-safety', 'gpt-5-3', 'GPT']
+draft: false
+images: ['/static/images/codex-first-ai-admits-danger/og-image.png']
+summary: 'OpenAI classified GPT-5.3-Codex as High cybersecurity risk in its System Card. This is the first time an AI company has publicly labeled its own model as high-risk.'
+---
+
+## The Company That Built It Warned First
+
+![Cybersecurity lock and digital circuit — OpenAI classified its own model as High cybersecurity risk in an unprecedented move](/static/images/codex-first-ai-admits-danger/og-image.png)
+
+On February 5, 2026, OpenAI released GPT-5.3-Codex. Alongside this model, which achieved record-breaking coding benchmark scores, came an unusual document. A 68-page System Card. Inside was one sentence. "This is the first model we have categorized as High in the cybersecurity domain."
+
+This is the first time an AI company has publicly admitted the danger of its own product. Not pointed out by a competitor. Not mandated by a regulator. A judgment OpenAI made following its own Preparedness Framework. CEO Sam Altman directly posted on X (formerly Twitter): "First model to score High on the cybersecurity portion of our Preparedness Framework." CEOs don't typically broadcast the risks of their own products to the public.
+
+This article digs into what that System Card means. Why Codex was judged dangerous, what measures OpenAI took, and what ripple effects this precedent sends through the AI industry.
+
+---
+
+## Preparedness Framework: What's the Standard?
+
+OpenAI's Preparedness Framework is an internal standard for evaluating AI model risk. First released in 2023, this framework classifies model risk levels across four domains: cybersecurity, biological threats, persuasion, and autonomy. Risk is scored as Low, Medium, High, or Critical.
+
+Each level has clear definitions. In cybersecurity, **High** is defined as "enabling the end-to-end automation of cyber operations against a reasonably well-defended target, or automating the discovery and exploitation of operationally significant vulnerabilities, thus removing existing bottlenecks to the scaling of cyber operations." In simpler terms, the model has sufficient capability to automate key steps of hacking attacks.
+
+There's a subtle point here. OpenAI stated in the System Card that it "does not have definitive evidence." GPT-5.3-Codex has not been proven to fully automate end-to-end cyber attacks. But because **that possibility cannot be ruled out**, they assigned the High rating as a precaution. This approach fundamentally differs from typical AI company attitudes. Most AI companies argue "not proven dangerous therefore safe." OpenAI chose the logic "not proven, but we cannot assert it's safe."
+
+Critical is one step higher. "Capable of causing threats on par with national security." If a model reaches Critical, deployment itself is prohibited. High allows deployment, but mandates enhanced safeguards. GPT-5.3-Codex stands at that boundary.
+
+---
+
+## What Makes Codex Different?
+
+![Server room and network equipment — GPT-5.3-Codex is an agentic AI capable of performing OS-level tasks beyond just coding](/static/images/codex-first-ai-admits-danger/cyber-risk.png)
+
+GPT-5.3-Codex is not just a coding assistant. OpenAI positioned this model as a "general work-on-a-computer agent." It writes code, debugs, deploys, monitors, runs tests, and even creates presentations and spreadsheets. It can operate autonomously for hours or days.
+
+Benchmark numbers support this capability.
+
+| Benchmark          | GPT-5.3-Codex | GPT-5.2-Codex | Note                            |
+| ------------------ | ------------- | ------------- | ------------------------------- |
+| SWE-Bench Pro      | 56.8%         | 56.4%         | Real software engineering tasks |
+| Terminal-Bench 2.0 | 77.3%         | 68.1%         | Terminal-based agentic tasks    |
+| OSWorld-Verified   | 64.7%         | 57.2%         | OS-level general tasks          |
+| GDPval-AA Elo      | 1,633         | -             | Expert-level task evaluation    |
+
+The 0.4%p difference in SWE-Bench Pro looks minor. But the 9.2%p gap in Terminal-Bench 2.0 is significant. It means the ability to combine system commands in a terminal environment to perform complex tasks has sharply improved. This capability works for development, but applies equally to penetration testing and attack automation.
+
+More notable is speed. According to OpenAI, GPT-5.3-Codex operates **25% faster** than previous models and achieves the same results with fewer tokens. Fast and efficient coding AI is a blessing for developers, but means the same thing to attackers.
+
+And this model has one more unprecedented feature. GPT-5.3-Codex is **the first AI model to directly participate in its own development**. OpenAI stated: "GPT-5.3-Codex was used to debug its own training pipeline, manage deployment infrastructure, and diagnose test failures during development." Recursive self-improvement actually happened in production environments. A concept that remained theoretical for decades became reality.
+
+---
+
+## OpenAI's Defense Line
+
+After assigning the High rating to GPT-5.3-Codex, OpenAI claims to have deployed "the most comprehensive cybersecurity safety stack to date." Specifically, four layers.
+
+First, **safety training**. The model itself was trained to refuse malicious use. Fine-tuned to reject prompts requesting malware generation or vulnerability exploitation guidance. But the limits of safety training are well known. Jailbreak techniques spawn new variants every month, and sufficiently sophisticated prompts can bypass most safety guards.
+
+Second, **automated monitoring**. API call patterns are analyzed in real time to detect suspicious usage. If certain types of code generation requests spike, or prompts matching known attack patterns are detected, flags are automatically set. Integrated with threat intelligence pipelines, monitoring rules are updated when new attack techniques are discovered.
+
+Third, **Trusted Access for Cyber**. This is the most critical change. Not all features of GPT-5.3-Codex are open to all users. Regular paid ChatGPT users can only use the model for routine development tasks. Advanced cybersecurity features are provided only to security professionals who pass separate verification. Identity verification, organization verification, and purpose review are required. Unlimited API access is blocked in principle.
+
+Fourth, **enforcement pipeline with threat intelligence**. Accounts confirmed for malicious use are immediately blocked, and related patterns are added to the global block list.
+
+Separately, OpenAI announced **$10 million** (approximately 14.3 billion won) in API credits for cyber defense research. Priority targets include teams with vulnerability discovery experience, open-source software contributors, and critical infrastructure defenders. Acknowledging the model can be used for attacks, the strategy is to arm defenders first.
+
+---
+
+## Collision with California Law
+
+![Digital interface symbolizing AI regulation and governance — GPT-5.3-Codex's launch collided head-on with California's new AI safety law SB 53](/static/images/codex-first-ai-admits-danger/ai-regulation.png)
+
+Five days after GPT-5.3-Codex launch, on February 10, trouble hit. The AI safety watchdog **The Midas Project** accused OpenAI of violating California AI safety law.
+
+The issue is California's SB 53. Signed by Governor Gavin Newsom in September 2025 and effective January 2026, this law mandates major AI companies to publicly disclose and comply with their own safety frameworks. The core requires specific measures to prevent "catastrophic risks capable of causing 50 or more deaths or over $1 billion in property damage." Violations can incur millions in fines.
+
+The Midas Project's claim is clear. OpenAI classified GPT-5.3-Codex as High cybersecurity risk. But it appears they didn't fully implement **misalignment safeguards** required by their own Preparedness Framework before deployment. The criticism is they broke their own rules.
+
+Midas Project founder Tyler Johnston said: "Given how low the bar is that SB 53 set, it's especially galling that they couldn't even meet that bar." Nathan Calvin, Vice President of State Policy at nonprofit Encode, pointed out more sharply: "Rather than acknowledge they didn't follow their plan or update it before the launch, OpenAI seems to be arguing the bar was vague."
+
+OpenAI has a rebuttal. A spokesperson told Fortune they are "confident in compliance with frontier safety laws including SB 53." Specifically, they interpreted enhanced safeguards as required only when cybersecurity high risk and "long-range autonomy" are both met. GPT-5.3-Codex is High in cybersecurity but doesn't qualify in autonomy, so the additional safeguard mandate doesn't trigger, goes the logic.
+
+Whether this interpretation holds legally is still unknown. But one thing is clear. The moment an AI company admits its model's danger, that admission itself becomes **grounds for legal liability**. OpenAI disclosed the High rating for transparency, but that very transparency created regulatory risk in a paradoxical situation.
+
+---
+
+## Why Are Competitors Silent?
+
+After GPT-5.3-Codex's System Card was released, the AI industry's reaction was interesting. Most stayed **silent**. None of Anthropic, Google DeepMind, or Meta AI publicly disclosed similar cybersecurity risk assessments for their models.
+
+This silence has two possible interpretations.
+
+One is that competing models don't actually have cybersecurity capabilities on par with GPT-5.3-Codex. But this interpretation is weak. Anthropic's Claude Opus 4.6 scored 80.8% on SWE-Bench Verified, ranking at the top of coding benchmarks. Anthropic announced Claude Code Security just two weeks ago, stating Opus 4.6 discovered over 500 high-risk vulnerabilities in open-source projects. The ability to find vulnerabilities and the ability to exploit them are two sides of the same coin. That a defensive model can be used offensively is a fact Anthropic has acknowledged.
+
+The other interpretation is that competitors are **wary of OpenAI's precedent**. Disclosing risks makes you a target of laws like SB 53. Just as The Midas Project targeted OpenAI, the moment you admit risk, the question follows: "Then why did you deploy without sufficient safeguards?" Not disclosing risk reduces legal exposure, but if problems later surface, you face greater criticism for "knowing and not disclosing."
+
+This is the **prisoner's dilemma of AI safety disclosure**. If all companies disclose transparently simultaneously, trust in the entire industry rises. But if one company alone discloses, that company alone faces regulatory crossfire. OpenAI is experiencing exactly that situation.
+
+OpenAI's System Card announcement aligns with another interesting timing. GPT-5.3-Codex was announced with **mere minutes difference** from Anthropic's model launch. Anthropic reportedly moved up the release by 15 minutes. In competition heated to this degree, the asymmetry of one side admitting risk while the other stays silent is unlikely to last long.
+
+---
+
+## Speaking of the Danger of a Blade You Forged
+
+![Server racks and blue-lit data center — The first case of an AI model admitting its own danger could be a turning point for the entire industry](/static/images/codex-first-ai-admits-danger/server-security.png)
+
+Connecting the fact that GPT-5.3-Codex participated in its own development with the fact it was classified as dangerous reveals a peculiar structure. This model was used to improve itself, and the resulting self was judged potentially dangerous. The more recursively AI improves itself, the higher its capability, and the higher the capability, the higher the danger.
+
+OpenAI recognizes this dilemma head-on. Writing in the System Card that they "assigned High preventively despite no definitive evidence" expresses concern that the pace of capability growth may outrun the pace of safety assessment. Before fully understanding what the model can do, they'll assume the worst-case scenario and install safeguards.
+
+This approach resembles the pharmaceutical industry's **precautionary principle**. Even without definitive evidence that a new drug is harmful, if potential risks are identified, additional clinical trials are required. OpenAI is the first company in the AI industry to voluntarily apply this principle.
+
+But questions remain. OpenAI's Preparedness Framework is, after all, **their own standard**. Evaluation methodology, test details, and judgment rationale are all decided inside OpenAI. No external audit. No peer review. Whether the judgment "High but okay to deploy" is truly the result of rigorous analysis, or whether business judgment of "risky but can't fall behind in competition" intervened, has no way to be verified externally.
+
+Of the System Card's 68 pages, the portion devoted to specific cybersecurity test scenarios and results is limited. They disclosed using "proxy evaluations," but also admitted the absence of a definitive evaluation methodology for long-range autonomy. The evaluation tool itself isn't finished, yet judgment that the model is safe was made.
+
+---
+
+## The $10 Million Shield and Its Limits
+
+The $10 million in API credits OpenAI will invest in cyber defense research has both symbolic meaning and practical limits.
+
+Symbolically, it's the first case of an AI company officially recognizing the **dual-use** nature of its model and allocating resources to the defense side. Similar to Anthropic providing free access to open-source maintainers in Claude Code Security. The strategy is to deploy technology that could become an attack tool as a defense tool first.
+
+Practically, scale is the issue. OpenAI's 2025 annual revenue exceeded $13 billion. $10 million is less than 0.08% of revenue. In a context where training cost for GPT-5.3-Codex alone is estimated at hundreds of millions, the $10 million defense research budget can be criticized as closer to an indulgence.
+
+Also, criteria for selecting credit recipients are vague. They said to prioritize "teams with vulnerability discovery experience, open-source contributors, critical infrastructure defenders," but specific screening criteria and procedures weren't disclosed. Giving credits to defense research also means making them use OpenAI's API. It's a point where business strategy of locking the security research community into their ecosystem overlaps with social responsibility.
+
+Comparing with Anthropic reveals the difference in approach. Anthropic created **Claude Code Security, a dedicated security product**. It provides a consistent pipeline from vulnerability discovery to verification to patch suggestions. OpenAI chose to provide access restrictions and credits on a general model. Dedicated tool versus general model plus safeguards — which approach is more effective has no answer yet.
+
+| Aspect             | OpenAI (GPT-5.3-Codex)         | Anthropic (Claude Code Security) |
+| ------------------ | ------------------------------ | -------------------------------- |
+| Approach           | General model + access control | Dedicated security product       |
+| Risk admission     | High disclosed in System Card  | Dual-use acknowledged            |
+| Defense investment | $10M API credits               | Free access for open-source      |
+| Access restriction | Trusted Access program         | Enterprise/Team limited preview  |
+| External audit     | None                           | None                             |
+
+Both companies share the commonality of no external independent audit. Transparency of self-assessment alone struggles to fully secure trust.
+
+---
+
+## Why Admitting Danger Is Really Dangerous
+
+OpenAI's choice threw a new dilemma at the AI industry. Admit risk and become a regulatory target, or don't admit and face cover-up liability when accidents happen. Either way is risk.
+
+SB 53's existence makes this dilemma dramatic. This law requires AI companies to disclose and comply with their own safety frameworks. OpenAI disclosed the Preparedness Framework and classified GPT-5.3-Codex as High accordingly. But controversy arose over whether safeguards matching that classification were sufficiently in place. The transparency the law demanded became grounds for legal attack.
+
+The ripple effect of this precedent is large. Going forward, AI companies may fall to two temptations. One is **assigning lower risk ratings**. Set evaluation criteria loosely to avoid High ratings and reduce legal risk. The other is **not disclosing assessments at all**. Meet the minimum SB 53 requires and don't issue detailed documents like System Cards.
+
+Either way is bad for society. The only entity capable of assessing actual AI model risk is the developer. Information accessible to external researchers is limited. If developers minimize or conceal risk assessments, society coexists with danger blindfolded.
+
+What OpenAI did with GPT-5.3-Codex is flawed but the right direction. AI companies admitting model risks, putting imperfect safeguards in place, and disclosing the process. The problem lies in the structure where this behavior isn't rewarded and is actually punished. Without incentives for transparency, transparency won't persist.
+
+AI safety is both a technology problem and an institutional problem. SB 53 was a first step, but didn't solve the paradox where "companies admitting risk suffer more than companies that don't." If the next law doesn't solve this paradox, AI companies' System Cards will get thinner and thinner. The 68 pages of GPT-5.3-Codex could be remembered as the peak of AI transparency.
+
+---
+
+**Sources:**
+
+- [OpenAI's new model leaps ahead in coding capabilities — but raises unprecedented cybersecurity risks — Fortune](https://fortune.com/2026/02/05/openai-gpt-5-3-codex-warns-unprecedented-cybersecurity-risks/)
+- [GPT-5.3-Codex System Card — OpenAI](https://openai.com/index/gpt-5-3-codex-system-card/)
+- [Introducing GPT-5.3-Codex — OpenAI](https://openai.com/index/introducing-gpt-5-3-codex/)
+- [Introducing Trusted Access for Cyber — OpenAI](https://openai.com/index/trusted-access-for-cyber/)
+- [OpenAI disputes watchdog allegation it violated California's new AI law — Fortune](https://fortune.com/2026/02/10/openai-violated-californias-ai-safety-law-gpt-5-3-codex-ai-model-watchdog-claims/)
+- [OpenAI's GPT-5.3 Codex Triggers 'High' Cyber Risk Flag — bez-kabli.pl](https://www.bez-kabli.pl/openais-gpt-5-3-codex-triggers-high-cyber-risk-flag-and-access-is-tightening/)
+- [OpenAI says new Codex coding model helped build itself — NBC News](https://www.nbcnews.com/tech/innovation/openai-says-new-codex-coding-model-helped-build-rcna257521)

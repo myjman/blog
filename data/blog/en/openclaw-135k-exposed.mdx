@@ -1,0 +1,269 @@
+---
+title: 'The Shocking Reason 135,000 OpenClaw Instances Were Exposed'
+date: '2026-02-19T18:00:42'
+language: 'en'
+translationOf: 'openclaw-135k-exposed'
+tags: ['openclaw', 'security', 'ai-agent', 'exposure', 'default-config', 'enterprise-security']
+draft: false
+images: ['/static/images/openclaw-135k-exposed/og-image.jpg']
+summary: 'SecurityScorecard reported that 135,000 OpenClaw instances are exposed to the internet. The culprit was a single line of default configuration: 0.0.0.0:18789.'
+---
+
+## 135,000 Agents Standing with Their Doors Wide Open
+
+![AI Agent Security Crisis — Scale of Exposed Instances](/static/images/openclaw-135k-exposed/og-image.jpg)
+
+In February 2026, SecurityScorecard's STRIKE threat intelligence team announced a shocking figure. **Over 135,000 OpenClaw instances** are exposed to the internet. No authentication. No firewall. Accessible to anyone.
+
+The STRIKE team described this as **"a massive case of access and identity verification failure."** Their diagnosis: "Powerful AI agents are being deployed due to convenience-first defaults and insufficient controls."
+
+Everyone knows OpenClaw is the fastest-growing project in GitHub history. 34,168 stars in 48 hours. Over 140,000 stars and counting. But beneath that growth lies a **fundamental security flaw**. And that flaw has put 135,000 instances at risk.
+
+This article analyzes why so many instances were exposed, the problem with default configurations, the actual risks, and what enterprises need to do right now.
+
+---
+
+## 0.0.0.0:18789 — Where It All Started
+
+![The Danger of Default Configurations — A Single Line That Created Disaster](/static/images/openclaw-135k-exposed/default-config.jpg)
+
+OpenClaw's default network binding is `0.0.0.0:18789`. What does this mean?
+
+`0.0.0.0` means **listening on all network interfaces**. Not just localhost, but Ethernet, Wi-Fi, virtual network adapters — any network interface connected to the system will accept incoming connections.
+
+Security-conscious applications typically bind to `127.0.0.1`. This restricts access to the local system only. But OpenClaw chose the exact opposite.
+
+Even OpenClaw's official documentation warns: **"Do not expose the gateway on 0.0.0.0 without authentication."** Yet the default configuration does exactly that. The documentation says don't do it, while the default setting does it.
+
+According to SecurityScorecard's analysis, this is a **"fundamentally flawed approach to security-by-design principles."** Security was not considered from the design phase.
+
+This configuration is especially lethal in cloud environments. Deploy OpenClaw on AWS EC2, Google Cloud VM, or Azure instances, and the **WebSocket port is exposed to the public internet** without additional configuration. Unless you explicitly set firewall rules, anyone in the world can access it.
+
+---
+
+## What 93.4% Authentication Bypass Rate Means
+
+Exposure alone might not be an immediate risk. Strong authentication would make access possible but exploitation difficult. But reality was different.
+
+According to independent research, of **42,665 exposed instances**, **5,194 were actually vulnerable**. More shocking: **93.4% of vulnerable instances** showed authentication bypass conditions.
+
+What is authentication bypass? It means attackers only need to perform a **standard WebSocket handshake**. No need to break through complex login screens. If authentication middleware is loosely configured, a successful handshake immediately grants **agent execution privileges**.
+
+This is no different from leaving the door open. No, it's leaving the door open with a "Welcome In" sign.
+
+| Category                | Figure   |
+| ----------------------- | -------- |
+| Exposed Instances       | 135,000+ |
+| Verified Vulnerable     | 5,194    |
+| Authentication Bypass % | 93.4%    |
+| Affected Countries      | 82       |
+
+Vulnerabilities are distributed across 82 countries. This is not a regional problem. OpenClaw has spread globally, and security configurations are globally inadequate.
+
+---
+
+## The Ripple Effect of a Single Exposed Instance
+
+What happens when one exposed OpenClaw instance is compromised?
+
+OpenClaw agents are not simple chatbots. They read and send emails. Access WhatsApp and Telegram messages. Browse file systems. Control browser sessions. Check calendars. Use API keys.
+
+If an attacker takes over an exposed agent, they can access:
+
+**Credential Stores** — Passwords saved in browsers, autofill data, cookies are all exfiltration targets. Chrome, Safari, Firefox, Edge — no distinction.
+
+**Local Files** — Access to all files in desktop, documents, and downloads folders. Contracts, financial statements, files containing personal information.
+
+**Browser Sessions** — Hijack logged-in sessions as-is. Access all services the user is logged into without separate authentication.
+
+**Messaging Platforms** — Telegram session data, WhatsApp Web sessions, Slack tokens leak out. Private conversations and work discussions all exposed.
+
+**Cached Sensitive Data** — API keys in .env files, SSH private keys, AWS credentials, shell history get collected.
+
+This is not just an individual user problem. If one developer's laptop is compromised, **every production system** that developer can access becomes at risk.
+
+---
+
+## Instances Found in Corporate IP Space
+
+![New Threat to Enterprise Security — AI Agent Exposure](/static/images/openclaw-135k-exposed/enterprise-risk.jpg)
+
+More concerning is that many exposed instances were found in **corporate IP space**. Not individual experiments, but OpenClaw running within corporate networks.
+
+To quote SecurityScorecard, this "escalates risk from individual experiments to **enterprise-scale breaches**."
+
+There are specific reasons why AI agent exposure in enterprise environments is particularly dangerous.
+
+**First, internal network access**. If an agent runs while connected to a corporate VPN or internal network, attackers can access internal systems through the agent. Firewalls block external attacks, but often don't block connections initiated from inside.
+
+**Second, privilege escalation foothold**. Developer workstations commonly have production database access, CI/CD pipeline control, and cloud infrastructure management privileges. A single agent becomes the entry point to all of this.
+
+**Third, Shadow AI problem**. According to Gartner, **40% of enterprise applications** are projected to incorporate AI agents by 2026. Yet only **6% of organizations** have advanced AI security strategies. When employees install OpenClaw without IT approval, security teams don't even know it exists.
+
+Research shows only **14.4% of AI agents** are deployed with full security/IT approval. The remaining 85% operate without approval or with only partial approval. This is Shadow AI. AI agents processing corporate data without appearing on security teams' radars.
+
+---
+
+## Connection to Already Compromised Infrastructure
+
+SecurityScorecard's analysis revealed the most shocking finding separately. Hundreds of thousands of OpenClaw deployments were connected to **"previously compromised infrastructure or known malicious IP addresses."**
+
+What does this mean? Two interpretations are possible.
+
+**First, OpenClaw was installed on already compromised systems**. Attackers may have taken over systems and are using OpenClaw as a backdoor for persistent access. AI agents appear like legitimate tools, making detection difficult.
+
+**Second, OpenClaw instances are communicating with C2 servers**. Malicious skills may already be installed and receiving attacker commands. Given that 341 malicious skills were discovered in the ClawHavoc campaign, this is a realistic scenario.
+
+Either way, the conclusion is the same. Many exposed OpenClaw instances are **already being exploited or ready to be exploited**.
+
+---
+
+## Accumulation of Remote Code Execution (RCE) Vulnerabilities
+
+It's not just the default configuration problem. **Serious security vulnerabilities** have been discovered in OpenClaw itself.
+
+**CVE-2026-25253** received a critical CVSS score of 8.8. Even instances bound only to localhost were vulnerable to **one-click RCE chains**. A patch was released on January 29, 2026, but thousands of instances **remain unpatched**.
+
+A security audit in late January 2026 revealed even more shocking results. **512 vulnerabilities** were identified, **8 of them critical**.
+
+| Vulnerability Type | Count |
+| ------------------ | ----- |
+| Critical           | 8     |
+| High               | 47    |
+| Medium             | 189   |
+| Low                | 268   |
+| Total              | 512   |
+
+Patches are released but not applied. Why? Most OpenClaw users are developers, yet they're insensitive to security updates. The mentality of "it's working, don't touch it." Or automatic updates are disabled. Or update notifications are ignored.
+
+As a result, **vulnerable versions of OpenClaw remain exposed on the internet** in operation. Attackers scan for known vulnerabilities and find unpatched instances to attack. It's not technically difficult.
+
+---
+
+## Why Infostealers Target OpenClaw
+
+![Network Exposure Risks — New Attack Surface of AI Agents](/static/images/openclaw-135k-exposed/network-exposure.jpg)
+
+Recently discovered infostealer variants are targeting **OpenClaw configuration files and gateway tokens**.
+
+Why OpenClaw? Traditional infostealers target browser passwords, cryptocurrency wallets, and email clients. OpenClaw is in a position to **legitimately access all of these**. Just steal the agent's configuration files and authentication tokens, and you can access everything the agent can access.
+
+OpenClaw configuration files may contain:
+
+- LLM API keys (OpenAI, Anthropic, Google)
+- Email SMTP credentials
+- Messaging platform tokens
+- Cloud service access keys
+- Database connection strings
+
+Stealing gateway tokens is more direct. Attackers can **remotely control the agent**. Send emails, upload files, execute code. The agent does as commanded.
+
+This is a new attack vector. Instead of hacking browsers, hack AI agents. Agents with more privileges than browsers.
+
+---
+
+## Mitigation Measures: What to Do Right Now
+
+If you're running an exposed OpenClaw instance, immediate action is required.
+
+**1. Restrict Network Binding**
+
+```yaml
+# Safe configuration
+gateway:
+  host: 127.0.0.1
+  port: 18789
+```
+
+Change from `0.0.0.0` to `127.0.0.1`. If remote access is needed, connect only through VPN or SSH tunnels.
+
+**2. Add Firewall Rules**
+
+Block inbound connections to port 18789. Whitelist only necessary IPs.
+
+```bash
+# iptables example
+iptables -A INPUT -p tcp --dport 18789 -s 192.168.1.0/24 -j ACCEPT
+iptables -A INPUT -p tcp --dport 18789 -j DROP
+```
+
+**3. Enforce Strong Authentication**
+
+Always enable authentication via API keys, OAuth, or mTLS. Don't leave default authentication settings as-is.
+
+**4. Apply Patches Immediately**
+
+Update to the latest version. Use v2026.2.13 or later with security patches including CVE-2026-25253.
+
+**5. Deploy in Isolated Environments**
+
+Don't run OpenClaw directly in production environments. Isolate with Docker containers or VMs. Minimize access to host system files and networks.
+
+**6. Security Verification Before Deployment**
+
+Use tools like Bitdefender's AI Skills Checker to analyze malicious behavior. Don't install untrusted skills.
+
+---
+
+## Convenience vs Security: What OpenClaw Chose
+
+There's a reason OpenClaw's default is `0.0.0.0`. **Convenience**.
+
+A developer installs and runs OpenClaw for the first time. They want to access it from other devices on the local network. Use it from their phone. If bound to `127.0.0.1`, additional configuration is needed. Port forwarding, firewall rules, VPN setup. Annoying.
+
+Open it with `0.0.0.0` and you can access it from anywhere immediately. "It just works." Good user experience. No documentation reading required. No configuration tweaking needed.
+
+This is the trap of **"convenience-first defaults."** Convenient but not safe. And most users don't change defaults. Even if documentation has warnings, they don't read it. It works.
+
+In security, there's a principle: **"defaults should be the safest option."** Secure by Default. Unless users explicitly choose to take risks, the system should maintain a safe state.
+
+OpenClaw chose the exact opposite. Convenience as default, security as option. As a result, 135,000 instances were exposed.
+
+---
+
+## Security Paradigm for the AI Agent Era
+
+The OpenClaw exposure incident is a symptom of a larger problem. A new domain called **AI agent security** has opened, and we're not prepared.
+
+Traditional security models separate users and applications. Users authenticate, applications operate within user permissions. AI agents blur this boundary.
+
+Agents **act like users**. They send emails, read files, call APIs on behalf of users. But agents are not users. They're code. When malicious skills are installed, they perform malicious acts with user privileges.
+
+Most organizations don't treat **AI agents as independent identities**. They're seen as user extensions or generic service accounts. Research shows only **21.9% of teams** manage AI agents as independent identities.
+
+This means RBAC (role-based access control), audit logs, and principle of least privilege don't apply to AI agents. It's difficult to track what agents did. Difficult to restrict agent permissions. Difficult to detect when agents are compromised.
+
+2026 will be the inaugural year of AI agent security. No, it must be. The OpenClaw exposure incident is a warning. If we don't establish security frameworks now, greater disasters will come.
+
+---
+
+## The Weight of the Number 135,000
+
+135,000 exposed instances. How else can this number be expressed?
+
+- Assuming SMBs run an average of 10 AI agents each, **13,500 companies** could be affected.
+- If each instance connects to an average of 3 cloud services, **405,000 cloud credentials** are at risk.
+- If each developer accesses an average of 5 projects, **675,000 code repositories** are in the potential impact zone.
+
+Of course, these are assumptions. The actual damage scale is unknown. But what's certain is that this number is **just the tip of the iceberg**.
+
+What SecurityScorecard found are **instances scannable from the internet**. Instances accessible only from corporate internal networks, hidden behind VPNs, using non-standard ports are not included in these figures.
+
+The actual number of OpenClaw deployments is likely much higher. GitHub stars have exceeded 140,000. Many of those likely installed and are operating it. And many of those likely didn't properly configure security.
+
+OpenClaw has been evaluated as a "security disaster." ClawHavoc supply chain attack, Log Poisoning vulnerability, RCE vulnerability, and now mass instance exposure. Problems are piling up.
+
+The future of AI agents is bright. But there is no future without security. The number 135,000 is an indicator of how unprepared we are. And this is just the beginning.
+
+---
+
+**Sources:**
+
+- [135K OpenClaw AI Agents Exposed to Internet — Bitdefender](https://www.bitdefender.com/en-us/blog/hotforsecurity/135k-openclaw-ai-agents-exposed-online)
+- [OpenClaw Security: Risks of Exposed AI Agents Explained — Bitsight](https://www.bitsight.com/blog/openclaw-ai-security-risks-exposed-instances)
+- [Personal AI Agents like OpenClaw Are a Security Nightmare — Cisco Blogs](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare)
+- [Infostealer Steals OpenClaw AI Agent Configuration Files — The Hacker News](https://thehackernews.com/2026/02/infostealer-steals-openclaw-ai-agent.html)
+- [OpenClaw: The AI Agent Security Crisis — Reco.ai](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+- [AI Agents and Identity Risks — CyberArk](https://www.cyberark.com/resources/blog/ai-agents-and-identity-risks-how-security-will-shift-in-2026)
+- [State of AI Agent Security 2026 — Gravitee](https://www.gravitee.io/blog/state-of-ai-agent-security-2026-report-when-adoption-outpaces-control)
+- [Image Sources — Unsplash](https://unsplash.com)

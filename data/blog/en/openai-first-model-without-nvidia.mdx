@@ -1,0 +1,183 @@
+---
+title: "OpenAI's First Model Without Nvidia: The Reality Behind Codex-Spark"
+date: '2026-02-24T18:00:23'
+language: 'en'
+translationOf: 'openai-first-model-without-nvidia'
+tags: ['openai', 'codex-spark', 'cerebras', 'nvidia', 'ai-chip']
+draft: false
+images: ['/static/images/openai-first-model-without-nvidia/og-image.png']
+summary: "Analyzing GPT-5.3-Codex-Spark, OpenAI's first model deployed without Nvidia GPUs. Running on Cerebras WSE-3, this model hits 1,000 tokens per second—but at the cost of accuracy."
+---
+
+## 1,000 tokens per second, but what about accuracy?
+
+![Circuit board closeup — cracks are forming in the AI chip market](/static/images/openai-first-model-without-nvidia/og-image.png)
+
+On February 12, 2026, OpenAI released GPT-5.3-Codex-Spark. The name alone suggests just another coding model. But this model marks a historic first for OpenAI: no Nvidia GPU inside. In its place sits Cerebras's WSE-3, a **single wafer-scale chip** the size of a dinner plate.
+
+It generates over 1,000 tokens per second. Compared to GPT-5.3-Codex's 65-70 tokens/sec, that's 15x faster. Ask for a line of code and the answer appears almost instantly. Perceived latency approaches zero. OpenAI called this model "the first milestone in real-time coding."
+
+But judging a model by speed alone is a mistake. On Terminal-Bench 2.0, this model scored 58.4%. The same test gave GPT-5.3-Codex 77.3%. That's a **19-percentage-point gap**. It's fast, but less accurate. We need to examine what OpenAI bet on—and what it sacrificed—with this first non-Nvidia model.
+
+---
+
+## Codex-Spark's identity: a lightweight coding model
+
+GPT-5.3-Codex-Spark is a trimmed-down version of GPT-5.3-Codex. It shares the core architecture but reduces parameters and simplifies inference paths. In OpenAI's words, it's a "daily productivity driver." The focus isn't heavy refactoring or complex architecture design—it's rapid prototyping and instant code generation.
+
+Here are the specs:
+
+| Metric                 | GPT-5.3-Codex-Spark | GPT-5.3-Codex |
+| ---------------------- | ------------------- | ------------- |
+| Token generation speed | 1,000+ tok/s        | 65~70 tok/s   |
+| Context window         | 128K tokens         | 128K tokens   |
+| Terminal-Bench 2.0     | 58.4%               | 77.3%         |
+| SWE-Bench Pro time     | 2~3 min             | 15~17 min     |
+| Time to first token    | 50% reduction       | baseline      |
+| Client-server latency  | 80% reduction       | baseline      |
+| Modality               | Text only           | Text only     |
+| Infrastructure         | Cerebras WSE-3      | Nvidia GPU    |
+
+The speed-accuracy tradeoff is clear. SWE-Bench Pro tasks dropped from 15 minutes to 2-3, but Terminal-Bench accuracy fell 19 points. OpenAI considers this a "reasonable trade." In real-time coding, an **80% correct answer in 0.3 seconds** beats a perfect answer in 3 seconds.
+
+It's available to ChatGPT Pro subscribers as a research preview. Accessible through the Codex app, CLI, and VS Code extension. Not yet open to general users.
+
+---
+
+## WSE-3: the technical reality of a dinner-plate chip
+
+![Semiconductor wafer — Cerebras WSE-3 is an entire wafer as a single chip](/static/images/openai-first-model-without-nvidia/cerebras-wafer.png)
+
+Cerebras's Wafer Scale Engine 3 (WSE-3) defies conventional semiconductor design. Normal GPU chips measure hundreds of mm². Nvidia's H100 is roughly 814mm². WSE-3 is **46,255mm²**. 57 times larger. Manufactured on TSMC's 5nm process, an entire wafer becomes a single chip.
+
+The specs:
+
+| Metric         | Cerebras WSE-3      | Nvidia H100       |
+| -------------- | ------------------- | ----------------- |
+| Die area       | 46,255mm²           | 814mm²            |
+| Transistors    | 4 trillion          | 80 billion        |
+| AI cores       | 900,000             | 16,896 CUDA cores |
+| On-chip memory | 44GB SRAM           | 80GB HBM3e        |
+| Peak AI perf   | 125 PFLOPS          | 3.96 PFLOPS       |
+| TDP            | ~23kW (CS-3 system) | 700W              |
+
+By numbers alone, WSE-3 looks overwhelming. But direct comparison is misleading. H100 is a general-purpose GPU; WSE-3 is specialized for specific inference workloads. Different purposes.
+
+The key difference is **memory architecture**. H100 uses external HBM3e memory. Physical distance exists between chip and memory, and distance means latency. WSE-3 distributes SRAM across the entire chip. Memory sits right next to compute units. Data fetch time drops dramatically.
+
+SRAM is roughly 1,000x faster than HBM. This speed difference drives WSE-3's dominant token generation rate in inference. But SRAM is expensive and limited in capacity. WSE-3's 44GB is less than H100's 80GB. Nvidia's next-gen Rubin GPU will pack 288GB HBM4. In memory capacity, WSE-3 trails.
+
+That's why Codex-Spark is a "lightweight model." To fit WSE-3's constrained memory, model size must shrink. Fewer parameters mean lower accuracy. 1,000 tokens per second isn't free.
+
+---
+
+## Inside the $10 billion partnership
+
+![Data center servers — AI infrastructure is diversifying beyond GPUs](/static/images/openai-first-model-without-nvidia/data-center.png)
+
+OpenAI and Cerebras's partnership was officially announced in January 2026. $10 billion over three years for 750 megawatts of computing power from Cerebras. Codex-Spark is the **first output** of this partnership.
+
+$10 billion isn't pocket change. But compared to OpenAI's total infrastructure investment, it's a fraction. Around the same time, discussions with Nvidia covered up to $100 billion in investment. With AMD, a 6-gigawatt Instinct AI GPU deployment contract was signed. With Broadcom, a custom AI accelerator co-development agreement.
+
+OpenAI's official position is clear: "GPUs are foundational across the training and inference pipeline, delivering the most cost-efficient tokens for broad usage. Cerebras complements this foundation in workflows requiring extremely low latency."
+
+Translation: not abandoning Nvidia, but **adding Cerebras for specialized use**. Estimated split: Cerebras handles ~10% of total inference, Nvidia still handles the remaining 90%.
+
+So why invest $10 billion? The answer is **leverage**. In a market where Nvidia holds near-monopoly, alternatives create negotiating power. "We can run without your chips" becomes a credible statement. Codex-Spark is proof.
+
+---
+
+## Nvidia hasn't wavered, not yet
+
+![GPU graphics card — Nvidia still dominates 90% of the AI market](/static/images/openai-first-model-without-nvidia/nvidia-gpu.png)
+
+Right after the Codex-Spark announcement, Nvidia's stock dropped about 3%. But Cerebras wasn't the only factor. That same week, CNBC reported that OpenAI-Nvidia investment talks had stalled, and tech stocks broadly corrected. The stock recovered days later.
+
+Markets stayed calm because of the numbers. Nvidia controls **over 90%** of the AI GPU market. 2026 data center revenue alone runs into tens of billions. Cerebras's 10% slice is negligible to Nvidia's total pie.
+
+More importantly, the **training market** remains untouched. No company can currently replace Nvidia for training AI models. The CUDA ecosystem, NVLink interconnects, and decades of accumulated software stack form a moat. OpenAI trained GPT-5.3 entirely on Nvidia hardware.
+
+Cerebras's strength is limited to inference. Inference is when a trained model takes new input and generates output. Here, latency matters most, and WSE-3 shows advantages. But the inference market alone can't threaten Nvidia's throne.
+
+However, inference's share is growing. According to Deloitte, inference will account for **2/3** of all AI computing in 2026. It was 1/3 in 2023. Every ChatGPT query triggers inference. Training happens once; inference repeats for every user. As this market grows, so does Cerebras's opportunity.
+
+---
+
+## Jensen Huang's hand-delivered promise from 10 years ago
+
+In 2016, Jensen Huang personally delivered a DGX-1 to OpenAI's office. It was the world's first AI-specific supercomputer. OpenAI was just a nonprofit research lab with virtually no computing infrastructure. Huang gifted the system to Sam Altman, saying "Let's build AI's future together." It was a donation.
+
+Since then, every OpenAI model was born on Nvidia. GPT-2, GPT-3, GPT-4, GPT-5. All trained and inferred exclusively within Nvidia's CUDA ecosystem. Nvidia was OpenAI's only hardware partner, and OpenAI became one of Nvidia's most critical customers. Mutual dependence.
+
+But cracks began showing in late 2025. According to TrendForce, OpenAI expressed **dissatisfaction with Nvidia GPU inference performance**. Bottlenecks were severe in areas requiring real-time response, like coding AI and agent AI. Nvidia GPUs are optimized for massive parallel training, not efficient inference for single-user queries.
+
+OpenAI started seeking alternatives. In January 2026, the $10 billion Cerebras partnership was announced. Just a month later, the first model without Nvidia arrived.
+
+---
+
+## Changes developers will feel
+
+1,000 tokens per second's impact on developer workflow exceeds the raw number. The biggest complaint about AI coding tools has been **waiting for responses**. Requesting code and waiting 2-3 seconds breaks thought flow. Codex-Spark cuts that wait to 0.2-0.3 seconds.
+
+The difference shines in real-time coding sessions. Writing a function and asking AI "Does this logic make sense?"—when the answer comes in 0.3 seconds, it feels like conversation. At 3 seconds, it feels like search. This perceived difference determines development flow.
+
+The speed improvement on SWE-Bench Pro also stands out. The same code modification task dropped from 15-17 minutes to 2-3. For teams integrating AI into CI/CD pipelines, the build-test-fix cycle speeds up 5x or more. In workflows like Spotify's internal Honk system, this speed gap is decisive. When developers Slack "fix this bug," the AI fixes, tests, and opens a PR—all within minutes.
+
+But accuracy loss can't be ignored. Terminal-Bench 58.4% means "wrong four times out of ten." Acceptable for rapid prototyping. Just retry quickly. But entrusting production code to this model is risky. There's a reason OpenAI labeled this model "research preview."
+
+In today's AI coding tool market, Codex-Spark occupies a unique position. Claude Code (Anthropic) excels at autonomous agents and long context; GitHub Copilot leads in IDE integration and enterprise market share. Rather than competing head-on, Codex-Spark adds **a new axis: speed**. Need accuracy? Use existing tools. Need speed? Use Spark.
+
+---
+
+## The dawn of chip diversification wars
+
+OpenAI isn't alone in reducing Nvidia dependency. The entire AI industry is accelerating **chip diversification**.
+
+| Company   | Alternative chips/strategy                    | Status                       |
+| --------- | --------------------------------------------- | ---------------------------- |
+| OpenAI    | Cerebras WSE-3, AMD Instinct, Broadcom custom | Cerebras first deployment    |
+| Google    | In-house TPU v5p, Trillium                    | Operating own infrastructure |
+| Amazon    | In-house Trainium, Inferentia                 | Integrated into AWS cloud    |
+| Meta      | In-house MTIA v2                              | Using for internal inference |
+| Microsoft | AMD MI300X adoption                           | Available on Azure           |
+
+According to TrendForce, 2026 custom ASIC shipments will grow 44.6% year-over-year. GPU shipment growth in the same period: 16.1%. ASICs are growing **3x faster** than GPUs.
+
+Behind this trend lies economic logic. Nvidia GPUs offer versatility but inefficiency for specific workloads. For repetitive, predictable tasks like inference, dedicated chips perform better. Specialized chips remove unnecessary circuits and keep only essential functions, processing more operations per watt.
+
+Cerebras's IPO fits this context. Scheduled for Q2 2026, targeting $22 billion valuation. Tiny compared to Nvidia's $4 trillion market cap, but symbolically significant: a company that proved "AI runs without Nvidia" going public.
+
+Nvidia is responding. The Rubin GPU, launching in H2 2026, dramatically strengthens on-chip memory. Each GPU delivers 3.6TB/s bandwidth; a single Vera Rubin NVL72 rack hits 260TB/s. Nvidia claims this is "bandwidth greater than the entire internet." Nvidia is adopting the strategy Cerebras demonstrated: reducing physical distance between memory and compute. Classic pattern of competition driving innovation.
+
+Energy efficiency can't be ignored either. A single Nvidia H100 consumes 700W. Thousands running together require megawatt-scale power. Cerebras claims to achieve comparable inference performance with less power. Exact numbers vary by workload, but benchmarks support an advantage in performance per watt. As AI companies juggle ESG pressure and operational cost reduction, energy efficiency is becoming a key chip selection criterion.
+
+---
+
+## What the first crack reveals
+
+Saying OpenAI "abandoned" Nvidia isn't accurate. 90% of infrastructure remains Nvidia. The $100 billion investment discussion continues. GPT-5.3 training relied entirely on Nvidia.
+
+But GPT-5.3-Codex-Spark proved something critical. **Production-grade AI models can deploy without Nvidia.** At 1,000 tokens per second, to real users, in a real product. This isn't a benchmark demo. It's a live service inside ChatGPT Pro.
+
+For 10 years, the AI chip market offered no choice. Nvidia or Nvidia. Now Cerebras as an alternative has proven functional. This proof opens doors for AMD, Groq, Google TPU, and whoever hasn't emerged yet.
+
+Codex-Spark's 58.4% accuracy is low. Versatility is limited. Text-only means no multimodal support. Memory constraints make large models difficult. The limitations are clear.
+
+Yet this model matters not because it's perfect, but because **it opened possibility**. The first crack is always small. IBM-Microsoft, Microsoft-Intel, Apple-Intel. Tech industry transformations always began with small cracks.
+
+When Apple ditched Intel for in-house M1 chips, initial assessments dismissed it as "an experiment for low-power laptops." But once M1 proved possible, M2, M3, M4 followed, and Intel vanished from the entire Mac lineup. The transition was gradual, but the direction irreversible.
+
+Whether the OpenAI-Nvidia relationship follows the same path, nobody knows. Cerebras might stop at 10%, or expand to 20%, 30%. One thing is certain. On February 12, 2026, proof emerged that production AI models run without Nvidia. That fact itself is irreversible.
+
+---
+
+**Sources:**
+
+- [A new version of OpenAI's Codex is powered by a new dedicated chip — TechCrunch](https://techcrunch.com/2026/02/12/a-new-version-of-openais-codex-is-powered-by-a-new-dedicated-chip/)
+- [Introducing GPT-5.3-Codex-Spark — OpenAI](https://openai.com/index/introducing-gpt-5-3-codex-spark/)
+- [Introducing OpenAI GPT-5.3-Codex-Spark — Cerebras](https://www.cerebras.ai/blog/openai-codexspark)
+- [OpenAI launches GPT-5.3-Codex-Spark on Cerebras chips — Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/openai-lauches-gpt-53-codes-spark-on-cerebras-chips)
+- [OpenAI deploys Cerebras chips for near-instant code generation — VentureBeat](https://venturebeat.com/technology/openai-deploys-cerebras-chips-for-15x-faster-code-generation-in-first-major)
+- [OpenAI unveils first model running on Cerebras silicon — The Register](https://www.theregister.com/2026/02/12/openai_model_cerebras/)
+- [Cerebras WSE-3 Third Generation Wafer Scale Engine — Cerebras](https://www.cerebras.ai/chip)
+- [Image sources — Unsplash](https://unsplash.com)

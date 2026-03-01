@@ -1,0 +1,118 @@
+---
+title: 'The Real Reason OpenAI Opened Codex Internals'
+date: '2026-02-19T08:00:24'
+tags: ['openai', 'codex', 'open-source', 'ai-coding']
+draft: false
+language: 'en'
+translationOf: 'openai-codex-open-source'
+images: ['/static/images/openai-codex-open-source/og-image.png']
+summary: 'OpenAI detailed the agent loop architecture of Codex CLI. The open-sourcing of this 54,000-star project is not about democratizing technology—it is a full-frontal assault on Claude Code.'
+---
+
+54,886. That's the number of GitHub stars the OpenAI Codex CLI repository has received. Released under the Apache 2.0 license, this project has now revealed its internal architecture in detail. Michael Bolin's "Unrolling the Codex Agent Loop" series marks the beginning. OpenAI's decision to expose core technology this extensively is unusual. What they want is not democratization. It's all-out war with Claude Code.
+
+![Code editor screen showing the agent loop architecture of OpenAI Codex CLI](/static/images/openai-codex-open-source/og-image.png)
+
+## The Agent Loop as the Heart
+
+The core of Codex CLI is the agent loop. It's a repeating structure that takes user input, generates tool calls or responses through an LLM. It looks simple, but this loop determines everything about AI coding agents.
+
+Look at a single turn's operation. In the first stage, the **initial prompt** is assembled. General rules like coding standards in the system message, tool information composed of MCP server lists, and user input including text, images, and files are combined. The AGENTS.md file and environment information are injected at this stage.
+
+In the second stage, LLM inference begins. Outputs are generated as an event stream, including tool call instructions and reasoning steps. What matters here are the **reasoning outputs**. This is where the model reveals what plan it's making and why it's making that decision.
+
+The third stage is the repetition of the internal loop. Tool call results and reasoning results are added to the prompt and sent back to the LLM. This process continues until the LLM responds with a "complete" event. This is the essence of the agent loop. Not a single request, but multiple inferences and tool calls woven together to complete one task.
+
+## The Identity of the Performance Bottleneck
+
+Michael Bolin described the core challenge this way: "LLM inference performance increases quadratically in proportion to the amount of JSON during conversation." That's **O(n²)**. As conversations get longer, performance degrades sharply.
+
+There are two solutions. First, prompt caching. Reusing previous inference outputs improves performance to **O(n)**. When caching works well, there's no need to calculate from scratch every time. However, if the tool list changes, the cache is invalidated. Early MCP support had a "bug that failed to enumerate tools in a consistent order," which caused cache misses.
+
+Second, conversation compaction. When tokens exceed the limit, a special API endpoint is called to convert the conversation into a smaller representation. It replaces the entire conversation with a summary. Without these two optimizations, Codex CLI would have been unusable in long coding sessions.
+
+![Circuit board symbolizing the iterative reasoning process of the AI agent loop](/static/images/openai-codex-open-source/agent-loop.png)
+
+## The Foundation Called Open Responses API
+
+Codex CLI operates on top of the **Open Responses API**. It's an evolution of Chat Completions and Assistants API. It provides a unified interface for stateful multi-turn response generation.
+
+Built-in tools are key. Web search, file search, computer use, and code interpreter are provided by default. Web search enables hosted search functionality, file search supports various formats including PDF, Word, and presentations. Computer use enables automated web application manipulation, form filling, and data extraction. Code interpreter handles code execution and analysis.
+
+Multi-turn interaction is where this API shines. Passing previous responses yields higher accuracy inference results. Features that previously required multiple API calls are handled in a single call. OpenAI claims a 3% performance improvement over Chat Completions on SWE-bench.
+
+**Reasoning Summaries** are also noteworthy. They summarize the model's internal chain-of-thought in natural language. Useful for debugging, auditing, and improving user experience. It means you can track why the model made that decision.
+
+## Head-to-Head with Claude Code
+
+To understand why OpenAI opened all of this, you need to see the competitive landscape. Claude Code is closed-source. Anthropic doesn't publish the code. Codex CLI took the opposite strategy.
+
+| Item                 | Codex CLI                            | Claude Code                |
+| -------------------- | ------------------------------------ | -------------------------- |
+| Source Code          | Open-source (Apache 2.0)             | Closed-source              |
+| Customization        | High (code modification possible)    | Low (feedback dependent)   |
+| Transparency         | High (implementation details public) | Low (vendor logic unclear) |
+| Price                | $0.002/1K tokens                     | $0.015/1K tokens           |
+| Monthly Subscription | API pay-as-you-go                    | $20/month                  |
+
+The price difference is striking. **More than 7x cheaper per token**. Compared to Claude Code's $20 monthly subscription model, it can be far more economical depending on usage. Especially advantageous for developers who use it intermittently.
+
+One user on Hacker News said, "Claude Code being closed while this is open is a significant advantage." Another user evaluated it as "useful for major labs training coding agents." Community reaction is largely positive.
+
+![Team meeting scene showing developers collaborating in the community](/static/images/openai-codex-open-source/developer-community.png)
+
+## Mixed Community Reactions
+
+Positive reactions dominate. Performance is rated as "completely seamless" and "quite literally insane." Solo developers are increasingly running multiple agents in parallel in **tmux pipelines**. Developers testing in real production codebases are documenting detailed cost analyses.
+
+Negative reactions exist too. The indefinite wait time for responses is a complaint. Environment setup is complex for tools to work usefully. Some evaluate it as not as effective in enterprise contexts as for solo developers. There are also criticisms that features are lacking compared to Claude Code.
+
+Comparing community size, r/ClaudeCode has over 4,200 weekly contributors, while r/Codex is around 1,200. Claude Code is more active. But Codex's growth has been steep since the open-source release.
+
+## The Intent Behind the $1M Fund
+
+OpenAI operates the **Codex Open Source Fund**. A $1 million support program providing OpenAI API credits in $25,000 units. The goal is to support early-stage projects and lower the entry barrier for startups and independent developers.
+
+This is not simple charity. It's a strategy to lock the developer ecosystem into the OpenAI platform. Even though Codex CLI is open-source, it still depends on the OpenAI API. The model itself remains closed. **GPT-5.2-Codex** has not been released.
+
+The combination of open-source agent + closed model is OpenAI's calculation. It appears to give developers freedom while maintaining the core revenue source of API calls. This contrasts with Claude Code receiving monthly fees as an integrated solution.
+
+## Why Built in Rust
+
+Codex CLI is implemented in **Rust**. For performance and type safety. It aligns with its identity as a lightweight coding agent running in terminals.
+
+Looking at the GitHub repository, active community contributions are happening. Bug fixes and improvements are reflected quickly. Official documentation, examples, and contribution guidelines are well organized. IDE extensions like VS Code are provided together.
+
+The advantage of open-source shows here. When Claude Code has problems, users can only wait for Anthropic. With Codex CLI, the community can fix it directly. Of course, when the model malfunctions, they still depend on OpenAI. But users can control the agent logic at least.
+
+![Strategic meeting symbolizing AI coding tool competition](/static/images/openai-codex-open-source/competition.png)
+
+## Future Release Roadmap
+
+OpenAI stated this article is the first in a series. Future topics include CLI architecture, tool usage implementation, and the Codex sandboxing model. Deeper internal structures will be revealed.
+
+The sandboxing model is particularly important. Security is a core challenge when AI agents execute code. How to prevent malicious code execution. How to limit scope of permissions. When this is revealed, it will serve as a reference for other AI coding tools.
+
+Tool usage implementation is also of interest. Detailed information on how integration with MCP (Model Context Protocol) servers is implemented will become available. While what's been revealed so far is useful enough for AI agent developers, more information could impact the entire ecosystem.
+
+## When Transparency Becomes a Weapon
+
+OpenAI's release was packaged as democratization, but the essence is marketing. They couldn't just watch Claude Code grow. The strategy is to imprint the message "we are open, they are closed" in the developer community.
+
+It's actually working. Over 50,000 GitHub stars prove it. Developers prefer tools where they can understand the internals. They can debug when problems occur, customize if needed. Transparent systems gain more trust than black boxes.
+
+But real transparency is releasing the model itself. No matter how open-source Codex CLI is, the internals of GPT-5.2-Codex remain a mystery. OpenAI is hiding the opacity of the model layer with the transparency of the agent layer. It's a clever strategy, but many developers recognize this limitation.
+
+The AI coding tool war is just beginning. The confrontation between OpenAI and Anthropic is becoming clear. Open-source vs closed-source, pay-as-you-go vs subscription, community-driven vs vendor-driven. Which side will win depends on developers' choices. What's certain is that thanks to this competition, developers can use better tools more cheaply.
+
+---
+
+## Sources
+
+- [InfoQ: OpenAI Begins Article Series on Codex CLI Internals](https://www.infoq.com/news/2026/02/codex-agent-loop/)
+- [OpenAI Codex CLI GitHub Repository](https://github.com/openai/codex)
+- [OpenAI for Developers in 2025](https://developers.openai.com/blog/openai-for-developers-2025/)
+- [TechCrunch: OpenAI debuts Codex CLI](https://techcrunch.com/2025/04/16/openai-debuts-codex-cli-an-open-source-coding-tool-for-terminals/)
+- [OpenAI Responses API Reference](https://platform.openai.com/docs/api-reference/responses)
+- [Builder.io: Codex vs Claude Code](https://www.builder.io/blog/codex-vs-claude-code)
+- [Hacker News: Unrolling the Codex agent loop](https://news.ycombinator.com/item?id=46737630)
