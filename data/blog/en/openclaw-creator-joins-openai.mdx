@@ -1,0 +1,162 @@
+---
+title: 'The Real Reason OpenAI Hired the Man Behind OpenClaw'
+date: '2026-03-01T12:00:06'
+tags:
+  [
+    'openclaw',
+    'openai',
+    'ai-agent',
+    'acqui-hire',
+    'peter-steinberger',
+  ]
+draft: false
+language: 'en'
+translationOf: 'openclaw-creator-joins-openai'
+images: ['/static/images/openclaw-creator-joins-openai/og-image.png']
+summary: 'Peter Steinberger, creator of OpenClaw — the fastest project to reach 210K stars on GitHub — has joined OpenAI. Anthropic sent lawyers. OpenAI sent a job offer.'
+---
+
+## Anthropic Sent a Lawyer. OpenAI Sent a Job Offer.
+
+![OpenAI's talent acquisition strategy — the era of buying people, not models](/static/images/openclaw-creator-joins-openai/og-image.png)
+
+In January 2026, Anthropic's legal team sent a cease-and-desist letter to an Austrian developer. The reason: his project was named "Clawd." Too similar to Claude, Anthropic argued. The developer changed the name — from Clawdbot to Moltbot, then to OpenClaw. Three weeks later, Sam Altman posted on X:
+
+> "Peter Steinberger is joining OpenAI to drive the next generation of personal agents. He is a genius."
+
+While Anthropic was sending lawyers, OpenAI was sending a job offer. One side saw a **threat**. The other saw an **opportunity**. This contrast encapsulates the state of the AI agent war in 2026.
+
+Ruby on Rails creator DHH called Anthropic's cease-and-desist "customer hostile." The community's reaction was even harsher. It took only days for the narrative to shift from "Anthropic builds the best models" to "Anthropic **fears the future**."
+
+---
+
+## The Man Who Made $100 Million and Still Felt Empty
+
+Peter Steinberger studied medical computer science at TU Wien (Vienna University of Technology). While still in school, he created the university's first Mac/iOS development course. After graduating, he worked as a senior iOS engineer at a San Francisco startup. He was a **first-generation iOS developer**, diving into the ecosystem right after the iPhone launched.
+
+In 2011, a six-month wait for a US work visa changed his life. He noticed there was no decent framework for displaying PDFs on iPad and started building PSPDFKit. The name was simple: **P**eter **S**teinberger + **PDF** + **Kit**. Apple used it internally — that's how good it was. Eventually, nearly **one billion users** were running apps built on PSPDFKit.
+
+![From startup to burnout — Steinberger's 13 years were a sprint](/static/images/openclaw-creator-joins-openai/startup-journey.png)
+
+In 2021, after raising **$116 million** from Insight Partners, he sold his stake and left the company. Thirteen years of running at 200% had taken its toll — severe burnout. Travel, parties, therapy — nothing filled the void. For about two years, he couldn't find meaning in anything.
+
+The turning point came in April 2025. While building a Twitter analytics tool, he saw what AI could really do. The spark that burnout had extinguished reignited, and he immediately started a new project. That was the beginning of OpenClaw.
+
+---
+
+## The Fastest Growth in GitHub History — and the Fastest Controversy
+
+OpenClaw isn't a coding agent. It's a **24/7 always-on personal AI assistant** that uses WhatsApp, Telegram, and Discord as its interface. Calendar management, flight booking, email handling, smart home control. If it needs a new capability, it writes code to create skills on its own — a self-improving system.
+
+The growth was abnormal.
+
+| Metric                  | OpenClaw    | Kubernetes (comparison) |
+| ----------------------- | ----------- | ----------------------- |
+| Time to 100K stars      | ~60 days    | ~3 years                |
+| Daily star average      | 1,667       | 91                      |
+| Peak 48 hours           | 34,168 stars| N/A                     |
+| Total stars (mid-Feb 2026) | 216,000  | 112,000                 |
+
+There were two days when 710 stars poured in every hour — January 29-30, 2026, right after the rename from Moltbot to OpenClaw. No project in GitHub history had grown this fast. It hit 100K stars in 60 days (Kubernetes took 3 years) and crossed 200K in 84 days.
+
+But growth and controversy arrived simultaneously. Steinberger was paying **$20,000 per month** in infrastructure costs out of pocket, and the project was becoming a security nightmare.
+
+---
+
+## 512 Vulnerabilities and a 10-Second Gap
+
+On January 25, 2026, Argus Security Platform published their audit of OpenClaw. **512 total vulnerabilities**, **8 rated Critical**. Holes across authentication, secrets management, dependencies, and application security.
+
+![512 security vulnerabilities — GitHub's most popular AI agent was simultaneously its most dangerous](/static/images/openclaw-creator-joins-openai/security-vulnerability.png)
+
+The most devastating was CVE-2026-25253 — a one-click remote code execution (RCE) chain with a CVSS score of 8.8, exploitable even on localhost-bound instances. It was patched in v2026.1.29, but before that, **over 30,000** OpenClaw instances were exposed to the internet without authentication.
+
+Supply chain attacks were even more insidious. **341 malicious skills** were discovered in ClawHub, OpenClaw's skill registry — 12% of all 2,857 skills. A follow-up scan pushed that number to **over 800**. One in five skills was distributing Atomic macOS Stealer (AMOS), targeting browser credentials, Keychain passwords, cryptocurrency wallets, and SSH keys.
+
+What happened during the rename was even more absurd. In the **10 seconds** between rebranding from Clawdbot to Moltbot, scammers hijacked the original "Clawdbot" namespace. They issued a $CLAWD token and pumped it to a **$16 million** market cap. From a security perspective, OpenClaw was simultaneously the most popular and the most dangerous AI agent. Kaspersky warned it was "not safe to use," and Cisco declared "personal AI agents are a security nightmare."
+
+---
+
+## OpenAI Bought the Person, Not the Code
+
+On February 15, 2026, Sam Altman used the word "genius" when announcing Steinberger's hire. What OpenAI wanted wasn't OpenClaw's code. It was the **multi-agent architecture vision** inside Steinberger's head.
+
+Altman said:
+
+> "He has a lot of amazing ideas about the future of very smart agents interacting with each other to do very useful things for people."
+
+This hire was announced **exactly one week** after OpenAI launched Frontier, its enterprise agent platform. Not a coincidence. OpenAI is pivoting from a company that sells models to a company where **agents do the work**. They needed key talent for that transition.
+
+OpenAI's recent acquisition pattern reveals a clear strategy:
+
+| Target                    | Domain               | Purpose                          |
+| ------------------------- | -------------------- | -------------------------------- |
+| 7 Cline engineers         | AI coding agents     | Counter Anthropic in coding      |
+| OpenClaw (Steinberger)    | Personal AI agents   | Secure multi-agent vision        |
+| Convogo                   | Executive coaching AI| Leadership automation            |
+| Context.ai                | Consumer AI          | Personalization technology       |
+| Crossing Minds            | Recommendation       | Consumer app capabilities        |
+
+**9 acquisitions** completed in one year. Most were acqui-hires focused on **people**, not products. They're absorbing talent along three axes: agents, developer tools, and consumer AI.
+
+---
+
+## Can OpenClaw Survive?
+
+Steinberger transferred OpenClaw to an **independent foundation**. The terms: OpenAI provides financial support, and Steinberger is guaranteed time for maintenance. His blog post reads:
+
+> "OpenClaw will move to a foundation and stay open and independent. It's always been important to me that OpenClaw stays open source and given the freedom to flourish."
+
+On why he joined:
+
+> "What I want is to change the world, not build a large company, and teaming up with OpenAI is the fastest way to bring this to everyone."
+
+He said his goal was to build an agent that even his mother could use. Implementing it safely required access to cutting-edge models and research, and he was more interested in changing the world than scaling another company.
+
+But the community remains skeptical. The complicated history behind the name "Open"AI is the issue. It's hard to take at face value that a company which pivoted from nonprofit to for-profit will guarantee the independence of an open-source project. There are concerns the foundation structure could be little more than a formality. European media pointed to the brain drain problem, noting that "Europe left Steinberger with no choice."
+
+---
+
+## The Agent Era: The Axis of Competition Shifts
+
+![The AI agent era — orchestration, not model performance, becomes the competitive edge](/static/images/openclaw-creator-joins-openai/ai-agent-future.png)
+
+This hire doesn't signal the movement of a single person. It signals that the **axis of competition in the AI industry is shifting**. VentureBeat analyzed that "OpenAI's acquisition of OpenClaw signals the **beginning of the end of the ChatGPT era**."
+
+AI is transitioning from "what can it say" to "what can it **do**." Model intelligence is already high enough. Now the competition is in the infrastructure that converts intelligence into action. Tool calling, persistent context management, connector standards, policy controls, human override mechanisms. **Runtime orchestration** that ties all of this together is the new battleground.
+
+Line up OpenClaw, Codex, and Claude Code, and each occupies a different territory:
+
+| Attribute    | OpenClaw            | Codex               | Claude Code               |
+| ------------ | ------------------- | -------------------- | ------------------------- |
+| Identity     | 24/7 personal AI assistant | Autonomous coding agent | Terminal-based coding agent |
+| Interface    | WhatsApp, Telegram  | CLI + macOS app      | CLI (terminal)            |
+| Core domain  | Daily task automation| Long-running autonomous coding | Codebase understanding, generation |
+| Open source  | Yes                 | No                   | No                        |
+| Analogy      | Swiss Army knife    | Self-driving car     | Surgical scalpel          |
+
+OpenClaw isn't a coding tool. It's a **general-purpose assistant** that automates daily life. OpenAI didn't hire Steinberger for the coding war — they hired him to preempt a future where agents penetrate deep into human daily life. Altman's phrase "very smart agents interacting with each other" is a declaration that inter-agent collaboration will be the core of the product.
+
+---
+
+## The Company That Sends Lawyers vs. The Company That Sends Job Offers
+
+A Hacker News comment summarized the situation perfectly: "Instead of nurturing a community on its platform, Anthropic **sent a legal threat first**. That was the fatal mistake." While Anthropic saw Steinberger as a threat, OpenAI saw him as an asset. Mark Zuckerberg reportedly showed interest too, but Steinberger ultimately chose OpenAI.
+
+The most bitter part of this story lies elsewhere. OpenClaw is a project with 512 security vulnerabilities. 20% of its skill registry was malicious code. Over 30,000 instances were exposed without authentication. Yet OpenAI still called its creator a "genius" and brought him aboard. Security issues can be fixed, but **vision cannot be purchased** — that must have been the calculation.
+
+Ultimately, this is a story about two companies' differing philosophies. Anthropic tried to protect its brand. OpenAI tried to buy the future. The assessment that Anthropic's models are superior remains valid. But models alone can't dominate the agent era. The most dangerous thing in the AI industry isn't a model that's slower than the competition — it might be **a single lawyer's letter** that turns the community into an enemy.
+
+---
+
+**Sources:**
+
+- [OpenClaw creator Peter Steinberger joins OpenAI — TechCrunch](https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/)
+- [OpenClaw, OpenAI and the future — Peter Steinberger Blog](https://steipete.me/posts/2026/openclaw)
+- [OpenClaw creator joining OpenAI — CNBC](https://www.cnbc.com/2026/02/15/openclaw-creator-peter-steinberger-joining-openai-altman-says.html)
+- [OpenAI's acquisition signals end of ChatGPT era — VentureBeat](https://venturebeat.com/technology/openais-acquisition-of-openclaw-signals-the-beginning-of-the-end-of-the)
+- [Who is Peter Steinberger? — Fortune](https://fortune.com/2026/02/19/openclaw-who-is-peter-steinberger-openai-sam-altman-anthropic-moltbook/)
+- [Researchers find 341 malicious ClawHub skills — The Hacker News](https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html)
+- [OpenClaw vulnerabilities exposed — Kaspersky](https://www.kaspersky.com/blog/openclaw-vulnerabilities-exposed/55263/)
+- [Personal AI Agents are a security nightmare — Cisco](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare)
+- [Europe left Steinberger with no choice — TrendingTopics.eu](https://www.trendingtopics.eu/openclaw-europe-left-peter-steinberger-with-no-choice-but-to-go-to-the-us/)
