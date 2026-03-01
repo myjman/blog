@@ -1,0 +1,187 @@
+---
+title: 'Just Tell It What to Do and Wait'
+date: '2026-02-08T13:00:00'
+tags: ['vibe-coding', 'vibe-coding-101', 'claude-code', 'codex', 'terminal', 'tutorial']
+draft: false
+category: 'tutorial'
+language: 'en'
+translationOf: 'vibe-coding-terminal'
+images: ['/static/images/vibe-coding-101/claude-code-og.jpg']
+summary: 'No editor needed. Open a terminal, say "make me a blog," and the AI creates files, writes code, builds, and deploys. You just tell it what to do and wait. Claude Code and Codex — the reality and limits of terminal-based AI coding.'
+---
+
+## No Editor Needed
+
+[Editor-based tools](/blog/vibe-coding-editor) felt like having AI sit next to you and help. Terminal-based tools are different. You **hand over the entire job** to the AI.
+
+"Make me a blog."
+
+That one sentence is enough. The AI takes it from there. It creates the project folder, generates files, writes code, installs dependencies, builds, fixes errors, runs tests, and deploys. You check the result and say "looks good" or "change this part."
+
+This blog (todaysvibe) was built with a terminal-based AI. Design, writing, deployment — all done with Claude Code. I barely opened an editor.
+
+---
+
+## What Even Is a Terminal
+
+A terminal is a program with a black screen where you type text. Instead of clicking with a mouse, you type commands to control the computer.
+
+```
+$ claude "make me a blog"
+```
+
+Type that, and the AI responds, creates files, and runs code. No buttons. No menus. Just text. It looks intimidating, but you do not need deep terminal knowledge to use terminal-based AI tools. The AI runs terminal commands for you.
+
+---
+
+## What the AI Does
+
+Terminal-based AI can do more than editor-based AI.
+
+**File creation and editing** — It creates new files, reads existing ones, and modifies them. It handles dozens of files at once.
+
+**Running commands** — The AI directly executes commands like `npm install`, `git commit`, and `vercel deploy`. You do not need to memorize commands.
+
+**Automatic error fixing** — When code throws an error, the AI reads the error message, identifies the cause, fixes the code, and runs it again. It repeats this loop without human intervention.
+
+**Web search and documentation** — It looks up the latest library docs and applies them to your code.
+
+Here is an analogy. If [web builders](/blog/vibe-coding-web-builder) are "ordering a finished product," [prompt-based tools](/blog/vibe-coding-prompt) are "getting a recipe and cooking it yourself," and [editor-based tools](/blog/vibe-coding-editor) are "cooking with a chef beside you," then terminal-based tools are **"handing over the entire kitchen."**
+
+---
+
+## The Two Main Tools
+
+### Claude Code — The Tool That Built This Blog
+
+![Claude Code — coding with natural language in the terminal](/static/images/vibe-coding-101/claude-code-og.jpg)
+
+Claude Code is a terminal-based AI coding tool made by Anthropic. You have a conversation in the terminal and manage an entire project through it.
+
+Boris Cherny, the creator of Claude Code, shared this:
+
+> "In the last 30 days I opened 259 PRs — 497 commits, 40k lines added, 38k lines deleted. Claude Code wrote all the code."
+
+He runs 10 to 15 Claude Code sessions simultaneously.
+
+Jaana Dogan, a principal engineer at Google, posted a viral tweet:
+
+> "Not kidding. We described a distributed agent orchestrator to Claude Code — something that took us a year to build — and it reproduced it in one hour."
+
+She added it was "a toy implementation, not production-grade," but the fact that a year of work was reproduced in one hour was shocking enough.
+
+There is no free plan. You need a Claude Pro (\$20/month) subscription or higher.
+
+This is the official Anthropic demo showing Claude Code in action.
+
+<YouTubeEmbed videoId="AJpK3YTTKZ4" title="Claude Code Official Demo — Anthropic" />
+
+### Codex — OpenAI's Answer
+
+![OpenAI Codex CLI — coding with GPT-5.3 in the terminal](/static/images/vibe-coding-101/codex-cli.png)
+
+Codex is OpenAI's terminal-based AI coding tool. Like Claude Code, you code by having a conversation in the terminal. It uses the GPT-5.3 model.
+
+What sets Codex apart is its **sandbox**. When the AI runs code, it does so in an isolated environment. This reduces the risk of accidentally deleting important files or breaking your system.
+
+You need a ChatGPT Plus (\$20/month) subscription or higher.
+
+This is the livestream where OpenAI first revealed Codex. Greg Brockman demos it live.
+
+<YouTubeEmbed videoId="hhdpnbfH6NU" title="Introducing Codex — OpenAI Official Livestream" />
+
+| Tool        | Free    | Paid           | Strengths                            | Weaknesses    |
+| ----------- | ------- | -------------- | ------------------------------------ | ------------- |
+| Claude Code | None    | \$20/mo (Pro)  | Best agent performance, most freedom | No free plan  |
+| Codex       | Limited | \$20/mo (Plus) | Sandbox safety, GPT-5.3              | New ecosystem |
+
+---
+
+## How Is This Different from Editor-Based
+
+|                  | Editor-based          | Terminal-based        |
+| ---------------- | --------------------- | --------------------- |
+| Editor needed?   | Yes (Cursor, VS Code) | No (terminal only)    |
+| AI's role        | Assists beside you    | Takes over completely |
+| Running commands | Limited               | AI runs them directly |
+| File creation    | Possible              | Large-scale possible  |
+| Build/deploy     | You do it yourself    | AI does it directly   |
+| Barrier to entry | Medium                | High (terminal)       |
+
+The core difference is **autonomy**. Editor-based AI edits code, but you still have to build and deploy yourself. Terminal-based AI deploys when you say "deploy." You just check the result.
+
+---
+
+## Where It Breaks Down — The Limits
+
+Terminal-based tools are the most powerful, but their limits are also the most obvious.
+
+**1. The terminal is unfamiliar**
+For someone who has never opened a terminal, it is a high wall. Seeing a cursor blink on a black screen makes "what is this?" a natural reaction. The AI runs commands for you, but you still need to know the basics — how to open a terminal and navigate around.
+
+**2. Free plans are nonexistent or thin**
+Claude Code has no free plan at all. You need \$20/month to start. Codex has a limited free plan. Compared to editor-based tools (Copilot at \$10/month) or web builders (Bolt.new for free), the entry cost is high.
+
+**3. It is hard to monitor what the AI is doing**
+With editor-based tools, changes are highlighted when the AI modifies code. Terminal-based AI changes multiple files in the background, making it hard to track every modification. Even Cursor's CEO warned about this:
+
+> "If you close your eyes and let the AI code without looking, you are building layers on an unstable foundation. It will collapse."
+> — Michael Truell, Cursor CEO
+
+**4. Setup is complicated**
+To use Claude Code, you need to install Node.js, run npm commands in a terminal, and configure API keys. A far cry from the "open a browser and start" experience of web builders.
+
+**5. Costs can spike fast**
+Terminal-based AI consumes a lot of tokens per request. As your project grows, you could spend tens of dollars a day. Behind the convenience of "just tell it and wait" hides real cost.
+
+| What you can do              | What is hard                |
+| ---------------------------- | --------------------------- |
+| Generate entire projects     | Terminal is foreign to many |
+| Automate build/test/deploy   | Starting for free           |
+| Large-scale refactoring      | Tracking what AI changed    |
+| Production-level development | Managing costs              |
+
+---
+
+## Who Should Use This
+
+Terminal-based tools are best for **"people who have some coding experience, or the willingness to learn."**
+
+- Developers looking to maximize productivity
+- People comfortable with the terminal, or willing to learn
+- People who want to hand entire projects to AI
+- Solo builders who want to ship real products
+
+If you know nothing about coding, start with [web builders](/blog/vibe-coding-web-builder). If coding has started to interest you, work your way up through [editor-based tools](/blog/vibe-coding-editor).
+
+---
+
+## The Four Types, Summarized
+
+This series covered four types of AI coding.
+
+| Type                                         | Main Tools         | Core Idea             | Who Is It For?                      |
+| -------------------------------------------- | ------------------ | --------------------- | ----------------------------------- |
+| [Web Builder](/blog/vibe-coding-web-builder) | Lovable, Bolt.new  | Say it, get an app    | People who know zero coding         |
+| [Prompt-based](/blog/vibe-coding-prompt)     | ChatGPT, Claude    | Copy-paste code       | People who want to see what code is |
+| [Editor-based](/blog/vibe-coding-editor)     | Cursor, Copilot    | AI assists beside you | People learning to code             |
+| Terminal-based                               | Claude Code, Codex | Tell it and wait      | Developers, or those going all in   |
+
+Freedom increases as you go down the list. So does the barrier to entry. There is no right answer. Pick the type that matches your skill level and goal. Moving between them is natural.
+
+Andrej Karpathy coined "vibe coding" in a February 2025 tweet:
+
+> "There is a new kind of coding I call vibe coding. You fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+
+The era where you can forget about code is here. Whatever tool you pick, what matters is **starting**.
+
+---
+
+**Sources:**
+
+- [Boris Cherny — 30 days with Claude Code (X)](https://x.com/bcherny/status/2007179832300581177)
+- [Jaana Dogan — Reproducing a year of work with Claude Code (X)](https://x.com/rakyll/status/2007239758158975130)
+- [Michael Truell, Cursor CEO — Vibe coding warning (Fortune)](https://fortune.com/2025/12/25/cursor-ceo-michael-truell-vibe-coding-warning-generative-ai-assistant/)
+- [Andrej Karpathy — Vibe coding tweet (X)](https://x.com/karpathy/status/1886192184808149383)
+- [Claude Code Official](https://claude.com/code)
+- [OpenAI Codex CLI](https://github.com/openai/codex)

@@ -1,0 +1,140 @@
+---
+title: 'Super Bowl 2026: Opus 4.6 vs GPT-5.3'
+date: '2026-02-06T18:00:00'
+language: 'en'
+translationOf: 'superbowl-2026-opus-vs-gpt'
+tags: ['opus', 'gpt', 'anthropic', 'openai', 'benchmark', 'superbowl', 'vibe-coding']
+draft: false
+images: ['/static/images/superbowl-2026/20-minutes.png']
+summary: 'On February 5th, Opus 4.6 and GPT-5.3 Codex dropped 20 minutes apart. The benchmarks tell different stories. On Sunday, Anthropic runs a Super Bowl ad mocking OpenAI.'
+---
+
+![20 MINUTES REMAINING -- Super Bowl stadium](/static/images/superbowl-2026/20-minutes.png)
+
+## 20 Minutes Apart
+
+February 5th, 6:40 PM. Anthropic announces Claude Opus 4.6. Twenty minutes later at 7 PM, OpenAI announces GPT-5.3 Codex.
+
+Not a coincidence. Both companies had originally planned to announce at the same time. Anthropic moved 15 minutes early. OpenAI stuck to the schedule.
+
+Two days later is the Super Bowl. Anthropic has two ad slots booked during the game. The content: mocking OpenAI.
+
+---
+
+## What the Benchmarks Say
+
+| Benchmark          | Opus 4.6      | GPT-5.3 Codex | Winner |
+| ------------------ | ------------- | ------------- | ------ |
+| SWE-Bench Verified | **80.8%**     | 56.8%         | Opus   |
+| Terminal-Bench 2.0 | 65.4%         | **77.3%**     | GPT    |
+| GDPval-AA (Elo)    | **1606**      | 1462          | Opus   |
+| Context Window     | **1M tokens** | 256K          | Opus   |
+| Speed              | Baseline      | **+25%**      | GPT    |
+
+Opus leads in bug fixing (SWE-Bench) and expert-level tasks (GDPval-AA). GPT leads in terminal-based coding (Terminal-Bench) and raw speed.
+
+Both claim they won.
+
+---
+
+## What the Benchmarks Don't Say
+
+![Terminal-Bench 2.0 comparison](/static/images/superbowl-2026/terminal-bench.webp)
+
+![SWE-bench Verified comparison](/static/images/superbowl-2026/swe-bench.webp)
+
+The problem is that the benchmark versions differ.
+
+- SWE-Bench has multiple versions. There is no way to confirm that the "Verified" version where Opus scored 80.8% and the version where GPT scored 56.8% are the same test.
+- Terminal-Bench 2.0 is a benchmark built by OpenAI itself. It is not surprising that Anthropic scored low on this test.
+
+Each company puts the benchmark that favors them front and center. Anthropic says "we lead by 144 Elo on GDPval-AA." OpenAI says "we demolished Opus on Terminal-Bench."
+
+Same data. Different narratives.
+
+---
+
+## The Philosophical Split
+
+The numbers matter less than the design philosophy.
+
+![Claude Opus 4.6](/static/images/superbowl-2026/claude-logo.jpg)
+
+**Opus 4.6 -- "Handle it"**
+
+- Built for autonomous agents
+- Thinks deeply, runs long, asks fewer questions
+- Agent Teams: multiple agents split the work
+- 1 million token context to understand an entire codebase
+
+![GPT-5.3 Codex](/static/images/superbowl-2026/gpt-codex-banner.png)
+
+**GPT-5.3 Codex -- "Let's do it together"**
+
+- Built for collaboration
+- Humans intervene mid-run and redirect
+- 25% faster for tight feedback loops
+- The first model that debugged its own training
+
+Opus takes the wheel once you point the direction. GPT keeps the conversation going the whole way.
+
+Which one is right depends on what you want. Keep control? GPT. Delegate? Opus.
+
+---
+
+## The Super Bowl Ad War
+
+Anthropic's Super Bowl ad content leaked.
+
+The ad satirizes a chatbot that befriends a user, then suddenly starts pushing products. An awkwardly enthusiastic bot gushes "This product is amazing!" The closing title card reads:
+
+> "Ads are coming to AI. But not to Claude."
+>
+> (Dr. Dre "What's the Difference" intro)
+
+A direct shot at OpenAI's decision to put ads in the free and low-cost tiers of ChatGPT.
+
+**Sam Altman's response (X)**
+
+> "It's funny. But dishonest. Anthropic sells expensive products to rich people."
+
+**Greg Brockman (OpenAI co-founder)**
+
+> "Is Anthropic actually promising they'll never sell user data to advertisers?"
+
+**Dario Amodei (Anthropic CEO)**
+
+Silence.
+
+---
+
+## Convergence
+
+Here is the interesting part: the two models are becoming more alike.
+
+Opus 4.6 added Agent Teams. Multiple agents collaborating on a task. GPT-5.3 increased its autonomy. It debugged its own training process.
+
+Both started as coding agents. Both are converging toward general-purpose work agents. Right now they compete on coding. In six months they will compete on spreadsheets, presentations, and email.
+
+"Which model is better" is becoming a meaningless question. They are heading in the same direction.
+
+---
+
+## What to Watch on Sunday
+
+When the Super Bowl ad airs, public opinion shifts. Not the tech community -- the general public. The message "ChatGPT is getting ads" will reach tens of millions of people.
+
+If Anthropic wins this fight, Claude's premium image gets stronger. If OpenAI's counterattack lands, the "ads = free = democratization" frame takes hold.
+
+This ad war might have a bigger impact than any benchmark number.
+
+---
+
+**Sources:**
+
+- [Anthropic -- Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6)
+- [OpenAI -- GPT-5.3-Codex](https://openai.com/index/introducing-gpt-5-3-codex/)
+- [TechCrunch -- Same-Day Release](https://techcrunch.com/2026/02/05/openai-launches-new-agentic-coding-model-only-minutes-after-anthropic-drops-its-own/)
+- [Latent Space -- AINews](https://www.latent.space/p/ainews-openai-and-anthropic-go-to)
+- [San Diego Union-Tribune -- Super Bowl Ad Rivalry](https://www.sandiegouniontribune.com/2026/02/05/openai-anthropic-rivalry/)
+- [Serenities AI -- Benchmark Comparison](https://serenitiesai.com/articles/gpt-53-codex-vs-claude-opus-46-comparison)

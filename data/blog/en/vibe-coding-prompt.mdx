@@ -1,0 +1,161 @@
+---
+title: 'Copy-Paste Is the New Coding'
+date: '2026-02-08T11:00:00'
+tags: ['vibe-coding', 'vibe-coding-101', 'chatgpt', 'claude', 'prompt', 'tutorial']
+draft: false
+category: 'tutorial'
+language: 'en'
+translationOf: 'vibe-coding-prompt'
+images: ['/static/images/vibe-coding-101/chatgpt-coding.png']
+summary: 'Type "make me a login page" into ChatGPT and code comes out. Copy it, paste it, open it in a browser. It works. That is the entirety of prompt-based coding. Here is what it can do and where it breaks.'
+---
+
+## Copy, Paste, Run
+
+![ChatGPT — the most widely used AI code generation tool](/static/images/vibe-coding-101/chatgpt-coding.png)
+
+Open ChatGPT. Type this.
+
+"Make me a clean login page in HTML. Dark theme, centered, with email and password fields."
+
+Code appears in ten seconds. Select all, copy, paste into a text file, save as `login.html`, open in a browser. A real login page shows up.
+
+That is the entirety of prompt-based coding. Tell an AI what you want in plain language, copy the code it gives you, paste it somewhere. Millions of people started coding this way after ChatGPT launched in 2022.
+
+---
+
+## How It Works
+
+Prompt-based coding has one critical difference from the [web builder approach](/blog/vibe-coding-web-builder). **You see the code.**
+
+Web builders hide the code and show only the result. Prompt-based tools hand you the code itself. Where to put it and how to run it is your call.
+
+The tools are ones everyone already knows.
+
+| Tool        | Strength                             | Price          |
+| ----------- | ------------------------------------ | -------------- |
+| **ChatGPT** | Most widely used, GPT-5.3            | Free / \$20/mo |
+| **Claude**  | Strong with long code, holds context | Free / \$20/mo |
+| **Gemini**  | Ties into Google ecosystem           | Free / \$20/mo |
+
+All three have free tiers. Code generation works fine on free plans.
+
+You can see how ChatGPT Canvas generates code and builds prototypes in this official OpenAI video.
+
+<YouTubeEmbed videoId="JbIvaFh44EY" title="Prototyping with ChatGPT Canvas — Official OpenAI" />
+
+---
+
+## The Workflow
+
+A typical prompt-based workflow looks like this.
+
+**Step 1: Ask.**
+"Write me a Python script that reads a CSV file and plots a revenue chart."
+
+**Step 2: Get code.**
+The AI generates code. Usually 10 to 50 lines.
+
+**Step 3: Copy and run.**
+Copy the code, save it as a file, run it. If it throws an error, paste the error message back into the AI.
+
+**Step 4: Request changes.**
+"Change the chart color to blue." "Add dates to the x-axis." The AI gives you updated code. Copy-paste again.
+
+Repeat the cycle. Perfect code on the first try is rare. Expect three to five rounds of revisions.
+
+---
+
+## What Can You Actually Build
+
+You can build more than you think with prompt-based coding.
+
+**Works well:**
+
+- **Single-file scripts** — data processing, file conversion, automation scripts
+- **HTML pages** — landing pages, resume pages, simple forms
+- **Function-level code** — "write me an email validation function"
+- **Excel/Google Sheets macros** — workflow automation
+- **SQL queries** — database lookups
+
+According to Stack Overflow's 2025 Developer Survey, **82%** of developers use AI for code writing. The most common method is exactly this: prompt-based coding.
+
+Sam Altman put it this way.
+
+> "The form of programming will be completely different in the future. Some people will program entirely in natural language."
+
+Stack Overflow's traffic dropped **over 50%** after ChatGPT launched in November 2022. Monthly questions fell from a peak of over 200,000 in 2014 to under 50,000 by late 2025. Developers ask AI first now.
+
+---
+
+## Where It Breaks Down
+
+Prompt-based coding is powerful, but it hits a clear wall.
+
+**1. Multiple files fall apart.**
+Ask for "build me a blog in React" and you get code. But once you have 5, 10 files, problems start. The AI does not remember previous code across conversations. Fix file A, file B breaks. Fix file B, file C breaks.
+
+**2. Context does not persist.**
+ChatGPT forgets the beginning of long conversations. Say "change the button color in the code you just wrote" and it may not remember "the code you just wrote." You might have to paste the entire codebase again every time.
+
+**3. Copy-paste hell compounds.**
+A single small change still requires copying the full code, modifying it, and pasting it back. As the project grows, this becomes painful. There is a point where you hit "copy-paste hell."
+
+**4. You set up the runtime yourself.**
+The AI gives you code, but you build the environment to run it. Need Node.js? Install it yourself. Need a library? Install it yourself. This is where many beginners get stuck.
+
+| Strengths               | Limitations                |
+| ----------------------- | -------------------------- |
+| Free to start           | Breaks with multiple files |
+| Works with any language | Context does not persist   |
+| Easiest to learn        | Copy-paste hell            |
+| Best for single files   | You set up the runtime     |
+
+---
+
+## How Is This Different from Web Builders
+
+|                 | Web Builders | Prompt-Based           |
+| --------------- | ------------ | ---------------------- |
+| See the code?   | No           | Yes                    |
+| Execution?      | Automatic    | Manual                 |
+| Install needed? | No           | Sometimes              |
+| Flexibility     | Low          | Medium                 |
+| Learning effect | None         | Yes (you see the code) |
+
+The hidden advantage of prompt-based coding is the **learning effect**. You see the code, copy it, run it. Over time, you start recognizing patterns. Web builders hide the code; prompt-based tools show it. Many people realize "I was learning to code without trying."
+
+---
+
+## Three Tips for Better Prompts
+
+Same tool, different results depending on how you ask.
+
+**1. Be specific.**
+
+- Bad: "Make me a website"
+- Good: "Make a personal portfolio page in HTML and CSS. Dark theme, name and bio at the top, three project cards in the middle, contact info at the bottom. Responsive."
+
+**2. One thing at a time.**
+"Build a blog, add login, and connect a database" produces worse results than "Make one blog main page in HTML." Break it down.
+
+**3. Paste errors as-is.**
+If the code does not work, copy the exact error message and paste it back to the AI. "I got this error, fix it" solves most problems.
+
+---
+
+## Next Up: Editor-Based Coding
+
+The limits of prompt-based coding — multiple files, context loss, copy-paste hell — are solved by editor-based tools. The AI moves from the chat window into the code editor itself, sees the entire project, and makes changes directly. No more copy-paste.
+
+Prompt-based coding is the entry point to vibe coding. When you hit the copy-paste wall, you move to editor-based tools. The next post covers that.
+
+---
+
+**Sources:**
+
+- [Stack Overflow 2025 Developer Survey — AI Usage](https://survey.stackoverflow.co/2025/ai)
+- [Stack Overflow Traffic Down 50% — Eric Holscher](https://www.ericholscher.com/blog/2025/jan/21/stack-overflows-decline/)
+- [Sam Altman — Natural Language Programming (X)](https://x.com/Overlap_Tech/status/1850765024865988760)
+- [ChatGPT Plans & Pricing](https://chatgpt.com/pricing)
+- [Claude Plans & Pricing](https://claude.com/pricing)
