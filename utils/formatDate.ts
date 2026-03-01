@@ -3,7 +3,7 @@ const formatDate = (date: string, locale = 'ko-KR') => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    timeZone: 'Asia/Seoul',
+    timeZone: 'UTC',
   })
 }
 
