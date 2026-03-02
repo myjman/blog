@@ -1,0 +1,160 @@
+---
+title: 'Claude가 보안 도구 내자 JFrog 25% 폭락'
+date: '2026-03-02T22:00:42'
+tags:
+  [
+    'claude-code-security',
+    '클로드코드시큐리티',
+    'jfrog',
+    '제이프로그',
+    'ai-security',
+    'AI보안',
+    'anthropic',
+    '앤트로픽',
+    'devsecops',
+    '데브섹옵스',
+  ]
+draft: false
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/claude-code-security-jfrog-25-crash/og-image.png',
+  ]
+summary: 'Anthropic이 Claude Code Security를 발표한 뒤 JFrog 주가가 4거래일 만에 25% 폭락했다. 연매출 5억 달러 기업이 AI 도구 하나에 시총 20억 달러를 잃은 이유를 분석한다.'
+---
+
+## 50달러에서 37달러로, 4거래일
+
+![주식 시장 차트 화면 — JFrog은 Claude Code Security 발표 후 4거래일 만에 주가의 4분의 1을 잃었다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/claude-code-security-jfrog-25-crash/og-image.png)
+
+2026년 2월 20일 오전, Anthropic이 Claude Code Security를 발표했다. AI가 코드베이스를 스캔해 보안 취약점을 찾아내고 패치까지 제안하는 도구다. 그날 장이 끝났을 때 사이버보안 섹터 전체가 빨갛게 물들었지만, 가장 심하게 맞은 종목은 따로 있었다. JFrog(NASDAQ: FROG). 주가 50.07달러에서 시작한 하락은 4거래일에 걸쳐 **37.75달러**까지 떨어졌다. 하락률 24.6%, 시가총액 약 **20억 달러**(2.7조 원) 증발.
+
+같은 기간 CrowdStrike는 8%, Cloudflare는 8.1%, Okta는 9.2% 하락했다. 보안주 전반이 빠졌지만 JFrog의 낙폭은 차원이 달랐다. Bank of America는 보고서에서 "Claude Code Security가 **코드 스캐닝 플랫폼에 유의미한 위협**"이라며 GitLab과 JFrog을 명시적으로 지목했다. 시장은 그 판단을 주가에 즉시 반영했다.
+
+의문이 남는다. CrowdStrike 시총 800억 달러, Palo Alto Networks 시총 1,200억 달러 기업들은 한 자릿수 하락에 그쳤는데, 연매출 5.3억 달러의 JFrog만 25%가 빠진 이유가 뭘까.
+
+---
+
+## JFrog이 정확히 뭘 하는 회사인가
+
+JFrog은 소프트웨어 공급망 플랫폼 회사다. 개발자가 코드를 작성하고 빌드하면 그 결과물인 바이너리(아티팩트)를 저장, 관리, 배포하는 인프라를 제공한다. 핵심 제품은 **JFrog Artifactory**다. 전 세계 수천 개 기업이 Docker 이미지, npm 패키지, Maven 아티팩트 등을 Artifactory에 보관한다. 소프트웨어 공급망의 물류 창고 같은 역할이다.
+
+하지만 JFrog의 성장 전략은 단순 저장소에 머무르지 않았다. 2019년 인수한 **Xray**를 중심으로 보안 스캐닝 영역까지 확장했다. JFrog Xray는 아티팩트에 포함된 오픈소스 의존성의 취약점을 스캔하는 SCA(Software Composition Analysis) 도구다. 여기에 SAST(정적 분석) 기능까지 추가하면서 "보안이 내장된 공급망 플랫폼"을 내세웠다. 2025년 4분기 기준, 엔드투엔드 플랫폼인 **Enterprise+ 구독**이 전체 매출의 57%를 차지했다.
+
+바로 이 보안 스캐닝 영역이 Claude Code Security와 정면으로 겹친다.
+
+---
+
+## 규칙 기반 vs. 추론 기반, 근본적 차이
+
+![코드가 흐르는 디지털 화면 — 기존 SAST 도구는 패턴을 매칭하고, Claude는 코드를 읽고 추론한다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/claude-code-security-jfrog-25-crash/code-matrix.png)
+
+JFrog Xray와 JFrog SAST가 작동하는 방식은 **규칙 기반 패턴 매칭**이다. 알려진 CVE(Common Vulnerabilities and Exposures) 데이터베이스를 참조해 코드나 의존성에서 해당 패턴이 발견되면 경고를 울린다. SQL 인젝션의 전형적 패턴, 노출된 API 키, 구식 암호화 알고리즘 같은 것들을 탐지한다. Snyk, Veracode, Checkmarx 등 거의 모든 상용 보안 도구가 같은 원리로 작동한다.
+
+Claude Code Security는 원리가 다르다. Claude Opus 4.6이 코드를 인간 보안 연구원처럼 **읽고 추론**한다. 데이터가 애플리케이션을 통해 어떻게 흘러가는지 추적하고, 컴포넌트 간 상호작용을 이해하고, 비즈니스 로직의 결함을 파악한다. 패턴 데이터베이스에 없는 취약점도 찾아낼 수 있다는 뜻이다.
+
+두 접근법의 차이를 표로 정리하면 이렇다.
+
+| 항목                      | JFrog Xray / SAST               | Claude Code Security        |
+| ------------------------- | ------------------------------- | --------------------------- |
+| 탐지 방식                 | 규칙 기반 패턴 매칭             | AI 추론 기반 코드 분석      |
+| CVE 탐지                  | 알려진 취약점 데이터베이스 의존 | 알려지지 않은 취약점도 탐지 |
+| 비즈니스 로직 결함        | 탐지 불가                       | 탐지 가능                   |
+| 거짓 양성(False Positive) | 높음 (노이즈 문제)              | 자체 재검토로 필터링        |
+| 패치 제안                 | 제한적                          | 구체적 패치 코드 생성       |
+| 과금 모델                 | 연간 엔터프라이즈 라이선스      | API 호출 기반               |
+
+Anthropic이 오픈소스 프로젝트에서 찾아낸 500개 이상의 고위험 취약점이 이 차이를 증명한다. 이 코드들은 수년에서 수십 년간 운영 환경에서 돌아가면서 Snyk, Veracode 같은 도구가 반복적으로 스캔했지만 잡아내지 못한 것들이다. JFrog Xray도 마찬가지다. 규칙에 없으면 보이지 않는다.
+
+---
+
+## JFrog만 25%인 이유
+
+보안주가 전반적으로 빠졌는데 JFrog만 유독 많이 빠진 건 우연이 아니다. 구조적 이유가 있다.
+
+**첫째, 사업 영역의 직접 겹침**이다. CrowdStrike는 런타임 엔드포인트 보안, Okta는 인증/접근 관리, Zscaler는 제로 트러스트 네트워크를 한다. 이들의 사업은 코드 스캐닝과 다른 영역이다. 하지만 JFrog의 Xray와 SAST는 정확히 코드와 아티팩트의 취약점을 스캔하는 일을 한다. Claude Code Security가 하는 일과 **가장 직접적으로 겹치는** 회사가 JFrog인 셈이다.
+
+**둘째, 규모의 불균형**이다. CrowdStrike는 연매출 40억 달러에 시총 800억 달러다. 코드 스캐닝이 전체 사업의 극히 일부여서 타격이 제한적이다. JFrog은 연매출 5.3억 달러에 시총 80억 달러(하락 전)였다. 보안 스캐닝이 플랫폼 전략의 **핵심 성장축**이어서, 이 영역이 위협받으면 성장 스토리 자체가 흔들린다.
+
+**셋째, 밸류에이션 프리미엄**이다. JFrog은 하락 전 주가수익비율(P/S)이 약 15배였다. 이 프리미엄은 "보안이 내장된 공급망 플랫폼"이라는 확장 서사에 기반한 것이다. AI가 보안 스캐닝을 더 잘한다는 증거가 나오면, 프리미엄의 근거가 약해진다. 고평가된 종목일수록 서사가 깨질 때 낙폭이 크다.
+
+| 종목               | 하락폭 | 코드 스캐닝 노출도 |
+| ------------------ | ------ | ------------------ |
+| JFrog (FROG)       | -24.6% | 핵심 사업          |
+| GitLab (GTLB)      | -8.7%  | 부분 사업          |
+| CrowdStrike (CRWD) | -8.0%  | 간접 연관          |
+| Okta (OKTA)        | -9.2%  | 무관 (심리적 전염) |
+
+Forrester의 Jeff Pollard는 이 현상을 정확히 짚었다. CrowdStrike, Okta, Zscaler의 하락은 **"심리적 전염(sentiment contagion)"**이지 직접적 위협이 아니라는 것이다. 실제로 코드 분석이나 취약점 수정을 하지 않는 회사들이다. 반면 JFrog은 "전문화된 소프트웨어 공급망 통제가 **자율적으로 취약점을 식별하는 AI 에이전트에 의해 직접 위협받고 있다**"고 평가했다.
+
+---
+
+## 애널리스트들의 엇갈린 판단
+
+![사이버보안 인프라와 서버 — 월스트리트의 애널리스트들은 JFrog의 미래를 놓고 의견이 갈렸다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/claude-code-security-jfrog-25-crash/security-scan.png)
+
+JFrog의 25% 폭락 이후, 월스트리트의 반응은 두 갈래로 나뉘었다.
+
+**비관적 시각**은 Bank of America가 대표한다. BofA는 Claude Code Security가 코드 스캐닝 플랫폼에 "유의미한 위협(significant threat)"이라고 명시했다. 다만 "AI가 특정 워크플로, 특히 코드 스캐닝의 효율성을 개선할 수는 있지만, 현재로서는 엔드투엔드 보안 플랫폼을 대체할 가시성, 통제력, 신뢰성이 없다"고 한정했다. JFrog과 GitLab은 위험하지만, CrowdStrike나 Zscaler는 괜찮다는 논리다.
+
+**낙관적 시각**은 Raymond James와 Morgan Stanley가 제시했다. Raymond James는 아웃퍼폼 등급을 유지하며 매도세가 **"과도하다(excessive)"**고 평가했다. 자사주 매입 프로그램까지 근거로 제시하며 매수 기회라고 봤다. Morgan Stanley도 비슷한 입장이었다. JFrog의 핵심 사업은 바이너리를 저장, 관리, 보안하는 것이지 소스 코드 분석이 아니라는 점을 강조했다. 주가 23% 하락은 **"실질적으로 과도(materially overdone)"**하다는 결론이었다.
+
+누가 맞을까. 단기적으로는 낙관론이 설득력 있다. Claude Code Security는 아직 리서치 프리뷰 단계이고, JFrog의 Artifactory는 보안 스캐닝 이전에 이미 핵심 인프라로 자리 잡았다. 기업이 아티팩트 관리 플랫폼을 하루아침에 바꾸지는 않는다.
+
+하지만 장기적으로는 BofA의 우려가 가볍지 않다. JFrog의 성장 서사는 "저장소에서 보안 플랫폼으로"의 확장이었다. Enterprise+ 구독이 매출의 57%를 차지하는 건, 고객이 보안 기능을 포함한 번들을 사고 있다는 뜻이다. 보안 스캐닝의 가치가 AI에 의해 깎이면, 번들의 정당성도 약해진다.
+
+---
+
+## AI 보안 도구의 3파전
+
+JFrog이 직면한 위협은 Anthropic 하나가 아니다. AI 보안 시장은 이미 3파전이 됐다.
+
+**Anthropic Claude Code Security**는 2026년 2월 20일 리서치 프리뷰로 출시됐다. Claude Opus 4.6 기반이며, 오픈소스에서 500개 이상의 제로데이를 발견한 실적이 있다. Enterprise와 Team 고객 대상이고, 오픈소스 메인테이너에게는 무료 우선 접근을 제공한다.
+
+**OpenAI Aardvark**는 2025년 10월에 먼저 나왔다. CI/CD 파이프라인에 직접 임베딩되는 시맨틱 분석 도구다. Codex와 통합되어 개발 워크플로 안에서 보안 검토가 이뤄지는 구조다.
+
+**Google CodeMender**는 Gemini의 추론 능력과 전통적 프로그램 분석 기법을 결합한 하이브리드 접근법을 취한다.
+
+AI 빅3가 모두 코드 보안 시장에 진입했다는 사실은 중요한 신호다. 이것이 한 회사의 실험이 아니라 **산업 전체의 전략적 방향**이라는 뜻이기 때문이다. JFrog 입장에서는 경쟁자가 하나도 아니고 셋이다.
+
+Forrester는 이 상황을 "AI 기업들이 교란 시간(disruption window)을 수년에서 수개월로 압축하려 경쟁하고 있다"고 표현했다. 전통적으로 클라우드 전환이 10년 걸렸다면, AI에 의한 보안 시장 재편은 몇 달 안에 일어날 수 있다는 경고다.
+
+---
+
+## JFrog에게 남은 카드
+
+JFrog이 완전히 대체되느냐고 묻는다면, 대답은 아직 아니다. 이유가 있다.
+
+**첫째, Artifactory의 해자(moat)**다. 아티팩트 저장소는 한 번 도입하면 교체 비용이 극히 높다. 수천 개의 빌드 파이프라인, CI/CD 설정, 팀 워크플로가 Artifactory에 묶여 있다. Claude Code Security가 아무리 뛰어나도, Artifactory를 대체하는 제품은 아니다. JFrog의 기반 사업은 여전히 견고하다.
+
+**둘째, 규제 장벽**이다. 금융, 의료, 국방 분야의 기업은 SOC 2, ISO 27001, FedRAMP 같은 보안 인증을 요구한다. JFrog은 이미 이 인증들을 보유하고 있다. Claude Code Security가 같은 수준의 인증을 받기까지는 시간이 걸린다. 규제가 엄격한 산업일수록 새로운 도구 도입에 보수적이다.
+
+**셋째, 통합 전략**이다. JFrog이 AI를 적으로만 볼 필요는 없다. CrowdStrike가 Charlotte AI를 자사 플랫폼에 통합한 것처럼, JFrog도 Claude Code Security나 유사한 AI 엔진을 Xray에 통합할 수 있다. 실제로 DefectDojo는 이미 Claude Code와 연동한 에이전틱 보안 워크플로를 공식 지원하기 시작했다. 기존 보안 생태계가 AI를 흡수하는 방향으로 움직이고 있다.
+
+하지만 이 모든 카드에는 시간 제한이 있다. AI 보안 도구가 리서치 프리뷰에서 정식 제품으로 전환되고, FedRAMP 인증까지 받는 순간, JFrog의 보안 스캐닝 프리미엄은 근본적으로 재평가될 수밖에 없다. Morgan Stanley가 "과도하다"고 한 25% 하락이, 1년 뒤에도 과도하다고 불릴 수 있을지는 미지수다.
+
+---
+
+## 해자가 무너지는 속도
+
+![소프트웨어 공급망 구조를 보여주는 다이어그램 — JFrog의 해자는 아직 건재하지만 AI가 벽을 허무는 속도가 빨라지고 있다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/claude-code-security-jfrog-25-crash/supply-chain.png)
+
+JFrog의 25% 폭락은 단순한 주가 이벤트가 아니다. AI가 전문 소프트웨어의 해자를 허무는 속도를 보여주는 사례다.
+
+Claude Cowork이 발표되자 Zoom이 11.5% 빠졌다. Claude Code Security가 나오자 JFrog이 25% 빠졌다. 패턴이 보인다. AI 기업이 특정 도메인에 진입할 때마다, 그 도메인의 전문 기업이 가장 큰 타격을 받는다. 거대 플랫폼은 사업 다각화로 충격을 흡수하지만, 단일 영역에 집중한 기업은 존재 이유 자체가 도전받는다.
+
+Forrester는 이것을 **"SaaS-pocalypse"**라고 불렀다. AI 기업들이 기존 구독에 보안 기능을 번들로 끼워 넣으면, 갱신 주기마다 기존 업체들은 가격 불일치를 방어해야 하는 처지에 놓인다. 클라우드 전환이 10년이 걸렸다면, AI에 의한 재편은 수개월 단위로 일어날 수 있다는 게 Forrester의 판단이다.
+
+JFrog의 Artifactory는 살아남을 것이다. 하지만 "보안이 내장된 플랫폼"이라는 프리미엄 서사는 심각한 도전에 직면했다. 연매출 5.3억 달러의 회사가 AI 도구 하나의 프리뷰 발표에 시총 20억 달러를 잃었다는 사실이, 소프트웨어 산업의 해자가 얼마나 빨리 무너질 수 있는지를 말해준다. 정식 출시도 아닌 프리뷰에서 이 정도면, 본 게임은 아직 시작도 하지 않았다.
+
+---
+
+**출처:**
+
+- [Anthropic Debuts Claude Code Security, JFrog Falls 25% — WinBuzzer](https://winbuzzer.com/2026/02/23/anthropic-launches-claude-code-security-desktop-automation-xcxwbn/)
+- [Claude Code Security Triggers Cybersecurity Flash Crash — MarketMinute](https://markets.financialcontent.com/stocks/article/marketminute-2026-2-24-anthropics-claude-code-security-triggers-cybersecurity-flash-crash-as-ai-upends-industry-moats)
+- [Cybersecurity stocks drop as new Anthropic tool fuels AI disruption fears — CNBC](https://www.cnbc.com/2026/02/23/cybersecurity-stocks-anthropic-ai-crowdstrike.html)
+- [Claude Code Security Causes A SaaS-pocalypse In Cybersecurity — Forrester](https://www.forrester.com/blogs/claude-code-security-causes-a-saas-pocalypse-in-cybersecurity/)
+- [Making frontier cybersecurity capabilities available to defenders — Anthropic](https://www.anthropic.com/news/claude-code-security)
+- [JFrog tumbles 25% after launch of Claude Code Security — Globes](https://en.globes.co.il/en/article-jfrog-tumbles-25-after-launch-of-claude-code-security-1001535714)
+- [Why the JFrog sell-off is "excessive" according to Raymond James — Yahoo Finance](https://finance.yahoo.com/news/why-jfrog-frog-sell-off-032249496.html)
+- [JFrog Announces Fourth Quarter and Fiscal 2025 Results — JFrog](https://jfrog.com/press-room/jfrog-announces-fourth-quarter-and-fiscal-2025-results/)
