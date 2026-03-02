@@ -1,0 +1,157 @@
+---
+title: '딥시크V4 Lite가 42줄로 Gemini를 이겼다'
+date: '2026-03-02T12:00:55'
+tags:
+  [
+    'deepseek',
+    '딥시크',
+    'deepseek-v4',
+    '딥시크V4',
+    'gemini',
+    '제미나이',
+    'svg',
+    'ai-benchmark',
+    'AI벤치마크',
+    'code-generation',
+    '코드생성',
+  ]
+draft: false
+images:
+  ['https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-v4-lite-42-lines/og-image.png']
+summary: 'DeepSeek V4 Lite가 펠리컨 SVG를 42줄로 생성하며 Gemini 3.1과 Claude Opus 4.6을 이겼다는 유출이 나왔다. 독립 검증은 없고, 공식 발표도 없다.'
+---
+
+## 펠리컨 한 마리가 자전거를 탄다
+
+![모니터에 표시된 코드와 벡터 그래픽 작업 화면](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-v4-lite-42-lines/og-image.png)
+
+2026년 2월 23일, 비공식 채널에서 DeepSeek V4 Lite라는 모델이 유출됐다. 내부 코드네임은 "sealion-lite". NDA를 맺은 테스터들 사이에서만 돌던 것이 밖으로 새어나온 것이다.
+
+유출된 데모에서 이 모델은 "자전거를 타는 펠리컨"을 SVG로 생성했다. **42줄**이었다. 같은 프롬프트에 대해 Gemini 3.1 Pro는 5분 넘게 걸렸고, Claude Opus 4.6은 펠리컨 부리는 훌륭했지만 자전거 프레임이 비뚤어졌다. DeepSeek V4 Lite는 둘 다 이겼다고 주장한다. 코드 최적화와 논리적 구조 면에서.
+
+문제는 이 주장을 검증한 사람이 **아무도 없다**는 것이다.
+
+---
+
+## "펠리컨 벤치마크"가 대체 뭔가
+
+![하늘을 나는 펠리컨](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-v4-lite-42-lines/pelican.png)
+
+"자전거를 타는 펠리컨을 SVG로 그려라." Django 공동 창시자 Simon Willison이 만든 프롬프트다. 농담처럼 시작된 이 테스트가 지금은 AI 코드 생성 능력의 사실상 표준 벤치마크가 됐다. GitHub 저장소(`simonw/pelican-bicycle`)까지 있고, Hugging Face에는 여러 모델을 비교하는 전용 스페이스(`victor/pelican-benchmark`)도 올라와 있다.
+
+이 프롬프트가 까다로운 이유가 있다. AI는 펠리컨의 해부학적 구조(부리, 목주머니, 날개)를 이해해야 하고, 자전거의 기계적 구조(프레임, 바퀴, 스포크, 페달)를 알아야 하며, 이 둘을 **공간적으로 정확하게 결합**해야 한다. 훈련 데이터에 "자전거를 타는 펠리컨" 이미지는 존재하지 않는다. 모델이 순수하게 일반화해야 한다.
+
+Willison 본인도 인정했다. **"농담으로 시작한 벤치마크인데, 실제로 쓸모가 생기기 시작했다."** 이후 Tom Gally가 이를 확장해 "파이프 오르간을 연주하는 문어", "불도저를 운전하는 불가사리" 등 30개의 프롬프트를 9개 프론티어 모델에 돌리는 대규모 비교를 수행했다.
+
+SVG 생성이 벤치마크로서 의미 있는 이유는 단순하다. **LLM이 SVG를 생성하는 것은 코드를 작성하는 것**이기 때문이다. 시각적 피드백 없이 숫자만으로 좌표를 계산하고, 유효한 XML 구문을 유지하면서, 물체 간 공간 관계를 추론해야 한다. 2025년 State of JS 설문에 따르면 프론트엔드 개발자의 **69%**가 AI 기반 SVG 생성 도구를 사용한다고 응답했다. 장난이 아니라 실무다.
+
+현재 SVG 벤치마크 리더보드에서는 Gemini 3 Pro가 1위이고, Claude Opus 4.5(Thinking)가 그 뒤를 잇고 있다. Gemini 3.1 Pro는 결과물의 품질은 높지만 생성 시간이 5분을 넘긴다는 약점이 있다. DeepSeek V4 Lite의 42줄 주장이 사실이라면, 속도와 효율 모두에서 기존 리더들을 제친 셈이다.
+
+---
+
+## V4 Lite가 가진 것, 가지지 못한 것
+
+DeepSeek V4 Lite의 추정 사양은 이렇다. 파라미터 약 **2000억 개**, 컨텍스트 윈도우 **100만 토큰**. V3 시리즈의 128K에 비해 거의 8배다. A4 용지로 환산하면 약 500페이지를 한 번에 읽을 수 있는 분량이다.
+
+"Lite"라는 이름이 붙은 이유가 있다. 풀 버전 V4에 포함될 핵심 기술 중 하나인 **Engram Conditional Memory**가 빠져 있다. Engram은 정적 지식 저장소와 동적 추론을 분리하는 메커니즘으로, 문법이나 API 지식을 CPU RAM에 오프로드해서 GPU 연산을 로직 집약적 작업에 집중시킨다. O(1) 해시 기반 룩업을 사용하며, 약 **30% VRAM 절감** 효과가 있다고 알려져 있다. V4 Lite는 이 기능 없이 텍스트 압축과 정보 검색에 집중한 **순수 텍스트 모델**이다.
+
+대신 V4 Lite가 물려받은 것이 있다. V4 아키텍처의 세 가지 핵심 혁신 중 두 가지다.
+
+첫째, **Manifold-Constrained Hyper-Connections(mHC)**. DeepSeek 창업자 Liang Wenfeng이 2026년 1월 1일에 직접 arXiv에 올린 논문의 기술이다. 기존 Hyper-Connections는 신호 증폭이 3000배를 넘어 훈련이 발산하는 문제가 있었다. mHC는 Birkhoff Polytope(이중 확률 행렬의 수학적 구조)를 이용해 신호 증폭을 **1.6배**로 억제한다. Sinkhorn-Knopp 알고리즘으로 강제하는 방식이다. 잔차 스트림을 4배 넓혀도 훈련 시간 오버헤드는 **6.7%**에 불과하다. 27B 모델 기준 BBH 점수가 43.8에서 51.0으로 올랐다.
+
+둘째, **DeepSeek Sparse Attention(DSA)**. 컨텍스트의 관련 부분에만 연산 자원을 집중하는 기술이다. 표준 트랜스포머 대비 연산 오버헤드를 약 **50% 줄인다**. Lightning Indexer가 100만 토큰 컨텍스트를 빠르게 전처리한다.
+
+이 두 가지 덕분에 V4 Lite는 100만 토큰에서도 **60% 이상의 정확도**를 유지한다는 주장이다. 20만 토큰까지는 성능이 비교적 안정적이고, 이후 점진적으로 하락한다. Gemini의 동시기 벤치마크를 앞섰다고 한다.
+
+---
+
+## 유출된 벤치마크, 삭제된 증거
+
+V4 Lite의 성능 주장은 여러 경로에서 나왔다. **삭제된 Reddit 포스트**, **@bridgemindai의 트윗**, 그리고 "Legit"이라는 이름의 유명 리커(leaker)의 보고. 모두 독립적으로 검증되지 않았다.
+
+유출된 수치를 정리하면 이렇다.
+
+| 벤치마크           | DeepSeek V4 (주장) | Claude Opus 4.6 (검증)  | Gemini 2.5 Pro (검증) |
+| ------------------ | ------------------ | ----------------------- | --------------------- |
+| SWE-bench Verified | >80%               | 80.8%                   | 63.8%                 |
+| HumanEval          | 90%                | 88%                     | 미공개                |
+| Xbox 컨트롤러 SVG  | 54줄               | 미공개                  | 미공개                |
+| 펠리컨 SVG         | 42줄               | 생성됨(프레임 비뚤어짐) | 생성됨(5분 소요)      |
+
+수치만 보면 인상적이다. 하지만 Kilo.ai의 분석이 핵심을 찌른다. 유출된 V4 벤치마크는 **이미 구버전이 된 Claude와 GPT를 비교 대상으로 삼았다.** 2026년 2월 말 기준으로 Claude Opus 4.6과 최신 모델들이 이미 그 수준을 넘어선 뒤였다. 과거 버전을 이긴 것을 현재 리더를 이긴 것처럼 포장한 셈이다.
+
+더 심각한 문제가 있다. 중국 테크 매체 36kr는 같은 펠리컨 테스트에서 DeepSeek의 벡터 그래픽 출력이 **"구조적 혼란과 기하학적 왜곡"**을 보였다고 보도했다. 기하학적 좌표와 공간 관계를 다루는 코드 생성 작업에서 한계를 드러냈다는 평가다. 나중에 유출된 "42줄 성공" 데모와 정반대의 결과다.
+
+이 모순은 두 가지로 해석할 수 있다. 개발 과정에서 **다른 버전 또는 다른 테스트 시점**의 결과이거나, 나중에 성공한 데모가 **체리피킹**된 것이다. 어느 쪽이든 "42줄로 Gemini를 이겼다"는 주장의 신뢰도를 떨어뜨린다.
+
+---
+
+## 42줄의 의미와 함정
+
+![벤치를 읽으며 앉아있는 로봇](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-v4-lite-42-lines/benchmark.png)
+
+"42줄"이라는 숫자가 왜 중요한가. SVG 코드에서 줄 수는 **최적화의 직접적인 지표**다. 같은 시각적 결과물을 더 적은 코드로 만든다는 것은 모델이 불필요한 요소를 생략하고, 경로를 효율적으로 결합하며, SVG 문법을 깊이 이해하고 있다는 뜻이다.
+
+하지만 줄 수만으로 품질을 판단할 수는 없다. SVG는 시각적 매체다. 42줄로 만든 펠리컨이 100줄짜리보다 못생겼다면 의미가 없다. Willison의 벤치마크에서 모든 모델이 공통적으로 겪는 문제가 있다. 자전거 프레임이 뒤틀리고, 해부학적 위치가 제멋대로이며, 설명할 수 없는 **"떠다니는 달걀"**이 간간이 등장한다. 줄 수를 줄이면서 이런 문제까지 해결했는지는 코드를 직접 봐야 알 수 있다. 그리고 그 코드는 공개되지 않았다.
+
+Communeify의 분석이 흥미로운 관점을 제공한다. 9개 프론티어 모델을 대상으로 30개의 창의적 프롬프트를 테스트한 이 벤치마크에서, **MoE 아키텍처를 채택한 모델이 SVG 성능에서 우위**를 보였다. DeepSeek V4는 대표적인 MoE 모델이다. 256개의 초소형 전문가 중 2~3개만 활성화하는 구조로, 특정 작업(예: SVG 좌표 계산)에 특화된 전문가가 존재할 가능성이 있다.
+
+또 하나 주목할 점은 "Thinking" 능력이다. Qwen3.5처럼 Chain-of-Thought 추론을 사용하는 모델이 기하학적 출력에서 더 정확한 결과를 냈다. V4 Lite가 이런 추론 단계를 거쳤는지는 알려지지 않았다. DeepSeek V3.2는 SVG 생성 전에 짧은 추론 체인을 거치는 것이 관찰됐지만, V4 Lite에서 이것이 강화됐는지 약화됐는지는 불분명하다.
+
+SVGenius 벤치마크(arXiv 논문)의 결과도 참고할 만하다. 이 벤치마크에서 Claude 3.7 Sonnet은 이해 작업(Easy PQA 80.25%, Easy SQA 77.78%)과 편집(버그 수정 정확도 76%)에서 앞섰고, GPT-4o는 생성 작업(HPS 20.35, PSS 19.72)에서 앞섰다. SVG에서도 "이해"와 "생성"은 다른 능력이다.
+
+---
+
+## 가격표가 진짜 무기다
+
+V4 Lite의 42줄이 진짜든 아니든, DeepSeek이 업계에 던지는 압력은 실재한다. 그리고 그 압력의 본질은 성능이 아니라 **가격**이다.
+
+V4 API 가격은 100만 토큰당 약 **$0.27**이다. 미국 엔터프라이즈 모델의 약 **40분의 1** 수준이다. V3의 훈련 비용은 약 **600만 달러**였다. GPT-4의 1억 달러 이상과 비교하면 격차가 극명하다. 사용한 GPU는 약 **2,000대**. 서구 연구소의 10,000대 이상과 대조된다.
+
+양자화(4비트) 버전은 **NVIDIA RTX 5090 한 장**(32GB VRAM)으로 로컬 추론이 가능하다고 알려져 있다. 이전 글에서 다뤘던 V4의 RTX 4090 두 장 구동과 맥을 같이한다. 1조 파라미터 모델을 소비자 GPU로 돌리는 시대가 오고 있다.
+
+이 가격 구조는 벤치마크 숫자보다 더 파괴적이다. SWE-bench에서 80%를 찍든 85%를 찍든, **40배 싼 가격**으로 비슷한 결과를 낸다면 시장의 선택은 명확하다. DeepSeek V4 유출이 나스닥 테크주에 "새로운 압력"을 가했다고 BingX가 보도한 이유다. 2025년 초 DeepSeek R1 유출 때와 같은 패턴이 반복되고 있다.
+
+Counterpoint Research의 Wei Sun은 mHC 기술을 **"놀라운 돌파구(striking breakthrough)"**라고 평가했다. 성능 자체보다 비용 효율을 근본적으로 바꾸는 기술이라는 의미다.
+
+---
+
+## 공식 발표 없는 모델의 딜레마
+
+V4 Lite를 둘러싼 가장 큰 문제는 기술적 한계가 아니라 **검증 불가능성**이다.
+
+공식 출시 예정일은 여러 차례 지나갔다. 2월 중순, 춘절(2월 17일), 2월 말. 2026년 3월 초 현재까지 DeepSeek의 공식 발표는 없다. 유출된 벤치마크 수치는 삭제된 포스트와 미검증 트윗에 기반한다. 독립적인 제3자 벤치마크는 단 하나도 없다.
+
+이 상황이 만드는 왜곡이 있다. **"독립 벤치마크가 필요하다"**는 전문가들의 경고가 반복되지만, 검증할 모델 자체가 공개되지 않았으므로 검증이 물리적으로 불가능하다. 유출자들은 NDA 하에 있고, 공식 채널은 침묵한다. 결과적으로 시장과 커뮤니티는 미검증 주장에 근거해 반응한다. 나스닥이 하락하고, 기술 블로그가 쏟아지고, 투자 보고서가 나온다. 모두 "~라고 한다"에 기반한 것이다.
+
+일부 관찰자들은 이 상황 자체를 **"조직적 FUD(공포, 불확실성, 의심) 캠페인"**이라고 지적했다. V4의 성공 여부와 관계없이 시장 안정성과 투자 심리를 보호하기 위해 여론이 부정적 해석 쪽으로 유도되고 있다는 분석이다. 반대로 유출 자체가 DeepSeek의 의도적 마케팅일 가능성도 배제할 수 없다. R1 때도 비슷한 패턴이었다.
+
+풀 버전 V4의 1조 파라미터 오픈소스 공개가 예고된 상태다. 그때가 되어야 V4 Lite의 42줄이 진짜였는지, 체리피킹이었는지 판단할 수 있을 것이다.
+
+---
+
+## 숫자가 아니라 질문이 남는다
+
+DeepSeek V4 Lite의 42줄은 매력적인 숫자다. 하지만 그 숫자 뒤에는 검증되지 않은 주장, 삭제된 증거, 모순된 보도가 있다. 36kr는 "구조적 혼란"을 봤고, 다른 유출자는 "완벽한 42줄"을 봤다. 둘 다 맞을 수 없다.
+
+확실한 것은 따로 있다. DeepSeek의 아키텍처 혁신(mHC, Sparse Attention)은 논문으로 발표된 실체다. 40배 저렴한 가격 구조도 실체다. 2,000대 GPU로 훈련하는 효율도 실체다. 이런 실체들이 만들어내는 압력은 42줄의 펠리컨보다 훨씬 크다.
+
+AI 벤치마크의 본질적 한계도 드러난다. 펠리컨 SVG든, SWE-bench든, HumanEval이든, 단일 벤치마크로 모델의 전체 능력을 판단하는 것은 불가능하다. Willison 본인도 이 벤치마크가 "약간 유용해지기 시작했다"고 말했지 "결정적이다"라고는 하지 않았다. SVG 42줄이 의미하는 것은 기껏해야 특정 조건에서의 코드 최적화 능력이다. 범용 코딩 능력이 아니고, 추론 능력이 아니며, 실제 소프트웨어 엔지니어링 능력은 더더욱 아니다.
+
+진짜 흥미로운 질문은 "42줄이 맞느냐"가 아니다. **"비공식 채널에서 유출된 미검증 벤치마크 하나가 왜 이토록 큰 파장을 일으키는가"**다. 그 답은 AI 업계의 현재 상태에 있다. 프론티어 모델 간 성능 격차가 좁혀지면서, 아주 작은 차이도 시장에서 과대평가된다. 42줄과 54줄의 차이, 80%와 82%의 차이가 수조 원의 기업 가치를 움직인다. 벤치마크가 기술의 척도가 아니라 마케팅의 도구가 된 시대다.
+
+DeepSeek이 V4를 공식 출시하면, 그때 진짜 게임이 시작된다. 그전까지는 모두 소문일 뿐이다.
+
+---
+
+**출처:**
+
+- [Technical leaks reveal DeepSeek V4 Lite outperforms Gemini 3.1 - TechBriefly](https://techbriefly.com/2026/02/23/technical-leaks-reveal-deepseek-v4-lite-outperforms-gemini-3-1/)
+- [DeepSeek V4 Lite Surfaces With Breakthrough SVG Generation Skills - Dataconomy](https://dataconomy.com/2026/02/23/deepseek-v4-lite-surfaces-with-breakthrough-svg-generation-skills/)
+- [DeepSeek V4: Rumors vs Reality for the Next Big Coding Model - Kilo.ai](https://blog.kilo.ai/p/deepseek-v4-rumors-vs-reality-for)
+- [DeepSeek V4 Lite Leak Points to Fast, Clean SVG Code - Geeky Gadgets](https://www.geeky-gadgets.com/deepseek-v4-lite-svg-leak/)
+- [After Zhipu and Minimax, DeepSeek Launches a Basic Attack - 36kr](https://eu.36kr.com/en/p/3680976425152390)
+- [DeepSeek V4 Benchmark Leaks: What the Numbers Actually Show - HumAI](https://www.humai.blog/deepseek-v4-benchmark-leaks-heres-what-the-numbers-actually-show/)
+- [Simon Willison - Pelican Riding a Bicycle](https://simonwillison.net/tags/pelican-riding-a-bicycle/)
+- [AI Model SVG Generation Benchmark of 9 Top LLMs - Communeify](https://www.communeify.com/en/blog/ai-image-generation-showdown-9-llms-svg-benchmark/)
+- [Yupp SVG AI Leaderboard](https://blog.yupp.ai/svg)
