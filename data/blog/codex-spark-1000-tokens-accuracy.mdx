@@ -1,0 +1,156 @@
+---
+title: 'Codex Spark 1000토큰인데 정확도는 물어봤냐'
+date: '2026-03-03T12:00:55'
+tags:
+  [
+    'codex-spark',
+    '코덱스스파크',
+    'openai',
+    '오픈AI',
+    'cerebras',
+    '세레브라스',
+    'ai-coding',
+    'AI코딩',
+    'benchmark',
+    '벤치마크',
+  ]
+draft: false
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/og-image.jpg',
+  ]
+summary: 'OpenAI가 Cerebras 하드웨어로 초당 1000토큰을 찍는 Codex Spark를 공개했다. 15배 빠르다고 했지만, Terminal-Bench 정확도는 58.4%로 풀 모델 대비 19점 낮다.'
+---
+
+## 초당 1000토큰, 그런데 맞기는 하냐
+
+![서버실 내부 장비들이 빛나고 있는 모습](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/og-image.jpg)
+
+2026년 2월 12일, OpenAI가 GPT-5.3-Codex-Spark를 리서치 프리뷰로 공개했다. Cerebras의 웨이퍼 스케일 칩 위에서 **초당 1000토큰 이상**을 생성한다. 기존 GPT-5.3-Codex 대비 **15배 빠르다**고 했다.
+
+숫자만 보면 혁명이다. 기존 Codex가 초당 65~70토큰이었으니, 말 그대로 자릿수가 달라졌다. OpenAI는 첫 토큰 도달 시간 50% 단축, 토큰당 오버헤드 30% 감소, 클라이언트-서버 왕복 오버헤드 80% 감소라는 수치를 함께 내놓았다. 속도에 진심인 발표였다.
+
+문제는 속도 옆에 나란히 놓여야 할 숫자가 빠져 있었다는 것이다. **정확도**. OpenAI의 공식 블로그 어디에도 정확도 수치를 전면에 내세운 대목이 없다. "GPT-5.1-Codex-mini와 GPT-5.3-Codex 사이의 성능"이라는 모호한 표현만 있을 뿐이다. 범위가 넓어도 너무 넓다.
+
+---
+
+## Cerebras라는 낯선 이름의 정체
+
+![회로 기판 위 칩 클로즈업](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/chip.jpg)
+
+Codex Spark의 속도를 이해하려면 Cerebras를 먼저 알아야 한다. 이 회사의 **Wafer-Scale Engine 3(WSE-3)**는 현존하는 가장 큰 AI 칩이다. 면적 **46,255mm²**, 트랜지스터 **4조 개**, AI 최적화 코어 **90만 개**, 연산 능력 **125 페타플롭스**. 칩 위에 탑재된 메모리도 모든 AI 프로세서 중 최대다.
+
+OpenAI와 Cerebras의 파트너십은 2026년 1월에 공식화됐다. 규모는 3년간 최대 **750메가와트**의 컴퓨팅 파워, 금액으로는 **100억 달러 이상**이다. OpenAI가 Nvidia 이외의 하드웨어에서 프로덕션 모델을 배포한 건 이번이 **처음**이다.
+
+Cerebras의 칩은 일반적인 GPU와 근본적으로 다르다. 웨이퍼 한 장 전체를 하나의 칩으로 쓴다. 일반 GPU가 우표 크기라면, WSE-3는 접시 크기다. 이 구조 덕분에 칩 간 데이터 이동이 없어 추론 속도가 극단적으로 빨라진다. 초당 1000토큰이라는 수치는 소프트웨어 최적화만의 결과가 아니라 **하드웨어 아키텍처의 산물**이다.
+
+하지만 거대 칩에는 단점도 있다. 웨이퍼 수율 문제, 제한된 메모리 대역폭, 범용성 부족. Cerebras가 지금까지 대중 시장이 아닌 특수 파트너십 위주로 사업을 전개해온 이유다. OpenAI와의 거래가 Cerebras에게는 존재 증명의 기회이고, OpenAI에게는 Nvidia 의존도를 낮추는 전략적 포석이다.
+
+---
+
+## 15배 빠르다는 말의 실체
+
+속도를 자랑할 때 가장 중요한 것은 **무엇과 비교했느냐**다. OpenAI가 말한 "15배"는 GPT-5.3-Codex의 `x-high` 설정 대비다. `x-high`는 정확도를 극대화하기 위해 의도적으로 추론 시간을 늘리는 모드다. 가장 느린 설정과 비교한 것이다.
+
+개발자 Nicholas Van Landschoot가 SWE-Bench Pro에서 실제 작업 완료 속도를 측정했다. 결과는 **약 1.37배**였다. 15배가 아니다. 이유가 있다. Spark는 토큰을 빠르게 생성하지만, 불필요한 도구 호출을 과도하게 수행하고 필요 이상의 토큰을 생성한다. 개별 토큰 속도는 빨라도 **작업 완료까지 걸리는 시간은 크게 다르지 않다**는 분석이다.
+
+비유하면 이렇다. 자동차 최고 속도가 300km/h인데, 신호를 무시하고 돌아가서 실제 도착 시간은 100km/h 차와 비슷한 상황이다. 토큰당 속도(tokens per second)와 작업당 속도(task completion time)는 전혀 다른 지표다.
+
+Adam Holter의 분석도 같은 결론에 도달했다. Spark는 "도구 호출과 토큰 사용에서 지나치게 공격적(way too aggressive)"이며, 결과적으로 실제 작업에서는 속도 이점이 상당 부분 상쇄된다. 토큰을 빠르게 찍어내는 것과 올바른 코드를 빠르게 완성하는 것은 같지 않다.
+
+---
+
+## 벤치마크가 말하는 것, 숨기는 것
+
+![노트북 위에서 코드를 작성하는 모습](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/accuracy.jpg)
+
+Codex Spark의 정확도 수치를 직접 보자.
+
+| 벤치마크           | Codex Spark | GPT-5.3-Codex (풀)   | 격차       |
+| ------------------ | ----------- | -------------------- | ---------- |
+| SWE-Bench Pro      | ~56%        | 56.8~72% (출처 상이) | 0.8~16점   |
+| Terminal-Bench 2.0 | 58.4%       | 77.3%                | **18.9점** |
+| HumanEval          | 미공개      | 93%                  | N/A        |
+
+**Terminal-Bench 2.0**에서의 격차가 가장 명확하다. 58.4% 대 77.3%. **약 19점 차이**다. Terminal-Bench는 실제 터미널 환경에서의 작업 수행 능력을 측정하는 벤치마크로, 코딩 에이전트의 실전 능력에 가장 가까운 지표다.
+
+SWE-Bench 수치는 혼란스럽다. 일부 출처에서는 Spark가 56%, 풀 Codex가 56.8%로 거의 동일하다고 하고, 다른 출처에서는 풀 Codex를 72%로 잡아 16점 차이가 난다고 한다. SWE-Bench 버전이나 설정의 차이로 보인다. 어느 쪽이든 Spark가 풀 모델보다 뒤처진다는 사실은 같다.
+
+참고할 수치가 하나 더 있다. OpenAI가 Spark의 성능을 "GPT-5.1-Codex-mini와 GPT-5.3-Codex 사이"라고 했는데, GPT-5.1-Codex-mini의 Terminal-Bench 2.0 점수는 **46.1%**다. Spark의 58.4%는 이것보다는 높지만, 풀 모델의 77.3%에는 한참 못 미친다. 정확히 중간쯤이다. 그 "중간"의 대가가 **19점**이라는 것을 OpenAI는 강조하지 않았다.
+
+---
+
+## "빠른 실패"라는 새로운 문제
+
+속도가 빨라지면 좋은 점만 있을까. 개발자 커뮤니티에서 나온 비판은 예상 외로 구체적이다.
+
+첫째, **도구 호출 실패**. Spark는 JSON 스키마 포맷팅에서 불안정하다. 필드를 빠뜨리거나, 함수 시그니처에 존재하지 않는 파라미터를 넣는다. 빠르게 틀리는 것이다.
+
+둘째, **다단계 추론 붕괴**. 6~8단계를 넘는 순차 추론에서 성능이 급격히 떨어진다. 버그가 세 개의 서비스에 걸쳐 있으면, Spark는 **증상만 패치하고 근본 원인은 무시**한다. 빠른 속도가 피상적 해결을 조장하는 셈이다.
+
+셋째, **컨텍스트 유지 실패**. 128K 컨텍스트 윈도우(풀 Codex의 400K+ 대비 1/3 이하)에서도 대규모 코드베이스를 로드하면 끝부분에서 일관성을 잃는다.
+
+한 개발자가 Snake 게임으로 비교 테스트를 했다. 풀 Codex는 **6분**에 완성하고 첫 시도에 정상 작동했다. Spark는 **50초**에 끝냈지만, 충돌 감지 버그와 메모리 누수가 있었다. 50초 안에 만들어진 "그럴듯하게 보이는 버그(plausible-looking bugs)"가 문제다. 빨리 만들어진 코드는 빨리 검토해야 하는데, 인간의 검토 속도는 빨라지지 않았다.
+
+개발자 커뮤니티에서 나온 한 문장이 이 상황을 정확히 요약한다. **"Speed without intelligence is just fast failure."** 정확도 없는 속도는 빠른 실패일 뿐이다.
+
+---
+
+## 증류 모델 vs 같은 모델: 접근 방식의 차이
+
+Codex Spark의 본질을 이해하려면 **증류(distillation)**라는 개념을 알아야 한다. Spark는 풀 GPT-5.3-Codex를 더 작은 아키텍처로 압축한 모델이다. 파라미터 수는 비공개지만, 핵심은 같다. 큰 모델의 지식을 작은 모델에 옮겨 담은 것이다.
+
+Turing College의 비유가 적절하다. **"신경 가중치의 JPEG 압축"**이라고 했다. 큰 그림은 유지되지만, 세부 디테일이 빠진다. JPEG로 압축한 사진이 멀리서 보면 원본과 같지만 확대하면 블록이 보이는 것처럼, Spark의 코드도 간단한 작업에서는 풀 모델과 구분하기 어렵지만 복잡한 작업에서 차이가 드러난다.
+
+여기서 중요한 대조가 있다. Dominic Elm이 지적한 바에 따르면, Anthropic의 **Claude Opus 4.6 Fast**는 Spark와 근본적으로 다른 접근이다. Opus 4.6 Fast는 같은 모델을 더 빠른 하드웨어에서 돌리는 것이고, Spark는 **다른 모델**을 더 빠른 하드웨어에서 돌리는 것이다.
+
+| 비교            | Codex Spark                      | Claude Opus 4.6 Fast      |
+| --------------- | -------------------------------- | ------------------------- |
+| 접근 방식       | 작은 모델 + 빠른 하드웨어        | 같은 모델 + 빠른 하드웨어 |
+| 정확도 변화     | 풀 모델 대비 하락                | 풀 모델과 동일            |
+| 속도 향상       | 토큰 기준 15배 (작업 기준 1.4배) | 추론 시간 단축            |
+| 컨텍스트 윈도우 | 128K                             | 풀 모델과 동일            |
+| 모달리티        | 텍스트 전용                      | 풀 모델과 동일            |
+
+차이가 극명하다. 한쪽은 정확도를 희생하고, 다른 쪽은 정확도를 유지한다. OpenAI가 증류 방식을 택한 것은 Cerebras 하드웨어의 특성에 맞추기 위해서일 수 있다. WSE-3의 거대한 온칩 메모리가 작은 모델을 올리기에 최적화되어 있기 때문이다. 하지만 결과적으로 사용자가 얻는 것은 "빠르지만 덜 정확한" 모델이다.
+
+---
+
+## 200달러를 내고 얻는 것
+
+![고속으로 이동하는 물체의 잔상](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/speed.jpg)
+
+Codex Spark는 리서치 프리뷰다. 사용하려면 **ChatGPT Pro 구독**(월 200달러)이 필요하다. 별도의 API 가격은 아직 없다. 소수의 "디자인 파트너"에게만 API 접근이 열려 있다.
+
+200달러에 무엇을 얻는가. 초당 1000토큰의 코드 생성 속도, 128K 컨텍스트 윈도우, 텍스트 전용(멀티모달 미지원). 수요에 따라 유동적인 별도 레이트 리밋이 적용되며, "제한된 접근이나 일시적 큐잉"이 발생할 수 있다고 OpenAI가 명시했다. 데이터센터 용량을 아직 늘리는 중이라고 한다.
+
+비교를 위해 풀 GPT-5.3-Codex의 API 가격을 보면, 입력 100만 토큰당 **$1.75**, 출력 100만 토큰당 **$14.00**이다. Spark의 API 가격이 공개되면 이보다 낮을 가능성이 높지만, 현재로서는 200달러 구독 안에서만 접근할 수 있다.
+
+리서치 프리뷰라는 말은 곧 **완성된 제품이 아니라는 뜻**이다. OpenAI 스스로도 이를 프로덕션 배포가 아닌 탐색 단계로 정의하고 있다. 하지만 시장의 반응은 이미 완성된 제품인 것처럼 움직이고 있다. "초당 1000토큰"이라는 헤드라인이 "리서치 프리뷰"라는 단서를 집어삼켰다.
+
+---
+
+## 속도 전쟁의 진짜 승자
+
+Codex Spark가 드러낸 것은 AI 코딩 도구 시장의 새로운 경쟁 축이다. 그동안의 경쟁은 정확도(SWE-bench 몇 퍼센트)였다. 이제 속도가 추가됐다. 하지만 속도와 정확도 중 하나를 택해야 한다면, 대부분의 개발자는 정확도를 택한다.
+
+이유는 단순하다. 빠르게 생성된 틀린 코드는 느리게 생성된 맞는 코드보다 **더 비싸다**. 코드를 생성하는 시간은 전체 개발 시간의 일부에 불과하다. 리뷰, 디버깅, 테스트, 배포까지의 전체 파이프라인에서 잘못된 코드가 통과하면 그 비용은 생성 시간 절감분을 훨씬 초과한다.
+
+개발자 커뮤니티의 반응도 갈렸다. 빠른 프로토타이핑과 간단한 작업에 Spark가 유용하다는 입장이 있고, 프로덕션 코드에는 쓸 수 없다는 입장이 있다. 합의점은 하나다. **Spark의 모든 출력은 초안으로 취급해야 한다.** 환각 임포트, 존재하지 않는 파라미터, 누락된 엣지 케이스를 반드시 확인해야 한다.
+
+결국 Codex Spark의 진짜 의미는 기술적 성취가 아니라 시장 전략에 있다. OpenAI는 Nvidia에서 벗어나 Cerebras와 손잡는 하드웨어 다각화를 시작했고, "빠른 코딩"이라는 새로운 카테고리를 만들었다. 정확도 경쟁에서 Claude Opus 4.6의 80.8%(SWE-bench Verified)를 넘기 어려운 상황에서, 아예 경쟁의 축을 바꾸려는 시도다.
+
+하지만 축을 바꾼다고 본질이 바뀌지는 않는다. 코딩 도구의 가치는 결국 **맞는 코드를 만드느냐**에 달려 있다. 초당 1000토큰이 인상적인 숫자인 건 맞다. 그런데 그 1000토큰이 맞기는 한 건지, OpenAI는 대답하지 않았다.
+
+---
+
+**출처:**
+
+- [Introducing GPT-5.3-Codex-Spark | OpenAI](https://openai.com/index/introducing-gpt-5-3-codex-spark/)
+- [OpenAI Releases a Research Preview of GPT-5.3-Codex-Spark - MarkTechPost](https://www.marktechpost.com/2026/02/12/openai-releases-a-research-preview-of-gpt-5-3-codex-spark-a-15x-faster-ai-coding-model-delivering-over-1000-tokens-per-second-on-cerebras-hardware/)
+- [GPT-5.3-Codex-Spark: 1000 Tokens Per Second, But Is It Actually Faster? - Adam Holter](https://adam.holter.com/gpt-5-3-codex-spark-1000-tokens-per-second-but-is-it-actually-faster/)
+- [Codex 5.3 vs. Codex Spark: Speed vs. Intelligence - Turing College](https://www.turingcollege.com/blog/codex-5-3-vs-codex-spark-speed-vs-intelligence)
+- [GPT-5.3-Codex-Spark Benchmark: Speed vs. Accuracy Trade-offs - Remio](https://www.remio.ai/post/gpt-5-3-codex-spark-benchmark-1000-tokens-sec-speed-vs-accuracy-trade-offs)
+- [Introducing OpenAI GPT-5.3-Codex-Spark Powered by Cerebras - Cerebras](https://www.cerebras.ai/blog/openai-codexspark)
+- [A new version of OpenAI's Codex is powered by a new dedicated chip - TechCrunch](https://techcrunch.com/2026/02/12/a-new-version-of-openais-codex-is-powered-by-a-new-dedicated-chip/)
+- [OpenAI Codex-Spark - InfoQ](https://www.infoq.com/news/2026/03/open-ai-codex-spark/)

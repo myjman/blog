@@ -1,0 +1,146 @@
+---
+title: 'Codex Spark Does 1000 tok/s but Nobody Asked About Accuracy'
+date: '2026-03-03T12:00:55'
+tags: ['codex-spark', 'openai', 'cerebras', 'ai-coding', 'benchmark', 'code-generation']
+draft: false
+language: 'en'
+translationOf: 'codex-spark-1000-tokens-accuracy'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/og-image.jpg',
+  ]
+summary: 'OpenAI shipped Codex Spark on Cerebras hardware at 1000+ tokens per second. They called it 15x faster. Terminal-Bench accuracy dropped 19 points to 58.4%.'
+---
+
+## 1000 Tokens Per Second. But Are They Correct?
+
+![Server room with glowing hardware](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/og-image.jpg)
+
+On February 12, 2026, OpenAI released GPT-5.3-Codex-Spark as a research preview. Running on Cerebras wafer-scale hardware, it generates **over 1,000 tokens per second**. That's **15x faster** than standard GPT-5.3-Codex, according to OpenAI.
+
+The numbers look revolutionary. Standard Codex ran at 65-70 tokens per second. Spark obliterates that by an order of magnitude. OpenAI also claimed 50% faster time-to-first-token, 30% reduction in per-token overhead, and 80% reduction in client-server roundtrip overhead. The entire announcement was about speed.
+
+What was conspicuously absent: **accuracy numbers.** OpenAI's official blog describes Spark's performance as "between GPT-5.1-Codex-mini and GPT-5.3-Codex." That's a range wide enough to be meaningless. When a company leads with speed and buries accuracy in vague qualifiers, the numbers they're hiding tend to matter more than the numbers they're showing.
+
+---
+
+## What Cerebras Actually Is
+
+![Close-up of a circuit board and chip](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/chip.jpg)
+
+Spark's speed comes from Cerebras hardware, and understanding the chip explains why the speed claims are real but incomplete.
+
+The **Wafer-Scale Engine 3 (WSE-3)** is the largest AI chip ever built. **46,255mm** of silicon area. **4 trillion transistors.** **900,000 AI-optimized cores.** **125 petaflops.** The largest on-chip memory of any AI processor. Where a typical GPU is the size of a postage stamp, the WSE-3 is the size of a dinner plate. The entire wafer is one chip.
+
+This matters because inter-chip data movement is eliminated. In a typical GPU cluster, models are sharded across hundreds of GPUs, and data transfer between them creates latency. Cerebras sidesteps this entirely. That's how you get to 1,000 tokens per second -- it's a hardware architecture breakthrough, not just software optimization.
+
+OpenAI and Cerebras formalized their partnership in January 2026. The deal: up to **750 megawatts of compute over three years**, worth **over $10 billion**. This is OpenAI's **first production deployment on non-Nvidia hardware.** A strategic hedge against Nvidia dependency, wrapped in a speed marketing narrative.
+
+The catch: wafer-scale chips have real constraints. Yield issues, limited memory bandwidth compared to GPU clusters, and narrow applicability. Cerebras has operated primarily through specialized partnerships rather than mass deployment. The OpenAI deal is their proof-of-concept on the biggest stage possible.
+
+---
+
+## The 15x Claim Falls Apart Under Scrutiny
+
+When someone claims "15x faster," the first question is: **faster than what?**
+
+OpenAI's 15x compares Codex Spark to the `x-high` configuration of standard Codex. That's the setting that deliberately extends reasoning time to maximize accuracy. It's the slowest mode. Comparing your new fast model to the slowest configuration of the old model is a marketing choice, not a technical benchmark.
+
+Developer Nicholas Van Landschoot measured actual task completion speed on SWE-Bench Pro. The result: roughly **1.37x faster.** Not 15x. The reason is telling. Spark generates tokens fast, but it's reckless with them. It fires off unnecessary tool calls, generates more tokens than needed, and takes wasteful detours. Per-token speed is blazing. **Task completion time barely improves.**
+
+Adam Holter's analysis reached the same conclusion. Spark is "way too aggressive with tool calls and token usage." The analogy: a car with a 300km/h top speed that runs every red light and takes wrong turns, arriving at the same time as a car doing 100km/h on the direct route. Tokens per second and tasks per hour are fundamentally different metrics.
+
+---
+
+## The Benchmarks OpenAI Didn't Lead With
+
+![Someone coding on a laptop](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/accuracy.jpg)
+
+Here are the accuracy numbers that didn't make the headline:
+
+| Benchmark          | Codex Spark  | GPT-5.3-Codex (full) | Gap             |
+| ------------------ | ------------ | -------------------- | --------------- |
+| SWE-Bench Pro      | ~56%         | 56.8-72% (varies)    | 0.8-16 points   |
+| Terminal-Bench 2.0 | 58.4%        | 77.3%                | **18.9 points** |
+| HumanEval          | Not reported | 93%                  | N/A             |
+
+**Terminal-Bench 2.0** tells the clearest story. 58.4% versus 77.3%. A **19-point drop.** Terminal-Bench measures actual task execution in real terminal environments -- the closest proxy for what coding agents do in production. Losing 19 points there isn't a rounding error. It's a tier change.
+
+The SWE-Bench numbers are muddled. Some sources put Spark at 56% and full Codex at 56.8% (nearly identical), while others cite 72% for full Codex (a 16-point gap). The discrepancy likely stems from different SWE-Bench versions or configurations. Either way, Spark trails the full model.
+
+For context: OpenAI positioned Spark's performance as "between GPT-5.1-Codex-mini and GPT-5.3-Codex." GPT-5.1-Codex-mini scores **46.1%** on Terminal-Bench 2.0. Spark's 58.4% sits roughly in the middle of that range. OpenAI just didn't emphasize that "the middle" means **19 points below the flagship.**
+
+---
+
+## Fast Failure Is Still Failure
+
+Speed amplifies everything, including mistakes. The developer community identified specific failure modes that matter.
+
+**Tool call failures.** Spark produces unreliable JSON schema formatting. It drops required fields and inserts phantom parameters into function signatures. It fails fast.
+
+**Multi-step reasoning collapse.** Performance degrades sharply after 6-8 sequential reasoning steps. When a bug spans three services, Spark patches the symptom and ignores the root cause. Speed encourages shallow fixes.
+
+**Context retention issues.** The 128K context window (less than a third of full Codex's 400K+) loses coherence when large codebases are loaded, particularly toward the end of the window.
+
+A developer ran a Snake game comparison. Full Codex completed it in **6 minutes** and it worked on the first try. Spark finished in **50 seconds** -- with a collision detection bug and a memory leak. The output looked right at first glance. The bugs were what one developer called "plausible-looking" -- the kind that pass a quick review and blow up in production.
+
+The developer community coined a phrase for this: **"Speed without intelligence is just fast failure."** Generating wrong code faster doesn't save time. It shifts the cost from generation to debugging, where humans are still the bottleneck.
+
+---
+
+## Distilled Model vs. Same Model: Two Philosophies
+
+Understanding what Codex Spark actually is requires understanding **distillation.** Spark isn't GPT-5.3-Codex running on faster hardware. It's a smaller model derived from GPT-5.3-Codex through knowledge distillation -- compressing a large model's knowledge into a smaller architecture. Parameter count is undisclosed.
+
+Turing College described it as **"JPEG compression for neural weights."** The broad strokes survive. Fine-grained detail bleeds out. A JPEG looks identical to the original from a distance. Zoom in, and the compression artifacts appear. Spark's code behaves the same way: indistinguishable from the full model on simple tasks, visibly degraded on complex ones.
+
+This creates an important contrast. As developer Dominic Elm pointed out, Anthropic's **Claude Opus 4.6 Fast** takes a fundamentally different approach. Opus 4.6 Fast is the same model on faster infrastructure. Spark is a **different, smaller model** on faster infrastructure.
+
+| Dimension       | Codex Spark                     | Claude Opus 4.6 Fast         |
+| --------------- | ------------------------------- | ---------------------------- |
+| Approach        | Smaller model + faster hardware | Same model + faster hardware |
+| Accuracy impact | Drops vs. full model            | Identical to full model      |
+| Speed gain      | 15x per-token (1.4x per-task)   | Reduced inference time       |
+| Context window  | 128K                            | Same as full model           |
+| Modality        | Text only                       | Same as full model           |
+
+One approach sacrifices accuracy. The other preserves it. OpenAI likely chose distillation to optimize for Cerebras's WSE-3, which excels at running smaller models with its massive on-chip memory. The tradeoff is real: users get speed at the cost of correctness.
+
+---
+
+## What $200/Month Actually Gets You
+
+![Motion blur of a fast-moving object](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-spark-1000-tokens-accuracy/speed.jpg)
+
+Codex Spark is a research preview available only to **ChatGPT Pro subscribers** at $200/month. No public API pricing exists yet. A small set of "design partners" have API access.
+
+For $200, you get: 1000+ tok/s code generation, 128K context window, text-only (no multimodal), and separate rate limits that "adjust based on demand." OpenAI noted users may experience "limited access or temporary queuing." They're still scaling datacenter capacity with Cerebras.
+
+For reference, full GPT-5.3-Codex API pricing is **$1.75 per million input tokens** and **$14.00 per million output tokens.** Spark's eventual API pricing will likely be lower, but for now it's locked behind the subscription.
+
+"Research preview" means this isn't a finished product. OpenAI defines it as exploratory, not production-ready. The market treated it like a finished product anyway. "1000 tokens per second" is a headline. "Research preview" is fine print.
+
+---
+
+## The Speed War's Real Winner
+
+Codex Spark reveals a new competitive axis in AI coding tools. The battle used to be about accuracy -- who leads SWE-bench. Now speed is a second front. But when developers have to choose between speed and accuracy, accuracy wins. Every time.
+
+The math is straightforward. Fast wrong code is **more expensive** than slow correct code. Code generation is a fraction of total development time. Review, debugging, testing, deployment -- if bad code passes through generation unchecked, the downstream cost dwarfs whatever time was saved on generation. Every Spark output should be treated as a first draft, scanned for hallucinated imports, phantom parameters, and missing edge cases.
+
+The real significance of Codex Spark isn't technical. It's strategic. OpenAI diversified away from Nvidia with the Cerebras partnership. They created a "fast coding" category that shifts the conversation away from accuracy -- where Claude Opus 4.6 leads at 80.8% on SWE-bench Verified. When you can't win the current game, you change the game.
+
+Changing the game doesn't change the fundamentals. The value of a coding tool is whether it produces **correct code.** 1000 tokens per second is an impressive number. But OpenAI never answered whether those 1000 tokens are right.
+
+---
+
+**Sources:**
+
+- [Introducing GPT-5.3-Codex-Spark | OpenAI](https://openai.com/index/introducing-gpt-5-3-codex-spark/)
+- [OpenAI Releases a Research Preview of GPT-5.3-Codex-Spark - MarkTechPost](https://www.marktechpost.com/2026/02/12/openai-releases-a-research-preview-of-gpt-5-3-codex-spark-a-15x-faster-ai-coding-model-delivering-over-1000-tokens-per-second-on-cerebras-hardware/)
+- [GPT-5.3-Codex-Spark: 1000 Tokens Per Second, But Is It Actually Faster? - Adam Holter](https://adam.holter.com/gpt-5-3-codex-spark-1000-tokens-per-second-but-is-it-actually-faster/)
+- [Codex 5.3 vs. Codex Spark: Speed vs. Intelligence - Turing College](https://www.turingcollege.com/blog/codex-5-3-vs-codex-spark-speed-vs-intelligence)
+- [GPT-5.3-Codex-Spark Benchmark: Speed vs. Accuracy Trade-offs - Remio](https://www.remio.ai/post/gpt-5-3-codex-spark-benchmark-1000-tokens-sec-speed-vs-accuracy-trade-offs)
+- [Introducing OpenAI GPT-5.3-Codex-Spark Powered by Cerebras - Cerebras](https://www.cerebras.ai/blog/openai-codexspark)
+- [A new version of OpenAI's Codex is powered by a new dedicated chip - TechCrunch](https://techcrunch.com/2026/02/12/a-new-version-of-openais-codex-is-powered-by-a-new-dedicated-chip/)
+- [OpenAI Codex-Spark - InfoQ](https://www.infoq.com/news/2026/03/open-ai-codex-spark/)
