@@ -1,0 +1,135 @@
+---
+title: 'How DeepSeek Mined Claude 16 Million Times'
+date: '2026-03-07T12:00:52'
+language: 'en'
+translationOf: 'deepseek-claude-16m-distillation'
+tags: ['deepseek', 'anthropic', 'distillation', 'ai-security', 'china-ai', 'export-controls']
+draft: false
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-claude-16m-distillation/og-image.jpg',
+  ]
+summary: 'Anthropic says DeepSeek, Moonshot AI, and MiniMax ran 16.5 million API calls through 24,000 fake accounts to distill Claude. None of the three companies denied it.'
+---
+
+## 24,000 Fake Accounts. 16.5 Million Calls.
+
+![Cybersecurity themed image -- Anthropic exposed large-scale distillation attacks by three Chinese AI companies targeting Claude](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-claude-16m-distillation/og-image.jpg)
+
+On February 23, 2026, Anthropic published a blog post titled "Detecting and Preventing Distillation Attacks." Three Chinese AI companies had been **systematically extracting** Claude's capabilities. DeepSeek, Moonshot AI, and MiniMax created **24,000 fraudulent accounts** and hit the Claude API over **16.5 million times**.
+
+This was not API abuse. It was an industrial-scale operation to convert a competitor's AI model into training data for their own. Anthropic called it a "distillation attack." None of the three companies have denied it.
+
+---
+
+## What Distillation Actually Means
+
+Distillation is a legitimate and widely used AI training technique. A smaller model (student) learns from the outputs of a larger model (teacher). When OpenAI trains GPT-4o mini on GPT-4 outputs, that is distillation. When Anthropic improves Haiku using Claude 3.5 Sonnet outputs, that is distillation. Do it with your own models and it is standard practice. Do it with someone else's model without permission and it is **theft**.
+
+![Network server infrastructure -- Chinese AI companies deployed proxy networks and fake account clusters to systematically exploit Claude's API](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-claude-16m-distillation/network-infra.jpg)
+
+The mechanics are straightforward. You send tens of thousands of prompts to a competitor's model, collect the responses, and use them as training data for your own model. Capabilities that would cost billions and take years to develop independently can be replicated for the **price of API calls**. The technique captures not just answers but reasoning processes, coding abilities, and safety mechanisms. It is far more sophisticated than simple copying.
+
+What Anthropic exposed was this principle executed at **industrial scale**.
+
+---
+
+## Three Companies, Three Targets
+
+Each company went after different capabilities. It reads like a coordinated division of labor.
+
+| Company     | API Calls    | Primary Target                                           |
+| ----------- | ------------ | -------------------------------------------------------- |
+| MiniMax     | ~13 million  | Agentic coding, tool use, orchestration                  |
+| Moonshot AI | ~3.4 million | Agentic reasoning, computer use, coding, computer vision |
+| DeepSeek    | ~150,000     | Reasoning, reward model training, censorship bypass      |
+
+MiniMax accounted for roughly **80%** of all distillation traffic. Its focus on agentic coding and tool use suggests it was trying to replicate Claude Code-like agent capabilities wholesale. Moonshot AI was extracting data needed to build computer-use agents. DeepSeek had the fewest calls but targeted the most sensitive areas.
+
+DeepSeek repeatedly prompted Claude to "imagine it had just produced a correct answer to a complex problem, then articulate the step-by-step internal reasoning that led to that answer -- in detail, from scratch." This is chain-of-thought extraction. Not just stealing answers, but stealing the **thinking process** that produces them.
+
+There is a more troubling detail. DeepSeek also sent prompts asking Claude to generate "censorship-safe alternatives to politically sensitive queries" about dissidents, party leaders, and authoritarianism. It was extracting Claude's ability to handle politically sensitive content in ways that would pass Chinese censorship filters.
+
+---
+
+## The Ant Colony That Gave Them Away
+
+How did Anthropic catch them? The core signal was **behavioral fingerprinting**.
+
+Normal API users ask diverse questions on diverse topics with diverse prompt structures. Distillation campaigns look nothing like that. Variations of the same prompt arrive **tens of thousands of times** across **hundreds of coordinated accounts**, all targeting the same narrow capability. Anthropic called this "ant-colony behavior" -- synchronized traffic that looks like load balancing, not organic use.
+
+The detection system worked across multiple layers. Chain-of-thought elicitation pattern detection. Cross-account traffic synchronization analysis. Prompt diversity collapse monitoring. IP address and payment method correlation. Request metadata and infrastructure indicator tracking. Thousands of apparently independent accounts were linked to **identical funding sources**.
+
+The most damning evidence came from MiniMax. When Anthropic released a new model during MiniMax's active campaign, MiniMax **redirected nearly half its traffic to the new model within 24 hours**. That kind of response time is impossible for organic users. It is the signature of an **automated extraction system**. Anthropic caught MiniMax's campaign in real-time -- before MiniMax even released the model it was training. They witnessed the entire lifecycle of a distillation attack, from data collection through to pre-launch training.
+
+---
+
+## The Hydra Architecture
+
+![Code streaming down a screen -- The proxy networks used in distillation attacks employed a hydra architecture that automatically replaced banned accounts](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/deepseek-claude-16m-distillation/code-screen.jpg)
+
+The infrastructure behind the attacks was sophisticated. Anthropic called it a **"hydra cluster"** architecture. Commercial proxy services operating sprawling networks of fraudulent accounts distributed traffic across APIs and third-party cloud platforms. A single proxy network managed more than **20,000 accounts simultaneously**.
+
+The defining characteristic: **no single point of failure**. Banned accounts were continuously replaced with new ones. Legitimate customer requests were mixed with distillation traffic to evade detection. Individual accounts stayed below rate-limit thresholds while maintaining massive aggregate throughput. Cut off one head and two more appear. Hence the name.
+
+Anthropic identified the fundamental vulnerability: "Most organizations lack visibility into what authenticated users actually do collectively over time." Authenticated traffic was assumed to be trusted. But authentication and trust are not the same thing.
+
+---
+
+## OpenAI Said It First
+
+Anthropic was not the only target. OpenAI moved **11 days earlier**. On February 12, 2026, OpenAI sent a memo to the U.S. House Select Committee on China alleging that DeepSeek **stole its intellectual property** to train its own models.
+
+OpenAI's evidence was specific. Accounts linked to DeepSeek employees were developing methods to circumvent access restrictions. They accessed models through "obfuscated third-party routers." They wrote code to automate access to U.S. AI models and collect outputs for distillation. OpenAI also identified networks of "unauthorized resellers of OpenAI's services."
+
+CNBC described Anthropic as "joining OpenAI in flagging 'industrial-scale' distillation campaigns by Chinese AI firms." But analysts noted that "nuance is needed to distinguish between the different narratives, as the boundary between illicit and legitimate practice is often blurry."
+
+---
+
+## The Export Control Tug-of-War
+
+The timing of Anthropic's disclosure was deliberate. It landed in the middle of a heated U.S. debate on AI chip export controls.
+
+The Biden administration had issued the "AI Diffusion Rule" on January 15, 2025, creating a global licensing regime for advanced AI chip and model weight exports. The Trump administration rescinded it on May 13, 2025, calling it innovation-stifling and diplomatically damaging. By December 2025, Trump had gone further, approving export licenses for Nvidia H200 chips to China -- a one-year waiver that reversed the Biden-era "small yard, high fence" approach.
+
+Anthropic CEO Dario Amodei had been vocal about his position. He called export controls "the most important determinant of whether we end up in a unipolar or bipolar world." In a bipolar world where both the U.S. and China have frontier AI, Amodei argued, China could direct more resources toward military applications and potentially take "a commanding lead on the global stage."
+
+The February 23 disclosure reads differently in this context. Anthropic dropped concrete evidence of what happens when export controls are loosened -- right into the center of the policy debate.
+
+---
+
+## The Irony Is Hard to Ignore
+
+The backlash was predictable. In September 2025, Anthropic paid roughly **$1.5 billion** in copyright settlements -- about $3,000 per book for approximately 500,000 works. The settlement addressed allegations that Anthropic had **bulk-downloaded books from shadow libraries** like Library Genesis to train Claude.
+
+In _Bartz v. Anthropic_, a court ruled that LLM training is "quintessentially transformative." It also ruled that using pirated copies bars a fair use defense.
+
+Reddit's r/singularity responded with "How the turn tables." Futurism ran the headline: "Anthropic Furious at DeepSeek for Copying Its AI Without Permission, Which Is Pretty Ironic When You Consider How It Built Claude in the First Place." CyberNews led with "Hypocrisy, anyone?"
+
+Fair criticism. But the two situations are **different**. Anthropic's copyright issue was about training data provenance -- where the raw material came from. DeepSeek's distillation was about using a competitor's finished product as a tool to **directly replicate its capabilities**. One is a question of ingredient sourcing. The other is reverse engineering the final product. Both are ethically problematic. They are not the same act.
+
+---
+
+## Silence Is the Loudest Answer
+
+As of late February 2026, none of the three companies -- DeepSeek, MiniMax, or Moonshot AI -- have issued a public response. No denial. No acknowledgment. No explanation. The silence is the most telling part.
+
+Denying the technical allegations would require disclosing details of their own training pipelines. There is no incentive to do that. Acknowledging the claims creates legal liability. Explaining anything could produce additional evidence. Silence is the most rational strategy.
+
+Anthropic published countermeasures alongside the disclosure. Enhanced educational account verification. Strengthened security research program authentication. **Degraded model output quality when distillation is detected.** Enhanced API traffic monitoring. User-level behavioral data collection. Automated suspicious pattern flagging. The degraded output detail is telling -- if someone is stealing, make sure what they steal is worthless.
+
+Anthropic also said "no company can solve this alone" and confirmed it is sharing technical indicators with other AI labs, cloud providers, and relevant authorities. It warned that "illicitly distilled models lack necessary safeguards, creating significant national security risks."
+
+The window to act is narrow. The threat extends beyond any single company or region. This is not Anthropic's problem. It is an industry-wide question about what protections AI intellectual property deserves. The 16.5 million API calls left behind a simple question: is training your AI on another company's AI answers theft or learning? The fact that no law has drawn that line yet is the biggest problem of all.
+
+---
+
+**Sources:**
+
+- [Anthropic accuses Chinese AI labs of mining Claude as US debates AI chip exports -- TechCrunch](https://techcrunch.com/2026/02/23/anthropic-accuses-chinese-ai-labs-of-mining-claude-as-us-debates-ai-chip-exports/)
+- [Detecting and Countering Distillation Attacks -- Anthropic](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
+- [Anthropic joins OpenAI in flagging 'industrial-scale' distillation campaigns -- CNBC](https://www.cnbc.com/2026/02/24/anthropic-openai-china-firms-distillation-deepseek.html)
+- [Anthropic Says Chinese AI Firms Used 16 Million Claude Queries -- The Hacker News](https://thehackernews.com/2026/02/anthropic-says-chinese-ai-firms-used-16.html)
+- [Anthropic claims 3 Chinese companies ripped it off -- Fortune](https://fortune.com/2026/02/24/anthropic-china-deepseek-theft-claude-distillation-copyright-national-security/)
+- [Anthropic says DeepSeek, Moonshot, and MiniMax used 24,000 fake accounts -- VentureBeat](https://venturebeat.com/technology/anthropic-says-deepseek-moonshot-and-minimax-used-24-000-fake-accounts-to)
+- [OpenAI alleges China's DeepSeek stole its intellectual property -- FDD](https://www.fdd.org/analysis/2026/02/13/openai-alleges-chinas-deepseek-stole-its-intellectual-property-to-train-its-own-models/)
