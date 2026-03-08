@@ -1,0 +1,142 @@
+---
+title: 'GPT-5.4 Shipped. SWE-bench Moved 1%.'
+date: '2026-03-09T07:00:35'
+tags: ['gpt-5-4', 'openai', 'swe-bench', 'ai-benchmark', 'computer-use']
+draft: false
+language: 'en'
+translationOf: 'gpt-5-4-swe-bench-1-percent'
+images:
+  ['https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-swe-bench-1-percent/og-image.jpg']
+summary: 'OpenAI shipped GPT-5.4. SWE-bench Pro went from 56.8% to 57.7%. Meanwhile, desktop automation jumped 28 points and spreadsheet modeling gained 19. This is not a coding model. It is an office worker.'
+---
+
+## 56.8% to 57.7%. That's It.
+
+![GPT-5.4 launch — the benchmark race raises questions about meaningful progress in AI coding](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-swe-bench-1-percent/og-image.jpg)
+
+On March 5, 2026, OpenAI released GPT-5.4. The press release calls it "the most capable and efficient frontier model to date." The blog post is filled with benchmark charts. Researcher Noam Brown declared, "We see no wall."
+
+Then you look at the numbers. On SWE-bench Pro, GPT-5.4 scored **57.7%**. The previous coding-specialist model, GPT-5.3 Codex, scored **56.8%**. The delta is **0.9 percentage points**. Round it up and you get 1%. GPT-5.2 scored **55.6%**, which means two full model generations produced a total gain of 2.1 points.
+
+SWE-bench Pro measures a model's ability to solve real issues from open-source projects. Not just generating code -- understanding the issue, finding the right files, making the fix, and passing the test suite. It is one of the most trusted proxies for practical coding ability. And on that benchmark, GPT-5.4 moved the needle by one percent.
+
+---
+
+## The Gains Are Everywhere Except Coding
+
+GPT-5.4's real scorecard lives outside the code editor. The numbers OpenAI highlighted tell you where the investment went.
+
+| Benchmark                  | GPT-5.2 | GPT-5.4 | Delta   |
+| -------------------------- | ------- | ------- | ------- |
+| SWE-bench Pro              | 55.6%   | 57.7%   | +2.1pp  |
+| OSWorld-Verified (desktop) | 47.3%   | 75.0%   | +27.7pp |
+| GDPval (knowledge work)    | 70.9%   | 83.0%   | +12.1pp |
+| Spreadsheet modeling       | 68.4%   | 87.3%   | +18.9pp |
+| BrowseComp (web search)    | 65.8%   | 82.7%   | +16.9pp |
+| ARC-AGI-2                  | 52.9%   | 73.3%   | +20.4pp |
+
+The pattern is hard to miss. Coding barely moved. Desktop automation gained 27.7 points. Spreadsheets gained 18.9. Web search gained 16.9. The research investment behind GPT-5.4 went into **work automation**, not code generation. OpenAI built a model that operates a computer, not one that writes better code.
+
+OSWorld-Verified at 75.0% exceeds the human baseline of 72.4%. The AI is now better than humans at navigating a desktop. Clicking buttons, typing into fields, reading screenshots and deciding what to do next. The breakthrough happened in the office, not in the IDE.
+
+---
+
+## An AI That Uses Your Computer
+
+The biggest change in GPT-5.4 is **native computer use**. It is the first general-purpose OpenAI model to ship with this capability. Two modes are available.
+
+The first is **code mode**. The model writes Python using the Playwright library to control a browser programmatically. It navigates websites, fills forms, clicks buttons. Precise, fast, and scriptable.
+
+The second is **screenshot mode**. The model receives periodic screenshots and issues raw mouse and keyboard commands. It works exactly the way a human would. No API required -- just pixels and input events. This mode works across any application: browsers, desktop apps, Excel, terminals.
+
+![A developer workspace — GPT-5.4 can see screenshots and issue mouse and keyboard commands to operate any application](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-swe-bench-1-percent/computer-use.jpg)
+
+Anthropic got here first. Claude 3.5 Sonnet shipped computer use in beta back in October 2024. OpenAI is roughly 18 months late to the general-purpose computer use game. But GPT-5.4's OSWorld-Verified score of 75.0% is among the highest published numbers. The latecomer arrived with a competitive score.
+
+The context window expanded to **1 million tokens**, up from 400,000 in GPT-5.3. But prompts exceeding 272,000 input tokens are billed at double the input rate and 1.5x the output rate. Long context is available but expensive.
+
+---
+
+## The Excel Plugin Says Everything
+
+Alongside GPT-5.4, OpenAI announced **ChatGPT for Excel and Google Sheets** in beta. ChatGPT is embedded directly inside spreadsheets. It builds complex financial models, writes formulas, and runs scenario analysis.
+
+![Spreadsheets and financial data — GPT-5.4 performs spreadsheet modeling at the level of a junior investment banking analyst](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-swe-bench-1-percent/finance.jpg)
+
+On OpenAI's internal investment banking benchmark, GPT-5.4 scored **87.3%** at spreadsheet modeling. GPT-5.2 scored 68.4%. That is a 19-point jump. The benchmark models the work of a junior investment banking analyst: DCF analysis, comparable company analysis, earnings previews, and investment memo drafting.
+
+Financial data partnerships were announced too. **Moody's, Dow Jones Factiva, MSCI, Third Bridge, and MT Newswire** are accessible directly inside ChatGPT. FactSet is coming soon. The need to switch between a Bloomberg terminal and a separate AI tool is shrinking.
+
+Mercor CEO Brendan Foody said GPT-5.4 "excels at creating long-horizon deliverables such as slide decks, financial models, and legal analysis." The key phrase is "long-horizon deliverables." Not a single line of code. A 30-page report.
+
+The strategy is transparent. GPT-5.4 is not built for developers. It is built for **finance, consulting, and legal professionals**. Automating a Wall Street analyst's Excel workflow is more profitable than adding one percent to SWE-bench.
+
+---
+
+## What the Price Tag Reveals
+
+GPT-5.4's API pricing is **$2.50 per million input tokens** and **$15 per million output tokens**. That is roughly 40% more expensive than GPT-5.2 ($1.75 input, $14 output). But the real story is in the Pro tier.
+
+| Model           | Input (1M tokens) | Cached Input | Output (1M tokens) |
+| --------------- | ----------------- | ------------ | ------------------ |
+| GPT-5.4         | $2.50             | $0.25        | $15                |
+| GPT-5.4 Pro     | $30               | --           | $180               |
+| Claude Opus 4.6 | $5                | --           | $25                |
+
+GPT-5.4 Pro costs **$30 input** and **$180 output** per million tokens. That is **6x the price of Claude Opus 4.6**. OpenAI clearly believes the performance justifies it. On ARC-AGI-2, Pro scores **83.3%** (standard: 73.3%). On GPQA Diamond, **94.4%** (standard: 92.8%). On FrontierMath Tier 4, **38.0%** (standard: 27.1%). For customers who need peak performance, the price is the price.
+
+Cached input pricing is $0.25 -- just 10% of the standard rate. For repetitive financial analysis and agent workflows, that discount is real money. A new feature called Tool Search reduces token consumption by **47%** in large tool ecosystems. The business model is clear: charge a premium for the base, then offer efficiency features to bring the effective cost down.
+
+The "/fast" mode in Codex boosts token throughput by **1.5x** with no quality loss. Speed and cost -- OpenAI is trying to solve both. But the base price went up, and that is the number most developers will see first.
+
+---
+
+## "We See No Wall" -- But Only Where They Looked
+
+Noam Brown's "We see no wall" statement deserves scrutiny. If there is no wall, why did SWE-bench Pro gain only 2 points across two model generations?
+
+The answer is simple. **The wall is in coding.**
+
+The trajectory on SWE-bench Pro -- 55.6% to 56.8% to 57.7% -- is a textbook **logarithmic curve**. Early gains come fast, but every subsequent percentage point costs exponentially more compute and research effort. Meanwhile, OSWorld (47.3% to 75.0%) and ARC-AGI-2 (52.9% to 73.3%) are still on the steep part of the curve. The same research dollar buys 1 point on coding or 28 points on computer use. The allocation decision makes itself.
+
+kilo.ai's analysis called this "selective benchmark reporting." Both OpenAI and Anthropic report on different SWE-bench variants, making direct comparison difficult. OpenAI emphasizes SWE-bench Pro. Anthropic emphasizes SWE-bench Verified. Same family of benchmarks, different difficulty curves, incomparable numbers.
+
+GPT-5.4 also has a documented failure mode. kilo.ai identified it as a pattern where the model "correctly understands and plans the task but halts before executing the critical final action." On a health-related benchmark, GPT-5.4 actually scored lower than GPT-5.2 -- 62.6% versus 63.3%. The "no wall" claim holds true only in the domains where OpenAI concentrated its effort.
+
+---
+
+## Cybersecurity Gets a "High Capability" Rating
+
+GPT-5.4 is the first general-purpose reasoning model from OpenAI to receive a **"High Capability"** cybersecurity classification. The official definition: the model "can remove existing barriers to cyberattacks."
+
+OpenAI is acknowledging, on the record, that its own model makes certain attacks easier to execute. The GPT-5.4 Thinking variant includes mitigations, though specifics were not disclosed.
+
+The safety system uses real-time message-level blockers with a two-stage pipeline: a topic classifier screens messages, and an AI security analyst reviews flagged content. Hallucination rates dropped -- individual claims are **33% less likely** to be wrong, and full responses are **18% less likely** to contain errors compared to GPT-5.2. More accurate, but also more dangerous. A strange place for a model to be.
+
+This paradox defines the current state of AI. The more capable a model becomes, the higher its misuse potential. GPT-5.4's ability to operate desktops, build spreadsheets, and browse the web is a productivity tool. It is also a phishing automation tool. The "High Capability" label is simultaneously a warning and a selling point.
+
+---
+
+## Is the Coding Benchmark Era Ending?
+
+Judged purely by coding benchmarks, GPT-5.4 is a disappointment. A 0.9-point gain on SWE-bench Pro is statistical noise. But OpenAI did not build a coding model. It built a computer-using model.
+
+This distinction matters. Until now, the AI coding race was about who tops SWE-bench. Claude Opus 4.6 leads SWE-bench Verified at **79.2%**, with GPT-5.4 at **77.2%**. But OpenAI is stepping away from that race entirely. The new contest is whether an AI can use a computer like a human -- and on that metric, GPT-5.4 scored above human baseline.
+
+Coding specialization stays with GPT-5.3 Codex. On Terminal-Bench 2.0, Codex scores **77.3%**, beating GPT-5.4's 75.1%. For pure coding tasks, the dedicated model still wins. GPT-5.4 traded some coding depth for breadth across office work, reasoning, and desktop automation.
+
+GPT-5.2 Thinking retires on June 5, 2026 -- 90 days from launch. OpenAI is consolidating its model lineup around GPT-5.4 as the single general-purpose system for coding, reasoning, computer use, and financial analysis.
+
+The question is whether "how well does it code" still matters as much as "how much work can it replace." OpenAI's answer is clear. Instead of investing in 1 point on SWE-bench, they invested in 19 points on Excel. If you are a developer, that is disappointing. If you are on Wall Street, that is a product launch.
+
+---
+
+**Sources**
+
+- [OpenAI launches GPT-5.4 with native computer use mode, financial plugins for Microsoft Excel, Google Sheets -- VentureBeat](https://venturebeat.com/technology/openai-launches-gpt-5-4-with-native-computer-use-mode-financial-plugins-for)
+- [GPT-5.4: Computer Use, Tool Search, Benchmarks, Pricing -- Digital Applied](https://www.digitalapplied.com/blog/gpt-5-4-computer-use-tool-search-benchmarks-pricing)
+- [GPT-5.4 Lands with Computer Use and 1M Token Context -- Awesome Agents](https://awesomeagents.ai/news/gpt-5-4-computer-use-office-launch/)
+- [GPT-5.4 Targets Anthropic's Claude With Premium Pricing and Coding Muscle -- Trending Topics](https://www.trendingtopics.eu/gpt-5-4-targets-anthropics-claude-with-premium-pricing-and-coding-muscle/)
+- [Benchmarking the Benchmarks: New GPT and Claude Releases -- kilo.ai](https://blog.kilo.ai/p/benchmarking-the-benchmarks-new-gpt)
+- [OpenAI launches GPT-5.4 Thinking and Pro -- The Decoder](https://the-decoder.com/openai-launches-gpt-5-4-thinking-and-pro-combining-coding-reasoning-and-computer-use-in-one-model/)
+- [OpenAI releases GPT-5.4 with native computer use -- TechInformed](https://techinformed.com/openai-releases-gpt-5-4-with-native-computer-use-and-a-finance-focused-enterprise-bundle/)
