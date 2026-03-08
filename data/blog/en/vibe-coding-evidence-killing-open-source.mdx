@@ -1,0 +1,130 @@
+---
+title: 'Vibe Coding Is DDoSing Open Source'
+date: '2026-03-08T21:49:18'
+tags: ['vibe-coding', 'open-source', 'ai-coding', 'maintainer', 'slop']
+draft: false
+language: 'en'
+translationOf: 'vibe-coding-evidence-killing-open-source'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/vibe-coding-evidence-killing-open-source/og-image.jpg',
+  ]
+summary: 'cURL killed its 6-year bug bounty. Ghostty banned AI PRs. tldraw auto-closes all external pull requests. The evidence that vibe coding is destroying open source is no longer anecdotal.'
+---
+
+## cURL Killed Its Bug Bounty After 6 Years
+
+![Code review screen showing the pressure of low-quality AI contributions on open source projects](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/vibe-coding-evidence-killing-open-source/og-image.jpg)
+
+In January 2026, Daniel Stenberg shut down cURL's bug bounty program. It had been running for six years and paid out a total of **$86,000**. It was once held up as a model for open-source security. Now it's gone.
+
+The reason is straightforward. By 2025, **20% of bug bounty submissions were AI-generated**. The overall valid submission rate had dropped to **5%**. That means 95 out of every 100 reports were AI-hallucinated vulnerability descriptions that looked plausible but pointed to bugs that didn't exist. Stenberg's team was spending more time filtering noise than finding real security issues.
+
+cURL is critical internet infrastructure. It's installed on virtually every server in the world. The fact that its security program was killed by AI-generated noise should alarm anyone who depends on open source -- which is everyone.
+
+---
+
+## Ghostty and tldraw Shut Their Doors
+
+cURL wasn't alone. Mitchell Hashimoto's terminal emulator Ghostty banned AI-generated pull requests outright. Hashimoto was precise about his reasoning:
+
+> "This is not an anti-AI stance. This is an anti-idiot stance. Ghostty is written with plenty of AI assistance and many of our maintainers use AI daily. We just want quality contributions, regardless of how they are made."
+
+The distinction matters. The problem isn't AI itself. It's the gap between skilled developers using AI as a tool and vibe coders outsourcing everything to AI without understanding the codebase. Hashimoto welcomes the former and blocks the latter. But telling them apart is getting harder by the month.
+
+Steve Ruiz, creator of tldraw, went further. He **auto-closes all external pull requests**. He even ran his own AI scripts to generate issues and found the output was garbage. His take cuts to the core:
+
+> "If writing the code is the easy part, why would I want someone else to write it?"
+
+For maintainers, writing code is the trivial part. The hard work is design decisions, backwards compatibility, and managing technical debt. A vibe-coded PR ignores all the hard parts and dumps the easy part on someone else's doorstep.
+
+---
+
+## "AI Slopageddon" Has a Name Now
+
+![Paper airplane with the word spam -- a visual metaphor for AI-generated low-quality contributions flooding open source](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/vibe-coding-evidence-killing-open-source/spam-flood.jpg)
+
+RedMonk analyst Kate Holterhoff coined the term **"AI Slopageddon"** to describe the phenomenon. AI-generated slop arriving at armageddon scale. Holterhoff also made an uncomfortable prediction: detecting AI-authored contributions will become **"functionally impossible within a year or two."**
+
+This isn't a minor annoyance. Stacklok co-founder Craig McLuckie described what it looks like on the ground:
+
+> "Now we file something as 'good first issue' and in less than 24 hours get absolutely inundated with low quality vibe-coded slop that takes time away from doing real work."
+
+"Good first issue" labels were designed to help newcomers make their first open-source contribution. They were the onramp for new developers joining a project. That onramp is now occupied by AI bots and vibe coders. Actual newcomers can't even get in line.
+
+Flux CD core maintainer Stefan Prodan put it even more bluntly:
+
+> "AI slop is DDOSing OSS maintainers, and the platforms hosting OSS projects have no incentive to stop it. On the contrary, they're incentivized to inflate AI-generated contributions to show 'value' to their shareholders."
+
+DDoS isn't a metaphor here. Maintainer time and attention are finite resources. Exhausting those resources with junk contributions is structurally identical to a denial-of-service attack.
+
+---
+
+## The Numbers Show an Ecosystem in Decline
+
+The damage extends well beyond individual projects. The broader developer ecosystem is eroding.
+
+**Stack Overflow** saw activity drop by **25%** within six months of ChatGPT's launch. Developers stopped asking questions on the platform and started asking AI instead. Stack Overflow represents over two decades of accumulated programming knowledge. A 25% activity decline means new knowledge is accumulating slower too.
+
+**Tailwind CSS** tells an even starker story. Documentation traffic fell **40%**. Revenue dropped **80%**. Tailwind is a widely-used utility-first CSS framework. When developers stop reading the docs, it means they've stopped learning the tool directly -- AI writes the code for them now. But an 80% revenue decline threatens the project's survival.
+
+| Project        | Metric            | Change                        |
+| -------------- | ----------------- | ----------------------------- |
+| cURL           | Valid bounty rate | Dropped to 5%, program killed |
+| Stack Overflow | Activity          | 25% decline post-ChatGPT      |
+| Tailwind CSS   | Doc traffic       | 40% decline                   |
+| Tailwind CSS   | Revenue           | 80% decline                   |
+
+These numbers reveal a pattern. Vibe coding increases open-source **consumption** while decreasing open-source **contribution**. AI selects and assembles packages automatically, so usage goes up. But users don't read docs, don't participate in communities, and don't sponsor projects. The projects dry up from the inside.
+
+---
+
+## Research Says the Math Doesn't Work
+
+A joint study from the Central European University and the Kiel Institute modeled this dynamic. The researchers defined "vibe coding" as the practice where AI agents select and assemble open-source packages without meaningful developer engagement.
+
+Their conclusion goes against the optimistic narrative. Even if AI boosts developer productivity, open-source software availability and quality are projected to **decline**. For the gains to offset the losses, AI users would need to contribute **84% of the value** that direct users currently provide. The researchers called this threshold **"unrealistic."**
+
+Here's why. Open source has historically run on a virtuous cycle: people who use the software also contribute to it. They write code, so they find bugs. They read docs, so they fix errors. They depend on projects, so they sponsor them. Vibe coding breaks every link in that chain. When AI picks packages on your behalf, you don't even know which open-source projects you depend on. You won't contribute to a project you've never heard of.
+
+---
+
+## Platforms Have No Incentive to Help
+
+![Error message on screen representing the systemic failure facing open source under AI pressure](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/vibe-coding-evidence-killing-open-source/bug-error.jpg)
+
+Some open-source communities have already taken action. **Gentoo Linux** and **NetBSD** banned AI-generated contributions entirely. Both are decades-old infrastructure projects with high code quality standards.
+
+The **Linux Foundation** and **Apache** took a different approach. Instead of quality filtering, they focused on licensing compatibility and **"Generated-by:" tags**. The idea is to label AI-written code. But as Holterhoff predicted, if AI detection becomes impossible within two years, this approach will rely entirely on voluntary self-reporting.
+
+The most controversial actor is **GitHub**. In May 2025, GitHub launched Copilot issue generation -- letting AI automatically create issues. The problem: they shipped no tools for maintainers to filter or block these AI-generated issues. Prodan's critique applies directly. Platforms have no incentive to block AI contributions. Every AI-generated PR, issue, and commit registers as **activity**. More activity means better metrics. Better metrics mean better numbers for investors.
+
+The platform that hosts open source has no motivation to protect it. That's the structural problem in one sentence.
+
+---
+
+## Small Projects Die First
+
+The research flags one group at particular risk: **small, niche projects**. The researchers note that "popular libraries will keep finding sponsors," but smaller projects face the greatest danger.
+
+This is intuitive. React, Linux, and Kubernetes have corporate sponsors, dedicated maintainer teams, and robust governance structures. They can absorb the flood of AI slop -- they have the people and systems to filter it. But a project maintained by one or two people is different. One person handles code review, issue triage, releases, and documentation. When AI-generated PRs and issues start flooding in, that one person hits a wall.
+
+The researchers posed a pointed question: **"If the maintainers of small projects give up, who will produce the next Linux?"**
+
+Think about what that means. Linux started as one student's project at the University of Helsinki. Git was born from one person's frustration. Node.js, SQLite, cURL -- all began as small projects with one or two maintainers. The diversity and innovation of the open-source ecosystem comes from these small projects. If vibe coding keeps the big projects alive while killing the small ones, open source will look healthy on the surface while calcifying underneath.
+
+---
+
+## The Social Contract Is Breaking
+
+The evidence is no longer anecdotal. cURL's bounty killed. Ghostty's AI PR ban. tldraw auto-closing external contributions. Stack Overflow down 25%. Tailwind CSS revenue down 80%. Gentoo and NetBSD banning AI contributions entirely. Each is an individual event. Together, they form a pattern.
+
+Open source has always operated on a social contract. Creators publish for free. Users report bugs, submit fixes, and provide financial support. Vibe coding replaces the "user" side of that contract with AI. AI selects packages but doesn't report bugs. AI assembles code but doesn't sponsor maintainers. AI references documentation but doesn't fix errors.
+
+The question that remains is how to rebuild that contract. Banning vibe coding isn't realistic -- it's already how millions of developers work. So there needs to be a new mechanism. Maybe AI tool companies should fund the open-source ecosystem their products depend on. Maybe AI should automatically track which packages it uses and route sponsorship proportionally. Whatever the mechanism, the current structure is unsustainable. Someone has to maintain the code, and vibe coding is stealing time from exactly those people.
+
+---
+
+**Sources:**
+
+- [AI Vibe Coding Floods Open-Source Projects with Low-Quality Contributions -- InfoQ](https://www.infoq.com/news/2026/02/ai-floods-close-projects/)
