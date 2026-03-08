@@ -1,0 +1,158 @@
+---
+title: 'OpenClaw 스타 25만개, 근데 4.2만개가 해킹에 노출됐다'
+date: '2026-03-08T12:00:23'
+tags:
+  [
+    'openclaw',
+    '오픈클로',
+    'security',
+    '보안',
+    'ai-agent',
+    'AI에이전트',
+    'vulnerability',
+    '취약점',
+    'supply-chain-attack',
+    '공급망공격',
+  ]
+draft: false
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/og-image.jpg',
+  ]
+summary: 'OpenClaw이 GitHub 스타 25만개로 React를 제치고 1위에 올랐다. 같은 시기에 4.2만개 인스턴스가 인증 없이 인터넷에 노출됐고, 악성 스킬 341개가 마켓플레이스에 침투했다.'
+---
+
+## 역대 최다 스타, 역대 최대 노출
+
+![사이버 보안 위기 — OpenClaw이 GitHub 역사상 가장 빠르게 성장하는 동시에 가장 위험한 프로젝트가 됐다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/og-image.jpg)
+
+2026년 3월 3일, OpenClaw이 GitHub 스타 **250,829개**를 돌파하며 React를 제치고 가장 많은 스타를 받은 소프트웨어 프로젝트가 됐다. 포크 48,274개, 기여자 1,075명. 출시 약 60일 만에 달성한 기록이다. 오픈소스 역사상 이 속도로 성장한 프로젝트는 없다.
+
+같은 시기에 보안 연구원들이 다른 숫자를 세고 있었다. 독립 연구원 Maor Dayan이 자체 개발한 ClawdHunter v3.0으로 스캔한 결과, **42,665개 이상의 OpenClaw 인스턴스**가 공개 인터넷에 노출되어 있었다. 검증된 인스턴스 중 **93.4%**가 인증 우회 취약점을 갖고 있었다. SecurityScorecard는 별도로 **40,214개** 노출 인스턴스를 확인했고, 그 중 **12,812개**가 원격 코드 실행(RCE) 공격에 취약하다고 밝혔다.
+
+스타 25만 개짜리 프로젝트가, 4만 개의 열린 문을 갖고 있었다.
+
+---
+
+## OpenClaw이 뭔지부터 짚자
+
+OpenClaw은 Peter Steinberger가 만든 오픈소스 AI 에이전트다. 원래 이름은 Clawdbot이었고, 상표 분쟁을 거쳐 Moltbot을 거쳐 지금의 이름이 됐다. 기능은 단순하지 않다. 셸 명령 실행, 파일 읽기/쓰기, 웹 브라우징, 이메일 전송, 캘린더 관리까지 한다. WhatsApp, Slack, Telegram, Discord, iMessage를 통해 대화하듯 조작할 수 있다. 세션 간 **영속적 메모리**를 유지한다. Claude나 GPT 같은 LLM에 연결해서 동작한다.
+
+핵심은 이거다. OpenClaw은 단순한 챗봇이 아니라, 사용자의 이메일, 문서, 메시지, API 키에 접근할 수 있는 **권한을 가진 에이전트**다. Slack에 연결하면 메시지와 파일을 읽는다. Google Workspace에 연결하면 문서에 접근한다. OAuth 토큰이 있으면 **횡적 이동(lateral movement)**이 가능하다. Reco의 보안 연구팀이 식별한 OpenClaw의 User-Agent 문자열은 이렇게 생겼다.
+
+```
+ApiApp/<SlackAppID> @slack:socket-mode/2.0.5 @slack:bolt/4.6.0
+@slack:web-api/7.13.0 openclaw/22.22.0 <OS-Identifier>
+```
+
+이 문자열 하나로 조직 내 OpenClaw 인스턴스를 탐지할 수 있다. 문제는 대부분의 보안팀이 이 문자열의 존재조차 모른다는 것이다.
+
+---
+
+## 60일 안에 CVE 3개가 터졌다
+
+![코드 화면 — 60일 동안 CVE 3개가 연달아 발견되며 OpenClaw 보안의 구조적 문제가 드러났다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/malware-code.jpg)
+
+2026년 1월부터 3월까지, 60일 동안 OpenClaw에서 고위험 CVE가 3개 연달아 나왔다.
+
+첫 번째는 **CVE-2026-25253**이다. CVSS 점수 **8.8**. 원클릭 원격 코드 실행 취약점이다. OpenClaw의 Control UI가 URL 파라미터를 검증하지 않아, 크로스사이트 WebSocket 하이재킹이 가능했다. localhost에서만 접근 가능하게 설정한 인스턴스도 당했다. 공격자가 악성 웹페이지를 만들고, 피해자가 그 페이지를 방문하면 **밀리초** 단위로 세션이 탈취된다. 2026년 1월 30일에 v2026.1.29로 패치됐고, 2월 3일에 공개 공시됐다.
+
+두 번째는 **CVE-2026-27487**이다. macOS 사용자를 노린 취약점으로, 악성 스킬이 사용자 모르게 **키체인 전체를 탈취**할 수 있었다. SSH 키, 비밀번호가 조용히 빠져나갔다. 0.6.28 이전 버전이 영향을 받았다.
+
+세 번째는 **CVE-2026-28446**이다. CVSS 점수 **9.8**. 가장 심각하다. OpenClaw의 음성 통화 확장의 오디오 트랜스크립션 파이프라인에서 발견된 **사전 인증 원격 코드 실행** 취약점이다. 인증이 필요 없다. 사용자 상호작용도 필요 없다. 조작된 오디오 페이로드를 보내면 셸 접근이 가능하다. 2026.2.1 이전 버전이 영향을 받았다.
+
+| CVE            | 날짜       | CVSS | 유형                          |
+| -------------- | ---------- | ---- | ----------------------------- |
+| CVE-2026-25253 | 2026년 1월 | 8.8  | WebSocket 세션 하이재킹 → RCE |
+| CVE-2026-27487 | 2026년 2월 | -    | macOS 키체인 명령어 주입      |
+| CVE-2026-28446 | 2026년 3월 | 9.8  | 음성통화 사전인증 RCE         |
+
+60일 동안 3개. 평균 20일에 하나꼴이다. 그리고 이 3개 모두, 해당 취약점이 공개되기 전에 이미 수만 개의 인스턴스가 인터넷에 노출된 상태였다.
+
+---
+
+## 마켓플레이스의 12%가 악성이었다
+
+2026년 1월 27일부터 29일까지, 3일 동안 OpenClaw의 스킬 마켓플레이스 ClawHub에서 대규모 공급망 공격이 벌어졌다. 보안 연구팀은 이 공격을 **ClawHavoc**이라 명명했다.
+
+ClawHub에 등록된 전체 스킬 **2,857개** 중 **341개가 악성**으로 판명됐다. 비율로 따지면 약 **12%**다. 10개 중 1개 이상이 악성 코드를 품고 있었다. 341개 중 **335개가 단일 캠페인**에서 비롯됐다.
+
+수법은 교묘했다. 악성 스킬들은 전문적인 문서와 그럴듯한 이름을 가지고 있었다. "solana-wallet-tracker" 같은 이름이다. 설치하면 외부 코드를 실행하라는 지시를 내린다. Windows에서는 **키로거**를, macOS에서는 **Atomic Stealer(AMOS) 인포스틸러**를 배포했다. AMOS는 암호화폐 지갑과 클라우드 자격증명을 탈취하는 전문 악성코드다.
+
+Snyk의 별도 분석에 따르면, 스캔된 스킬의 **36.82%**가 보안 결함을 포함하고 있었다. 악성이 아니더라도 보안이 허술한 스킬이 3개 중 1개 이상이라는 뜻이다. ClawHub은 npm이나 PyPI 같은 패키지 레지스트리가 겪었던 공급망 공격의 AI 에이전트 버전을 그대로 재현했다.
+
+---
+
+## 4만 개의 문이 열려 있었다
+
+![서버실과 네트워크 인프라 — 4만 개 이상의 인스턴스가 인증 없이 인터넷에 노출됐다](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/exposed-instances.jpg)
+
+노출 규모의 추이를 보면 상황의 심각성이 드러난다. 2026년 1월 말, Censys가 처음 스캔했을 때 노출 인스턴스는 약 **1,000개**였다. 며칠 만에 **21,639개**로 급증했다. 이후 독립 연구원 Maor Dayan이 ClawdHunter v3.0으로 더 정밀하게 스캔한 결과, **42,665개 이상**이 확인됐다. SecurityScorecard는 이 중 **28,663개의 고유 IP 주소**와 연결된 **40,214개** 인스턴스를 확인했다.
+
+노출 인스턴스에서 유출된 데이터는 이렇다.
+
+- API 키
+- OAuth 토큰
+- **평문(plaintext) 자격증명**
+- 대화 기록
+- 시스템 정보
+
+SecurityScorecard에 따르면, 관찰된 배포 중 **63%가 취약**했다. **12,812개**가 원격 코드 실행에 노출됐고, **549개**는 이전 침해 활동과 상관관계가 있었으며, **1,493개**는 알려진 취약점과 연결됐다.
+
+지역별 분포를 보면, 가장 많은 노출은 **중국**이었고 그 다음이 **미국**, **싱가포르** 순이었다. Reco의 원래 분석에서는 미국이 가장 큰 비중을 차지했고, 중국 인스턴스의 30%가 **알리바바 클라우드** 위에서 돌아가고 있었다. 가장 많이 노출된 산업은 정보 서비스, 기술, 제조, 통신 순이었다.
+
+---
+
+## Moltbook에서 150만 토큰이 새어나왔다
+
+개별 인스턴스 노출과는 별도로, OpenClaw 생태계의 백엔드 서비스에서도 대형 유출이 발생했다. 2026년 1월 31일, Moltbook의 보안이 미비한 데이터베이스가 노출됐다.
+
+유출 규모는 이렇다.
+
+- **35,000개** 이메일 주소
+- **150만 개** 에이전트 API 토큰
+- Moltbook 플랫폼의 활성 에이전트 수: **77만 개 이상**
+
+세션 토큰은 최대 **90일**간 유효한 상태였다. Fortune은 이 사건을 "데이터 프라이버시 보안의 악몽"이라고 표현했다. 150만 개의 API 토큰이 유출됐다는 것은, 77만 개 활성 에이전트에 연결된 모든 서비스(이메일, 캘린더, 문서, Slack, Google Workspace)에 대한 접근 권한이 공격자에게 열렸다는 뜻이다.
+
+OpenClaw이 연결하는 SaaS 서비스 목록을 보면 피해의 범위가 짐작된다. Slack, Google Workspace, Microsoft 365, Salesforce, ServiceNow, Workday, Okta. 하나의 OAuth 토큰이 탈취되면, 그 토큰이 연결된 모든 서비스로 **횡적 이동**이 가능하다. 보안 연구자들은 이를 **"권한을 가진 섀도우 AI(shadow AI with elevated privileges)"**라고 불렀다.
+
+---
+
+## 보안팀이 모르는 게 진짜 문제다
+
+기술적 취약점보다 더 근본적인 문제가 있다. 대부분의 기업 보안팀이 자사 네트워크에 OpenClaw이 돌아가고 있다는 사실 자체를 모른다.
+
+OpenClaw은 개발자나 직원이 개인적으로 설치한다. IT 부서의 승인을 거치지 않는다. 한 번 설치하면 이메일, 캘린더, 문서, 메시지 플랫폼에 OAuth 연결을 만든다. 전통적 보안 도구는 AI 에이전트의 활동을 탐지하지 못한다. SIEM에 OpenClaw의 User-Agent 문자열을 탐지하는 룰을 넣어둔 기업이 얼마나 될까.
+
+Reco의 수석 보안 연구원 Alon Klayman은 이렇게 정리했다. **"보이지 않는 것은 보호할 수 없다."** 보안팀이 해야 할 첫 번째 일은 가시성을 확보하는 것이다. 이메일, 캘린더, 문서, 메시지 플랫폼 전반에서 AI 에이전트 연결을 탐지해야 한다. OAuth 부여 내역을 모니터링해야 한다. Slack 접근 로그에서 OpenClaw User-Agent 문자열을 검색해야 한다.
+
+SecurityScorecard의 위협 인텔리전스 VP Jeremy Turner의 조언은 더 직설적이다. "무작정 다운로드하지 마라. 분리해서 구축하고, 신뢰하기 전에 실험해라."
+
+보안 커뮤니티의 반응은 "보안 악몽"부터 **"dumpster fire"**까지 다양했다. 그런데 13만 5천에서 25만으로 스타가 늘어나는 동안, 노출 인스턴스도 2만에서 4만으로 늘었다. 경고가 사용자를 멈추지 못했다.
+
+---
+
+## 편의성이 보안을 이기는 패턴
+
+![디지털 데이터 스트림 — 편의성을 선택한 대가로 보안이 무너진 AI 에이전트 생태계의 단면](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/data-breach.jpg)
+
+OpenClaw 사태가 보여주는 것은 특정 도구의 결함이 아니다. AI 에이전트라는 새로운 소프트웨어 카테고리의 **구조적 보안 문제**다.
+
+첫째, **기본 설정의 문제**다. OpenClaw은 관리 인터페이스에 인증을 요구하지 않는 상태로 출하된다. 93%의 노출 인스턴스가 인증 우회 취약점을 가진 이유다. 편의성을 우선하는 기본값이 보안을 희생한다.
+
+둘째, **마켓플레이스의 신뢰 문제**다. ClawHub은 npm 초기의 실수를 반복했다. 누구나 스킬을 올릴 수 있고, 검증 절차는 부실하다. 전체 스킬의 12%가 악성이고, 36.82%에 보안 결함이 있다는 것은 생태계 자체가 무방비라는 뜻이다.
+
+셋째, **권한의 범위 문제**다. OpenClaw은 작동하기 위해 이메일, 캘린더, 문서, 메시지, 파일 시스템, 셸에 대한 접근 권한을 요구한다. 기존 소프트웨어와 비교할 수 없는 수준의 권한이다. 하나의 에이전트가 뚫리면 연결된 모든 서비스가 노출된다. 전통적인 공급망 공격보다 **폭발 반경(blast radius)**이 훨씬 크다.
+
+OpenClaw의 스타는 계속 올라갈 것이다. 생산성 이점이 보안 우려를 이기는 한 그렇다. 하지만 4.2만 개의 열린 문 앞에서, 스타 수는 위험의 크기를 측정하는 또 다른 지표가 된다. 성장이 빠를수록 노출도 빠르다. GitHub 스타 25만 개는 오픈소스 역사의 이정표다. 그런데 그 이정표 뒤편에, 보안팀이 세고 있는 숫자는 전혀 다른 이야기를 하고 있다.
+
+---
+
+**출처:**
+
+- [OpenClaw: The AI Agent Security Crisis Unfolding Right Now -- Reco](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+- [OpenClaw Surpasses React With 250,000 GitHub Stars -- Yahoo Finance](https://finance.yahoo.com/news/openclawd-releases-major-platform-openclaw-150000544.html)
+- [CVE-2026-28446: The OpenClaw Voice RCE That Makes 42,000 AI Instances Remotely Exploitable -- DEV Community](https://dev.to/tiamatenity/cve-2026-28446-the-openclaw-voice-rce-that-makes-42000-ai-instances-remotely-exploitable-3nbm)
+- [Researchers Find 40,000+ Exposed OpenClaw Instances -- Infosecurity Magazine](https://www.infosecurity-magazine.com/news/researchers-40000-exposed-openclaw/)
+- [OpenClaw: The Open-Source AI Assistant That Exposed 42,000 Servers -- DEV Community](https://dev.to/tiamatenity/openclaw-the-open-source-ai-assistant-that-exposed-42000-servers-and-nobody-noticed-416d)

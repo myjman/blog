@@ -1,0 +1,148 @@
+---
+title: 'OpenClaw Hit 250K Stars. 42K Are Exposed.'
+date: '2026-03-08T12:00:23'
+language: 'en'
+translationOf: 'openclaw-250k-stars-42k-exposed'
+tags: ['openclaw', 'security', 'ai-agent', 'vulnerability', 'supply-chain-attack']
+draft: false
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/og-image.jpg',
+  ]
+summary: 'OpenClaw passed React with 250,000 GitHub stars. In the same period, 42,000+ instances were found exposed on the public internet with no authentication. 341 malicious skills infiltrated its marketplace.'
+---
+
+## Most Stars Ever. Most Exposure Ever.
+
+![Cybersecurity crisis -- OpenClaw became the fastest-growing and most dangerous open-source project simultaneously](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/og-image.jpg)
+
+On March 3, 2026, OpenClaw hit **250,829 GitHub stars**, overtaking React to become the most-starred software project on GitHub. 48,274 forks. 1,075 contributors. It reached this milestone roughly 60 days after going viral. No open-source project in history has grown this fast.
+
+During the same period, security researchers were counting different numbers. Independent researcher Maor Dayan, using a custom tool called ClawdHunter v3.0, discovered **42,665+ OpenClaw instances** exposed on the public internet. Of verified instances, **93.4%** had critical authentication bypass vulnerabilities. SecurityScorecard independently confirmed **40,214 exposed instances** across **28,663 unique IP addresses**, with **12,812** vulnerable to remote code execution.
+
+A project with 250,000 stars had 42,000 open doors.
+
+---
+
+## What OpenClaw Actually Is
+
+OpenClaw is an open-source AI agent created by developer Peter Steinberger. It was previously known as Clawdbot, then Moltbot after trademark disputes. Its capabilities go well beyond chatbot territory: it executes shell commands, reads and writes files, browses the web, sends emails, and manages calendars. Users interact with it through WhatsApp, Slack, Telegram, Discord, and iMessage. It maintains **persistent memory** across sessions and connects to LLMs like Claude or GPT.
+
+Here is what matters for security: OpenClaw is not a chatbot. It is a **privileged agent** with access to your email, documents, messages, and API keys. Hook it up to Slack and it reads messages and files. Connect it to Google Workspace and it accesses documents. With an OAuth token, it can move **laterally** across every connected service. Reco's security research team identified OpenClaw's User-Agent string:
+
+```
+ApiApp/<SlackAppID> @slack:socket-mode/2.0.5 @slack:bolt/4.6.0
+@slack:web-api/7.13.0 openclaw/22.22.0 <OS-Identifier>
+```
+
+That string is enough to detect OpenClaw instances in your organization. The problem is that most security teams do not know to look for it.
+
+---
+
+## Three CVEs in 60 Days
+
+![Code on screen -- three CVEs dropped in 60 days, revealing structural security problems in OpenClaw](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/malware-code.jpg)
+
+Between January and March 2026, three high-severity CVEs hit OpenClaw in rapid succession.
+
+**CVE-2026-25253** came first. CVSS **8.8**. A one-click remote code execution vulnerability. OpenClaw's Control UI failed to validate URL parameters, enabling cross-site WebSocket hijacking. Even instances configured for localhost-only access were exploitable. An attacker creates a malicious webpage. The victim visits it. Session takeover happens in **milliseconds**. Patched in v2026.1.29 on January 30, publicly disclosed February 3.
+
+**CVE-2026-27487** targeted macOS users. A malicious skill could **silently exfiltrate all keychain entries** -- SSH keys, passwords, credentials -- without user awareness. Versions below 0.6.28 were affected.
+
+**CVE-2026-28446** was the worst. CVSS **9.8**. A pre-authentication remote code execution flaw in OpenClaw's voice-call extension. The audio transcription pipeline accepted crafted payloads without any authentication. No valid session needed. No user interaction required. Send a payload, get shell access. Versions prior to 2026.2.1 were affected.
+
+| CVE            | Date     | CVSS | Type                               |
+| -------------- | -------- | ---- | ---------------------------------- |
+| CVE-2026-25253 | Jan 2026 | 8.8  | WebSocket session hijacking to RCE |
+| CVE-2026-27487 | Feb 2026 | --   | macOS keychain command injection   |
+| CVE-2026-28446 | Mar 2026 | 9.8  | Voice-call pre-auth RCE            |
+
+Three critical vulnerabilities in 60 days. One every 20 days on average. All three hit while tens of thousands of instances sat exposed on the public internet without authentication.
+
+---
+
+## 12% of the Marketplace Was Malicious
+
+From January 27 to 29, 2026, a large-scale supply chain attack hit ClawHub, OpenClaw's skill marketplace. Security researchers named the campaign **ClawHavoc**.
+
+Out of **2,857 total skills** on ClawHub, **341 were malicious**. That is roughly **12%** -- one in every eight skills. Of those 341, **335 came from a single coordinated campaign**.
+
+The attackers used professional documentation and innocent-sounding names like "solana-wallet-tracker." Once installed, these skills instructed users to run external code. On Windows, the payload was a **keylogger**. On macOS, it delivered **Atomic Stealer (AMOS)**, an infostealer specializing in cryptocurrency wallets and cloud credentials.
+
+A separate Snyk analysis found that **36.82%** of scanned skills contained security flaws. Even skills that were not actively malicious had sloppy security. More than one in three. ClawHub recreated the supply chain attack patterns that npm and PyPI have been fighting for years -- except the blast radius is worse, because an AI agent skill has access to far more than a typical software dependency.
+
+---
+
+## 42,000 Open Doors
+
+![Server room and network infrastructure -- over 40,000 instances exposed to the internet without authentication](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/exposed-instances.jpg)
+
+The growth curve of exposed instances tells its own story. When Censys first scanned in late January 2026, there were roughly **1,000** exposed instances. Days later, that number jumped to **21,639**. Then Maor Dayan ran a more comprehensive scan with ClawdHunter v3.0 and found **42,665+**. SecurityScorecard confirmed **40,214** instances linked to **28,663 unique IP addresses**.
+
+Data leaking from these exposed instances included:
+
+- API keys
+- OAuth tokens
+- **Plaintext credentials**
+- Conversation histories
+- System information
+
+According to SecurityScorecard, **63% of observed deployments were vulnerable**. **12,812** were exploitable via remote code execution. **549** correlated with prior breach activity. **1,493** were linked to known vulnerabilities.
+
+Geographic distribution: the largest number of exposed instances was in **China**, followed by the **United States** and **Singapore**. Reco's earlier analysis had the US as the largest share, with 30% of Chinese instances running on **Alibaba Cloud**. The most affected industries were information services, technology, manufacturing, and telecommunications.
+
+---
+
+## 1.5 Million Tokens Leaked from Moltbook
+
+Separate from the individual instance exposure, OpenClaw's backend ecosystem produced its own breach. On January 31, 2026, an unsecured Moltbook database was discovered exposed to the internet.
+
+The leak included:
+
+- **35,000** email addresses
+- **1.5 million** agent API tokens
+- The Moltbook platform had **770,000+ active agents** at the time
+
+Session tokens remained valid for up to **90 days**. Fortune called it a "data privacy security nightmare." 1.5 million leaked API tokens meant that every service connected to those 770,000 agents -- email, calendars, documents, Slack, Google Workspace -- was potentially accessible to attackers.
+
+Consider the services OpenClaw integrates with: Slack, Google Workspace, Microsoft 365, Salesforce, ServiceNow, Workday, Okta. One compromised OAuth token enables **lateral movement** across every connected platform. Security researchers called it **"shadow AI with elevated privileges"** -- AI agents running inside organizations with more access than most employees, and zero visibility to security teams.
+
+---
+
+## The Real Problem Is What Security Teams Cannot See
+
+The technical vulnerabilities are bad. The structural problem is worse. Most enterprise security teams do not know that OpenClaw is running inside their networks.
+
+OpenClaw gets installed by developers and employees individually. No IT approval. Once running, it creates OAuth connections to email, calendars, documents, and messaging platforms. Traditional security tools do not detect AI agent activity. How many enterprises have SIEM rules to flag OpenClaw's User-Agent string? Close to zero.
+
+Reco senior security researcher Alon Klayman put it simply: **"You cannot secure what you cannot see."** The first job for security teams is visibility -- detecting AI agent connections across email, calendars, documents, and messaging. Monitoring OAuth grants. Searching Slack access logs for OpenClaw User-Agent strings.
+
+SecurityScorecard VP of threat intelligence Jeremy Turner was more blunt: "Don't just blindly download one. Build in separation and run experiments before trusting new technology."
+
+The security community's reactions ranged from "security nightmare" to **"dumpster fire."** But while the warnings piled up, stars grew from 135,000 to 250,000 and exposed instances doubled from 21,000 to 42,000. Warnings did not slow adoption.
+
+---
+
+## Convenience Beats Security. Every Time.
+
+![Digital data stream -- the cost of choosing convenience over security in the AI agent ecosystem](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-250k-stars-42k-exposed/data-breach.jpg)
+
+The OpenClaw crisis is not about one tool with bad defaults. It is a preview of the structural security problem facing every AI agent.
+
+First, **defaults ship insecure**. OpenClaw does not require authentication on its management interface out of the box. That is why 93% of exposed instances had auth bypass vulnerabilities. Convenience-first defaults sacrifice security by design.
+
+Second, **marketplaces inherit supply chain risk**. ClawHub repeated the early mistakes of npm. Anyone can publish a skill. Verification is thin. When 12% of skills are malicious and 36.82% have security flaws, the ecosystem itself is the vulnerability.
+
+Third, **agent permissions are unprecedented**. OpenClaw requires access to email, calendars, documents, messages, the file system, and shell execution to function. No previous category of software demanded this level of access. One compromised agent exposes every connected service. The **blast radius** dwarfs a traditional supply chain attack.
+
+OpenClaw's star count will keep climbing. Productivity wins beat security concerns every time. But at 42,000 open doors, the star count becomes a second metric -- one that measures the scale of exposure, not just popularity. Faster growth means faster exposure. 250,000 GitHub stars is a milestone in open-source history. Behind that milestone, security teams are counting a very different set of numbers.
+
+---
+
+**Sources:**
+
+- [OpenClaw: The AI Agent Security Crisis Unfolding Right Now -- Reco](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+- [OpenClaw Surpasses React With 250,000 GitHub Stars -- Yahoo Finance](https://finance.yahoo.com/news/openclawd-releases-major-platform-openclaw-150000544.html)
+- [CVE-2026-28446: The OpenClaw Voice RCE That Makes 42,000 AI Instances Remotely Exploitable -- DEV Community](https://dev.to/tiamatenity/cve-2026-28446-the-openclaw-voice-rce-that-makes-42000-ai-instances-remotely-exploitable-3nbm)
+- [Researchers Find 40,000+ Exposed OpenClaw Instances -- Infosecurity Magazine](https://www.infosecurity-magazine.com/news/researchers-40000-exposed-openclaw/)
+- [OpenClaw: The Open-Source AI Assistant That Exposed 42,000 Servers -- DEV Community](https://dev.to/tiamatenity/openclaw-the-open-source-ai-assistant-that-exposed-42000-servers-and-nobody-noticed-416d)
