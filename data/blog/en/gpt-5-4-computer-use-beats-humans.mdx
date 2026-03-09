@@ -1,0 +1,138 @@
+---
+title: 'AI Now Uses Computers Better Than You'
+date: '2026-03-10T07:00:35'
+tags: ['gpt-5-4', 'openai', 'computer-use', 'ai-agent', 'office-automation']
+draft: false
+language: 'en'
+translationOf: 'gpt-5-4-computer-use-beats-humans'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-computer-use-beats-humans/og-image.jpg',
+  ]
+summary: 'GPT-5.4 scored 75.0% on OSWorld-Verified. The human baseline is 72.4%. AI now clicks, types, and navigates desktops better than the average person.'
+---
+
+## 75.0% vs 72.4%. The Machine Won.
+
+![GPT-5.4 computer use -- AI has surpassed the human baseline in desktop automation](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-computer-use-beats-humans/og-image.jpg)
+
+There is a benchmark called OSWorld-Verified. It measures how well an agent performs real tasks on a desktop: opening files, organizing folders, pulling data from a browser into a spreadsheet. Humans score **72.4%** on it.
+
+On March 5, 2026, OpenAI released GPT-5.4. It scored **75.0%**. That is up from GPT-5.2's 47.3% -- a 27.7-point leap in a single generation. The number matters less than what it represents. This is the first time an AI model has beaten the human baseline at using a computer. Not writing code. Using a computer. Clicking, typing, dragging, navigating.
+
+A year and a half ago, AI computer use was a parlor trick. Anthropic launched computer use beta with Claude 3.5 Sonnet in October 2024. The consensus was "interesting but unusable." GPT-5.2 sat at 47.3% on OSWorld. One generation later, the machine crossed the line.
+
+---
+
+## Two Modes: Code and Screenshots
+
+GPT-5.4's computer use works in two distinct modes. **Code mode** uses Python and Playwright to control browsers programmatically. It logs into websites, fills forms, extracts data, downloads files. This mode is fast and precise, ideal for structured, repeatable web tasks.
+
+**Screenshot mode** is different. The model takes a screenshot of the screen, analyzes the image, and issues mouse and keyboard commands. It operates the same way a human does -- visually. This works on any application: desktop apps, OS settings, file managers, legacy software with no API. If it has a screen, GPT-5.4 can interact with it.
+
+The combination is what makes this practical. Structured web workflows run through code mode at high speed. When the agent hits an unexpected UI, a legacy app, or a non-standard dialog box, it falls back to screenshot mode. It mirrors how a human office worker switches between keyboard shortcuts and mouse clicks depending on context.
+
+---
+
+## ChatGPT Moved Into Excel
+
+![Spreadsheet and data analysis -- GPT-5.4 operates directly inside Excel workbooks](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-computer-use-beats-humans/spreadsheet.jpg)
+
+Alongside GPT-5.4, OpenAI launched **ChatGPT for Excel** in beta. This is not a chatbot that writes formulas on request. It sits inside the workbook. It reads cell ranges, writes multi-step formulas, and runs analysis directly in the spreadsheet.
+
+On OpenAI's internal benchmark for junior investment banking analyst tasks, GPT-5.4 scored **87.3%**. GPT-5.2 scored **68.4%**. These tasks include DCF analysis, earnings previews, comparable company analysis, and investment memos. A 19-point jump in one generation.
+
+OpenAI also announced financial data integrations. ChatGPT users can now access data from **Moody's, Dow Jones Factiva, MSCI, Third Bridge, and MT Newswire** directly within the interface. FactSet is coming soon. Institutional-grade data feeds, no Bloomberg terminal required.
+
+ChatGPT for Excel is rolling out in beta in the US, Canada, and Australia to ChatGPT Business, Enterprise, Education, Pro, and Plus subscribers. Google Sheets support is listed as "coming soon." Enterprise and Education workspaces have it disabled by default -- admins control access.
+
+The signal is clear. OpenAI is no longer building for developers alone. It is going after Wall Street's spreadsheets.
+
+---
+
+## Where AI Passed Humans, Where It Didn't
+
+GPT-5.4's scorecard reveals a sharp divide. Some capabilities leapt forward. Others barely moved.
+
+| Benchmark                | GPT-5.2 | GPT-5.4 | Human Baseline | Status      |
+| ------------------------ | ------- | ------- | -------------- | ----------- |
+| OSWorld-Verified         | 47.3%   | 75.0%   | 72.4%          | Above human |
+| Spreadsheet Modeling     | 68.4%   | 87.3%   | -              | -           |
+| BrowseComp (Web Search)  | 65.8%   | 82.7%   | -              | -           |
+| GDPval (Knowledge Tasks) | 70.9%   | 83.0%   | -              | -           |
+| SWE-bench Pro (Coding)   | 55.6%   | 57.7%   | -              | Below human |
+| WebArena-Verified        | 65.4%   | 67.3%   | -              | -           |
+
+The 75.0% on OSWorld is not just a number. This benchmark tests real desktop operations: file management, app navigation, and moving data across multiple applications. It is a direct proxy for office work.
+
+Meanwhile, SWE-bench Pro crawled from 55.6% to 57.7% -- a gain of 2.1 points across two model generations. Coding remains hard. Desktop automation got easy. At least on the benchmarks.
+
+---
+
+## 1 Million Tokens and 47% Token Savings
+
+GPT-5.4's context window is **1 million tokens**. That is 2.5x GPT-5.3's 400,000 tokens. Long documents, extended agent sessions, multi-step workflows -- all fit within a single context.
+
+There is a catch. Beyond 272,000 input tokens, **input costs double** and **output costs increase by 1.5x**. You can use the full million, but it gets expensive fast.
+
+OpenAI shipped a cost-reduction mechanism alongside it. **Tool Search** reduces token usage by **47%** at equivalent accuracy across 250 MCP Atlas tasks with 36 MCP servers enabled. Instead of loading every tool definition into the context window, the model searches for and retrieves only what it needs. For agent-heavy workloads with dozens of tools, the savings are significant.
+
+![A person working at a computer -- AI is beginning to perform desktop tasks in place of human workers](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-computer-use-beats-humans/desktop-work.jpg)
+
+API pricing is public. GPT-5.4 base: input **$2.50/1M tokens**, output **$15/1M tokens**. Cached input drops to **$0.25** -- one-tenth of the standard rate. For repetitive agent workflows with high cache hit rates, this makes a real difference.
+
+GPT-5.4 Pro costs input **$30**, output **$180**. Twelve times the base model. Pro hits **94.4%** on GPQA Diamond, **83.3%** on ARC-AGI-2, and **89.3%** on BrowseComp. It is built for enterprises that need peak performance and will pay for it.
+
+---
+
+## The "High Capability" Cybersecurity Rating
+
+GPT-5.4 Thinking received a **"High Capability"** cybersecurity rating under OpenAI's Preparedness Framework. The official meaning: the model "can remove existing barriers to cyberattacks." OpenAI published this about its own product.
+
+This is directly tied to computer use. A model that reads screenshots and clicks mice can also browse websites, log into accounts, and download files autonomously. The same capability that automates expense reports can automate phishing campaigns.
+
+OpenAI deployed a real-time message blocking system in response. It works in two stages: a topic classifier analyzes the message, then an AI security analyst performs additional review. High-risk requests are blocked asynchronously. GPT-5.4 also reduced false claims by **33%** and overall response errors by **18%** compared to GPT-5.2.
+
+More accurate and more dangerous at the same time. That is the fundamental paradox of computer-using AI. A model that is good at operating computers is equally good at misusing them.
+
+---
+
+## The Anthropic Competition Has Shifted
+
+Anthropic opened the computer use category. Claude 3.5 Sonnet shipped computer use beta in October 2024. OpenAI arrived roughly 18 months later. But on OSWorld-Verified, GPT-5.4's 75.0% ranks among the highest published scores.
+
+The competitive landscape is splitting along clear lines.
+
+| Category            | Anthropic Claude       | OpenAI GPT-5.4        |
+| ------------------- | ---------------------- | --------------------- |
+| Computer Use Launch | Oct 2024 (first mover) | Mar 2026 (late entry) |
+| OSWorld-Verified    | -                      | 75.0%                 |
+| SWE-bench Verified  | 79.2% (Opus 4.6)       | 77.2%                 |
+| Financial Data      | Limited                | Moody's, MSCI, etc.   |
+| Excel Integration   | None                   | ChatGPT for Excel     |
+
+Anthropic launched Claude for Financial Services in July 2025. But its approach differs from OpenAI's. Anthropic built a specialized financial product. OpenAI plugged institutional data feeds into its general-purpose model. FactSet, Moody's, Dow Jones Factiva -- all accessible directly within ChatGPT.
+
+This is a strategic fork. Anthropic wins on coding. OpenAI wins in the office. On SWE-bench, Claude Opus 4.6 leads. On Excel and financial data, OpenAI leads. They are fighting in the same market but choosing different battlefields.
+
+---
+
+## Computers Before Code
+
+Here is what GPT-5.4 tells us in one sentence: AI conquered using computers before it conquered writing code.
+
+This is counterintuitive. Coding is text-based and rule-governed -- it should be easier for AI. But reality says otherwise. While SWE-bench gained 2 points, OSWorld gained 28. Code requires long-horizon reasoning and multi-step planning. Desktop automation requires pattern recognition and immediate reaction. Current AI architectures are better at the latter.
+
+The implications for office workers may be larger than for developers. Developers write code, and AI still does not write code well enough to replace them. Office workers use computers, and AI already uses computers better than they do. The disruption is not coming for the coder first. It is coming for the desk worker.
+
+Benchmarks are not reality, of course. OSWorld-Verified's 75.0% was measured in a controlled environment. Real-world variables -- network latency, unexpected popups, multi-factor authentication, non-standard UIs -- are not captured. But the direction is undeniable. The moment the score crossed from 72.4% to 75.0%, the question changed. It is no longer "can AI use a computer." It is **"how many computer tasks does a human still do better."**
+
+---
+
+**Sources**
+
+- [OpenAI launches GPT-5.4 with native computer use mode, financial plugins for Microsoft Excel, Google Sheets -- VentureBeat](https://venturebeat.com/technology/openai-launches-gpt-5-4-with-native-computer-use-mode-financial-plugins-for)
+- [OpenAI Launches GPT-5.4 With Native Computer Use and Finance Tools -- WinBuzzer](https://winbuzzer.com/2026/03/06/openai-launches-gpt-54-with-computer-use-and-finance-tools-xcxwbn/)
+- [OpenAI Released GPT-5.4 -- Here's What to Know -- Deeper Insights](https://deeperinsights.com/ai-blog/openai-released-gpt-5-4/)
+- [GPT-5.4 Lands with Computer Use and 1M Token Context -- Awesome Agents](https://awesomeagents.ai/news/gpt-5-4-computer-use-office-launch/)
+- [OpenAI releases GPT-5.4 with native computer use -- TechInformed](https://techinformed.com/openai-releases-gpt-5-4-with-native-computer-use-and-a-finance-focused-enterprise-bundle/)
