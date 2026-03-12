@@ -1,0 +1,115 @@
+---
+title: 'SWE-Bench 0.8% Gap Hides the Real Story'
+date: '2026-03-13T07:00:35'
+tags: ['swe-bench', 'gpt-5-4', 'claude-opus', 'ai-coding', 'benchmark']
+draft: false
+language: 'en'
+translationOf: 'swe-bench-08-percent-uncomfortable-truth'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/swe-bench-08-percent-uncomfortable-truth/og-image.jpg',
+  ]
+summary: 'Opus 4.6 scores 80.8% on SWE-Bench Verified. GPT-5.4 scores 80%. A 0.8% gap. But on SWE-Bench Pro, GPT-5.4 leads by 28%. One benchmark tells a very incomplete story.'
+---
+
+## 80.8% vs 80%: Why This Number Alone Means Nothing
+
+![Data analytics screen showing AI coding benchmark comparisons](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/swe-bench-08-percent-uncomfortable-truth/og-image.jpg)
+
+On March 5, 2026, OpenAI shipped GPT-5.4. The first thing the AI coding world checked was the SWE-Bench Verified score. The result: **80%**. Claude Opus 4.6 sits at **80.8%**. A gap of 0.8 percentage points. Twitter split predictably -- "Opus still number one" on one side, "GPT nearly caught up" on the other. It felt like an Olympic 100-meter final where the margin is measured in hundredths of a second.
+
+But fixating on this single number obscures the full picture. SWE-Bench Verified is one benchmark among many. On SWE-Bench Pro, which tests harder engineering problems, GPT-5.4 scores **57.7%** while Opus 4.6 lands around **45-46%**. That is a 28% lead for GPT. On Terminal-Bench 2.0, GPT-5.4 posts **75.1%** versus Opus's **65.4%**. Same two models. Different exams. Different winners. The uncomfortable truth behind that 0.8% gap: no single benchmark can tell you which AI is better at coding.
+
+## SWE-Bench Verified vs SWE-Bench Pro: Same Name, Different Exam
+
+SWE-Bench Verified and SWE-Bench Pro share a name but not a difficulty level. SWE-Bench Verified draws from real open-source issues and pull requests. It measures an AI's ability to read an issue, modify code, and pass tests. Since 2024, it has been the headline metric for coding models.
+
+SWE-Bench Pro is a harder test. More complex codebases. Changes that span more files. Trickier edge cases. If Verified is "fix a mid-level developer's bug," Pro is closer to "tackle a refactoring task that would keep a senior developer busy for days."
+
+Line up the results and the landscape shifts.
+
+| Benchmark          | GPT-5.4 | Claude Opus 4.6 | Gap         |
+| ------------------ | ------- | --------------- | ----------- |
+| SWE-Bench Verified | 80%     | 80.8%           | Opus +0.8%p |
+| SWE-Bench Pro      | 57.7%   | ~45-46%         | GPT +28%    |
+| Terminal-Bench 2.0 | 75.1%   | 65.4%           | GPT +9.7%p  |
+
+Opus edges ahead on the standard test. GPT-5.4 pulls away decisively on the harder ones. Declaring Opus "the best coding model" based solely on Verified is like judging class rank from a single exam score.
+
+## The Cost Gap Benchmarks Do Not Measure
+
+![Benchmark data chart on a screen](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/swe-bench-08-percent-uncomfortable-truth/benchmark.jpg)
+
+Beyond scores, there is a variable that matters enormously in production: cost. According to NxCode's analysis, the API pricing gap between GPT-5.4 and Opus 4.6 is substantial.
+
+| Metric                 | GPT-5.4 | Claude Opus 4.6 | Multiplier |
+| ---------------------- | ------- | --------------- | ---------- |
+| Input (per 1M tokens)  | $2.50   | $15             | 6x         |
+| Output (per 1M tokens) | $15     | $75             | 5x         |
+| Max output tokens      | 128K    | 128K            | Same       |
+
+Six times cheaper on input. Five times cheaper on output. Even GPT-5.4's Pro tier ($30 input / $180 output) undercuts standard Opus 4.6 pricing. Add the fact that GPT-5.4 uses **47% fewer tokens** on complex tasks compared to its predecessor, and the effective cost gap widens further.
+
+NxCode provides a concrete example. A task costing $1.00 with Opus 4.6 might run **$0.10 to $0.15** with GPT-5.4. Seven to ten times cheaper. If the price of a 0.8 percentage point lead on SWE-Bench Verified is a 5-10x cost premium, how many teams will pay it?
+
+Price is not everything. Code quality, reliability, and complex refactoring capability all matter. But for automation pipelines running thousands of API calls, cost is not a rounding error. The "number one" title on a benchmark can mean something very different to a finance team.
+
+## Context Windows: What the Numbers Leave Out
+
+Beyond benchmarks and pricing, there is another dimension that matters in real work: context windows. How much code a model can read and process in a single pass.
+
+GPT-5.4 ships with a **1.05 million token** context window by default. Opus 4.6 offers **200,000 tokens** standard, with 1 million still in beta. A 5x gap. For tasks that require analyzing large codebases at once or referencing dozens of files simultaneously, this difference is significant.
+
+Opus 4.6 compensates through a different mechanism: **Agent Teams**, a parallel multi-agent orchestration feature. Instead of one agent reading all the code, multiple agents split the work, analyze in parallel, and merge results. An architectural workaround for the physical limit of a context window.
+
+GPT-5.4 takes the single-model-big-context approach. Opus 4.6 takes the multi-model-collaboration approach. Which works better depends on the task. Deep analysis of a single file or a few related files favors a large context window. Massive refactoring across dozens of files may favor multi-agent orchestration. SWE-Bench scores capture none of this.
+
+## Computer Use: The Battlefield Benchmarks Ignore
+
+![Image representing competition and strategy](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/swe-bench-08-percent-uncomfortable-truth/pricing.jpg)
+
+There is one more dimension SWE-Bench does not measure at all: computer use. Opening browsers. Running terminal commands. Operating GUIs. GPT-5.4 delivered notable results in this space.
+
+On the OSWorld benchmark, GPT-5.4 scored **75%**. The human baseline is **72.4%**. This marks the first time an AI has exceeded the human baseline on a computer use benchmark. Opus 4.6 scored **72.7%** on the same test, roughly matching the human baseline.
+
+This matters because AI coding is expanding beyond "write code" into "operate a computer." Setting up dev environments, running tests, managing deployment pipelines -- these are all part of a developer's job. GPT-5.4 leading in this area suggests that SWE-Bench alone cannot capture future coding AI competitiveness.
+
+On GDPval, GPT-5.4 scored **83%** across 44 professional occupations in knowledge work. No official Opus 4.6 score has been published for this benchmark. GPT-5.4 is aggressively expanding into general-purpose work capability, not just coding.
+
+Opus 4.6 has its own strongholds. It scored **85.1%** on MMMU Pro for visual reasoning and **76%** on MRCR v2 for 1-million-token context retrieval. Visual reasoning and long-context processing are Opus territory. Each model aces different exams.
+
+## What "Use Both" Actually Means
+
+NxCode's analysis reaches an interesting conclusion. Do not pick between GPT-5.4 and Opus 4.6. **Use both.** GPT-5.4 for prototyping, automation, and quick tasks. Opus 4.6 for deep refactoring, codebase analysis, and agent workflows. Tools like Cursor, Continue.dev, and NxCode already support both models.
+
+The implication is clear. **The era of declaring a single "best coding AI" from one benchmark is over.** A 0.8-point lead on SWE-Bench Verified does not mean superiority across all coding tasks. That is legacy thinking. Real development work is varied, and different tasks have different optimal tools.
+
+This signals a shift in how developers should evaluate AI coding tools. The old question was "which model is number one on the benchmark." The new question is "which model is optimal for this specific task." Not a single leaderboard but a cost-performance matrix by task type.
+
+## The Odd Symmetry in Subscription Pricing
+
+![Image representing balance and choice](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/swe-bench-08-percent-uncomfortable-truth/balance.jpg)
+
+At the API level, GPT-5.4 is drastically cheaper. But at the subscription level, the pricing is oddly symmetric. Both ChatGPT Plus and Claude Pro cost **$20 per month**. Both premium tiers -- ChatGPT Pro and Claude Max -- cost **$200 per month**. Consumer pricing is identical.
+
+The difference lies in what the subscription includes. ChatGPT Pro delivers GPT-5.4 Pro with higher token quality and increased rate limits. Claude Max provides unlimited Opus 4.6 access with Agent Teams. Same $200, different offerings.
+
+For individual developers, $20 a month is not a decisive factor either way. But for enterprise teams making thousands of API calls, the per-token pricing difference can translate to tens of thousands of dollars per month. A 0.8% benchmark advantage becomes irrelevant when it costs 5-10x more.
+
+The winner of the benchmark race will ultimately be decided by the market, not by scores. Whether a 0.8-point edge on one benchmark can justify a 5x price premium is the real question. The answer will come from the teams actually writing code in production.
+
+## The Question Behind the Question
+
+The debate over SWE-Bench's 0.8% gap masks a bigger question: what is the right way to measure an AI coding model's capability?
+
+SWE-Bench measures the ability to fix well-defined bugs. There is an issue, a solution, and tests. The answer is clear-cut. But real development is different. Requirements are ambiguous. Multiple solutions are valid. The gap between "code that works" and "code that is good" matters. Design decisions, technical debt management, adherence to team conventions -- none of these are captured by any benchmark.
+
+GPT-5.4 leading SWE-Bench Pro by 28% is impressive. But SWE-Bench Pro is still a test with defined problems and defined solutions. What developers actually feel when using a coding AI often falls outside benchmarks. How well the model grasps intent. Whether code style stays consistent. Whether it avoids unnecessary changes.
+
+Before celebrating or lamenting a 0.8% gap, ask a more fundamental question: does that benchmark represent your work? How many developers could actually distinguish an 80% model from an 80.8% model in their daily projects? A benchmark is a map. The map is not the terrain. The uncomfortable truth that 0.8% hides is that we still have not figured out how to properly measure AI coding ability.
+
+---
+
+**Sources**
+
+- [GPT-5.4 vs Claude Opus 4.6: Complete Coding Comparison 2026 -- NxCode](https://www.nxcode.io/resources/news/gpt-5-4-vs-claude-opus-4-6-coding-comparison-2026)
