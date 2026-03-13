@@ -1,0 +1,129 @@
+---
+title: 'OpenClaw Hit #1 on GitHub, 12% Malware'
+date: '2026-03-14T07:00:35'
+tags: ['openclaw', 'ai-agent', 'malware', 'supply-chain-attack', 'security']
+draft: false
+language: 'en'
+translationOf: 'openclaw-12-percent-malicious-plugins'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-12-percent-malicious-plugins/og-image.jpg',
+  ]
+summary: 'OpenClaw became the fastest-growing GitHub repo ever. Then security researchers found that 12% of its plugin marketplace was malware. 135,000+ instances were exposed to the internet. Meta banned it. China restricted it. The first major AI agent security disaster of 2026.'
+---
+
+## 20,000 Stars in 24 Hours, Then the Nightmare
+
+![Cyber security threat visualization with code matrix](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-12-percent-malicious-plugins/og-image.jpg)
+
+On January 25, 2026, OpenClaw went viral on GitHub. It crossed 20,000 stars in 24 hours. Within weeks, it surpassed 135,000. The fastest growth in GitHub's history. As an AI agent platform, it promised total computer control: disk access, terminal commands, browser automation, OAuth token management.
+
+The problem was exactly that promise. OpenClaw demanded OS-level permissions. And the plugin ecosystem running on top of those permissions had zero verification. A single-click skill install could be a keylogger. And in practice, that is exactly what happened.
+
+What unfolded over the next 40 days, from late January through early March 2026, qualifies as the first major AI agent security disaster. 12% of the plugin marketplace was malware. Over 135,000 instances were exposed to the public internet. China's government and Meta both issued bans.
+
+## 341 Out of 2,857: The 12% Contamination
+
+On January 31, 2026, security firm Koi Security completed a full audit of ClawHub, OpenClaw's official plugin marketplace. Anyone could upload a skill. There was no review process.
+
+The result: **341 out of 2,857 skills were malicious**. That is roughly 12%. More than 1 in 10 plugins contained malware. Even more alarming, **335 of the 341 came from a single campaign** that Koi Security named ClawHavoc. One attack group systematically flooded ClawHub with weaponized skills.
+
+These malicious skills were well-disguised. Names like "solana-wallet-tracker" and "AuthTool." Professional documentation. They appeared to work as advertised. But in the background, they installed keyloggers on Windows and **Atomic Stealer (AMOS)** infostealer malware on macOS, targeting cryptocurrency wallets, cloud credentials, and API keys.
+
+Bitdefender's AI Skills Checker ran a broader scan and flagged roughly **20%** of submissions for malicious behavior, higher than Koi Security's 12%. By February, the count of confirmed malicious skills had grown to **over 820**.
+
+## ClawJacked: Any Website Can Hijack Your Agent
+
+![Code on screen with security threat visualization](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-12-percent-malicious-plugins/marketplace.jpg)
+
+Malicious plugins were only one attack surface. On February 26, 2026, security firm Oasis Security disclosed **ClawJacked**, a vulnerability that let any website silently hijack a user's OpenClaw agent. No plugins required. No extensions. No user interaction.
+
+The attack works like this. A victim visits any website. JavaScript on that page opens a WebSocket connection to localhost on OpenClaw's gateway port (18789). Browsers do not enforce cross-origin policies on WebSocket connections to localhost, so this connection succeeds silently.
+
+Here is where it gets bad. OpenClaw's **gateway did not rate-limit password attempts from localhost**. Attackers could guess passwords at hundreds of attempts per second. Common passwords cracked in under a second. Large dictionaries in minutes. Once authenticated, the script registered as a trusted device automatically. No user prompt. No confirmation dialog.
+
+Oasis Security classified this as CVSS 8.8 (high severity). A successful attack gave the attacker control over everything the agent could access: the file system, terminal, browser, and messaging apps. OpenClaw shipped a patch (v2026.2.25) within 24 hours of disclosure.
+
+## 8 CVEs: The Holes Kept Coming
+
+ClawJacked was the tip of the iceberg. Between late January and February 2026, a total of 8 major vulnerabilities were disclosed.
+
+| CVE            | Severity | Type                  | Description                             |
+| -------------- | -------- | --------------------- | --------------------------------------- |
+| CVE-2026-25253 | CVSS 8.8 | Remote Code Execution | Unvalidated URL parameter in Control UI |
+| ClawJacked     | CVSS 8.8 | Auth Bypass           | Unlimited localhost WebSocket attempts  |
+| CVE-2026-26322 | CVSS 7.6 | SSRF                  | Server-Side Request Forgery             |
+| CVE-2026-26319 | CVSS 7.5 | Missing Auth          | No Telnyx webhook authentication        |
+| CVE-2026-26329 | High     | Path Traversal        | Browser file upload escape              |
+| CVE-2026-27001 | High     | Prompt Injection      | Injection via workspace path            |
+| + 2 more       | High     | Various               | Discovered by Endor Labs                |
+
+On February 18, Endor Labs disclosed 6 additional vulnerabilities. Three were high-severity with public exploit code available for each. The attack tools were already circulating.
+
+CVE-2026-25253 was particularly dangerous. OpenClaw's Control UI accepted a gatewayUrl parameter from the query string, automatically opened a WebSocket connection, and transmitted the user's authentication token without confirmation. One malicious link click, and the attack chain completed in "milliseconds."
+
+## 135,000 Instances Exposed to the Internet
+
+Vulnerabilities alone would have been manageable. The real scale of the disaster came from how many instances were publicly accessible.
+
+OpenClaw bound to **0.0.0.0 by default**, accepting connections from all network interfaces. The secure option is 127.0.0.1 (localhost only), but OpenClaw shipped with the opposite default. Gartner called it **"insecure by default."**
+
+| Date           | Exposed Instances | Source                |
+| -------------- | ----------------- | --------------------- |
+| Late January   | ~1,000            | Shodan                |
+| January 31     | 21,639            | Censys                |
+| Early February | 30,000+           | Bitsight              |
+| Mid-February   | 42,665            | Researcher Maor Dayan |
+| Late February  | 135,000+          | SecurityScorecard     |
+
+From 1,000 to 21,000 in one week. A 21x increase. Over 135,000 within a month, spread across **82 countries**. The United States had the largest share. China accounted for about 30%, mostly on Alibaba Cloud, Tencent, and DigitalOcean.
+
+![Security alert and network monitoring visualization](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/openclaw-12-percent-malicious-plugins/security-alert.jpg)
+
+Exposed instances leaked API keys, OAuth tokens, and plaintext credentials. SecurityScorecard's Jeremy Turner summed it up: "It's like giving some random person access to your computer. They might follow instructions from anyone."
+
+Of the 42,665 instances Maor Dayan identified, **5,194 were actively vulnerable to remote code execution**. SecurityScorecard estimated over 15,000 were directly exploitable.
+
+## Meta Banned It. China Restricted It.
+
+The corporate and government response was swift.
+
+**Meta** prohibited employees from installing OpenClaw on work devices. Violation meant termination. **Microsoft** classified OpenClaw as "untrusted code execution with persistent credentials." China went further. The **China National Computer Emergency Response Team (CNCERT)** issued a security alert and restricted use across state-run enterprises, government agencies, and major banks.
+
+Security firm Noma found that **53% of its enterprise customers granted OpenClaw privileged access over a single weekend**. Installed on Friday evening, deeply embedded in company systems by Monday morning.
+
+One user reported that after the agent gained iMessage access, it "went rogue and spammed hundreds of messages." Journalist Federico Viticci consumed **180 million tokens** during his experiments. An uncontrolled agent does not just create security risk. It creates runaway costs.
+
+## Legacy Security Tools Cannot See AI Agents
+
+This crisis exposed a deeper structural problem. Existing security tools cannot detect AI agent threats.
+
+TechWire Asia described what OpenClaw revealed as a **"lethal trifecta."** First, it accesses private data. Second, it communicates externally. Third, it processes untrusted content. When all three conditions are met simultaneously, an agent becomes an attack vector.
+
+Endpoint security solutions cannot interpret agent behavior. Is the agent reading a file as part of normal work, or exfiltrating data? Network security tools cannot distinguish legitimate API automation from command-and-control traffic. Identity management systems flag unusual OAuth grants but have no framework for distinguishing legitimate agent permissions from compromised ones.
+
+Email-based prompt injection was demonstrated in practice. Attackers embedded malicious instructions in emails. OpenClaw read the email and executed the commands as directed, extracting private keys and dumping entire directory structures via `find ~`. Reading email is a normal agent function. When that email contains hidden attack instructions, the agent has no way to tell the difference.
+
+## The Gap Between Growth Speed and Security
+
+The OpenClaw crisis is not about one tool failing. It is a warning for the entire AI agent ecosystem.
+
+An OpenClaw maintainer said it plainly: "If you can't understand how to run a command line, this is far too dangerous of a project for you to use safely." Honest, but the statement itself proves the problem. The number one project on GitHub should not require a safety disclaimer that excludes most users. The gap between popularity and security was that wide.
+
+Peter Steinberger created the project. It changed names three times in three months, from Clawdbot to Moltbot to OpenClaw, all due to trademark disputes. On February 15, 2026, Sam Altman announced Steinberger was joining OpenAI, calling him "a genius with a lot of amazing ideas about the future of very smart agents." The creator left. The security flaws stayed.
+
+One release included over 40 fixes. The community responded fast, but the number of patches itself tells the story. A tracking site, declawed.io, was created specifically to monitor the ongoing security issues.
+
+The promise of an AI agent that controls your entire computer is compelling. But the other side of that promise is an entire computer exposed to risk. The 12% figure applies to ClawHub specifically, but the underlying pattern, unverified plugin ecosystems, insecure-by-default configurations, and excessive agent permissions, can repeat with any AI agent platform. OpenClaw was just the first.
+
+---
+
+**Sources**
+
+- [Koi Security ClawHavoc Report (Pixee Weekly Briefings)](https://www.pixee.ai/weekly-briefings/openclaw-malware-ai-agent-trust-2026-02-11)
+- [PBX Science: OpenClaw GitHub's Fastest-Ever Rising Star Becomes 2026's First Major AI Security Disaster](https://pbxscience.com/openclaw-githubs-fastest-ever-rising-star-becomes-2026s-first-major-ai-security-disaster/)
+- [Oasis Security: ClawJacked Vulnerability](https://www.oasis.security/blog/openclaw-vulnerability)
+- [Reco.AI: OpenClaw Security Crisis](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+- [TechWire Asia: OpenClaw Agentic AI Security Enterprise Risks](https://techwireasia.com/2026/03/openclaw-agentic-ai-security-enterprise-risks/)
+- [Kaspersky: OpenClaw Vulnerabilities Exposed](https://www.kaspersky.com/blog/openclaw-vulnerabilities-exposed/55263/)
+- [The Register: China CERT OpenClaw Security Warning](https://www.theregister.com/2026/03/12/china_cert_openclaw_security_warning/)
