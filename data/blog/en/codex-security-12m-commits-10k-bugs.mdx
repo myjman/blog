@@ -1,0 +1,136 @@
+---
+title: '1.2M Commits, 10K Bugs: Codex Security'
+date: '2026-03-14T12:00:05'
+tags: ['codex-security', 'openai', 'ai-security', 'vulnerability', 'devsecops']
+draft: false
+language: 'en'
+translationOf: 'codex-security-12m-commits-10k-bugs'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-security-12m-commits-10k-bugs/og-image.jpg',
+  ]
+summary: 'OpenAI launched Codex Security. It scanned 1.2 million commits across open-source repos and found 792 critical and 10,561 high-severity vulnerabilities. Real CVEs in GnuPG, GnuTLS, OpenSSH, PHP, and Chromium. False positives dropped by over 50%.'
+---
+
+## 1.2 Million Commits, 10,000 Bugs
+
+![Green code matrix representing security scanning](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-security-12m-commits-10k-bugs/og-image.jpg)
+
+On March 7, 2026, OpenAI released Codex Security in research preview. It is an AI-powered security agent that finds vulnerabilities, validates them, and proposes fixes. Alongside the launch, OpenAI published results from scanning **1.2 million commits** across external open-source repositories.
+
+The numbers are stark. 792 critical findings. **10,561 high-severity findings**. Combined, that is 11,353 real security issues. The affected projects include GnuPG, GnuTLS, GOGS, Thorium, OpenSSH, libssh, PHP, and Chromium. These are not theoretical risks flagged by pattern matching. They received actual CVE designations. Attack vectors that work in the real world.
+
+Codex Security is available to ChatGPT Pro, Enterprise, Business, and Edu customers through the Codex web platform, free for one month. OpenAI has moved beyond code generation into code security. The company that helped flood the world with AI-generated code is now selling the tool to catch its mistakes.
+
+## From Aardvark to Codex Security: Six Months of Evolution
+
+Codex Security did not appear out of nowhere. In October 2025, OpenAI unveiled **Aardvark** in private beta, a security tool designed for developers and security teams to detect and fix vulnerabilities at scale. Access was limited to select enterprise customers. No public performance data was shared.
+
+Codex Security is Aardvark's evolution. The key difference is the integration of frontier AI model reasoning capabilities. Rather than relying on pattern matching to flag potential vulnerabilities, it understands code context and evaluates actual threat levels. It combines automated validation with vulnerability discovery. Where Aardvark said "this code looks risky," Codex Security explains why it is risky, how it can be exploited, and how to fix it.
+
+Six months from private beta to research preview is fast by OpenAI standards. The "research preview" label is there, but showing up with actual CVE discoveries sends a clear message. This is not a paper. It is a report card.
+
+## The Three-Step Process: How AI Does Security
+
+![Security code analysis screen](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-security-12m-commits-10k-bugs/security-scan.jpg)
+
+Codex Security operates in three stages, fundamentally different from how traditional static analysis (SAST) tools scan code by applying pattern-based rules.
+
+**Step 1: Context analysis.** The system analyzes repository structure to understand what OpenAI calls "security-relevant structure" and generates an editable threat model. AI performs the threat modeling, but the model is human-editable. AI establishes context. Humans correct course.
+
+Traditional tools skip this step entirely. They take code and immediately apply rules. "User input concatenated into SQL query? Flag it." Without context, false positives pile up. Test files with hardcoded queries get flagged for SQL injection. Debug ports left open intentionally get reported as unauthorized access.
+
+**Step 2: Vulnerability detection.** Using the context from Step 1, the system identifies vulnerabilities and classifies them by **real-world impact**, not just theoretical severity. Findings are "pressure-tested" in sandboxed environments. The AI verifies whether an exploit is actually viable.
+
+**Step 3: Fix proposal.** The agent does not stop at finding bugs. It proposes fixes aligned with system behavior, minimizing regressions while streamlining review and deployment. OpenAI told The Hacker News that "when Codex Security is configured with an environment tailored to your project, it can validate potential issues directly in the context of the running system."
+
+| Stage           | Traditional SAST             | Codex Security                                        |
+| --------------- | ---------------------------- | ----------------------------------------------------- |
+| Analysis        | Pattern matching static scan | Repository structure + threat model                   |
+| Detection       | Rule-based alerts            | Real-world impact classification + sandbox validation |
+| Remediation     | None or documentation links  | Context-aware code fix proposals                      |
+| False positives | High (30-70%)                | Over 50% reduction                                    |
+
+## The CVEs That Fell Out
+
+The vulnerability list is not abstract. These are real CVEs assigned through the standard disclosure process. The weight of each finding becomes clear when you consider which projects were affected.
+
+**GnuPG** yielded CVE-2026-24881 and CVE-2026-24882. GnuPG is the de facto standard for email encryption. It has existed since 1997. Security experts worldwide have reviewed its code for decades. An AI found two new vulnerabilities that humans missed.
+
+**GnuTLS** produced CVE-2025-32988 and CVE-2025-32989. GnuTLS is an open-source implementation of TLS/SSL protocols. Vulnerabilities here can compromise HTTPS communications across web servers, email servers, VPNs, and anything else that relies on TLS.
+
+**GOGS** (a Go-based Git hosting service) had CVE-2025-64175 and CVE-2026-25242. GOGS is a lightweight Git hosting solution often self-hosted by small teams and individual developers. Environments without dedicated security teams, where patches can be slow to apply, are where vulnerabilities carry the most practical risk.
+
+**Thorium** had the most CVEs: seven, from CVE-2025-35430 through CVE-2025-35436. As a Chromium fork, the blast radius is significant.
+
+| Project | CVEs Found                       | Impact Area            |
+| ------- | -------------------------------- | ---------------------- |
+| GnuPG   | CVE-2026-24881, CVE-2026-24882   | Email encryption       |
+| GnuTLS  | CVE-2025-32988, CVE-2025-32989   | TLS/SSL communications |
+| GOGS    | CVE-2025-64175, CVE-2026-25242   | Git hosting            |
+| Thorium | CVE-2025-35430 through 35436 (7) | Chromium-based browser |
+
+OpenSSH, libssh, PHP, and Chromium also had additional findings. The common thread: nearly every affected project is infrastructure software where security is the primary concern. The most audited code produced the most new holes.
+
+These CVEs were reported to the respective projects and went through the formal CVE assignment process. AI-discovered vulnerabilities passed human expert validation. That alone is a meaningful data point for Codex Security's detection accuracy.
+
+## The 50% False Positive Drop, and What It Actually Means
+
+False positives are the biggest enemy of security tools. Traditional SAST tools have notoriously high false positive rates, ranging from 30% to 70% depending on the study. This is the main reason developers ignore security alerts. When more than half of all warnings are noise, real threats get dismissed along with the fake ones. Security teams say "fix this." Engineering teams say "it is probably another false positive."
+
+Codex Security claims **false positive rates dropped by over 50%** across all repositories. If true, that is significant. If a legacy tool generated 100 alerts with 50 false positives, Codex Security would produce fewer than 25. Developer trust in alerts roughly doubles.
+
+The mechanism is Step 2's sandbox validation. Instead of pattern matching alone to decide "this code looks dangerous," the system tests exploitability in an actual execution environment. It distinguishes theoretical risk from practical risk. Hardcoded passwords in test code do not get flagged as credential leaks. Debug configurations do not get reported as production vulnerabilities.
+
+This is OpenAI's self-reported number. There is no independent third-party verification yet. Healthy skepticism is warranted when a company evaluates its own product.
+
+But the direction is right. A security tool's value lies not in how many vulnerabilities it finds, but in its ability to separate real threats from noise. The security industry has a term for this: alert fatigue. Developers overwhelmed by false alarms start ignoring everything, including the real threats. A tool that finds 100 genuine issues beats one that finds 1,000 with half of them being false positives.
+
+## The AI Security Tool War: OpenAI vs. Anthropic
+
+![Digital circuit image representing AI security technology](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/codex-security-12m-commits-10k-bugs/vulnerability-detection.jpg)
+
+Codex Security did not launch in a vacuum. Weeks earlier, Anthropic released **Claude Code Security**, a tool that scans codebases and suggests patches. Two leading AI companies shipped competing security products almost simultaneously. That is not a coincidence. They are both looking at the same problem.
+
+The approaches differ in interesting ways. Anthropic's Claude Code Security extends the existing Claude Code ecosystem. Security features live inside the tool developers already use for coding. Code writing and security review happen in a single workflow, a shift-left strategy.
+
+OpenAI's Codex Security is a standalone security agent. It runs separately on the Codex web platform. Security is treated as a dedicated discipline, separate from coding. It resembles the traditional security workflow of post-development review, but with dramatically deeper analysis.
+
+Which approach wins remains unclear. The integrated model is better for catching issues during development. The standalone model enables deeper, more systematic analysis. What is clear is that the existing security tool market just got disrupted. Snyk, Veracode, Checkmarx, and other established vendors now compete with AI-native tools from companies with massive distribution advantages.
+
+The one-month-free pricing is a classic platform play. Traditional security tools charge tens of thousands of dollars in annual licensing fees. If OpenAI bundles this into existing AI subscriptions, the price competition becomes impossible. Security startups are suddenly facing two giants entering their market. When customers start asking "my AI subscription already includes security scanning, why would I pay for a separate tool?", incumbent vendors will feel the pressure.
+
+|         | Codex Security (OpenAI)    | Claude Code Security (Anthropic) |
+| ------- | -------------------------- | -------------------------------- |
+| Type    | Standalone security agent  | Claude Code extension            |
+| Access  | Codex web platform         | Inside Claude Code               |
+| Method  | 3-step analyze-detect-fix  | Codebase scan + patch suggestion |
+| Pricing | One month free (TBD after) | Included in paid subscription    |
+
+## What 1.2 Million Commits Actually Tell Us
+
+Look at the numbers again. 1.2 million commits. 792 critical findings. 10,561 high-severity findings. Simple math: roughly 1 high-severity vulnerability per 106 commits. This ratio cannot be applied universally. The scanned repositories likely skew toward security-critical infrastructure software. Selection criteria affect the numbers.
+
+But the real point is different. These projects represent some of the most reviewed code in existence. GnuPG has been around since 1997. OpenSSH is the backbone of internet infrastructure. PHP powers a significant portion of the web. Chromium's engine runs over 70% of the browser market. Thousands of security experts have reviewed these codebases for decades. AI found new holes anyway.
+
+This does not mean human security experts are incompetent. It means that as codebases grow in size and complexity, human review alone hits physical limits. Tracking how a single line of code interacts with security-relevant behavior across tens of thousands of inter-module dependencies exceeds human cognitive capacity. AI does not tire. It does not lose context. It can hold 100,000 lines in view simultaneously.
+
+2026 is also the year AI code generation outpaced human review capacity. GitHub Copilot, Claude Code, Codex, and similar tools caused code production to explode. But security review staffing stayed flat. Veracode's 2026 report found that AI-generated code has 2.74 times more vulnerabilities than human-written code. More code, produced faster, and that code is less secure. Manual review cannot keep up.
+
+## The Limits of the Tool Are the Starting Point
+
+Codex Security's results are impressive. Over 10,000 high-severity vulnerabilities found across 1.2 million commits. Real CVEs assigned in GnuPG, GnuTLS, and other critical projects. A claimed 50% reduction in false positives. These are concrete, verifiable achievements.
+
+But questions remain. How representative is 1.2 million commits? Were the scanned repositories cherry-picked for security-critical projects that would yield dramatic results? Would the tool perform equally well on typical web applications or mobile app code? The 50% false positive reduction is self-reported. No independent verification exists yet. What happens after the free month? "Research preview" is also a liability shield. If something goes wrong, "it was still in research" is a convenient defense.
+
+A deeper question: as AI security tools become widespread, attackers will use the same AI to find attack vectors. The current window where defenders appear to have the advantage may not last. The same capabilities that let Codex Security find CVEs in GnuPG could help an attacker find exploitable vulnerabilities in any codebase.
+
+AI writes the code. AI reviews the code. AI fixes the code. Where do humans fit in this pipeline? OpenAI would point to Step 1, where the threat model is "editable." But not every team has a security expert who can meaningfully edit a threat model.
+
+Codex Security is a tool. A good tool, but a tool nonetheless. Security is a process, not a product, and designing that process is still a human responsibility. AI can find 10,000 bugs. Deciding which ones to fix, in what order, with what urgency, that is still on people. The finding is the easy part. The response is where security actually happens. And the most dangerous thing is believing the tool handles everything.
+
+---
+
+**Sources**
+
+- [OpenAI Codex Security Scanned 1.2 Million Commits - The Hacker News](https://thehackernews.com/2026/03/openai-codex-security-scanned-12.html)
