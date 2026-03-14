@@ -1,0 +1,137 @@
+---
+title: 'GPT-5.4 Beat Humans at 75%. Now What?'
+date: '2026-03-15T07:00:35'
+tags: ['gpt-5-4', 'openai', 'computer-use', 'ai-agent', 'benchmark']
+draft: false
+language: 'en'
+translationOf: 'gpt-5-4-human-75-percent'
+images:
+  ['https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-human-75-percent/og-image.png']
+summary: 'OpenAI GPT-5.4 scored 75% on OSWorld-Verified, surpassing the 72.4% human expert baseline. It ships with native computer use, 1M token context, and financial plugins for Excel. But it launched into a 2.5 million user boycott over a Pentagon contract.'
+---
+
+## Humans 72.4%, GPT-5.4 75.0%
+
+![Digital face representing the boundary between AI and humans](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-human-75-percent/og-image.png)
+
+On March 5, 2026, OpenAI released GPT-5.4. One number stands out. On OSWorld-Verified, a benchmark measuring autonomous desktop navigation using screenshots plus keyboard and mouse input, GPT-5.4 scores **75.0%**. The human expert baseline sits at 72.4%. GPT-5.2 managed 47.3%.
+
+That is a 27.7 percentage point jump in a single generation. An AI model that can look at a computer screen, click a mouse, and type on a keyboard now does those tasks better than human experts, at least according to this benchmark. Benchmarks are not reality. But going from 47.3% to 75.0% in a matter of months is not incremental improvement. It is a step function.
+
+GPT-5.4 is OpenAI's first general-purpose model with native computer-use capabilities baked into Codex and the API. Agents can operate computers and execute multi-step workflows across applications without external wrappers or tooling. What used to require a separate framework is now built into the model itself.
+
+## What 75% Actually Means
+
+The phrase "surpassed humans" demands scrutiny. OSWorld-Verified tests an AI's ability to navigate desktop environments autonomously. The model receives screenshots and issues keyboard and mouse commands to complete specific tasks: finding information in a web browser, organizing folders in a file manager, navigating system settings.
+
+GPT-5.4 supports two interaction modes. **Code mode** uses Python with Playwright for web navigation. **Screenshot mode** issues direct mouse and keyboard commands from visual input. A compaction mechanism summarizes long agent trajectories so the model does not lose context during extended tasks.
+
+The full benchmark picture tells a more nuanced story.
+
+| Benchmark               | GPT-5.4 | GPT-5.2 | Human Baseline |
+| ----------------------- | ------- | ------- | -------------- |
+| OSWorld-Verified        | 75.0%   | 47.3%   | 72.4%          |
+| GDPval (knowledge work) | 83.0%   | 70.9%   | -              |
+| Spreadsheet modeling    | 87.3%   | 68.4%   | -              |
+| WebArena-Verified       | 67.3%   | 65.4%   | -              |
+| SWE-Bench Verified      | ~80%    | -       | -              |
+| SWE-Bench Pro           | 57.7%   | -       | -              |
+
+The jumps on OSWorld and GDPval are impressive. But WebArena-Verified moved from 65.4% to just 67.3%, a 1.9 point gain. SWE-Bench Pro sits at 57.7%, barely up from **GPT-5.3-Codex's 56.8%**. Coding ability improved by less than a percentage point. That is the kind of difference that vanishes in daily development work.
+
+Benchmarks are read selectively. The 75% and 87.3% that OpenAI highlights are genuinely remarkable. But the same model shows near-flat improvement in other areas. The breakthrough is real, but it is not uniform.
+
+## 1 Million Tokens and the 272K Pricing Trap
+
+![Data analytics dashboard screen](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-human-75-percent/dashboard.png)
+
+GPT-5.4 supports up to **1 million tokens** of context in the API and Codex. That is 2.5x the 400,000 token limit of GPT-5 and GPT-5.3-Codex. Agents can now plan, execute, and verify tasks across much longer horizons.
+
+But the pricing structure has a catch. Standard input costs $2.50 per million tokens. Once your prompt exceeds **272,000 input tokens**, the input rate doubles to $5.00 and output rates jump to 1.5x. You can use a million tokens. You will pay significantly more once you pass 272K.
+
+GPT-5.4 Pro is steeper still. Input runs $30.00 per million tokens, output $180.00. Enterprise-grade accuracy and reasoning come at enterprise-grade prices.
+
+OpenAI addresses this partially with **tool search**, a mechanism where the model receives a lightweight list of available tools and only loads full tool definitions when needed. In testing across 250 MCP Atlas tasks with 36 MCP servers, this reduced total token usage by **47%** while maintaining identical accuracy. A technical mitigation for the cost problem of million-token contexts.
+
+| Tier            | GPT-5.4          | GPT-5.4 Pro       |
+| --------------- | ---------------- | ----------------- |
+| Input (<=272K)  | $2.50/1M tokens  | $30.00/1M tokens  |
+| Input (>272K)   | $5.00/1M tokens  | -                 |
+| Output (<=272K) | $15.00/1M tokens | $180.00/1M tokens |
+| Output (>272K)  | $22.50/1M tokens | -                 |
+| Context window  | 1.05M tokens     | 1.05M tokens      |
+| Max output      | 128K tokens      | 128K tokens       |
+
+## AI Opens Excel: The Financial Plugin Play
+
+GPT-5.4's most strategically interesting move is its push into financial services. OpenAI launched a ChatGPT plugin for Microsoft Excel in beta, with Google Sheets integration coming soon. This is not "ask the chatbot about your spreadsheet." The model builds, updates, and analyzes spreadsheet models directly inside workbooks.
+
+On an internal benchmark of spreadsheet modeling tasks that a junior investment banking analyst would perform, GPT-5.4 scored **87.3%** versus 68.4% for GPT-5.2. Improvements span financial modeling, scenario analysis, data extraction, and long-form research.
+
+The enterprise data integrations are telling. **Moody's, Dow Jones Factiva, MSCI, Third Bridge, and MT Newswire** are integrated for Enterprise plan users. FactSet is coming soon. This positions ChatGPT not as a conversation tool but as a **financial workstation**.
+
+Rollout covers the U.S., Canada, and Australia for ChatGPT Business, Enterprise, Edu, Teachers, Pro, and Plus users. Enterprise and education workspaces have the feature disabled by default. Admins must enable it through RBAC and custom role permissions.
+
+Security provisions include SAML SSO, SCIM, audit logs, TLS 1.2+ encryption in transit, AES-256 at rest, and data residency controls. Enterprise data is not used for model training by default. OpenAI has checked most of the boxes that financial institutions require before adopting AI tools internally.
+
+## The Showdown with Opus 4.6
+
+![Digital code flowing across a screen](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-human-75-percent/code.png)
+
+GPT-5.4 competes directly with Anthropic's Claude Opus 4.6. The benchmark comparison is illuminating.
+
+| Benchmark          | GPT-5.4       | Opus 4.6  |
+| ------------------ | ------------- | --------- |
+| OSWorld-Verified   | **75.0%**     | 72.7%     |
+| SWE-Bench Verified | ~80%          | **80.8%** |
+| SWE-Bench Pro      | **57.7%**     | ~45%      |
+| Terminal-Bench 2.0 | **75.1%**     | 65.4%     |
+| MMMU Pro (vision)  | -             | **85.1%** |
+| API input price    | **$2.50/1M**  | $15.00/1M |
+| API output price   | **$15.00/1M** | $75.00/1M |
+
+GPT-5.4 leads on OSWorld (75.0% vs 72.7%), SWE-Bench Pro (57.7% vs ~45%), and Terminal-Bench 2.0 (75.1% vs 65.4%). It costs 6x less for input and 5x less for output.
+
+Opus 4.6 holds a narrow lead on SWE-Bench Verified (80.8% vs ~80%). Developers report that Opus handles large-scale refactoring, cross-file type system changes, and architectural modifications with fewer errors. GPT-5.4's context window (1.05M tokens) is larger than Opus 4.6's standard 200K, though Opus offers a 1M token beta.
+
+The conclusion is not clean. GPT-5.4 wins on breadth and price. Opus 4.6 wins on deep code-centric agentic engineering. "Where you use it" matters more than "which one is better."
+
+## Launched Into a 2.5 Million User Boycott
+
+The timing of GPT-5.4's release could not have been worse. One week before launch, on February 28, OpenAI signed a contract with the U.S. Department of Defense. That same week, **Anthropic publicly refused the same deal**. Anthropic's condition was explicit: include language prohibiting autonomous weapons deployment and mass surveillance of U.S. citizens. The Pentagon refused. Anthropic walked away.
+
+The result was the **#QuitGPT** movement. Approximately 2.5 million users took action through subscription cancellations, social media boycott pledges, and sign-ups at quitgpt.org. An estimated 1.5 million people actually left ChatGPT within a month.
+
+GPT-5.4 is technically OpenAI's most impressive model ever. It launched into the largest user revolt in the company's history. Sam Altman faced pointed questions about the gap between OpenAI's stated safety "red lines" and the actual contract language. Anthropic, meanwhile, weathered "public scorn from President Trump" for declining the deal.
+
+Technical excellence alone does not buy trust. GPT-5.4's launch is proving that in real time.
+
+## Three Versions: Who Gets What
+
+![Financial data analysis dashboard](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/gpt-5-4-human-75-percent/finance.png)
+
+GPT-5.4 ships in three variants. **GPT-5.4 Thinking** goes to ChatGPT Plus, Team, and Pro users, replacing GPT-5.2 Thinking. **GPT-5.4 Pro** is reserved for ChatGPT Pro ($200/month) and Enterprise plans. The standard GPT-5.4 is available through the API and Codex.
+
+GPT-5.2 Thinking remains accessible in the legacy picker until June 5, 2026. That is a 90-day migration window. OpenAI's model lifecycle is accelerating. GPT-5.4 arrived just two days after GPT-5.3-Codex. Fast iteration signals technical progress. It also creates upgrade fatigue for enterprise customers who need stability.
+
+On accuracy, GPT-5.4 is **33% less likely** to make false individual claims and **18% less likely** to produce responses containing any error, compared to GPT-5.2. It is also the first general-purpose model to include mitigations for "high capability in cybersecurity," acknowledging that powerful AI can be weaponized and building guardrails into the model.
+
+One practical addition is **mid-response steering**. Users can redirect the model's reasoning mid-stream instead of waiting for a complete response. During long reasoning chains, you can say "not that direction, go this way" without starting over. It saves tokens and time on complex tasks.
+
+## What 75% Changes and What It Cannot
+
+OSWorld 75% is symbolic. AI now operates a computer screen better than human experts, at least within the confines of a structured benchmark. The practical implication is clear: repetitive desktop automation is solved. Organizing data in Excel, collecting information from the web, changing system settings. AI agents can handle these tasks. The 87.3% on spreadsheet modeling suggests a meaningful portion of junior analyst work is automatable.
+
+But the unchanged matters too. The minimal coding improvement (SWE-Bench Pro: 56.8% to 57.7%) shows that AI coding has hit a plateau. Solving structured benchmark tasks is different from performing multi-file refactoring across a real-world codebase with tangled dependencies.
+
+The biggest variable sits outside the technology. A 2.5 million user boycott. A Pentagon contract controversy. An ethical contrast with Anthropic. OpenAI built what is arguably the most powerful general-purpose AI model in existence. But the most powerful model is not guaranteed to be the most chosen one. As the numbers go higher, the things that cannot be measured start to matter more.
+
+---
+
+**Sources**
+
+- [OpenAI launches GPT-5.4 with native computer use mode, financial plugins - VentureBeat](https://venturebeat.com/technology/openai-launches-gpt-5-4-with-native-computer-use-mode-financial-plugins-for)
+- [OpenAI releases GPT-5.4 with native computer use - TechInformed](https://techinformed.com/openai-releases-gpt-5-4-with-native-computer-use-and-a-finance-focused-enterprise-bundle/)
+- [GPT-5.4 Lands with Computer Use and 1M Token Context - Awesome Agents](https://awesomeagents.ai/news/gpt-5-4-computer-use-office-launch/)
+- [OpenAI Launches GPT-5.4 as QuitGPT Exodus Gains Steam - Decrypt](https://decrypt.co/360148/openai-launches-gpt-5-4-quitgpt-exodus-gains-steam)
+- [GPT-5.4 vs Claude Opus 4.6 for Coding - NxCode](https://www.nxcode.io/resources/news/gpt-5-4-vs-claude-opus-4-6-coding-comparison-2026)
