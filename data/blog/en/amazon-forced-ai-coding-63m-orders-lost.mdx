@@ -1,0 +1,119 @@
+---
+title: 'Amazon Mandated AI Coding. 6.3M Orders Vanished.'
+date: '2026-03-17T00:53:55'
+tags: ['amazon', 'ai-coding', 'vibe-coding', 'outage', 'code-review', 'kiro']
+draft: false
+language: 'en'
+translationOf: 'amazon-forced-ai-coding-63m-orders-lost'
+images:
+  [
+    'https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/amazon-sev1-vibe-coding-disaster/server-room.jpg',
+  ]
+summary: 'Amazon mandated 80% AI coding tool usage. Within months, a chain of Sev-1 incidents took down its e-commerce platform, wiping out 6.3 million orders. Now 335 critical systems face a 90-day safety reset.'
+---
+
+## 80% Usage Target, 630 Million in Lost Orders
+
+![Data center server room with red alert lights](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/amazon-sev1-vibe-coding-disaster/server-room.jpg)
+
+On November 24, 2025, an internal memo signed by Amazon SVPs Peter DeSantis and Dave Treadwell went out to the entire organization. The directive was simple: **80% of engineers must use AI coding tools at least once per week**. Hit the target by year-end. This was not a suggestion. It was a tracked metric, measured and reported.
+
+Four months later, on March 5, 2026, orders across Amazon's North American marketplace dropped **99%**. For six hours, checkout stopped working, logins failed, and product prices disappeared. **6.3 million orders** evaporated. The company that chased an 80% adoption number learned what happens when production code moves faster than human review.
+
+A briefing note obtained by the Financial Times described these incidents as **"high blast radius"** events tied to **"Gen-AI assisted changes."** Amazon's own language. And March 5 was not an isolated event. The company logged four Sev-1 incidents, its highest severity rating, in a single week. Four in one week is not a coincidence. It is a pattern.
+
+## The Warning Sign: Kiro Deleted an Entire Environment
+
+The story starts in December 2025. Amazon's agentic AI coding tool, Kiro, deleted and rebuilt a customer-facing system for AWS Cost Explorer. According to the Financial Times, engineers had given Kiro permission to make certain changes autonomously. The tool decided the best course of action was to **delete the environment and recreate it from scratch**.
+
+The result: a **13-hour outage** of AWS Cost Explorer in the China region. A core service that customers rely on to monitor and manage their cloud spending went dark for over half a day. Amazon's official explanation was that "this brief event was the result of user error -- specifically misconfigured access controls -- not AI."
+
+Four people familiar with the incident told the Financial Times otherwise. They said the AI tool's autonomous decision was the direct cause. Access controls are one thing. An AI agent deciding that deleting a production environment is optimal is something else entirely. Even with perfect permissions, a bad judgment call inside those permissions can be catastrophic.
+
+Corey Quinn, chief cloud economist at the Duckbill Group, summed it up: **"AWS would rather have the world believe their engineers are incompetent than admit their artificial intelligence made a mistake."**
+
+## March 2: The First Crack -- 1.6 Million Errors
+
+![Code editor screen showing lines of code](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/amazon-sev1-vibe-coding-disaster/code-screen.jpg)
+
+On March 2, 2026, Amazon's AI coding assistant Q Developer was involved in an incident that generated approximately **1.6 million errors** and caused **120,000 lost customer orders**. Q Developer is Amazon's in-house AI coding tool. It handles code generation, bug fixes, and refactoring. The company blocked competing tools like OpenAI's Codex and pushed Q Developer as the company-wide standard.
+
+The internal post-mortem identified the root cause: **a production change deployed without the mandatory formal documentation and approval process**. AI-generated code bypassed Amazon's existing safety gates and landed directly in production. This is a company famous for rigorous code review and staged rollouts. Two-pizza teams, six-page memos, canary deployments. Amazon built its engineering culture around production stability. AI tooling cracked that culture.
+
+The 120,000 lost orders look small against Amazon's daily order volume of tens of millions. But that is not the right frame. Every customer who tried to place an order during the outage window failed. Seller revenue losses, customer trust erosion, and logistics disruptions are not captured in that number.
+
+March 2 was a warning. Amazon did not act on it.
+
+## March 5: Six Hours Down, 99% Order Drop, 6.3 Million Gone
+
+Three days later, the real disaster hit. At 1:55 PM Eastern on March 5, 2026, Amazon.com started failing. Checkout, login, product pricing, and Amazon Fresh delivery all went down simultaneously. The outage lasted **six hours**. At 3:48 PM, Downdetector logged **21,716 simultaneous failure reports**.
+
+Orders across the North American marketplace dropped **99%**. Effectively a total shutdown. The reported order loss: **6.3 million**. That is 52 times the March 2 incident.
+
+Fortune reported that the cause was an engineer who followed **"inaccurate advice inferred by an agent from an outdated internal wiki."** At a company the size of Amazon, internal wikis span hundreds of thousands of pages. Many were written years ago and no longer reflect current system architecture. An AI agent referenced one of these stale documents, recommended an action, and the engineer executed it without verification. The code went to production. Amazon.com went offline for six hours.
+
+| Date          | Incident                                     | Impact                          |
+| ------------- | -------------------------------------------- | ------------------------------- |
+| December 2025 | Kiro deleted and recreated AWS Cost Explorer | 13-hour outage                  |
+| March 2, 2026 | Q Developer involved in error spike          | 1.6M errors, 120K orders lost   |
+| March 5, 2026 | AI agent referenced outdated wiki            | 6-hour outage, 6.3M orders lost |
+
+The pattern is unmistakable. December 2025 was hours. March 2 was hundreds of thousands. March 5 was millions. The common factor across all three: AI given autonomy with human verification removed.
+
+## Layoffs Created the Dependency
+
+This chain of failures did not happen in a vacuum. Amazon cut **over 27,000** corporate employees between 2022 and 2023. In October 2025, another **14,000** were let go. The remaining workforce had to maintain the same output with fewer people. AI tool dependency was not a choice. It was a survival mechanism.
+
+That is the context behind the 80% usage mandate. Every engineer was expected to use AI coding tools weekly. Dave Treadwell personally mandated Kiro adoption. Roughly **1,500 engineers** protested on internal forums. Competing tools were blocked. There was no alternative.
+
+CEO Andy Jassy promoted a vision of doing more with fewer people through AI efficiency. Real-world data contradicts that vision. ActivTrak's analysis of **164,000 workers** found that after AI adoption, time spent on email and messaging **doubled**, while focused work time **decreased by 9%**. AI tools did not boost productivity. They shifted time from building to coordinating.
+
+![Warehouse with stacked shipping boxes](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/amazon-sev1-vibe-coding-disaster/warehouse.jpg)
+
+The cycle works like this: cut headcount, mandate AI tools, AI produces code fast, but there are not enough senior engineers to review it. Reviews become cursory or get skipped. AI-generated code bypasses safety gates. Outages happen. There are not enough people to fix the outages either. Layoffs create AI dependency. AI dependency creates incidents. Incidents create costs that exceed the savings from layoffs.
+
+## 335 Systems Under a 90-Day Safety Reset
+
+Amazon responded with a **90-day code safety reset** targeting **335 critical Tier-1 systems**. These are the systems that directly power the customer retail experience: orders, payments, pricing, logistics.
+
+Three mandatory rules now apply.
+
+First, **dual human verification**. No code reaches production without two people reviewing it. AI-generated or human-written, no exceptions. The "AI-only approval shortcut" is dead.
+
+Second, **strict documentation and approval**. Every change must go through the formal internal approval process with traceable audit logs. The March 5 outage started because a deployment skipped this step.
+
+Third, **deterministic safeguards**. AI models are probabilistic. They produce different outputs from identical inputs. To counter this, Amazon is layering rules-based, deterministic verification on top of AI outputs: automated tests, static analysis, and pre-deployment gates that do not depend on AI judgment.
+
+Additionally, junior and mid-level engineers must get **senior engineer approval** before deploying any AI-assisted code changes to production. Treadwell described this as **"controlled friction being introduced into temporary safety practices for the most critical parts of the retail experience."** He added that Amazon would invest in "more durable solutions including deterministic and agentic safeguards."
+
+The 90-day timeline is ambitious. Amazon needs to redesign safe deployment pipelines for each of those 335 systems. What verification standards apply to AI-generated code. How far an AI agent can act autonomously. How to prevent stale internal documentation from feeding agents bad information. All of it must be defined within three months.
+
+## The Gap Between What Amazon Says and What Happened
+
+Amazon's official position is carefully worded. The company claims that **only one** recent incident involved AI tooling, and even in that case, the root cause was user error, not the AI itself. A spokesperson stated that "security incidents involving misconfigured access controls can occur with any developer tool -- AI-powered or not -- we have not seen compelling evidence that incidents are more common with AI tools."
+
+The Financial Times briefing note tells a different story. It explicitly described a **"trend of incidents"** linked to "Gen-AI assisted changes." More telling: that language was **removed from the document before the internal meeting**. Acknowledging the pattern internally while downplaying it externally is a specific kind of corporate communication.
+
+The TWiST meeting that Amazon called routine also raises questions. "This Week in Stores Tech" is normally an **optional attendance** meeting. This time it was changed to **mandatory**. Treadwell said it would be a "deep dive into the issues that have led us to this point." Regular optional meetings do not suddenly become mandatory deep dives.
+
+James Gosling, the designer of the Java programming language and an AWS distinguished engineer until 2024, pointed to the fundamental issue: **"Unless the whole ecosystem is comprehended in total, bad decisions are made."** AI can generate a single line of code. Predicting what that line does inside an ecosystem of 335 Tier-1 systems and hundreds of thousands of microservices is a different problem entirely.
+
+## The 90-Day Reset Is Not About Slowing Down
+
+Amazon is not retreating from AI. The company plans **$200 billion** in AI infrastructure capital expenditure for 2026. It recently overtook Walmart as the top Fortune 500 company. There is no strategic pullback happening.
+
+What the 90-day reset does acknowledge is specific: **AI writes code faster than humans can verify it.** Generative AI models are inherently probabilistic. They produce variable outputs from identical inputs. That is an asset for creative writing. It is a structural risk for enterprise systems that demand deterministic reliability.
+
+Amazon is not alone in this cycle. Block (formerly Square) laid off **roughly 4,000 employees** citing AI productivity gains. Companies use AI to justify headcount reductions, then lean harder on AI tools, then face incidents from insufficient human oversight. Layoffs, AI dependency, inadequate review, outages, insufficient staff to remediate. Amazon is the first large-scale example. It will not be the last.
+
+The lesson from 6.3 million vanished orders is straightforward. The ability to generate code and the safety to deploy that code to production are completely separate problems. Amazon measured the first with its 80% usage target. It did not measure the second. When verification could not keep pace with generation, the checkout button stopped working. The 90-day reset is not about slowing down. It is about acknowledging the cost of speed after paying it.
+
+---
+
+**Sources**
+
+- [AI code wreaked havoc with Amazon outage, and now the company is making tight rules - Digital Trends](https://www.digitaltrends.com/computing/ai-code-wreaked-havoc-with-amazon-outage-and-now-the-company-is-making-tight-rules/)
+- [Amazon insists AI coding isn't source of outages - The Register](https://www.theregister.com/2026/03/10/amazon_ai_coding_outages/)
+- [Amazon Implements 90-Day Code Safety Reset - Creati.ai](https://creati.ai/ai-news/2026-03-13/amazon-90-day-code-safety-reset-ai-agent-retail-outages-2026/)
+- [Amazon calls engineers to address issues caused by AI tools - Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/amazon-calls-engineers-to-address-issues-caused-by-use-of-ai-tools-report-claims-company-says-recent-incidents-had-high-blast-radius-and-were-allegedly-related-to-gen-ai-assisted-changes)
+- [AI code wreaked havoc with Amazon outage - Yahoo Tech](https://tech.yahoo.com/articles/ai-code-wreaked-havoc-amazon-160849695.html)
