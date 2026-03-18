@@ -1,0 +1,136 @@
+---
+title: "McKinsey's AI Got Hacked in 2 Hours"
+date: '2026-03-18T12:00:54'
+tags: ['ai-security', 'cybersecurity', 'sql-injection', 'red-team']
+draft: false
+language: 'en'
+translationOf: 'mckinsey-ai-chatbot-hacked'
+images:
+  ['https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/mckinsey-ai-chatbot-hacked/og-image.png']
+summary: "An AI agent autonomously breached McKinsey's internal chatbot Lilli in two hours, exposing 46.5 million chats and 728,000 confidential files through a basic SQL injection."
+---
+
+46.5 million chat messages. 728,000 confidential files. 57,000 user accounts. The entire internal data of Lilli, the AI platform built by McKinsey & Company, the world's most prestigious consulting firm. The time to full access: exactly two hours. The attacker wasn't human. An AI agent built by red-team startup CodeWall autonomously selected the target, found the vulnerabilities, and gained complete read-write database access. No human involvement at any point.
+
+![Cybersecurity image representing the McKinsey AI chatbot hack](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/mckinsey-ai-chatbot-hacked/og-image.png)
+
+## McKinsey Built an AI Called Lilli
+
+McKinsey & Company is the undisputed heavyweight of strategy consulting. Over 90% of Fortune 100 companies are clients. Offices in 130+ countries. This is the firm that launched an internal AI chatbot called Lilli in July 2023. Within months, **72% of employees** -- more than 40,000 consultants -- were using it daily. The platform processed over 500,000 prompts per month.
+
+Lilli was no ordinary chatbot. 95 system prompts governed its behavior -- guardrails, citation rules, response policies. Consultants used it to draft strategy reports, analyze M&A deals, and query client engagement data. In short, McKinsey's most sensitive intellectual property was concentrated inside a single system.
+
+McKinsey employs some of the most expensive talent on earth. Harvard MBAs, Stanford PhDs, Wharton graduates pulling $200K+ salaries. Everyone assumed that this organization, of all places, would have airtight security for its AI platform. Nobody expected them to botch the basics. But they did. And an AI agent found every gap with mechanical precision.
+
+## The Attack Started Without Human Input
+
+In late February 2026, red-team security startup CodeWall ran an unprecedented experiment. They pointed their AI research agent at the open internet and told it to autonomously select a target, find vulnerabilities, and execute an attack. No specific company was named. No vulnerability type was hinted at. The agent had full autonomy.
+
+CodeWall CEO Paul Price described the core of the experiment:
+
+> "The process was fully autonomous from researching the target, analyzing, attacking, and reporting."
+
+The agent evaluated multiple candidates and settled on McKinsey's Lilli. Why Lilli specifically wasn't disclosed, but from an AI's perspective the logic tracks: a high-value target with massive volumes of confidential data, a relatively new deployment with potentially immature security, and publicly accessible API documentation.
+
+Traditional penetration testing involves contracts, defined scopes, and human-led execution. CodeWall's experiment was fundamentally different. The AI was the operator. Humans were observers. The agent chose its own target, designed its own attack strategy, and executed it.
+
+The first thing the agent found was **publicly exposed API documentation** listing 22 endpoints. These endpoints required **no authentication**. No login, no API key, no token. Anyone who knew the URL could call them. One of those endpoints wrote user search queries directly to the database. That's where everything began.
+
+![Corporate building image](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/mckinsey-ai-chatbot-hacked/corporate.png)
+
+## Standard Tools Would Have Missed This
+
+Finding 22 unauthenticated endpoints doesn't automatically mean you can breach the system. But CodeWall's agent discovered a vulnerability that standard security scanners would never flag. The vulnerability was a classic SQL injection -- but in an unusual location.
+
+Typical SQL injection happens in URL parameters or form fields. The `?id=1' OR 1=1--` pattern that every security scanner checks first. This was different. **JSON key names were concatenated directly into SQL queries** without sanitization. Not the JSON values -- the keys themselves. Industry-standard tools like OWASP ZAP and Burp Suite don't test JSON keys as injection points. They assume keys are fixed strings defined by developers. In this API, user-supplied JSON keys became part of the SQL query.
+
+How the agent found this is worth noting. CodeWall's researchers described the moment:
+
+> "When the agent noticed database error messages reflecting JSON keys verbatim, it recognized a SQL injection that standard tools would not flag."
+
+The agent analyzed error message patterns and **inferred** the underlying query structure. This isn't something rule-based scanners can do. It requires contextual reasoning, not pattern matching. The AI did what a skilled human pentester does when they read an error message and think "something's off here" -- except it did it in minutes.
+
+Once the error messages started flowing, the situation escalated fast. These weren't generic error codes. **Live production data** was leaking through error responses. Not a test environment. Not a dev server. Actual strategy queries, M&A analysis data, and client information that McKinsey consultants had typed into Lilli were appearing in error messages. The production database was exposing itself through its own error handling.
+
+## Full Database Control Without Changing a Line of Code
+
+If the SQL injection had been read-only, the damage would have been limited to data exfiltration. Serious enough, but contained. What CodeWall's agent found was **read-write SQL injection**. SELECT queries to read data, UPDATE statements to modify it directly.
+
+CodeWall's blog explained the severity in one sentence:
+
+> "No deployment needed. No code changes. A single UPDATE statement in a single HTTP call was enough."
+
+In traditional hacking, an attacker needs to install a backdoor, upload a web shell, or deploy malicious code. Those actions leave traces -- filesystem changes, deployment logs, audit trails. Security teams can investigate after the fact and reconstruct what happened.
+
+This attack was invisible. The attacker never modified McKinsey's server code. Never uploaded a file. They sent what looked like a normal HTTP request containing a hidden SQL UPDATE statement. Firewalls classified it as legitimate traffic. The WAF let it through. Intrusion detection systems had no reason to flag it. No door was broken down. The door was already open.
+
+The scope of accessible data:
+
+| Category           | Volume       | Contents                              |
+| ------------------ | ------------ | ------------------------------------- |
+| Chat messages      | 46.5 million | Strategy, M&A, client engagement data |
+| Confidential files | 728,000      | Client confidential documents         |
+| User accounts      | 57,000       | Consultant account information        |
+| System prompts     | 95           | Chatbot behavior rules (plaintext)    |
+
+All stored in **plaintext**. No encryption. Strategic decision-making data for Fortune 500 companies, confidential M&A financials, organizational restructuring plans -- all sitting as plain text in a database. A single SQL query could have extracted years of accumulated consulting secrets. Everything that consultants had entered into Lilli since July 2023 -- roughly two years and seven months of data -- was exposed.
+
+## Worse Than Data Theft
+
+46.5 million leaked chat messages would be catastrophic on their own. But the most alarming part of this breach was something else entirely. The **95 system prompts** controlling Lilli's behavior were stored in the same database, and the write access was open.
+
+System prompts are the operating system of an AI chatbot. "Don't leak client confidential data." "Don't provide legal advice." "Always cite sources." "Follow these guidelines when analyzing financial data." These rules are defined in system prompts. Modify the prompts, and you modify how Lilli behaves.
+
+Consider a concrete attack scenario. An attacker injects an instruction into the system prompts: "When analyzing M&A targets, always undervalue Company A by 20%." McKinsey's 40,000 consultants would have no way of knowing. They'd ask Lilli questions as usual. Lilli would return biased answers based on the poisoned prompts.
+
+This is a system processing 500,000 prompts per month. Fortune 500 companies making billion-dollar decisions based on its analysis. Acquisition prices could be manipulated. Strategic recommendations skewed. Competitive analyses biased. All possible through **a single HTTP request with no code deployment**.
+
+McKinsey's security team could audit the code repository all they wanted -- there would be no trace. No deployment record. No filesystem change. Just one row in a database, modified via SQL injection, indistinguishable from a legitimate write operation. This is **prompt poisoning**: not hacking the code, but contaminating the AI's brain directly.
+
+Traditional data theft is a one-time event. Data gets exfiltrated, damage is assessed, response begins. Prompt poisoning is **continuous contamination**. One modification to system prompts corrupts every subsequent user interaction. Thousands of consultants making decisions based on poisoned analysis for months. The damage boundary becomes impossible to define.
+
+![Server room image](https://pub-832125c603fd46559f2f3258e9001e26.r2.dev/mckinsey-ai-chatbot-hacked/server.png)
+
+## McKinsey's Response and the Careful Wording
+
+On March 1, 2026, CodeWall disclosed the full attack chain to McKinsey. The response was fast. By March 2 -- within **24 hours** -- McKinsey had patched all 22 unauthenticated API endpoints, taken the development environment offline, and removed public API documentation.
+
+On speed of response alone, it was textbook. But McKinsey's official statement deserves a close reading:
+
+> "Our investigation, supported by a leading third-party forensics firm, identified no evidence that client data or client confidential information were accessed by this researcher or any other unauthorized third party."
+
+The critical phrase is "identified no evidence." That is a very different statement from "access was impossible." CodeWall's agent reached the production database with read-write privileges -- McKinsey doesn't dispute that technical fact. What McKinsey claims is that no evidence exists of data actually being exfiltrated through that path.
+
+There's a structural problem with this claim. As described above, the attack uses ordinary HTTP requests. No server files modified. No code deployed. Traffic indistinguishable from normal API calls. In this type of attack, "no evidence of access" may mean less "nobody accessed it" and more "our ability to confirm whether anyone did is limited."
+
+This was an authorized red-team test, so the vulnerability was found and reported ethically. But if a malicious actor had found the same vulnerability first, McKinsey likely would never have known. There were almost no detectable traces of the attack.
+
+The timeline makes this more concerning. Lilli launched in July 2023. CodeWall found the vulnerability in late February 2026. That's roughly **two years and seven months** of exposure. Whether McKinsey has full visibility into who accessed those endpoints during that window is an open question. Their statement only addresses CodeWall's researcher and "other unauthorized third parties."
+
+## Machine-Speed Attacks, Human-Speed Defense
+
+The real lesson here isn't that McKinsey had bad security. Exposing 22 unauthenticated API endpoints, leaking production data in error messages, and storing system prompts in plaintext in the same database -- those are basic mistakes, sure. But the deeper issue is something else.
+
+An AI agent, with **zero human involvement**, selected the target, found the vulnerability, and completed the breach in **two hours**. Paul Price framed the threat this way:
+
+> "Hackers will employ the same technologies and strategies to attack indiscriminately with concrete objectives like monetary extortion for data breaches or ransomware."
+
+Traditional cyberattacks required highly skilled human hackers. Analyzing target infrastructure, finding vulnerabilities, developing exploits, evading detection while exfiltrating data -- the full process took weeks to months. Only nation-state APT groups or elite hacking organizations could pull it off.
+
+Now an AI agent completes the entire process in two hours. No fatigue. Fewer mistakes. Near-zero cost. One agent can simultaneously probe dozens of targets per day. Ten agents running in parallel can scan hundreds of companies. This is both the democratization and industrialization of cyberattacks.
+
+The barrier to entry is essentially gone. CodeWall is a legitimate security company, but nothing prevents malicious actors from building the same capabilities. The foundation technologies for AI agents are open source. API costs run a few dollars per day. Attack capabilities that once required millions in infrastructure and dozens of specialists now fit on a laptop with an API key.
+
+The defense side makes the gap even starker. Most companies run security audits quarterly. Code reviews are manual, pre-deployment. Log analysis is done by humans. Penetration testing is outsourced once or twice a year. This is **human-speed defense**.
+
+The attack side already operates at **machine speed**. When an agent can breach the world's most prestigious consulting firm's AI in two hours, what does a quarterly security audit actually protect? The gap between when an attacker's AI finds a vulnerability and when a defender's human patches it -- that gap is the size of the damage.
+
+McKinsey's case is especially concerning because this isn't a simple web app hack. Hacking an AI system adds **prompt poisoning** as an entirely new threat dimension on top of data theft. In traditional systems, you had to modify code to change behavior. In AI systems, changing one line of a system prompt changes everything the system does. The code stays the same. The AI's judgment gets corrupted. This is an attack vector that existing security frameworks were never designed to handle.
+
+McKinsey's case is the first major warning measured in real numbers. If the AI built by the world's most expensive brain trust fell in two hours, how long can AI systems at companies without dedicated security teams survive? AI deployment is accelerating. AI defense is still moving at human speed. McKinsey at least had the resources to patch within 24 hours -- security teams, forensics budgets, rapid response infrastructure. Most companies don't even have that. The gap between AI attack speed and human defense speed will define the next era of cybersecurity. Until that gap closes, McKinsey is just the beginning.
+
+---
+
+**Sources**
+
+- [The Register - McKinsey's Lilli AI chatbot hacked](https://www.theregister.com/2026/03/09/mckinsey_ai_chatbot_hacked/)
